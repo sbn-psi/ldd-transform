@@ -1,6 +1,7 @@
 // node modules
 const express = require('express');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const readSync = require('read-file-relative').readSync;
 const xml2js = require('xml2js');
 const libxslt = require('libxslt');
@@ -13,6 +14,7 @@ const xmlBuilder = new xml2js.Builder();
 const app = express();
 app.use(bodyParser.text({ type: 'application/xml' }));
 app.use(bodyParser.json());
+app.use(fileUpload());
 app.use(express.static('public'));
 app.listen(3001);
 
@@ -24,8 +26,7 @@ app.post('/xml/to/json', function (req, res) {
 
     parseXmlString(xml, function(err, result) {
         if (err && err.length > 0) {
-            res.writeHead(500);
-            res.send(err);
+            res.status(500).send(err);
         } else {
             res.json(result);
         }
@@ -40,7 +41,18 @@ app.post('/json/to/xml', function (req, res) {
 
 app.post('/xml/to/html', function(req, res) {
     let xml = req.body;
-    
+    xmlToHtml(xml, res);
+});
+
+app.post('/file/to/html', function(req, res) {
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    let file = req.files.file.data.toString();
+    xmlToHtml(file, res);
+})
+
+function xmlToHtml(xml, res) {
     libxslt.parse(htmlxslt, function(err, stylesheet) {
         if (err && err.length > 0) {
             res.writeHead(500);
@@ -56,4 +68,4 @@ app.post('/xml/to/html', function(req, res) {
             })
         }
     });
-});
+}
