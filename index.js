@@ -21,9 +21,24 @@ app.listen(3001);
 // preload xml stylesheets
 const htmlxslt = readSync('/IngestLddView.xsl');
 
+//////////////////ENDPOINTS////////////////////
+
+/*----------------XML to JSON----------------*/
+
 app.post('/xml/to/json', function (req, res) {
     let xml = req.body
+    xmlToJson(xml, res);
+});
 
+app.post('/file/to/json', function(req, res) {
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    let file = req.files.file.data.toString();
+    xmlToJson(file, res);
+})
+
+function xmlToJson(xml, res) {
     parseXmlString(xml, function(err, result) {
         if (err && err.length > 0) {
             res.status(500).send(err);
@@ -31,13 +46,17 @@ app.post('/xml/to/json', function (req, res) {
             res.json(result);
         }
     })
-});
+}
+
+/*----------------JSON to XML----------------*/
 
 app.post('/json/to/xml', function (req, res) {
     let object = req.body
     let xml = xmlBuilder.buildObject(object);
     res.send(xml);
 });
+
+/*----------------XML to HTML----------------*/
 
 app.post('/xml/to/html', function(req, res) {
     let xml = req.body;

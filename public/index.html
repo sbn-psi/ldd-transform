@@ -6,15 +6,27 @@
     <title>LDD Transform Tool</title>
   <link rel="stylesheet" href="stylesheet.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
   </head>
   <body>
     <h1>LDD Transform</h1>
     <hr/>
-    <form action="/file/to/html" method="post" enctype="multipart/form-data"> 
+    <form method="post" enctype="multipart/form-data"> 
         <div>
-            <input type="file" name="file" accept=".xml">
+          <input type="file" name="file" accept=".xml">
         </div>
-        <button>Submit</button>
+        <div class="buttons">
+          <input name="submit" id="html-button" type="submit" value="Convert to HTML">
+          <input name="submit" id="json-button" type="submit" value="Convert to JSON">
+        </div>
     </form>
+    <script>
+      $("#html-button").click(function() {
+        $(this).closest("form").attr("action", "/file/to/html");     
+      });
+      $("#json-button").click(function() {
+        $(this).closest("form").attr("action", "/file/to/json");       
+      });
+    </script>
   </body>
 </html>
