@@ -21,7 +21,7 @@ form {
     margin: 3em;
     display: flex;
     width: 100%;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: space-around;
 }
 
@@ -79,6 +79,7 @@ hr {
     background:#d3394c; 
     border:0 none;
     cursor:pointer;
+    margin: 1em;
 }
 
 .buttons input:hover:not(:disabled) {

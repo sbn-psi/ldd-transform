@@ -5,6 +5,7 @@ const fileUpload = require('express-fileupload');
 const readSync = require('read-file-relative').readSync;
 const xml2js = require('xml2js');
 const libxslt = require('libxslt');
+const viz = require('viz.js');
 
 // xml/js transformers
 const parseXmlString = xml2js.parseString;
@@ -20,6 +21,7 @@ app.listen(3001);
 
 // preload xml stylesheets
 const htmlxslt = readSync('/IngestLddView.xsl');
+const dotxslt = readSync('/IngestLddDot.xsl');
 
 //////////////////ENDPOINTS////////////////////
 
@@ -83,6 +85,39 @@ function xmlToHtml(xml, res) {
                     res.send(err);
                 } else {
                     res.send(result);
+                }
+            })
+        }
+    });
+}
+
+/*----------------XML to Graph----------------*/
+
+app.post('/xml/to/graph', function(req, res) {
+    let xml = req.body;
+    xmlToGraph(xml, res);
+});
+
+app.post('/file/to/graph', function(req, res) {
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    let file = req.files.file.data.toString();
+    xmlToGraph(file, res);
+})
+
+function xmlToGraph(xml, res) {
+    libxslt.parse(dotxslt, function(err, stylesheet) {
+        if (err && err.length > 0) {
+            res.writeHead(500);
+            res.send(err);
+        } else {   
+            stylesheet.apply(xml, function(err, result) {
+                if (err && err.length > 0) {
+                    res.writeHead(500);
+                    res.send(err);
+                } else {
+                    res.send(viz(result));
                 }
             })
         }

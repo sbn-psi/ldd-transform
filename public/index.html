@@ -20,6 +20,7 @@
         <div class="buttons">
           <input name="submit" id="html-button" type="submit" value="Convert to HTML" disabled>
           <input name="submit" id="json-button" type="submit" value="Convert to JSON" disabled>
+          <input name="submit" id="graph-button" type="submit" value="Convert to Graph" disabled>
         </div>
     </form>
     <script>
@@ -28,6 +29,9 @@
       });
       $("#json-button").click(function() {
         $(this).closest("form").attr("action", "/file/to/json");       
+      });
+      $("#graph-button").click(function() {
+        $(this).closest("form").attr("action", "/file/to/graph");       
       });
       $("#inputfile").each(function() {
         var $input = $(this);
