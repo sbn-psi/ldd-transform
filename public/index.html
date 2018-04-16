@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>LDD Transform Tool</title>
-  <link rel="stylesheet" href="stylesheet.css" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
   </head>
   <body>
     <h1>LDD Transform</h1>
@@ -23,33 +24,5 @@
           <input name="submit" id="graph-button" type="submit" value="Convert to Graph" disabled>
         </div>
     </form>
-    <script>
-      $("#html-button").click(function() {
-        $(this).closest("form").attr("action", "/file/to/html");     
-      });
-      $("#json-button").click(function() {
-        $(this).closest("form").attr("action", "/file/to/json");       
-      });
-      $("#graph-button").click(function() {
-        $(this).closest("form").attr("action", "/file/to/graph");       
-      });
-      $("#inputfile").each(function() {
-        var $input = $(this);
-        var $label = $($input.next("label"));
-
-        $input.on('change', function(e) {
-          var fileName = '';
-          if( e.target.value ) {
-            fileName = e.target.value.split('\\').pop();
-            $label.find('span').html(fileName);
-            $(".buttons input").prop('disabled', false);
-          }
-
-          // Firefox bug
-          $input.on('focus', function() { $input.addClass('has-focus')});
-          $input.on('blur', function() { $input.addClass('has-focus')});
-        })
-      })
-    </script>
   </body>
 </html>
