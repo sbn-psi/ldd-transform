@@ -25,6 +25,25 @@ const dotxslt = readSync('/IngestLddDot.xsl');
 
 //////////////////ENDPOINTS////////////////////
 
+// reports an error if present. returns whether or not an error was sent
+function reportError(err, res) {
+    if (err && err.length > 0) {
+        res.status(500).send(err);
+        return true;
+    } 
+    return false;
+}
+
+// this function assumes there is only one file in the request, and returns its contents
+function extractFile(req) {
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    for(const key in req.files) {
+        return req.files[key].data.toString();
+    }
+}
+
 /*----------------XML to JSON----------------*/
 
 app.post('/xml/to/json', function (req, res) {
@@ -33,20 +52,13 @@ app.post('/xml/to/json', function (req, res) {
 });
 
 app.post('/file/to/json', function(req, res) {
-    if (!req.files) {
-        return res.status(400).send('No files were uploaded.');
-    }
-    let file = req.files.file.data.toString();
+    const file = extractFile(req);
     xmlToJson(file, res);
 })
 
 function xmlToJson(xml, res) {
     parseXmlString(xml, function(err, result) {
-        if (err && err.length > 0) {
-            res.status(500).send(err);
-        } else {
-            res.json(result);
-        }
+        reportError(err, res) || res.json(result);
     })
 }
 
@@ -66,24 +78,15 @@ app.post('/xml/to/html', function(req, res) {
 });
 
 app.post('/file/to/html', function(req, res) {
-    if (!req.files) {
-        return res.status(400).send('No files were uploaded.');
-    }
-    let file = req.files.file.data.toString();
+    const file = extractFile(req);
     xmlToHtml(file, res);
 })
 
 function xmlToHtml(xml, res) {
     libxslt.parse(htmlxslt, function(err, stylesheet) {
-        if (err && err.length > 0) {
-            res.writeHead(500);
-            res.send(err);
-        } else {   
+        if (!reportError(err)) {  
             stylesheet.apply(xml, function(err, result) {
-                if (err && err.length > 0) {
-                    res.writeHead(500);
-                    res.send(err);
-                } else {
+                if (!reportError(err)) {
                     res.send(result);
                 }
             })
@@ -99,24 +102,15 @@ app.post('/xml/to/graph', function(req, res) {
 });
 
 app.post('/file/to/graph', function(req, res) {
-    if (!req.files) {
-        return res.status(400).send('No files were uploaded.');
-    }
-    let file = req.files.file.data.toString();
+    const file = extractFile(req);
     xmlToGraph(file, res);
 })
 
 function xmlToGraph(xml, res) {
     libxslt.parse(dotxslt, function(err, stylesheet) {
-        if (err && err.length > 0) {
-            res.writeHead(500);
-            res.send(err);
-        } else {   
+        if (!reportError(err)) {  
             stylesheet.apply(xml, function(err, result) {
-                if (err && err.length > 0) {
-                    res.writeHead(500);
-                    res.send(err);
-                } else {
+                if (!reportError(err)) {  
                     res.send(viz(result));
                 }
             })
