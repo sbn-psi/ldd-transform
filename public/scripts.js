@@ -1,4 +1,5 @@
 $(document).ready( function() {
+    // set the form action depending on which button is clicked
     $("#html-button").click(function () {
         $(this).closest("form").attr("action", "/file/to/html");
     });
@@ -8,6 +9,8 @@ $(document).ready( function() {
     $("#graph-button").click(function () {
         $(this).closest("form").attr("action", "/file/to/graph");
     });
+
+    // change the uploader label when a file is staged
     $("#inputfile").each(function () {
         var $input = $(this);
         var $label = $($input.next("label"));
@@ -25,4 +28,10 @@ $(document).ready( function() {
             $input.on('blur', function () { $input.addClass('has-focus') });
         })
     })
+
+    // display loading circle when form submitted 
+    $('form').submit(function() {
+        $('.sk-cube-grid').toggle();
+        $('.buttons').toggle();
+    });
 });
