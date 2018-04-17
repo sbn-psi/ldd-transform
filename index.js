@@ -6,6 +6,8 @@ const readSync = require('read-file-relative').readSync;
 const xml2js = require('xml2js');
 const libxslt = require('libxslt');
 const viz = require('viz.js');
+const async = require('async');
+const cheerio = require('cheerio');
 
 // xml/js transformers
 const parseXmlString = xml2js.parseString;
@@ -26,10 +28,15 @@ const dotxslt = readSync('/IngestLddDot.xsl');
 //////////////////ENDPOINTS////////////////////
 
 // reports an error if present. returns whether or not an error was sent
-function reportError(err, res) {
+function reportError(err, res, callback) {
     if (err && err.length > 0) {
-        res.status(500).send(err);
-        return true;
+        if(res) {
+            res.status(500).send(err);
+            return true;
+        }
+        if (callback) {
+            callback(err);
+        }
     } 
     return false;
 }
@@ -82,12 +89,13 @@ app.post('/file/to/html', function(req, res) {
     xmlToHtml(file, res);
 })
 
-function xmlToHtml(xml, res) {
+function xmlToHtml(xml, res, callback) {
     libxslt.parse(htmlxslt, function(err, stylesheet) {
-        if (!reportError(err)) {  
+        if (!reportError(err, res, callback)) {  
             stylesheet.apply(xml, function(err, result) {
-                if (!reportError(err)) {
-                    res.send(result);
+                if (!reportError(err, res, callback)) {
+                    if (res) res.send(result);
+                    if (callback) callback(null, result);
                 }
             })
         }
@@ -106,14 +114,49 @@ app.post('/file/to/graph', function(req, res) {
     xmlToGraph(file, res);
 })
 
-function xmlToGraph(xml, res) {
+function xmlToGraph(xml, res, callback) {
     libxslt.parse(dotxslt, function(err, stylesheet) {
-        if (!reportError(err)) {  
+        if (!reportError(err, res, callback)) {  
             stylesheet.apply(xml, function(err, result) {
-                if (!reportError(err)) {  
-                    res.send(viz(result));
+                if (!reportError(err, res, callback)) {
+                    let svg = viz(result);
+                    if( res ) res.send(svg);
+                    if( callback ) callback(null, svg);
                 }
             })
         }
     });
+}
+
+/*----------------XML to Doc----------------*/
+
+app.post('/xml/to/doc', function(req, res) {
+    let xml = req.body;
+    buildDoc(xml, res);
+});
+
+app.post('/file/to/doc', function(req, res) {
+    const file = extractFile(req);
+    buildDoc(file, res);
+})
+
+function buildDoc(xml, res) {
+    async.parallel(
+        [
+            function(callback) { xmlToHtml(xml, null, callback) },
+            function(callback) { xmlToGraph(xml, null, callback) }
+        ],
+        function(err, results) {
+            reportError(err, res) || compile(results[0], results[1]);
+        }
+    )
+
+    function compile(html, graph) {
+        let $h = cheerio.load(html);
+        let $g = cheerio.load(graph, { xmlMode: true });
+        $g('svg').css('max-width', '100%').css('height', 'auto');
+        $h('h1').first().after($g.xml('svg'));
+        $h('title').text($h('h1').first().text());
+        res.send($h.html());
+    }
 }

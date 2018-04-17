@@ -9,7 +9,9 @@ $(document).ready( function() {
     $("#graph-button").click(function () {
         $(this).closest("form").attr("action", "/file/to/graph");
     });
-
+    $("#doc-button").click(function () {
+        $(this).closest("form").attr("action", "/file/to/doc");
+    });
     // change the uploader label when a file is staged
     $("#inputfile").each(function () {
         var $input = $(this);
