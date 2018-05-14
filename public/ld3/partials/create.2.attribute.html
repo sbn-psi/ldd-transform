@@ -1,0 +1,27 @@
+<div class="create-node-form-container">
+    
+    <i class="far fa-lg fa-times-circle modal-close" onclick="closeModal()"></i>
+    
+    <h2>Create New Node</h2>
+    
+    <form id="create-new-node" name="create-new-node">
+        
+        <label for="name">name<input type="text" name="name" id="name"></label>
+        
+        <label for="version_id">version_id<input type="text" name="version_id" id="version_id"></label>
+        
+        <label for="submitter_name">submitter_name<input type="text" name="submitter_name" id="submitter_name"></label>
+        
+        <label for="definition">definition<input type="text" name="definition" id="definition"></label>
+        
+        <label for="nillable_flag">nillable_flag
+            <span style="width:50%;text-align:right;"><input type="radio" name="nillable_flag" value="true" id="nillable_flag_true">True
+            <input type="radio" name="nillable_flag" value="false" id="nillable_flag_false">False</span>
+        </label>
+
+    </form>
+
+    
+    <button id="cancel">Cancel</button>
+    <button id="save">Save</button>
+</div>
