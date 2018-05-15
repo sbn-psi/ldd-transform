@@ -12,6 +12,31 @@ $(document).ready( function() {
     $("#doc-button").click(function () {
         $(this).closest("form").attr("action", "/file/to/doc");
     });
+    $("#vis-button").click(function(e) {
+        e.preventDefault();
+        // localStorage.setItem('ld3','get it');
+        // window.location.href = '/ld3';
+        
+        var fileInput = document.getElementById('inputfile');
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.open('POST','file/to/json',true);
+        xhr.send(formData);
+        xhr.onreadystatechange = function(res) {
+            if (xhr.readyState === 4) {
+                localStorage.setItem('ld3',xhr.response);
+                window.location.href = "/ld3";
+            };
+        };
+    });
+    $('#new-ldd').click(function() {
+        localStorage.removeItem('ld3');
+        window.location.href = "/ld3";
+    });
     // change the uploader label when a file is staged
     $("#inputfile").each(function () {
         var $input = $(this);

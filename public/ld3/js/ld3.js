@@ -1,7 +1,7 @@
 var id,
     data,
     svg,
-    ldd = 'particle',
+    ldd = 'root',
     toolbarWidth = '400',
     width = $(document).width() - toolbarWidth,
     height = $(document).height(),
@@ -49,14 +49,18 @@ initGrid();
 getJson(ldd);
 
 function getJson(id) {
-    $.ajax({
-        type: "POST",
-        url: 'http://localhost:3000/',
-        data: {
-            id: id
-        },
-        success: main
-    });
+    if (window.localStorage.getItem('ld3')) {
+        main(window.localStorage.getItem('ld3'));
+    } else {
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:3000/',
+            data: {
+                id: id
+            },
+            success: main
+        });
+    }
 };
 
 function main(json) {

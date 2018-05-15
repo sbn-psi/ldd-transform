@@ -201,6 +201,8 @@ function Data(json) {
         });
 
         if (nextCol.length) this.sortCols(nextCol);
+        
+        localStorage.setItem('ld3',JSON.stringify(this.model));
     };
     
     this.deleteNode = function(lid) {
