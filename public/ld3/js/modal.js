@@ -1,26 +1,62 @@
 var modal = null;
 var newNode = {};
 
-function createNodeModal() {
-    // reset newNode
-    newNode = {};
-    
-    modal = new Custombox.modal({
-        content: {
-            effect: 'slide',
-            id: 'addnode',
-            target: '#create-node-modal',
-            onOpen: openModal
-        }
-    });
+function newModal(type) {
+    switch (type) {
+        // new node modal
+        case 'node':
+            // reset newNode
+            newNode = {};
+            
+            modal = new Custombox.modal({
+                content: {
+                    effect: 'slide',
+                    id: 'addnode',
+                    target: '#ld3-modal',
+                    onOpen: createNodeModal
+                }
+            });
+            break;
+        case 'ldd':
+            // edit ldd details modal
+            modal = new Custombox.modal({
+                content: {
+                    effect: 'slide',
+                    id: 'editldd',
+                    target: '#ld3-modal',
+                    onOpen: editLddModal
+                }
+            })
+        default:
+            // throw new Error('no modal type specified.');
+            console.log('no modal type specified.');
+    }
     
     modal.open();
 };
 
-function openModal() {
-    $('#create-node-modal').empty();
+function editLddModal() {
+    $('#ld3-modal').empty();
     
-    $('#create-node-modal').load('partials/create.1.html',addListeners);
+    $('#ld3-modal').load('partials/ldd.edit.html',function() {
+        
+        $('#name').val(data.model['Ingest_LDD']['name'][0]);
+        $('#ldd_version_id').val(data.model['Ingest_LDD']['ldd_version_id'][0]);
+        $('#full_name').val(data.model['Ingest_LDD']['full_name'][0]);
+        $('#steward_id').val(data.model['Ingest_LDD']['steward_id'][0]);
+        $('#namespace_id').val(data.model['Ingest_LDD']['namespace_id'][0]);
+        $('#comment').val(data.model['Ingest_LDD']['comment'][0]);
+        
+        
+        addListeners();
+        console.log('done');
+    });
+};
+
+function createNodeModal() {
+    $('#ld3-modal').empty();
+    
+    $('#ld3-modal').load('partials/create.1.html',addListeners);
 };
 
 var i_r;
@@ -47,10 +83,10 @@ function next() {
     newNode.minimum_occurrences = min;
     newNode.maximum_occurrences = max;
     
-    $('#create-node-modal').empty();
+    $('#ld3-modal').empty();
     
-    if (r_t == 'component_of') $('#create-node-modal').load('partials/create.2.class.html',addListeners);
-    else if (r_t == 'attribute_of') $('#create-node-modal').load('partials/create.2.attribute.html',addListeners);
+    if (r_t == 'component_of') $('#ld3-modal').load('partials/create.2.class.html',addListeners);
+    else if (r_t == 'attribute_of') $('#ld3-modal').load('partials/create.2.attribute.html',addListeners);
 };
 
 function saveNode() {

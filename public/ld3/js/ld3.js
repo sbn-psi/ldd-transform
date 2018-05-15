@@ -52,7 +52,7 @@ function getJson() {
     if (window.localStorage.getItem('ld3')) {
         main(window.localStorage.getItem('ld3'));
     } else {
-        main(JSON.stringify(_root));
+        main(JSON.stringify(_testRoot));
     }
 };
 
@@ -444,21 +444,26 @@ function getNodeByIdx(nodeIdx) {
 };
 
 function updateToolbar(flag) {
-    if (flag === null) defaultToolbar();
-    else if (linkMode) linkModeToolbar();
-    else nodeToolbar();
+    if (flag === null) defaultToolbar(addListeners);
+    else if (linkMode) linkModeToolbar(addListeners);
+    else nodeToolbar(addListeners);
     
-    return addListeners();
-    
-    function defaultToolbar() {
+    function defaultToolbar(cb) {
         resetToolbar();
         
-        $.get("partials/tools.default.html", function(data) {
-            $("#tools").replaceWith(data);
+        $.get("partials/tools.default.html", function(toolsHtml) {
+            $("#tools").replaceWith(toolsHtml);
+            
+            $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
+                
+                $('#lddname').text('LDD Name: ' + data.model['Ingest_LDD']['name'][0]);
+                cb();
+                
+            });
         });
     };
     
-    function nodeToolbar() {
+    function nodeToolbar(cb) {
         resetToolbar();
         
         $.get("partials/tools.node.html", function(data) {
@@ -490,12 +495,14 @@ function updateToolbar(flag) {
                 $('#active-parents-title').text(`Parents (0)`);
             }
             
+            cb();
         });
     };
     
-    function linkModeToolbar() {
+    function linkModeToolbar(cb) {
         $.get("partials/tools.link-mode.html", function(data) {
             $("#tools").replaceWith(data);
+            cb();
         });
     };
     
@@ -566,6 +573,28 @@ function addListeners() {
         };
     });
     
+    $('#editldd').on('click', function() {
+        newModal('ldd');
+    });
+    
+    $('#edit-ldd-cancel').on('click', function() {
+        closeModal();
+    });
+    
+    $('#edit-ldd-save').on('click', function() {
+        var values = {};
+        
+        $.each($('#editlddform').serializeArray(), function(i, field) {
+            values[field.name] = field.value;
+        });
+        
+        data.modifyLddDetails(values);
+        
+        updateToolbar(null);
+        
+        closeModal();
+    });
+    
     // add event listeners to trash icons now that they exist in DOM
     $('.fa-trash-alt').on('click',function(event) {
         let target = event.target;
@@ -583,7 +612,7 @@ function addListeners() {
     $('#download').on('click',function() {
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:3000/jsontoxml',
+            url: 'http://localhost:3001/json/to/xml',
             headers: {
                 'Content-Type': 'application/json'
             },

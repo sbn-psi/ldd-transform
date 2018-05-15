@@ -410,7 +410,7 @@ function Data(json) {
     };
     
     this.createNode = function() {
-        createNodeModal();
+        newModal();
     };
     
     this.createLink = function(node) {
@@ -454,6 +454,12 @@ function Data(json) {
         else linkMode = true;
         
         updateToolbar();
+    };
+    
+    this.modifyLddDetails = function(deets) {
+        for (const d in deets) {
+            this.model['Ingest_LDD'][d] = [deets[d]];
+        };
     };
     
     this.defineNodesAndLinks();
