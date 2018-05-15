@@ -69,7 +69,10 @@ button, i {
     overflow: scroll;
 }
 #tools {
-    padding: 0.2em;
+    padding: 1em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 }
 #create-node-modal {
     text-align: center;

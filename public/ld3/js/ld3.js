@@ -46,20 +46,13 @@ var id,
 
 initGrid();
 
-getJson(ldd);
+getJson();
 
-function getJson(id) {
+function getJson() {
     if (window.localStorage.getItem('ld3')) {
         main(window.localStorage.getItem('ld3'));
     } else {
-        $.ajax({
-            type: "POST",
-            url: 'http://localhost:3000/',
-            data: {
-                id: id
-            },
-            success: main
-        });
+        main(JSON.stringify(_root));
     }
 };
 
@@ -451,22 +444,26 @@ function getNodeByIdx(nodeIdx) {
 };
 
 function updateToolbar(flag) {
-    if (flag === null) return defaultToolbar();
-    else if (linkMode) return linkModeToolbar();
-    else return nodeToolbar();
+    if (flag === null) defaultToolbar();
+    else if (linkMode) linkModeToolbar();
+    else nodeToolbar();
+    
+    return addListeners();
     
     function defaultToolbar() {
         resetToolbar();
         
-        $('#tools').load('partials/tools.default.html', function() {
-            $('#active-node-title').text('LD3 Tool')
+        $.get("partials/tools.default.html", function(data) {
+            $("#tools").replaceWith(data);
         });
     };
     
     function nodeToolbar() {
         resetToolbar();
         
-        $('#tools').load('partials/tools.node.html',function() {
+        $.get("partials/tools.node.html", function(data) {
+            $("#tools").replaceWith(data);
+            
             var node = activeNode;
             // update toolbar - node title
             $('#active-node-title').text(node.lid);
@@ -493,12 +490,13 @@ function updateToolbar(flag) {
                 $('#active-parents-title').text(`Parents (0)`);
             }
             
-            addListeners();
         });
     };
     
     function linkModeToolbar() {
-        $('#tools').load('partials/tools.link-mode.html');
+        $.get("partials/tools.link-mode.html", function(data) {
+            $("#tools").replaceWith(data);
+        });
     };
     
     function resetToolbar() {
@@ -556,6 +554,18 @@ function addListeners() {
     
     $('#create-link').on('click', data.linkMode);
     
+    $('#startover').on('click', function() {
+        let _confirm = confirm('Are you sure you want to start over? All of your changes will be lost.');
+        
+        if (_confirm) return startOver();
+        else return;
+        
+        function startOver() {
+            localStorage.removeItem('ld3');
+            getJson();
+        };
+    });
+    
     // add event listeners to trash icons now that they exist in DOM
     $('.fa-trash-alt').on('click',function(event) {
         let target = event.target;
@@ -586,3 +596,7 @@ function addListeners() {
         });
     });
 };
+
+$(document).ready(function() {
+    addListeners();
+});
