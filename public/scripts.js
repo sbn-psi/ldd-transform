@@ -13,9 +13,8 @@ $(document).ready( function() {
         $(this).closest("form").attr("action", "/file/to/doc");
     });
     $("#vis-button").click(function(e) {
+        // prevent default form action
         e.preventDefault();
-        // localStorage.setItem('ld3','get it');
-        // window.location.href = '/ld3';
         
         var fileInput = document.getElementById('inputfile');
         var file = fileInput.files[0];
