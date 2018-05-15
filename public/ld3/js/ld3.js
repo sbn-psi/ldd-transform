@@ -551,17 +551,17 @@ function newActiveChild(node) {
 };
 
 function addListeners() {
-    $('#cancel').on('click', closeModal);
+    $('#cancel').unbind().on('click', closeModal);
 
-    $('#next').on('click', next);
+    $('#next').unbind().on('click', next);
 
-    $('#save').on('click', saveNode);
+    $('#save').unbind().on('click', saveNode);
     
-    $('#create-node').on('click', data.createNode);
+    $('#create-node').unbind().on('click', data.createNode);
     
-    $('#create-link').on('click', data.linkMode);
+    $('#create-link').unbind().on('click', data.linkMode);
     
-    $('#startover').on('click', function() {
+    $('#startover').unbind().on('click', function() {
         let _confirm = confirm('Are you sure you want to start over? All of your changes will be lost.');
         
         if (_confirm) return startOver();
@@ -573,15 +573,15 @@ function addListeners() {
         };
     });
     
-    $('#editldd').on('click', function() {
+    $('#editldd').unbind().on('click', function() {
         newModal('ldd');
     });
     
-    $('#edit-ldd-cancel').on('click', function() {
+    $('#edit-ldd-cancel').unbind().on('click', function() {
         closeModal();
     });
     
-    $('#edit-ldd-save').on('click', function() {
+    $('#edit-ldd-save').unbind().on('click', function() {
         var values = {};
         
         $.each($('#editlddform').serializeArray(), function(i, field) {
@@ -596,7 +596,7 @@ function addListeners() {
     });
     
     // add event listeners to trash icons now that they exist in DOM
-    $('.fa-trash-alt').on('click',function(event) {
+    $('.fa-trash-alt').unbind().on('click',function(event) {
         let target = event.target;
         let _confirm = confirm('Are you sure you want to delete this node?');
 
@@ -609,7 +609,7 @@ function addListeners() {
         }
     });
 
-    $('#download').on('click',function() {
+    $('#download').unbind().on('click',function() {
         $.ajax({
             type: 'POST',
             url: 'http://localhost:3001/json/to/xml',
