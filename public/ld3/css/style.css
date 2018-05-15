@@ -75,6 +75,9 @@ button, i, [type="submit"]{
     flex-flow: row nowrap;
     justify-content: space-between;
 }
+.value {
+    margin: 0.25em 0 1em 1em;
+}
 #create-node-modal {
     text-align: center;
 }

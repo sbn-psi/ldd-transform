@@ -456,9 +456,14 @@ function updateToolbar(flag) {
             
             $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
                 
-                $('#lddname').text('LDD Name: ' + data.model['Ingest_LDD']['name'][0]);
-                cb();
+                $('#name-toolbar').text(data.model['Ingest_LDD']['name'][0]);
+                $('#ldd_version_id-toolbar').text(data.model['Ingest_LDD']['ldd_version_id'][0]);
+                $('#full_name-toolbar').text(data.model['Ingest_LDD']['full_name'][0]);
+                $('#steward_id-toolbar').text(data.model['Ingest_LDD']['steward_id'][0]);
+                $('#namespace_id-toolbar').text(data.model['Ingest_LDD']['namespace_id'][0]);
+                $('#comment-toolbar').text(data.model['Ingest_LDD']['comment'][0]);
                 
+                cb();
             });
         });
     };

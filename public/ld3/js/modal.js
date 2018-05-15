@@ -26,10 +26,10 @@ function newModal(type) {
                     target: '#ld3-modal',
                     onOpen: editLddModal
                 }
-            })
+            });
+            break;
         default:
-            // throw new Error('no modal type specified.');
-            console.log('no modal type specified.');
+            throw new Error('no modal type provided');
     }
     
     modal.open();
@@ -49,7 +49,6 @@ function editLddModal() {
         
         
         addListeners();
-        console.log('done');
     });
 };
 
