@@ -449,7 +449,8 @@ function Data(json) {
     };
     
     this.linkMode = function(node) {
-        if (!node || node == null) linkMode = false;
+        if (linkMode && event.target.id == 'create-link') linkMode = false;
+        else if (!node || node == null) linkMode = false;
         else linkMode = true;
         
         updateToolbar();
