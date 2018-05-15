@@ -59,17 +59,18 @@ button, i, [type="submit"]{
 }
 
 #toolbar {
+    padding: 1em;
     position: absolute;
     right: 0;
     top: 0;
-    height: 100vh;
-    width: 399px;
+    height: calc(100vh - 2em);
+    width: calc(399px - 2em);
     border-left: 1px solid black;
     background: white;
     overflow: scroll;
 }
 #tools {
-    padding: 1em;
+    margin-bottom: 2em;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
