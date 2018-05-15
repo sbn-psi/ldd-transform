@@ -41,10 +41,10 @@ var _testRoot = {
         "DD_Attribute": [],
         "DD_Class": [{
             "name": ["Root"],
-            "version_id": [""],
+            "version_id": ["0.0.0.0"],
             "local_identifier": ["sample.Root"],
-            "submitter_name": [""],
-            "definition": [""],
+            "submitter_name": ["Johnny Appleseed"],
+            "definition": ["The definition of the element."],
             "DD_Association": []
         }]
     }

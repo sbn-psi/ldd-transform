@@ -478,29 +478,38 @@ function updateToolbar(flag) {
             // update toolbar - node title
             $('#active-node-title').text(node.lid);
             
-            // update toolbar - node children
-            if (node.children) {
-                $('#active-children-title').text(`Children (${node.children.length})`);
+            // update toolbar - node details
+            $('#active-node-details').load('partials/node.details.html', function() {
+                $('#name-node').val(node.name[0]);
+                $('#local_identifier-node').val(node.local_identifier[0]);
+                $('#version_id-node').val(node.version_id[0]);
+                $('#definition-node').val(node.definition[0]);
+                $('#submitter_name-node').val(node.submitter_name[0]);
                 
-                node.children.map(a => {
-                    $('#active-node-children').append(newActiveChild(a));
-                });
-            } else {
-                $('#active-children-title').text(`Children (0)`);
-            }
-            
-            // update toolbar - node parents
-            if (node.parents) {    
-                $('#active-parents-title').text(`Parents (${node.parents.length})`);
+                // update toolbar - node children
+                if (node.children) {
+                    $('#active-children-title').text(`Children (${node.children.length})`);
+                    
+                    node.children.map(a => {
+                        $('#active-node-children').append(newActiveChild(a));
+                    });
+                } else {
+                    $('#active-children-title').text(`Children (0)`);
+                }
                 
-                node.parents.map(p => {
-                    $('#active-node-parents').append(newActiveChild(p));
-                });
-            } else {
-                $('#active-parents-title').text(`Parents (0)`);
-            }
-            
-            cb();
+                // update toolbar - node parents
+                if (node.parents) {    
+                    $('#active-parents-title').text(`Parents (${node.parents.length})`);
+                    
+                    node.parents.map(p => {
+                        $('#active-node-parents').append(newActiveChild(p));
+                    });
+                } else {
+                    $('#active-parents-title').text(`Parents (0)`);
+                }
+                
+                cb();
+            });
         });
     };
     
@@ -513,6 +522,7 @@ function updateToolbar(flag) {
     
     function resetToolbar() {
         $('#active-node-title').empty();
+        $('#active-node-details').empty();
         $('#active-children-title').empty();
         $('#active-parents-title').empty();
         $('#active-node-children').empty();
