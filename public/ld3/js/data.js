@@ -14,6 +14,7 @@ function Data(json) {
         var model = JSON.parse(JSON.stringify(this.model));
         
         model['Ingest_LDD']['DD_Class'] = scrapeCustomKeywords(model['Ingest_LDD']['DD_Class']);
+        model['Ingest_LDD']['DD_Attribute'] = scrapeCustomKeywords(model['Ingest_LDD']['DD_Attribute']);
         
         function scrapeCustomKeywords(array) {
             var keywords = [

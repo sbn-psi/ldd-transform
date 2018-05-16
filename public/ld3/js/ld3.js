@@ -655,14 +655,15 @@ function addListeners() {
     });
 
     $('#download').unbind().on('click',function() {
-        return console.log(data.pureModel());
+        var currentModel = data.pureModel();
+        
         $.ajax({
             type: 'POST',
             url: 'http://localhost:3001/json/to/xml',
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: JSON.stringify(data.pureModel()),
+            data: JSON.stringify(currentModel),
             success: function(res) {
                 var blob = new Blob([res], {type: "text/xml;charset=utf-8"});
                 saveAs(blob,'ldd.out.xml');
