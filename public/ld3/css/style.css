@@ -111,7 +111,7 @@ button, i, [type="submit"]{
     align-items: center;
 }
 .active-child {
-    text-align: center;
+    /* text-align: center; */
     width: 80%;
     position: relative;
     border: 1px solid black;

@@ -545,8 +545,8 @@ function updateToolbar(flag) {
 function newActiveChild(node) {
     let childLid,
         htmlChildLid;
-        
-    let keys = ['reference_type','minimum_occurrences','maximum_occurrences'];
+    
+    let keys = ['minimum_occurrences','maximum_occurrences'];
     
     try {
         childLid = node['local_identifier'][0];
@@ -560,15 +560,20 @@ function newActiveChild(node) {
     
     let childTitle = `<h3 id="childTitle">${childLid}</h3>`;
     
-    let reference_type = node['reference_type'];
     let minOcc = node['minimum_occurrences'];
     let maxOcc = node['maximum_occurrences'];
     
-    let values = '<div class="child-keys">';
-    values += `<label class="child-key" for="${keys[0]}">${keys[0]}: <input type="text" id="${childLid}" name="${childLid}" value="${childLid}"></label>`;
-    values += `<label class="child-key" for="${keys[2]}">${keys[2]}: <input type="text" id="${minOcc}" name="${minOcc}" value="${minOcc}"></label>`;
-    values += `<label class="child-key" for="${keys[3]}">${keys[3]}: <input type="text" id="${maxOcc}" name="${maxOcc}" value="${maxOcc}"></label>`;
-    values += `</div>`;
+    let values = '';
+    values += `<h4 class="key">${keys[0]}</h4>`;
+    values += `<h4 class="value">${childLid}</h4>`;
+    
+    if (minOcc && maxOcc) {
+        values += `<h4 class="key">${keys[1]}</h4>`;
+        values += `<h4 class="value">${minOcc}</h4>`;
+        
+        values += `<h4 class="key">${keys[2]}</h4>`;
+        values += `<h4 class="value">${maxOcc}</h4>`;
+    }
     
     let childButtons = `<div class="active-child-buttons ${htmlChildLid}"><i class="fas fa-lg fa-trash-alt"></i></div>`;
     
