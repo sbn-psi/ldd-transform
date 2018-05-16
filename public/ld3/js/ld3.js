@@ -655,6 +655,7 @@ function addListeners() {
     });
 
     $('#download').unbind().on('click',function() {
+        return console.log(data.pureModel());
         $.ajax({
             type: 'POST',
             url: 'http://localhost:3001/json/to/xml',

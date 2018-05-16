@@ -39,7 +39,7 @@ function Data(json) {
             return array;
         };
         
-        console.log(model);
+        return model;
     };
 
     this.rootNodes = [];
