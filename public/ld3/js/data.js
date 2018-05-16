@@ -63,17 +63,18 @@ function Data(json) {
         this.nodes = _classes.map(e => {
             let links = e['DD_Association'];
             
-            if (!e.className && this.nodes.length > 1) {
+            if (e.className) {
+                return e;
+            } else if (!e.className && this.nodes.length > 1) {
                 if (links && links.length) {
                     e.className = 'class';
                 } else {
                     e.className = 'attribute';
                 }
+                return e;
             } else {
-                e.className = 'class';
+                throw new Error('unexpected error');
             }
-            
-            return e;
         });
 
         let id = 0;
@@ -367,6 +368,10 @@ function Data(json) {
         }
 
         this.model['Ingest_LDD'][modelArray].push(nodeGlobal);
+        
+        console.log(this.model['Ingest_LDD'][modelArray]);
+        
+        // throw new Error();
         
         // add keyword instance definiton to 
         // parent node "DD_Association" and "children" arrays
