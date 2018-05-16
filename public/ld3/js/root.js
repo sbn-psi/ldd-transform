@@ -14,9 +14,9 @@ var _root = {
         "last_modification_date_time": [""],
         "DD_Attribute": [],
         "DD_Class": [{
-            "name": ["Root"],
+            "name": [""],
             "version_id": [""],
-            "local_identifier": ["sample.Root"],
+            "local_identifier": [""],
             "submitter_name": [""],
             "definition": [""],
             "DD_Association": []
