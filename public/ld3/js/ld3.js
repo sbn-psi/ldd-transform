@@ -120,6 +120,15 @@ function update() {
 
             return d.lid;
         });
+    
+    var title = svg.selectAll('.node-title')
+        .text(function(d) {
+            return d.name[0];
+        })
+        .style('font-size', function(d) {
+            let maths = Math.min(2 * ry, (2 * ry) / this.getComputedTextLength() * 40);
+            return `${maths}px`;
+        });
 
     var linkEnter = link
         .enter().append('path')
@@ -169,6 +178,7 @@ function update() {
     // append text to each node group
     nodeEnter
         .append('text')
+        .attr('class','node-title')
         .text(function(d) {
             return d.name[0];
         })
@@ -295,14 +305,6 @@ var g1,
     g3;
 function toggleNodes(node) {
     if (linkMode) return data.createLink(node);
-    
-    if (node && !node.lid) {
-        try {
-            node.lid = node['local_identifier'][0];
-        } catch (err) {
-            node.lid = node['identifier-reference'][0];
-        }
-    }
     
     activeNodes = [];
 
@@ -475,16 +477,24 @@ function updateToolbar(flag) {
             $("#tools").replaceWith(data);
             
             var node = activeNode;
-            // update toolbar - node title
-            $('#active-node-title').text(node.lid);
             
             // update toolbar - node details
             $('#active-node-details').load('partials/node.details.html', function() {
-                $('#name-node').val(node.name[0]);
-                $('#local_identifier-node').val(node.local_identifier[0]);
-                $('#version_id-node').val(node.version_id[0]);
-                $('#definition-node').val(node.definition[0]);
-                $('#submitter_name-node').val(node.submitter_name[0]);
+                $('#active-node-title').text(node.lid);
+                
+                $('#active-node-title').prepend('<i class="fas fa-pencil-alt" id="editnode"></i>');
+                
+                $('#name-node').text(node.name[0]);
+                $('#identifier_reference-node').text(function() {
+                    try {
+                        return node.identifier_reference[0];
+                    } catch (err) {
+                        return node.local_identifier[0];
+                    }
+                });
+                $('#version_id-node').text(node.version_id[0]);
+                $('#definition-node').text(node.definition[0]);
+                $('#submitter_name-node').text(node.submitter_name[0]);
                 
                 // update toolbar - node children
                 if (node.children) {
@@ -592,7 +602,7 @@ function addListeners() {
         newModal('ldd');
     });
     
-    $('#edit-ldd-cancel').unbind().on('click', function() {
+    $('.decline').unbind().on('click', function() {
         closeModal();
     });
     
@@ -606,6 +616,26 @@ function addListeners() {
         data.modifyLddDetails(values);
         
         updateToolbar(null);
+        
+        closeModal();
+    });
+    
+    $('#editnode').unbind().on('click', function() {
+        newModal('editnode');
+    });
+    
+    $('#editnode-save').unbind().on('click', function() {
+        var values = {
+            name: $('#name-editnode').val(),
+            local_identifier: $('#identifier_reference-editnode').val(),
+            version_id: $('#version_id-editnode').val(),
+            definition: $('#definition-editnode').val(),
+            submitter_name: $('#submitter_name-editnode').val(),
+        };
+        
+        data.modifyNode(activeNode.lid, values);
+        
+        updateToolbar();
         
         closeModal();
     });

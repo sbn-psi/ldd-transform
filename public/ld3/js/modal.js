@@ -28,11 +28,42 @@ function newModal(type) {
                 }
             });
             break;
+        case 'editnode':
+            // edit node
+            modal = new Custombox.modal({
+                content: {
+                    effect: 'slide',
+                    id: 'editnode',
+                    target: '#ld3-modal',
+                    onOpen: editNodeModal
+                }
+            });
+            break;
         default:
             throw new Error('no modal type provided');
     }
     
     modal.open();
+};
+
+function editNodeModal() {
+    $('#ld3-modal').empty();
+    
+    $('#ld3-modal').load('partials/node.edit.html', function() {
+        $('#name-editnode').val(activeNode.name[0]);
+        $('#identifier_reference-editnode').val(function() {
+            try {
+                return activeNode.identifier_reference[0];
+            } catch (e) {
+                return activeNode.local_identifier[0];
+            }
+        });
+        $('#version_id-editnode').val(activeNode.version_id[0]);
+        $('#definition-editnode').val(activeNode.definition[0]);
+        $('#submitter_name-editnode').val(activeNode.submitter_name[0]);
+        
+        addListeners();
+    });
 };
 
 function editLddModal() {

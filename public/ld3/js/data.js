@@ -13,26 +13,34 @@ function Data(json) {
         // make a copy of the model so the active copy is not altered
         var model = JSON.parse(JSON.stringify(this.model));
         
-        function scrapeCustomKeywords(a) {
-            delete a['children'];
-            delete a['parents'];
-            delete a['className'];
-            delete a['col'];
-            delete a['lid'];
-            delete a['x'];
-            delete a['y'];
+        model['Ingest_LDD']['DD_Class'] = scrapeCustomKeywords(model['Ingest_LDD']['DD_Class']);
+        
+        function scrapeCustomKeywords(array) {
+            var keywords = [
+                'children'
+                ,'parents'
+                ,'className'
+                ,'col'
+                ,'lid'
+                ,'rootNode'
+                ,'x'
+                ,'y'
+            ];
             
-            return a;
+            array.map(c => {
+                if (c['DD_Association']) c['DD_Association'] = scrapeCustomKeywords(c['DD_Association']);
+                keywords.map(k => {
+                    delete c[k];
+                });
+                
+                return c;
+            });
+            
+            return array;
         };
         
-        // #DD_Attribute
-        this.model['Ingest_LDD']['DD_Attribute'] = this.model['Ingest_LDD']['DD_Attribute'].map(scrapeCustomKeywords);
-        
-        // #DD_Class
-        this.model['Ingest_LDD']['DD_Class'] = this.model['Ingest_LDD']['DD_Class'].map(scrapeCustomKeywords);
-        
-        return this.model;
-    }
+        console.log(model);
+    };
 
     this.rootNodes = [];
     
@@ -54,12 +62,14 @@ function Data(json) {
         this.nodes = _classes.map(e => {
             let links = e['DD_Association'];
             
-            if (!e.className) {
+            if (!e.className && this.nodes.length > 1) {
                 if (links && links.length) {
                     e.className = 'class';
                 } else {
                     e.className = 'attribute';
                 }
+            } else {
+                e.className = 'class';
             }
             
             return e;
@@ -153,6 +163,8 @@ function Data(json) {
         _col = 1;
         
         this.sortCols(this.rootNodes);
+        
+        localStorage.setItem('ld3',JSON.stringify(this.model));
     };
     
     // // // // // // // // // // // sortCols(rootNodes)
@@ -410,7 +422,7 @@ function Data(json) {
     };
     
     this.createNode = function() {
-        newModal();
+        newModal('node');
     };
     
     this.createLink = function(node) {
@@ -460,6 +472,26 @@ function Data(json) {
         for (const d in deets) {
             this.model['Ingest_LDD'][d] = [deets[d]];
         };
+    };
+    
+    this.modifyNode = function(lid,values) {
+        var node = this.getNode(lid);
+        var type = node.className == 'class' ? 'DD_Class' : 'DD_Attribute';
+        
+        this.model['Ingest_LDD'][type] = this.model['Ingest_LDD'][type].map(el => {
+            if (el.lid == lid) {
+                for (const d in values) {
+                    el[d] = [values[d]];
+                };
+            };
+        
+            return el;
+        });
+        
+        this.defineNodesAndLinks();
+        
+        update();
+        
     };
     
     this.defineNodesAndLinks();
