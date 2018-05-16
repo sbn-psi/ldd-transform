@@ -221,60 +221,63 @@ function Data(json) {
     };
     
     this.deleteNode = function(lid) {
-        let node = this.getNode(lid);
-        let nodeType = node.className;
-        let parentClass = nodeType == 'attribute' ? 'DD_Attribute' : 'DD_Class';
         let linkCount = 0;
-        let i = null;
-        
-        // if (nodeType == 'class') return console.error('cannot delete classes. this feature has not been implemented yet.');
-        
-        // // // // // Update d3 // // // // //
-        this.nodes.map((d,idx) => {
-            let dId;
-            
-            try {
-                dId = d['local_identifier'][0];
-            } catch (err) {
-                dId = d['identifier_reference'][0];
-            }
-            
-            if (dId == lid) i = idx;
-        });
-        
-        // remove link
-        let dLink = this.links.find(l => {
-            return l.source == this.nodes.indexOf(activeNode) && l.target == i;
-        });
-        
-        this.links.splice(this.links.indexOf(dLink),1);
-        
-        this.links.map(l => {
-            let activeParent;
-            
-            let lids = l.id.split(':');
-            
-            if (lids[0] == activeNode.lid) activeParent = true;
-            
-            if (l.target == i && !activeParent) {
-                linkCount++;
-                return true;
-            }
-        });
-        
-        if (linkCount < 1) {
-            this.nodes.splice(i,1);
-        } else {
-            // TODO remove border highlight from deleted node
-        }
         
         // // // // // Update Model // // // // //
         // remove node from 'DD_Association' and 'chilren' arrays
-        this.removeAssociation(lid);
+        var pLid = activeNode.lid;      // parent lid
+        var aLid = lid;                 // associated lid
+        var nodeIdx = this.getNode(lid,true);
+        
+        this.model['Ingest_LDD']['DD_Class'].map(filterAssociations);
+        this.model['Ingest_LDD']['DD_Attribute'].map(filterAssociations);
+        
+        this.links.map(l => {
+            if (l.source == nodeIdx
+                || l.target == nodeIdx) {
+                linkCount++;
+            }
+        });
+        
+        // remove element definition from
+        // 'DD_Class' or 'DD_Attribute'
+        if (linkCount == 1) this.removeNodeDefinition(lid);
+        
+        this.defineNodesAndLinks();
         
         update();
         
         toggleNodes();
+        
+        function filterAssociations(d) {
+            if (d.lid == pLid) {
+                d['DD_Association'] = d['DD_Association'].filter(a => {
+                    try {
+                        return (a['local_identifier'][0] == aLid) ? false : true;
+                    } catch (err) {
+                        return (a['identifier_reference'][0] == aLid) ? false : true;
+                    }
+                });
+                d['children'] = d['children'].filter(c => {
+                    try {
+                        return (c['local_identifier'][0] == aLid) ? false : true;
+                    } catch (err) {
+                        return (c['identifier_reference'][0] == aLid) ? false : true;
+                    }
+                });
+            };
+            return d;
+        };
+    };
+    
+    this.removeNodeDefinition = function(lid) {
+        let node = this.getNode(lid);
+        let array = node.className == 'class' ? 'DD_Class' : 'DD_Attribute';
+        
+        this.model['Ingest_LDD'][array] = this.model['Ingest_LDD'][array].filter(function(el) {
+            if (el.lid == lid) return false;
+            else return true;
+        });
     };
     
     this.parents = function(lid,getIdx) {
@@ -320,30 +323,6 @@ function Data(json) {
         else return node;
     };
     
-    this.removeAssociation = function(associatedLid) {
-        let pLid = activeNode.lid;      // parent lid
-        let aLid = associatedLid;       // associated lid
-        
-        this.nodes.map(d => {
-            if (d.lid == pLid) {
-                d['DD_Association'] = d['DD_Association'].filter(a => {
-                    try {
-                        return (a['local_identifier'][0] == aLid) ? false : true;
-                    } catch (err) {
-                        return (a['identifier_reference'][0] == aLid) ? false : true;
-                    }
-                });
-                d['children'] = d['children'].filter(c => {
-                    try {
-                        return (c['local_identifier'][0] == aLid) ? false : true;
-                    } catch (err) {
-                        return (c['identifier_reference'][0] == aLid) ? false : true;
-                    }
-                });
-            };
-        });
-    };
-    
     // // // // // // // CREATE // // // // // // //
     this.addNode = function(node) {
         let type = node.reference_type == 'component_of' ? 'class' : 'attribute';
@@ -369,10 +348,6 @@ function Data(json) {
         }
 
         this.model['Ingest_LDD'][modelArray].push(nodeGlobal);
-        
-        console.log(this.model['Ingest_LDD'][modelArray]);
-        
-        // throw new Error();
         
         // add keyword instance definiton to 
         // parent node "DD_Association" and "children" arrays

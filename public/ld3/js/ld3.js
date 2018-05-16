@@ -52,7 +52,7 @@ function getJson() {
     if (window.localStorage.getItem('ld3')) {
         main(window.localStorage.getItem('ld3'));
     } else {
-        main(JSON.stringify(_testRoot));
+        main(JSON.stringify(_devRoot));
     }
 };
 
@@ -499,7 +499,7 @@ function updateToolbar(flag) {
                 // update toolbar - node children
                 if (node.children) {
                     $('#active-children-title').text(`Children (${node.children.length})`);
-                    
+                    $('#active-node-children').empty();
                     node.children.map(a => {
                         $('#active-node-children').append(newActiveChild(a));
                     });
