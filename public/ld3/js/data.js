@@ -73,7 +73,8 @@ function Data(json) {
                 }
                 return e;
             } else {
-                throw new Error('unexpected error');
+                e.className = 'class';
+                return e;
             }
         });
 
