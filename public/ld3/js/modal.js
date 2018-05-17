@@ -126,8 +126,14 @@ function next() {
     
     $('#ld3-modal').empty();
     
-    if (r_t == 'component_of') $('#ld3-modal').load('partials/create.2.class.html',addListeners);
-    else if (r_t == 'attribute_of') $('#ld3-modal').load('partials/create.2.attribute.html',addListeners);
+    if (r_t == 'component_of') $('#ld3-modal').load('partials/create.2.class.html',placeholder);
+    else if (r_t == 'attribute_of') $('#ld3-modal').load('partials/create.2.attribute.html',placeholder);
+    
+    function placeholder() {
+        $('#submitter_name').val(data.model['Ingest_LDD']['full_name'][0]);
+        
+        addListeners();
+    }
 };
 
 function saveNode() {
