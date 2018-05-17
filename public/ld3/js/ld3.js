@@ -473,11 +473,19 @@ function updateToolbar(flag) {
     function nodeToolbar(cb) {
         resetToolbar();
         
+        function tryReturn(val) {
+            try {
+                return val;
+            } catch (err) {
+                console.error(err)
+                return '';
+            }
+        };
+        
         $.get("partials/tools.node.html", function(data) {
             $("#tools").replaceWith(data);
             
             var node = activeNode;
-            
             // update toolbar - node details
             $('#active-node-details').load('partials/node.details.html', function() {
                 $('#active-node-title').text(node.lid);
@@ -492,9 +500,18 @@ function updateToolbar(flag) {
                         return node.local_identifier[0];
                     }
                 });
-                $('#version_id-node').text(node.version_id[0]);
-                $('#definition-node').text(node.definition[0]);
-                $('#submitter_name-node').text(node.submitter_name[0]);
+                $('#version_id-node').text(function() {
+                    if (!node.version_id) return '';
+                    else return node.version_id[0];
+                });
+                $('#definition-node').text(function() {
+                    if (!node.definition) return '';
+                    else return node.definition[0];
+                });
+                $('#submitter_name-node').text(function() {
+                    if (!node.submitter_name) return '';
+                    else node.submitter_name[0];
+                });
                 
                 // update toolbar - node children
                 if (node.children) {
@@ -510,7 +527,7 @@ function updateToolbar(flag) {
                 // update toolbar - node parents
                 if (node.parents) {    
                     $('#active-parents-title').text(`Parents (${node.parents.length})`);
-                    
+                    $('#active-node-parents').empty();
                     node.parents.map(p => {
                         $('#active-node-parents').append(newActiveChild(p));
                     });
@@ -558,7 +575,7 @@ function newActiveChild(node) {
     
     htmlChildLid = childLid.replace('.','-');
     
-    let childTitle = `<h3 id="childTitle">${childLid}</h3>`;
+    let childTitle = `<h3 class="title active-child-clickable clickable">${childLid}</h3>`;
     
     let minOcc = node['minimum_occurrences'];
     let maxOcc = node['maximum_occurrences'];
@@ -643,6 +660,17 @@ function addListeners() {
         updateToolbar();
         
         closeModal();
+    });
+    
+    $('.active-child-clickable').unbind().on('click', function(event) {
+        var lid = $(event.target).text();
+        var nodeIdx = data.getNode(lid,true);
+        
+        update();
+        
+        toggleNodes(data.nodes[nodeIdx]);
+        
+        updateToolbar();
     });
     
     // add event listeners to trash icons now that they exist in DOM

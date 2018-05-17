@@ -66,7 +66,6 @@ var _devRoot = {
         "last_modification_date_time": [""],
         "DD_Attribute": [{
             "name": ["attr"],
-            "className": "attribute",
             "version_id": ["1.0"],
             "identifier_reference": ["test.attr"],
             "submitter_name": ["conor"],
@@ -74,7 +73,6 @@ var _devRoot = {
             "nillable_flag": ["true"]
         }, {
             "name": ["attr2"],
-            "className": "attribute",
             "version_id": ["1.0"],
             "identifier_reference": ["test.attr2"],
             "submitter_name": ["conor"],
@@ -83,7 +81,6 @@ var _devRoot = {
         }],
         "DD_Class": [{
             "name": ["Root"],
-            "className": "class",
             "version_id": ["0.0.0.0"],
             "local_identifier": ["sample.Root"],
             "submitter_name": ["Johnny Appleseed"],

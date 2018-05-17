@@ -30,6 +30,9 @@ button, i, [type="submit"]{
 .view {
     fill: none;
 }
+.title {
+    text-align: center;
+}
 .modal {
     padding: 1em;
     display: none;
@@ -75,8 +78,11 @@ button, i, [type="submit"]{
     flex-flow: row nowrap;
     justify-content: space-between;
 }
+.key {
+    margin-top: 0.25em;
+}
 .value {
-    margin: 0.25em 0 1em 1em;
+    margin: 0.25em 0 1em 0.25em;
 }
 #create-node-modal {
     text-align: center;
@@ -110,8 +116,10 @@ button, i, [type="submit"]{
     flex-flow: column;
     align-items: center;
 }
+.clickable {
+    cursor: pointer;
+}
 .active-child {
-    /* text-align: center; */
     width: 80%;
     position: relative;
     border: 1px solid black;
