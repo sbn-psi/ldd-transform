@@ -27,7 +27,7 @@ var id,
     classNodeFill = 'lightblue',
     attributeNodeFill = 'white',
     nodeStroke = 'black',
-    nodeStrokeWidth = '1px',
+    nodeStrokeWidth = '2px',
     nodeHighlightStroke = 'orange',
     nodeHighlightStrokeWidth = '5px',
     activeNodes = [],
@@ -35,6 +35,8 @@ var id,
     nodes = null,
     links = null,
     rootNodes = [],
+    optional = 0.25,
+    required = 1,
     lidType = null,
     zoomScale = [0.1, 10],
     tree = d3.tree()
@@ -137,7 +139,7 @@ function update() {
     
     linkEnter.transition(tIn)
         .delay(100)
-        .style('opacity',1);
+        .style('opacity', linkOpacity);
 
     var nodeEnter = node
         .enter().append('g')
@@ -396,7 +398,8 @@ function toggleNodes(node) {
                     }
                 }) ? linkHighlightStrokeWidth : linkStrokeWidth;
             }
-        });
+        })
+        .style('opacity', linkOpacity);
 
     svg.selectAll('.circle')
         .style('stroke', function(d) {
@@ -455,6 +458,35 @@ function toggleNodes(node) {
                 }
             }) ? nodeHighlightStrokeWidth : nodeStrokeWidth;
         })
+};
+
+function linkOpacity(l) {
+    var isRequired;
+    
+    var parentIdx = l.source;
+    var parentNode = data.nodes[parentIdx];
+    var childIdx = l.target;
+    var childNode = data.nodes[childIdx];
+    
+    var parent = data.model['Ingest_LDD']['DD_Class'].find(c => {
+        if (c.lid == parentNode.lid) {
+            return c;
+        } else {
+            return false;
+        }
+    });
+    
+    parent['DD_Association'].map(a => {
+        
+        if (a.lid == childNode.lid) {
+            if (!childNode.minimum_occurrences) isRequired = true;
+            else if (childNode.minimum_occurrences[0] > 0) isRequired = true;
+            else isRequired = false;
+        }
+        
+    });
+    
+    return isRequired ? required : optional;
 };
 
 function highlightNode(n) {
