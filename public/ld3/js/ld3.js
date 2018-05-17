@@ -689,6 +689,7 @@ function addListeners() {
 
     $('#download').unbind().on('click',function() {
         var currentModel = data.pureModel();
+        var dateTime = currentModel['Ingest_LDD']['last_modification_date_time'][0];
         
         $.ajax({
             type: 'POST',
@@ -699,7 +700,7 @@ function addListeners() {
             data: JSON.stringify(currentModel),
             success: function(res) {
                 var blob = new Blob([res], {type: "text/xml;charset=utf-8"});
-                saveAs(blob,'ldd.out.xml');
+                saveAs(blob,`ldd.out.${dateTime}.xml`);
                 data.defineNodesAndLinks();
             }
         });

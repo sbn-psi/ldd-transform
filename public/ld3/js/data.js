@@ -40,6 +40,9 @@ function Data(json) {
             return array;
         };
         
+        // update 'last_modification_date_time'
+        model['Ingest_LDD']['last_modification_date_time'] = [`${moment.utc().format()}`];
+        
         return model;
     };
 
