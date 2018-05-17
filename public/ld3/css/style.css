@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+svg {
+    position: absolute;
+    background: #f6f6f6;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+button, i, [type="submit"]{
+    cursor: pointer;
+}
+.link {
+    fill: none;
+}
+.node {
+    cursor: pointer;
+}
+.axis path {
+    display: none;
+}
+.axis line {
+    stroke-opacity: 0.3;
+    shape-rendering: crispEdges;
+}
+.view {
+    fill: none;
+}
+.title {
+    text-align: center;
+}
+.modal {
+    padding: 1em;
+    display: none;
+    position: relative;
+    background: white;
+    width: 30vw;
+    min-height: 40vh;
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    box-shadow: 0 0 1em 0 black;
+    border-radius: 0.25em;
+}
+.modal-close {
+    padding: 0.1em;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    cursor: pointer;
+}
+.create-node {
+    padding: 0.1em;
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    cursor: pointer;
+}
+
+#toolbar {
+    padding: 1em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: calc(100vh - 2em);
+    width: calc(399px - 2em);
+    border-left: 1px solid black;
+    background: white;
+    overflow: scroll;
+}
+#tools {
+    margin-bottom: 2em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.key {
+    margin-top: 0.25em;
+}
+.value {
+    margin: 0.25em 0 1em 0.25em;
+}
+#create-node-modal {
+    text-align: center;
+}
+#create-new-node /* modal form */ {
+    margin: 2em 0 0;
+}
+#cancel, #next, #submit {
+    margin: 2em 1em;
+}
+#create-new-node label {
+    margin: 0.5em 0;
+}
+#create-new-node input, #create-new-node select {
+    margin: 0 0 0 0.5em;
+}
+.enabled {
+    cursor: pointer;
+    color: black;
+}
+.disabled {
+    cursor: default;
+    color: #acacac;
+}
+#active-node-title {
+    text-align: center;
+    margin: 1em 0;
+}
+#active-node-children, #active-node-parents {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.clickable {
+    cursor: pointer;
+}
+.active-child {
+    width: 80%;
+    position: relative;
+    border: 1px solid black;
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
+.active-child-buttons {
+    position: absolute;
+    right: 0.5em;
+    top: 0.75em;
+    cursor: pointer;
+}
+.child-key {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    display: flex;
+    flex-flow: column;
+}
+label {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
