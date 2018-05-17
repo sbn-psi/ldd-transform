@@ -338,7 +338,8 @@ function toggleNodes(node) {
 
     svg.selectAll('.link')
         .style('stroke', function(link) {
-            let _lid;
+            let _lid,
+                _active = null;
             
             try {
                 _lid = getNodeByIdx(link.source)['local_identifier'][0];
@@ -346,16 +347,30 @@ function toggleNodes(node) {
                 _lid = getNodeByIdx(link.source)['identifier_reference'][0];
             }
             
-            return nodeGen.find(d => {
+            _active = nodeGen.find(d => {
                 try {
                     return d['local_identifier'][0] == _lid;
                 } catch (err) {
                     return d['identifier_reference'][0] == _lid;
                 }
-            }) ? linkHighlightStroke : linkStroke;
+            })
+            
+            if (_active) return linkHighlightStroke;
+            else {
+                return activeNode.parents.find(d => {
+                    if (data.getNode(d.lid,true) == link.source
+                            && data.getNode(activeNode.lid,true) == link.target) {
+                        console.log('found parent',d.lid);
+                        return d;
+                    } else {
+                        return false;
+                    }
+                }) ? 'red' : linkStroke;
+            }
         })
         .style('stroke-width', function(link) {
-            let _lid;
+            let _lid,
+                _active = null;
             
             try {
                 _lid = getNodeByIdx(link.source)['local_identifier'][0];
@@ -363,18 +378,31 @@ function toggleNodes(node) {
                 _lid = getNodeByIdx(link.source)['identifier_reference'][0];
             }
             
-            return nodeGen.find(d => {
+            _active = nodeGen.find(d => {
                 try {
                     return d['local_identifier'][0] == _lid;
                 } catch (err) {
                     return d['identifier_reference'][0] == _lid;
                 }
-            }) ? linkHighlightStrokeWidth : linkStrokeWidth;
+            })
+            
+            if (_active) return linkHighlightStrokeWidth;
+            else {
+                return activeNode.parents.find(d => {
+                    if (data.getNode(d.lid,true) == link.source
+                            && data.getNode(activeNode.lid,true) == link.target) {
+                        return d;
+                    } else {
+                        return false;
+                    }
+                }) ? linkHighlightStrokeWidth : linkStrokeWidth;
+            }
         });
 
     svg.selectAll('.circle')
         .style('stroke', function(d) {
-            let _lid;
+            let _lid,
+                _active = null;
 
             try {
                 _lid = d['local_identifier'][0];
@@ -382,16 +410,27 @@ function toggleNodes(node) {
                 _lid = d['identifier_reference'][0];
             }
 
-            return activeNodes.find(e => {
+            _active = activeNodes.find(e => {
                 try {
                     return e['local_identifier'][0] == _lid;
                 } catch (err) {
                     return e['identifier_reference'][0] == _lid;
                 }
-            }) ? nodeHighlightStroke : nodeStroke;
+            });
+            
+            if (_active) return nodeHighlightStroke;
+            
+            return activeNode.parents.find(e => {
+                try {
+                    return e['local_identifier'][0] == _lid;
+                } catch (err) {
+                    return e['identifier_reference'][0] == _lid;
+                }
+            }) ? 'red' : nodeStroke;
         })
         .style('stroke-width', function(d) {
-            let _lid;
+            let _lid,
+                _active = null;
 
             try {
                 _lid = d['local_identifier'][0];
@@ -399,7 +438,17 @@ function toggleNodes(node) {
                 _lid = d['identifier_reference'][0];
             }
 
-            return activeNodes.find(e => {
+            _active = activeNodes.find(e => {
+                try {
+                    return e['local_identifier'][0] == _lid;
+                } catch (err) {
+                    return e['identifier_reference'][0] == _lid;
+                }
+            });
+            
+            if (_active) return nodeHighlightStrokeWidth;
+            
+            return activeNode.parents.find(e => {
                 try {
                     return e['local_identifier'][0] == _lid;
                 } catch (err) {
