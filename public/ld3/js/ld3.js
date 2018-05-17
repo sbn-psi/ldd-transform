@@ -357,11 +357,14 @@ function toggleNodes(node) {
                 }
             })
             
-            if (_active) return linkHighlightStroke;
-            else {
+            if (_active) {
+                return linkHighlightStroke;
+            } else if (!activeNode || !activeNode.parents) {
+                return linkStroke;
+            } else {
                 return activeNode.parents.find(d => {
                     if (data.getNode(d.lid,true) == link.source
-                            && data.getNode(activeNode.lid,true) == link.target) {
+                    && data.getNode(activeNode.lid,true) == link.target) {
                         return d;
                     } else {
                         return false;
@@ -387,8 +390,11 @@ function toggleNodes(node) {
                 }
             })
             
-            if (_active) return linkHighlightStrokeWidth;
-            else {
+            if (_active) {
+                return linkHighlightStrokeWidth;
+            } else if (!activeNode || !activeNode.parents) {
+                return linkStrokeWidth;
+            } else {
                 return activeNode.parents.find(d => {
                     if (data.getNode(d.lid,true) == link.source
                             && data.getNode(activeNode.lid,true) == link.target) {
@@ -420,15 +426,20 @@ function toggleNodes(node) {
                 }
             });
             
-            if (_active) return nodeHighlightStroke;
+            if (_active) {
+                return nodeHighlightStroke;
+            } else if (!activeNode || !activeNode.parents) {
+                return nodeStroke;
+            } else {
+                return activeNode.parents.find(e => {
+                    try {
+                        return e['local_identifier'][0] == _lid;
+                    } catch (err) {
+                        return e['identifier_reference'][0] == _lid;
+                    }
+                }) ? 'red' : nodeStroke;
+            }
             
-            return activeNode.parents.find(e => {
-                try {
-                    return e['local_identifier'][0] == _lid;
-                } catch (err) {
-                    return e['identifier_reference'][0] == _lid;
-                }
-            }) ? 'red' : nodeStroke;
         })
         .style('stroke-width', function(d) {
             let _lid,
@@ -448,15 +459,20 @@ function toggleNodes(node) {
                 }
             });
             
-            if (_active) return nodeHighlightStrokeWidth;
+            if (_active) {
+                return nodeHighlightStrokeWidth;
+            } else if (!activeNode || !activeNode.parents) {
+                return nodeStrokeWidth;
+            } else {
+                return activeNode.parents.find(e => {
+                    try {
+                        return e['local_identifier'][0] == _lid;
+                    } catch (err) {
+                        return e['identifier_reference'][0] == _lid;
+                    }
+                }) ? nodeHighlightStrokeWidth : nodeStrokeWidth;
+            }
             
-            return activeNode.parents.find(e => {
-                try {
-                    return e['local_identifier'][0] == _lid;
-                } catch (err) {
-                    return e['identifier_reference'][0] == _lid;
-                }
-            }) ? nodeHighlightStrokeWidth : nodeStrokeWidth;
         })
 };
 
