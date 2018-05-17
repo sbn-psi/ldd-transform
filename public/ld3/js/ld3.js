@@ -360,7 +360,6 @@ function toggleNodes(node) {
                 return activeNode.parents.find(d => {
                     if (data.getNode(d.lid,true) == link.source
                             && data.getNode(activeNode.lid,true) == link.target) {
-                        console.log('found parent',d.lid);
                         return d;
                     } else {
                         return false;
