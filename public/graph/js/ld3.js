@@ -549,10 +549,10 @@ function updateToolbar(flag) {
     function defaultToolbar(cb) {
         resetToolbar();
         
-        $.get("./partials/tools.default.html", function(toolsHtml) {
+        $.get("partials/tools.default.html", function(toolsHtml) {
             $("#tools").replaceWith(toolsHtml);
             
-            $('#toolbar-content').load('./partials/toolbar.default.html', function(toolbarHtml) {
+            $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
                 
                 $('#name-toolbar').text(data.model['Ingest_LDD']['name'][0]);
                 $('#ldd_version_id-toolbar').text(data.model['Ingest_LDD']['ldd_version_id'][0]);
@@ -578,12 +578,12 @@ function updateToolbar(flag) {
             }
         };
         
-        $.get("./partials/tools.node.html", function(data) {
+        $.get("partials/tools.node.html", function(data) {
             $("#tools").replaceWith(data);
             
             var node = activeNode;
             // update toolbar - node details
-            $('#active-node-details').load('./partials/node.details.html', function() {
+            $('#active-node-details').load('partials/node.details.html', function() {
                 $('#active-node-title').text(node.lid);
                 
                 $('#active-node-title').prepend('<i class="fas fa-pencil-alt" id="editnode" title="Edit Element"></i>');
@@ -637,7 +637,7 @@ function updateToolbar(flag) {
     };
     
     function linkModeToolbar(cb) {
-        $.get("./partials/tools.link-mode.html", function(data) {
+        $.get("partials/tools.link-mode.html", function(data) {
             $("#tools").replaceWith(data);
             cb();
         });
