@@ -1,4 +1,6 @@
 $(document).ready( function() {
+    var graphLocation = window.location.href + 'graph/';
+    
     // set the form action depending on which button is clicked
     $("#html-button").click(function () {
         $(this).closest("form").attr("action", "/file/to/html");
@@ -28,13 +30,13 @@ $(document).ready( function() {
         xhr.onreadystatechange = function(res) {
             if (xhr.readyState === 4) {
                 localStorage.setItem('ld3',xhr.response);
-                window.location.href = "/graph";
+                window.location.href = graphLocation;
             };
         };
     });
     $('#new-ldd').click(function() {
         localStorage.removeItem('ld3');
-        window.location.href = "/graph";
+        window.location.href = graphLocation;
     });
     // change the uploader label when a file is staged
     $("#inputfile").each(function () {
