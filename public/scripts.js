@@ -28,13 +28,13 @@ $(document).ready( function() {
         xhr.onreadystatechange = function(res) {
             if (xhr.readyState === 4) {
                 localStorage.setItem('ld3',xhr.response);
-                window.location.href = "/ld3";
+                window.location.href = "/graph";
             };
         };
     });
     $('#new-ldd').click(function() {
         localStorage.removeItem('ld3');
-        window.location.href = "/ld3";
+        window.location.href = "/graph";
     });
     // change the uploader label when a file is staged
     $("#inputfile").each(function () {

@@ -49,7 +49,7 @@ function newModal(type) {
 function editNodeModal() {
     $('#ld3-modal').empty();
     
-    $('#ld3-modal').load('partials/node.edit.html', function() {
+    $('#ld3-modal').load('./partials/node.edit.html', function() {
         $('#version_id-editnode').val(activeNode.version_id[0]).focus();
         $('#identifier_reference-editnode').val(function() {
             try {
@@ -80,7 +80,7 @@ function enableInput(id) {
 function editLddModal() {
     $('#ld3-modal').empty();
     
-    $('#ld3-modal').load('partials/ldd.edit.html',function() {
+    $('#ld3-modal').load('./partials/ldd.edit.html',function() {
         
         $('#name').val(data.model['Ingest_LDD']['name'][0]);
         $('#ldd_version_id').val(data.model['Ingest_LDD']['ldd_version_id'][0]);
@@ -97,7 +97,7 @@ function editLddModal() {
 function createNodeModal() {
     $('#ld3-modal').empty();
     
-    $('#ld3-modal').load('partials/create.1.html',addListeners);
+    $('#ld3-modal').load('./partials/create.1.html',addListeners);
 };
 
 var i_r;
@@ -126,8 +126,8 @@ function next() {
     
     $('#ld3-modal').empty();
     
-    if (r_t == 'component_of') $('#ld3-modal').load('partials/create.2.class.html',placeholder);
-    else if (r_t == 'attribute_of') $('#ld3-modal').load('partials/create.2.attribute.html',placeholder);
+    if (r_t == 'component_of') $('#ld3-modal').load('./partials/create.2.class.html',placeholder);
+    else if (r_t == 'attribute_of') $('#ld3-modal').load('./partials/create.2.attribute.html',placeholder);
     
     function placeholder() {
         $('#submitter_name').val(data.model['Ingest_LDD']['full_name'][0]);
