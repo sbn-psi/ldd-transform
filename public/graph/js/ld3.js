@@ -550,10 +550,12 @@ function updateToolbar(flag) {
         resetToolbar();
         
         console.log(document.baseURI);
-        
-        $.get("/graph/partials/tools.default.html", function(toolsHtml) {
-            $("#tools").replaceWith(toolsHtml);
-            
+
+        $('#tools').load('./partials/tools.default.html',null,function(toolsHTML) {
+            console.log('this worked');
+            console.log(toolsHTML);
+                // $("#tools").replaceWith(toolsHtml);
+                
             $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
                 
                 $('#name-toolbar').text(data.model['Ingest_LDD']['name'][0]);
@@ -566,6 +568,9 @@ function updateToolbar(flag) {
                 cb();
             });
         });
+        
+        // $.get("partials/tools.default.html", function(toolsHtml) {
+        // });
     };
     
     function nodeToolbar(cb) {
@@ -580,7 +585,7 @@ function updateToolbar(flag) {
             }
         };
         
-        $.get("/graph/partials/tools.node.html", function(data) {
+        $.get("partials/tools.node.html", function(data) {
             $("#tools").replaceWith(data);
             
             var node = activeNode;
@@ -639,7 +644,7 @@ function updateToolbar(flag) {
     };
     
     function linkModeToolbar(cb) {
-        $.get("/graph/partials/tools.link-mode.html", function(data) {
+        $.get("partials/tools.link-mode.html", function(data) {
             $("#tools").replaceWith(data);
             cb();
         });
