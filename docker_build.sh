@@ -1,28 +1,13 @@
 #!/bin/bash
 
-echo "Hello world!";
-
 CONTAINER_NAME="ldd-transform"
 
-## Validates that git branch has been supplied
-if [ $# -eq 0 ]
-    then
-        echo "no arguments supplied, try again."
-        echo "please specify a git branch to deploy."
-        exit
-fi
+docker stop $CONTAINER_NAME
 
-# stores branch name
-BRANCH=$1
+docker rm $CONTAINER_NAME
 
-echo "building branch: $1"
+docker build -f Dockerfile . --tag $CONTAINER_NAME:latest
 
-# git fetch
+docker run --name $CONTAINER_NAME -p 49160:3001 -d ${CONTAINER_NAME}:latest
 
-# git pull
-
-./docker_stop.sh
-
-docker run --name ldd-transform -p 49160:3001 -d conormcneil/${CONTAINER_NAME}
-
-echo "New container build: $CONTAINER_NAME"
+echo "Container rebuilt: $CONTAINER_NAME"
