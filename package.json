@@ -9,8 +9,8 @@
   },
   "author": "Conor Kingston",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/sbn-psi/ldd-transform"
+    "type": "git",
+    "url": "https://github.com/sbn-psi/ldd-transform"
   },
   "license": "ISC",
   "dependencies": {

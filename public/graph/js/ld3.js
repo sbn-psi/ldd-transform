@@ -550,6 +550,8 @@ function updateToolbar(flag) {
         resetToolbar();
         
         $('#tools').load('./partials/tools.default.html',null,function(toolsHTML) {
+            $("#tools").replaceWith(toolsHTML);
+            
             $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
                 
                 $('#name-toolbar').text(data.model['Ingest_LDD']['name'][0]);
