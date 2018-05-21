@@ -14,6 +14,7 @@ module.exports = function(grunt) {
     }];
 
     grunt.initConfig({
+        clean: ['build'],
         copy: {
             dev: {
                 files: files
@@ -34,10 +35,8 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
-    var env = grunt.option('env') || 'dev';
-    console.log(env);
-
-    grunt.registerTask('deploy:dev', ['copy:dev']);
-    grunt.registerTask('deploy:production', ['copy:production']);
+    grunt.registerTask('deploy:dev', ['clean', 'copy:dev']);
+    grunt.registerTask('deploy:production', ['clean', 'copy:production']);
 };
