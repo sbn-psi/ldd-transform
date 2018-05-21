@@ -551,10 +551,11 @@ function updateToolbar(flag) {
         
         console.log(document.baseURI);
 
+
+
         $('#tools').load('./partials/tools.default.html',null,function(toolsHTML) {
             console.log('this worked');
             console.log(toolsHTML);
-                // $("#tools").replaceWith(toolsHtml);
                 
             $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
                 
@@ -568,9 +569,6 @@ function updateToolbar(flag) {
                 cb();
             });
         });
-        
-        // $.get("partials/tools.default.html", function(toolsHtml) {
-        // });
     };
     
     function nodeToolbar(cb) {
