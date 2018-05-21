@@ -549,14 +549,7 @@ function updateToolbar(flag) {
     function defaultToolbar(cb) {
         resetToolbar();
         
-        console.log(document.baseURI);
-
-
-
         $('#tools').load('./partials/tools.default.html',null,function(toolsHTML) {
-            console.log('this worked');
-            console.log(toolsHTML);
-                
             $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
                 
                 $('#name-toolbar').text(data.model['Ingest_LDD']['name'][0]);
