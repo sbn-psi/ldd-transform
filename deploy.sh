@@ -2,6 +2,10 @@
 
 CONTAINER_NAME="ldd-transform"
 
+ENV=$1
+
+grunt copy:$1
+
 docker stop $CONTAINER_NAME
 
 docker rm $CONTAINER_NAME
