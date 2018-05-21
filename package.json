@@ -1,13 +1,17 @@
 {
   "name": "ldd-transform",
   "version": "1.0.0",
-  "description": "",
+  "description": "A tool for transforming PDS4 Local Data Dictionary Ingest Files (Ingest_LDD) between simple types. Includes an interactive graph for creating and modifying Ingest_LDD files.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Conor Kingston",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/sbn-psi/ldd-transform"
+  },
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.0",
