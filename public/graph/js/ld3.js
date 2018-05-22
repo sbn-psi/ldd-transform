@@ -126,10 +126,6 @@ function update() {
     var title = svg.selectAll('.node-title')
         .text(function(d) {
             return d.name[0];
-        })
-        .style('font-size', function(d) {
-            let maths = Math.min(2 * ry, (2 * ry) / this.getComputedTextLength() * 40);
-            return `${maths}px`;
         });
 
     var linkEnter = link
@@ -186,6 +182,9 @@ function update() {
         })
         .style('font-size', function(d) {
             let maths = Math.min(2 * ry, (2 * ry) / this.getComputedTextLength() * 40);
+            console.log(this);
+            // console.log(this.getComputedTextLength());
+            console.log(maths);
             return `${maths}px`;
         })
         .attr('dx', '-75px')
