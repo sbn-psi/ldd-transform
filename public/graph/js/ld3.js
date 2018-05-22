@@ -54,7 +54,7 @@ function getJson() {
     if (window.localStorage.getItem('ld3')) {
         main(window.localStorage.getItem('ld3'));
     } else {
-        main(JSON.stringify(_devRoot));
+        main(JSON.stringify(_root));
     }
 };
 

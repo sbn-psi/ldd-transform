@@ -5,18 +5,18 @@ var _root = {
             "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
             "xsi:schemaLocation": "http://pds.nasa.gov/pds4/pds/v1 \n        http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1100.xsd "
         },
-        "name": [""],
+        "name": ["New Ingest_LDD"],
         "ldd_version_id": ["1.0.0.0"],
-        "full_name": [""],
+        "full_name": ["Your Name"],
         "steward_id": [""],
-        "namespace_id": [""],
+        "namespace_id": ["namespace"],
         "comment": [""],
         "last_modification_date_time": [""],
         "DD_Attribute": [],
         "DD_Class": [{
-            "name": [""],
+            "name": ["Click to Edit"],
             "version_id": [""],
-            "local_identifier": [""],
+            "local_identifier": ["Click to Edit"],
             "submitter_name": [""],
             "definition": [""],
             "DD_Association": []
