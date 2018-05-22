@@ -9,7 +9,7 @@ var _root = {
         "ldd_version_id": ["1.0.0.0"],
         "full_name": ["Your Name"],
         "steward_id": [""],
-        "namespace_id": ["namespace"],
+        "namespace_id": [""],
         "comment": [""],
         "last_modification_date_time": [""],
         "DD_Attribute": [],

@@ -48,9 +48,9 @@ function newModal(type) {
 
 function editNodeModal() {
     $('#ld3-modal').empty();
-
+    
     // only nodes in LDD namespace can be modified
-    if (activeNode.lid.split('.')[0] != data.model['Ingest_LDD']['namespace_id']) {
+    if (activeNode.lid.indexOf('.') != -1 && activeNode.lid.split('.')[0] != data.model['Ingest_LDD']['namespace_id']) {
 
         $('#ld3-modal').load('./partials/error.modal.html', function() {
             $("#errorModalMessage").text(`Only elements that belong to the LDD namespace ("${data.model['Ingest_LDD']['namespace_id']}") can be modified.`);
@@ -62,21 +62,26 @@ function editNodeModal() {
         $('#ld3-modal').load('./partials/node.edit.html', function() {
 
             $('#version_id-editnode').val(activeNode.version_id[0]).focus();
-
+            
             $('#identifier_reference-editnode').val(function() {
-                try {
-                    var output = activeNode.identifier_reference[0];
-                    if (activeNode.identifier_reference.join('') == "") enableInput('identifier_reference-editnode');
-                    return output;
-                } catch (err) {
-                    var output = activeNode.local_identifier[0];
-                    if (activeNode.local_identifier.join('') == "") enableInput('identifier_reference-editnode');
-                    return output;
-                }
+                if (activeNode.lid.indexOf('.') == -1 || activeNode.lid == 'Click to Edit') {
+                    enableInput('identifier_reference-editnode');
+                    return activeNode.lid;
+                } else {
+                    try {
+                        var output = activeNode.identifier_reference[0];
+                        if (activeNode.identifier_reference.join('') == "") enableInput('identifier_reference-editnode');
+                        return output;
+                    } catch (err) {
+                        var output = activeNode.local_identifier[0];
+                        if (activeNode.local_identifier.join('') == "") enableInput('identifier_reference-editnode');
+                        return output;
+                    }
+                };
             });
 
             $('#name-editnode').val(function() {
-                if (activeNode.name.join('') == "") enableInput('name-editnode')
+                if (activeNode.name.join('') == "" || activeNode.name == 'Click to Edit') enableInput('name-editnode')
                 return activeNode.name[0];
             });
 
