@@ -106,7 +106,8 @@ function editNodeModal() {
                 function loadEditForm(dataType) {
                     $('label[for="minimum_value"]').remove();
                     $('label[for="maximum_value"]').remove();
-                    $('label[for="maximum_length"]').remove();
+                    $(`label[for="minimum_characters"]`).remove();
+                    $('label[for="maximum_characters"]').remove();
                     
                     
                     switch (dataType) {
@@ -132,14 +133,18 @@ function editNodeModal() {
                             
                             if (ef) {
                                 $.get('./partials/node.edit.string.2.html', function(template) {
-                                    activeNode['DD_Value_Domain'][0]['DD_Permissible_Value'].map((v,idx) => {
-                                        let html = template;
-                                        html = html.replace(`id="value"`,`id="value-${idx}"`);
-                                        html = html.replace(`id="value_meaning"`,`id="value_meaning-${idx}"`);
-                                        $("#editnodeform").append(html);
-                                        $(`#value-${idx}`).val(v['value'][0]);
-                                        $(`#value_meaning-${idx}`).val(v['value_meaning'][0]);
-                                    });
+                                    $.get('./partials/node.edit.string.1.html', function(string1) {
+                                        $('#editnodeform').append(string1);
+                                        
+                                        activeNode['DD_Value_Domain'][0]['DD_Permissible_Value'].map((v,idx) => {
+                                            let html = template;
+                                            html = html.replace(`id="value"`,`id="value-${idx}"`);
+                                            html = html.replace(`id="value_meaning"`,`id="value_meaning-${idx}"`);
+                                            $("#editnodeform").append(html);
+                                            $(`#value-${idx}`).val(v['value'][0]);
+                                            $(`#value_meaning-${idx}`).val(v['value_meaning'][0]);
+                                        });
+                                    })
                                     
                                     // TODO append add new value button
                                 })

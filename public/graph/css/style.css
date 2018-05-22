@@ -39,7 +39,8 @@ button, i, [type="submit"]{
     display: none;
     position: relative;
     background: white;
-    width: 30vw;
+    width: 50vw;
+    max-width: 600px;
     min-height: 40vh;
     display: flex;
     justify-content: center;
