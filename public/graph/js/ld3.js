@@ -837,7 +837,7 @@ function addListeners() {
         
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:3001/json/to/xml',
+            url: '../json/to/xml',
             headers: {
                 'Content-Type': 'application/json'
             },
