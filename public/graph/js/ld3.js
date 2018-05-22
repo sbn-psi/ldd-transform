@@ -606,7 +606,7 @@ function updateToolbar(flag) {
                 });
                 $('#submitter_name-node').text(function() {
                     if (!node.submitter_name) return '';
-                    else node.submitter_name[0];
+                    else return node.submitter_name[0];
                 });
                 
                 // update toolbar - node children
@@ -744,12 +744,36 @@ function addListeners() {
     
     $('#editnode-save').unbind().on('click', function() {
         var values = {
-            name: $('#name-editnode').val(),
-            local_identifier: $('#identifier_reference-editnode').val(),
-            version_id: $('#version_id-editnode').val(),
-            definition: $('#definition-editnode').val(),
-            submitter_name: $('#submitter_name-editnode').val(),
+            'name': $('#name-editnode').val(),
+            'local_identifier': $('#identifier_reference-editnode').val(),
+            'version_id': $('#version_id-editnode').val(),
+            'definition': $('#definition-editnode').val(),
+            'submitter_name': $('#submitter_name-editnode').val(),
+            'value_domain': {
+                'enumeration_flag': [$('input[name="enumeration_flag"]:checked').val()],
+                'unit_of_measure_type': [$('#unit_of_measure_type-editnode').val()],
+                'value_data_type': [$('#value_data_type-editnode').val()],
+                'DD_Permissible_Value': []
+            }
         };
+        
+        $.each($('input[name="value"]'), function(index, value) {
+            values['value_domain']['DD_Permissible_Value'][index] = {
+                value: [$(value).val()],
+                value_meaning: null
+            };
+        });
+        
+        $.each($('textarea[name="value_meaning"]'), function(index, value_meaning) {
+            values['value_domain']['DD_Permissible_Value'][index]['value_meaning'] = [$(value_meaning).val()];
+        });
+        
+        values['value_domain']['DD_Permissible_Value'] = values['value_domain']['DD_Permissible_Value'].filter(v => {
+            if (!v.value[0] && !v.value_meaning[0]) return false;
+            else return true;
+        });
+        
+        console.log(values['value_domain']['DD_Permissible_Value']);
         
         data.modifyNode(activeNode.lid, values);
         

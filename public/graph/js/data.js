@@ -24,6 +24,7 @@ function Data(json) {
                 ,'col'
                 ,'lid'
                 ,'rootNode'
+                ,'value_domain'
                 ,'x'
                 ,'y'
             ];
@@ -455,6 +456,12 @@ function Data(json) {
         
         this.model['Ingest_LDD'][type] = this.model['Ingest_LDD'][type].map(el => {
             if (el.lid == lid) {
+                if (type == 'DD_Attribute') {
+                    console.log(node['DD_Value_Domain'][0]);
+                    console.log(values['value_domain']);
+                    node['DD_Value_Domain'][0] = values['value_domain'];
+                };
+            
                 for (const d in values) {
                     el[d] = [values[d]];
                 };

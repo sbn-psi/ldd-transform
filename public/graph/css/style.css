@@ -84,6 +84,12 @@ button, i, [type="submit"]{
 .value {
     margin: 0.25em 0 1em 0.25em;
 }
+label[for="value"] {
+    margin-top: 0.5em;
+}
+label[for="value_meaning"] {
+    margin-bottom: 0.5em;
+}
 #create-node-modal {
     text-align: center;
 }
