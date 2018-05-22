@@ -3,16 +3,16 @@ $(document).ready( function() {
     
     // set the form action depending on which button is clicked
     $("#html-button").click(function () {
-        $(this).closest("form").attr("action", "/file/to/html");
+        $(this).closest("form").attr("action", "file/to/html");
     });
     $("#json-button").click(function () {
-        $(this).closest("form").attr("action", "/file/to/json");
+        $(this).closest("form").attr("action", "file/to/json");
     });
     $("#graph-button").click(function () {
-        $(this).closest("form").attr("action", "/file/to/graph");
+        $(this).closest("form").attr("action", "file/to/graph");
     });
     $("#doc-button").click(function () {
-        $(this).closest("form").attr("action", "/file/to/doc");
+        $(this).closest("form").attr("action", "file/to/doc");
     });
     $("#vis-button").click(function(e) {
         // prevent default form action
