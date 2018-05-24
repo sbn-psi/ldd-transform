@@ -1,12 +1,6 @@
 function Data(json) {
     let _col;
     
-    this.originalJsonString = json;
-    
-    this.original = function() {
-        return JSON.parse(this.originalJsonString);
-    };
-    
     this.model = JSON.parse(json);
     
     this.pureModel = function() {
@@ -210,6 +204,8 @@ function Data(json) {
         });
 
         if (nextCol.length) this.sortCols(nextCol);
+        
+        this.imVersion().set();
         
         localStorage.setItem('ld3',JSON.stringify(this.model));
     };
@@ -444,9 +440,37 @@ function Data(json) {
         updateToolbar();
     };
     
+    this.imVersion = function(ver) {
+        var that = this;
+        return {
+            get: function() {
+                return that.pds4IMVersion;
+            },
+            
+            set: function(ver) {
+                var model = that.model['Ingest_LDD']['$'];
+                if (ver) {
+                    var current = that.pds4IMVersion;
+                    for (var key in model) {
+                        model[key] = model[key].replace(current,ver);
+                    }
+                    that.pds4IMVersion = ver;
+                } else {
+                    that.model['Ingest_LDD']['$'];
+                    that.pds4IMVersion = ver;
+                    for (var key in model) {
+                        let v = model[key].match(/[a-zA-Z0-9]{4}(?=\.xsd)/g);
+                        if (v) that.pds4IMVersion = v[0];
+                    }
+                }
+            }
+        }
+    }
+    
     this.modifyLddDetails = function(deets) {
         for (const d in deets) {
-            this.model['Ingest_LDD'][d] = [deets[d]];
+            if (d == 'pds4_im_version') this.imVersion().set(deets[d]);
+            else this.model['Ingest_LDD'][d] = [deets[d]];
         };
     };
     
@@ -457,8 +481,6 @@ function Data(json) {
         this.model['Ingest_LDD'][type] = this.model['Ingest_LDD'][type].map(el => {
             if (el.lid == lid) {
                 if (type == 'DD_Attribute') {
-                    console.log(node['DD_Value_Domain'][0]);
-                    console.log(values['value_domain']);
                     node['DD_Value_Domain'][0] = values['value_domain'];
                 };
             

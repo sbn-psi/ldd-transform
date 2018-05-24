@@ -556,6 +556,7 @@ function updateToolbar(flag) {
                 $('#steward_id-toolbar').text(data.model['Ingest_LDD']['steward_id'][0]);
                 $('#namespace_id-toolbar').text(data.model['Ingest_LDD']['namespace_id'][0]);
                 $('#comment-toolbar').text(data.model['Ingest_LDD']['comment'][0]);
+                $('#pds4_im_version-toolbar').text(data.pds4IMVersion);
                 
                 cb();
             });

@@ -190,6 +190,7 @@ function editLddModal() {
         $('#steward_id').val(data.model['Ingest_LDD']['steward_id'][0]);
         $('#namespace_id').val(data.model['Ingest_LDD']['namespace_id'][0]);
         $('#comment').val(data.model['Ingest_LDD']['comment'][0]);
+        $('#pds4_im_version').val(data.pds4IMVersion);
 
 
         addListeners();
