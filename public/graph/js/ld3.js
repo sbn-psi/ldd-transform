@@ -182,9 +182,6 @@ function update() {
         })
         .style('font-size', function(d) {
             let maths = Math.min(2 * ry, (2 * ry) / this.getComputedTextLength() * 40);
-            console.log(this);
-            // console.log(this.getComputedTextLength());
-            console.log(maths);
             return `${maths}px`;
         })
         .attr('dx', '-75px')
