@@ -99,80 +99,78 @@ function editNodeModal() {
                 
                 var enumerationFlag = activeNode['DD_Value_Domain'][0]['enumeration_flag'][0];
                 $(`#enumeration_flag-${enumerationFlag}`).prop('checked',true);
-                
-                loadEditForm(dataType);
+                console.log(dataType);
+                toggleForm(dataType,'editnodeform');
                 
                 // add listeners
                 $('select').on('click', function() {
                     dataType = $('.value_data_type').val();
-                    loadEditForm(dataType);
+                    toggleForm(dataType,'editnodeform');
                 });
                 
-                function loadEditForm(dataType) {
-                    $('label[for="minimum_value"]').remove();
-                    $('label[for="maximum_value"]').remove();
-                    $(`label[for="minimum_characters"]`).remove();
-                    $('label[for="maximum_characters"]').remove();
-                    
-                    
-                    switch (dataType) {
-                        case 'ASCII_Integer':
-                            $.get('./partials/node.edit.integer.html', function(html) {
-                                
-                                $('#editnodeform').append(html);
-                                
-                                if (activeNode['DD_Value_Domain'][0]['minimum_value']) { // fill min value 
-                                    // console.log('min',);
-                                    $('#minimum_value').val(activeNode['DD_Value_Domain'][0]['minimum_value'][0]);
-                                }
-                                
-                                if (activeNode['DD_Value_Domain'][0]['maximum_value']) { // fill min value 
-                                    // console.log('max',);
-                                    $('#maximum_value').val(activeNode['DD_Value_Domain'][0]['maximum_value'][0]);
-                                }
-                                
-                            });
-                            break;
-                        case 'ASCII_Short_String_Collapsed':
-                            var ef = $('input[name="enumeration_flag"]:checked').val() != 'false';
-                            
-                            if (ef) {
-                                $.get('./partials/node.edit.string.2.html', function(template) {
-                                    $.get('./partials/node.edit.string.1.html', function(string1) {
-                                        $('#editnodeform').append(string1);
-                                        
-                                        activeNode['DD_Value_Domain'][0]['DD_Permissible_Value'].map((v,idx) => {
-                                            let html = template;
-                                            html = html.replace(`id="value"`,`id="value-${idx}"`);
-                                            html = html.replace(`id="value_meaning"`,`id="value_meaning-${idx}"`);
-                                            $("#editnodeform").append(html);
-                                            $(`#value-${idx}`).val(v['value'][0]);
-                                            $(`#value_meaning-${idx}`).val(v['value_meaning'][0]);
-                                        });
-                                    })
-                                    
-                                    // TODO append add new value button
-                                })
-                            } else {
-                                $.get('./partials/node.edit.string.1.html', function(html) {
-                                    $('#editnodeform').append(html);
-                                });
-                            }
-                            
-                            break;
-                        default:
-                            console.error('unexpected data type');
-                    }
-                };
+                
                 
             };
-            
             addListeners();
-
         });
-
     }
+};
 
+function toggleForm(dataType,formName) {
+    $('label[for="minimum_value"]').remove();
+    $('label[for="maximum_value"]').remove();
+    $(`label[for="minimum_characters"]`).remove();
+    $('label[for="maximum_characters"]').remove();
+    
+    
+    switch (dataType) {
+        case 'ASCII_Integer':
+            $.get('./partials/node.edit.integer.html', function(html) {
+                
+                $(`#${formName}`).append(html);
+                
+                if (activeNode['DD_Value_Domain'][0]['minimum_value']) { // fill min value 
+                    // console.log('min',);
+                    $('#minimum_value').val(activeNode['DD_Value_Domain'][0]['minimum_value'][0]);
+                }
+                
+                if (activeNode['DD_Value_Domain'][0]['maximum_value']) { // fill min value 
+                    // console.log('max',);
+                    $('#maximum_value').val(activeNode['DD_Value_Domain'][0]['maximum_value'][0]);
+                }
+                
+            });
+            break;
+        case 'ASCII_Short_String_Collapsed':
+            var ef = $('input[name="enumeration_flag"]:checked').val() != 'false';
+            
+            if (ef) {
+                $.get('./partials/node.edit.string.2.html', function(template) {
+                    $.get('./partials/node.edit.string.1.html', function(string1) {
+                        $(`#${formName}`).append(string1);
+                        
+                        activeNode['DD_Value_Domain'][0]['DD_Permissible_Value'].map((v,idx) => {
+                            let html = template;
+                            html = html.replace(`id="value"`,`id="value-${idx}"`);
+                            html = html.replace(`id="value_meaning"`,`id="value_meaning-${idx}"`);
+                            $(`#${formName}`).append(html);
+                            $(`#value-${idx}`).val(v['value'][0]);
+                            $(`#value_meaning-${idx}`).val(v['value_meaning'][0]);
+                        });
+                    })
+                    
+                    // TODO append add new value button
+                })
+            } else {
+                $.get('./partials/node.edit.string.1.html', function(html) {
+                    $(`#${formName}`).append(html);
+                });
+            }
+            
+            break;
+        default:
+            throw new Error('unexpected data type');
+    }
 };
 
 function enableInput(id) {
@@ -236,22 +234,43 @@ function next() {
         $('#submitter_name').val(data.model['Ingest_LDD']['full_name'][0]);
 
         addListeners();
+        // add listeners
+        $('select').on('click', function() {
+            dataType = $('.value_data_type').val();
+            toggleForm(dataType,'create-new-node');
+        });
     }
 };
 
 function saveNode() {
-    name = document.getElementById('name').value;
-    v_id = document.getElementById('version_id').value;
-    s_n = document.getElementById('submitter_name').value;
-    def = document.getElementById('definition').value;
-    if (r_t == 'attribute_of') n_f = $('input[name=nillable_flag]:checked').val();
-
-    newNode.name = name;
-    newNode.version_id = v_id;
-    newNode.submitter_name = s_n;
-    newNode.definition = def;
-    newNode.nillable_flag = n_f;
-
+    newNode.name = document.getElementById('name').value;
+    newNode.version_id = document.getElementById('version_id').value;
+    newNode.submitter_name = document.getElementById('submitter_name').value;
+    newNode.definition = document.getElementById('definition').value;
+    if (r_t == 'attribute_of') {
+        let dt = $('#value_data_type').val();
+        
+        newNode.nillable_flag = $('input[name=nillable_flag]:checked').val();
+        newNode.value_domain = {
+            enumeration_flag: [$('input[name=enumeration_flag]:checked').val()],
+            value_data_type: [dt],
+            unit_of_measure_type: [$('#unit_of_measure_type').val()]
+        }
+        
+        if (dt == 'ASCII_Integer') {
+            let min = $('#minimum_value').val();
+            let max = $('#maximum_value').val();
+            if (min || min === 0) newNode.value_domain.minimum_value = [min];
+            if (max) newNode.value_domain.minimum_value = [max];
+        }
+        else if (dt == 'ASCII_Short_String_Collapsed') {
+            let min = $('#minimum_characters').val();
+            let max = $('#maximum_characters').val();
+            if (min || min === 0) newNode.value_domain.minimum_characters = [min];
+            if (max || max === 0) newNode.value_domain.maximum_characters = [max];
+        }
+    }
+    
     // metadata has been collected from user:
     // update model and d3
     data.addNode(newNode);

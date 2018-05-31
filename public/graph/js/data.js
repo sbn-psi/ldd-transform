@@ -334,7 +334,7 @@ function Data(json) {
             nodeGlobal['children'] = [];
         } else if (type == 'attribute') {
             nodeGlobal['nillable_flag'] = [node.nillable_flag],
-            nodeGlobal['DD_Value_Domain'] = [];
+            nodeGlobal['DD_Value_Domain'] = [node.value_domain];
         }
 
         this.model['Ingest_LDD'][modelArray].push(nodeGlobal);
