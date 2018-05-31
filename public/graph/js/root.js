@@ -3,7 +3,7 @@ var _root = {
         "$": {
             "xmlns": "http://pds.nasa.gov/pds4/pds/v1",
             "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "xsi:schemaLocation": "http://pds.nasa.gov/pds4/pds/v1 \n        http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1100.xsd "
+            "xsi:schemaLocation": "http://pds.nasa.gov/pds4/pds/v1 \n        http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd "
         },
         "name": ["New Ingest_LDD"],
         "ldd_version_id": ["1.0.0.0"],
@@ -29,7 +29,7 @@ var _testRoot = {
         "$": {
             "xmlns": "http://pds.nasa.gov/pds4/pds/v1",
             "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "xsi:schemaLocation": "http://pds.nasa.gov/pds4/pds/v1 \n        http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1100.xsd "
+            "xsi:schemaLocation": "http://pds.nasa.gov/pds4/pds/v1 \n        http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd "
         },
         "name": ["Test Name"],
         "ldd_version_id": ["1.0.0.0"],
@@ -55,7 +55,7 @@ var _devRoot = {
         "$": {
             "xmlns": "http://pds.nasa.gov/pds4/pds/v1",
             "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-            "xsi:schemaLocation": "http://pds.nasa.gov/pds4/pds/v1 \n        http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1100.xsd "
+            "xsi:schemaLocation": "http://pds.nasa.gov/pds4/pds/v1 \n        http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd "
         },
         "name": ["Test Name"],
         "ldd_version_id": ["1.0.0.0"],
