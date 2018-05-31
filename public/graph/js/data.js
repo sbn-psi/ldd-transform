@@ -472,6 +472,10 @@ function Data(json) {
             if (d == 'pds4_im_version') this.imVersion().set(deets[d]);
             else this.model['Ingest_LDD'][d] = [deets[d]];
         };
+        
+        this.defineNodesAndLinks();
+        
+        update();
     };
     
     this.modifyNode = function(lid,values) {
@@ -495,7 +499,6 @@ function Data(json) {
         this.defineNodesAndLinks();
         
         update();
-        
     };
     
     this.defineNodesAndLinks();
