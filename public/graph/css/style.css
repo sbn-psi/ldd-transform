@@ -85,6 +85,7 @@ button, i, [type="submit"]{
 }
 .value {
     margin: 0.25em 0 1em 0.25em;
+    color: #505050;
 }
 label[for="value"] {
     margin-top: 0.5em;
@@ -128,11 +129,12 @@ label[for="value_meaning"] {
     cursor: pointer;
 }
 .active-child {
+    margin: 0.5em 0;
+    padding: 2em 0.5em 0.5em 0.5em;
     width: 80%;
     position: relative;
     border: 1px solid black;
-    margin: 0.5em 0;
-    padding: 0.5em;
+    overflow: scroll;
 }
 .active-child-buttons {
     position: absolute;
