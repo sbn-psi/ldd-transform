@@ -136,6 +136,9 @@ label[for="value_meaning"] {
     border: 1px solid black;
     overflow: scroll;
 }
+.active-child .title {
+    color: #6464a9;
+}
 .active-child-buttons {
     position: absolute;
     right: 0.5em;
