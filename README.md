@@ -59,9 +59,9 @@ The global LDD definitions can be modified by clicking the "Edit LDD" button in 
 
 Select a node.
 
-The toolbar will display the node definition beneath its local identifier.
+The toolbar will display the node definition beneath its identifier reference.
 
-Click the "Edit Node" button to the left of the local identifier (pencil icon).
+Click the "Edit Node" button to the left of the identifier reference (pencil icon).
 
 #### Removing links
 
