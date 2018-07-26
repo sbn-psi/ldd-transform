@@ -106,10 +106,21 @@ button, a, i, [type="submit"]{
     background: white;
     overflow: scroll;
 }
+#toolbar-content {
+    margin-top: 3em;
+}
 #tools {
     margin-bottom: 2em;
+    padding: 1em 1em;
+    border-bottom: 1px solid black;
+    box-shadow: 0 1px 5px 1px lightgrey;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: calc(399px - 3em);
     display: flex;
     flex-flow: row nowrap;
+    background: white;
     justify-content: space-between;
 }
 .key {
