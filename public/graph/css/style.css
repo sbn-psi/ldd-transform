@@ -15,6 +15,32 @@ svg {
 button, i, [type="submit"]{
     cursor: pointer;
 }
+.button {
+    height: 2em;
+    width: 5em;
+    border: none;
+    border-radius: 0.5em;
+    background: darkblue;
+    color: white;
+    font-family: inherit;
+    font-size: 1em;
+    box-shadow: 1px 2px 5px 0 grey;
+}
+.button:active {
+    box-shadow: none;
+}
+.button.positive {
+    background: forestgreen;
+    color: white;
+}
+.button.negative {
+    background: red;
+    color: white;
+}
+.button.disabled {
+    background: lightgrey;
+    color: grey;
+}
 .link {
     fill: none;
 }
