@@ -291,10 +291,13 @@ function initGrid() {
         .on('dblclick.zoom', null);
 
     function zoomed() {
+        sim.selectAll('.tick text').remove();
         gX.call(xAxis.scale(d3.event.transform.rescaleX(x)));
         gY.call(yAxis.scale(d3.event.transform.rescaleY(y)));
         svg.attr('transform', d3.event.transform);
     };
+    
+    sim.selectAll('.tick text').remove();
 };
 
 var g1,
