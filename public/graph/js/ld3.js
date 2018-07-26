@@ -48,9 +48,9 @@ var id,
 
 initGrid();
 
-getJson();
+loadFile();
 
-function getJson() {
+function loadFile() {
     if (window.localStorage.getItem('ld3')) {
         main(window.localStorage.getItem('ld3'));
     } else {
@@ -709,7 +709,7 @@ function addListeners() {
         
         function startOver() {
             localStorage.removeItem('ld3');
-            getJson();
+            loadFile();
         };
     });
     
