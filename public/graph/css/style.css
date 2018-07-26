@@ -12,7 +12,11 @@ svg {
     margin: 0;
     padding: 0;
 }
-button, i, [type="submit"]{
+a {
+    color: blue;
+    text-decoration: underline;
+}
+button, a, i, [type="submit"]{
     cursor: pointer;
 }
 .button {

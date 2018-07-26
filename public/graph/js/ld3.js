@@ -720,6 +720,22 @@ function addListeners() {
         closeModal();
     });
     
+    $('#show-and-hide').hide();
+    $('#toggle-ldd').unbind().on('click', function() {
+        const current = $(this).text();
+        
+        // show or hide
+        if (current == 'Show') {
+            $("#show-and-hide").fadeIn();
+            $(this).text('Hide');
+        } else if (current == 'Hide') {
+            $('#show-and-hide').fadeOut();
+            $(this).text('Show');
+        } else {
+            throw new Error('unexpected text');
+        }
+    });
+    
     $('#edit-ldd-save').unbind().on('click', function() {
         var values = {};
         
