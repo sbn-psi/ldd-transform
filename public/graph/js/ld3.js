@@ -18,8 +18,8 @@ var id,
     linkStrokeWidth = '1px',
     linkMode = false,
     // Nodes
-    rx = 100, // x radius of ellipse
-    ry = 30, // y radius of ellipse
+    rx = 70, // x radius of ellipse
+    ry = 20, // y radius of ellipse
     verticalOffset = 50,
     verticalPadding = 5,
     verticalSpacing = ry * 2 + verticalPadding,
@@ -27,16 +27,16 @@ var id,
     classNodeFill = 'lightblue',
     attributeNodeFill = 'white',
     nodeStroke = 'black',
-    nodeStrokeWidth = '2px',
+    nodeStrokeWidth = '1px',
     nodeHighlightStroke = 'orange',
-    nodeHighlightStrokeWidth = '5px',
+    nodeHighlightStrokeWidth = '3px',
     activeNodes = [],
     nodeGen = [],
     nodes = null,
     links = null,
     rootNodes = [],
-    optional = 0.25,
-    required = 1,
+    optional = 0.25,    // link opacity
+    required = 1,       // link opacity
     lidType = null,
     zoomScale = [0.1, 10],
     tree = d3.tree()
@@ -45,6 +45,9 @@ var id,
         [-20 * width, -10 * height],
         [10 * width, 40 * height]
     ]; // [[-x,y],[x,-y]]
+
+const colWidth = 225;
+const xOffset = 100;
 
 initGrid();
 
@@ -109,8 +112,6 @@ function update() {
             }
             
             // configure horiontal (x) position
-            let colWidth = 500;
-            let xOffset = 300;
 
             if (d.rootNode) d.x = colWidth - xOffset;
             else d.x = d.col * colWidth - xOffset;
@@ -184,8 +185,8 @@ function update() {
             let maths = Math.min(2 * ry, (2 * ry) / this.getComputedTextLength() * 40);
             return `${maths}px`;
         })
-        .attr('dx', '-75px')
-        .attr('dy', '.25em')
+        .attr('dx', () => rx * -.8)
+        .attr('dy', () => ry / 4)
         .style('opacity',1e-6)
         .transition(tIn)
         .delay(750)
@@ -193,8 +194,6 @@ function update() {
     nodeEnter
         .attr('transform', function(d, idx) {
             // configure horiontal (x) position
-            let colWidth = 500;
-            let xOffset = 300;
 
             if (d.rootNode) d.x = colWidth - xOffset;
             else d.x = d.col * colWidth - xOffset;
