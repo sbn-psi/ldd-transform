@@ -8,7 +8,7 @@ svg {
     position: absolute;
     background: #f6f6f6;
     top: 0;
-    left: 0;
+    right: 0;
     margin: 0;
     padding: 0;
 }
@@ -78,6 +78,7 @@ button, i, [type="submit"]{
     padding: 0.1em;
     position: absolute;
     top: 0.5em;
+    background: red;
     right: 0.5em;
     cursor: pointer;
 }
@@ -92,11 +93,12 @@ button, i, [type="submit"]{
 #toolbar {
     padding: 1em;
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
+    z-index: 999;
     height: calc(100vh - 2em);
     width: calc(399px - 2em);
-    border-left: 1px solid black;
+    border-right: 1px solid black;
     background: white;
     overflow: scroll;
 }
