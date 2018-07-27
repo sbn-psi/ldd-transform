@@ -99,7 +99,6 @@ function editNodeModal() {
                 
                 var enumerationFlag = activeNode['DD_Value_Domain'][0]['enumeration_flag'][0];
                 $(`#enumeration_flag-${enumerationFlag}`).prop('checked',true);
-                console.log(dataType);
                 toggleForm(dataType,'editnodeform');
                 
                 // add listeners
@@ -195,59 +194,143 @@ function editLddModal() {
     });
 };
 
-function createNodeModal() {
-    $('#ld3-modal').empty();
-
-    $('#ld3-modal').load('./partials/create.1.html', addListeners);
+let forms = {
+    list: {
+        'create_new_node': true,
+        'show_component_of': false,
+        'show_attribute_of': false,
+    },
+    
+    config: function() {
+        for (const form in this.list) {
+            const $form = $(`#${form}`);
+            if (this.list[form]) $form.show();
+            else $form.hide();
+        };
+    },
+    
+    hideAll: function() {
+        for (const form in this.list) {
+            this.hide(form);
+        };
+    },
+    
+    show: function(formName) {
+        this.hideAll();
+        $(`#${formName}`).show();
+        this['list'][formName] = true;
+    },
+    hide: function(formName) {
+        $(`#${formName}`).hide();
+        this['list'][formName] = false;
+    }
 };
 
-var i_r;
-var r_t;
-var min;
-var max;
+function createNodeModal() {
+    $('#ld3-modal').empty().load('./partials/create-new-node.html', function() {
+        forms.config();
+        addListeners();
+    });
+};
+
+var identifier_reference;
+var reference_type;
+var minimum_occurrences;
+var maximum_occurrences;
 var name;
 var v_id;
 var s_n;
 var def;
 var n_f;
+let keywords = [
+    'identifier_reference',
+    'reference_type',
+    'minimum_occurrences',
+    'maximum_occurrences',
+    'name',
+    'version_id',
+    'submitter_name',
+    'definition',
+    'nillable_flag',
+    'enumeration_flag',
+    'data_type',
+    'unit_of_measure_type'
+];
+
+function clearErrors() {
+    keywords.map(keyword => {
+        $(`[for=${keyword}]`).removeClass('error');
+    });
+};
+
+function showErrors(errors) {
+    clearErrors();
+    const keys = Object.keys(validationErrors);
+    
+    keys.map(key => {
+        $(`[for=${key}]`).addClass('error');
+    });
+    
+    return false;
+};
+
+function validateForm(keywords) {
+    const missingValue = 'Value is required.';
+    validationErrors = {};
+    
+    keywords.map(keyword => {
+        const value = $(`#${keyword}`).val();
+        if (!value) validationErrors[keyword] = missingValue;
+    });
+    
+    
+    if (Object.keys(validationErrors).length > 0) return showErrors(Object.keys(validationErrors));
+    else return true;
+};
 
 function next() {
-    // TODO form validation
-
-    i_r = document.getElementById('identifier_reference').value;
-    r_t = document.getElementById('reference_type').value;
-    min = document.getElementById('minimum_occurrences').value;
-    max = document.getElementById('maximum_occurrences').value;
-
-    newNode.identifier_reference = i_r;
-    newNode.lid = i_r;
-    newNode.reference_type = r_t;
-    newNode.minimum_occurrences = min;
-    newNode.maximum_occurrences = max;
-
-    $('#ld3-modal').empty();
-
-    if (r_t == 'component_of') $('#ld3-modal').load('./partials/create.2.class.html', placeholder);
-    else if (r_t == 'attribute_of') $('#ld3-modal').load('./partials/create.2.attribute.html', placeholder);
-
-    function placeholder() {
-        $('#submitter_name').val(data.model['Ingest_LDD']['full_name'][0]);
-
-        addListeners();
-        // add listeners
-        $('select').on('click', function() {
-            dataType = $('.value_data_type').val();
-            toggleForm(dataType,'create-new-node');
-        });
-    }
+    event.preventDefault();
+    console.log('next');
+    // validates first page of new node form
+    let validationErrors = {};
+    
+    identifier_reference = document.getElementById('identifier_reference').value;
+    reference_type = document.getElementById('reference_type').value;
+    minimum_occurrences = document.getElementById('minimum_occurrences').value;
+    maximum_occurrences = document.getElementById('maximum_occurrences').value;
+    
+    // validate
+    const valid = validateForm(['identifier_reference','reference_type','minimum_occurrences','maximum_occurrences']);
+    if (!valid) return false;
+    
+    newNode.identifier_reference = identifier_reference;
+    newNode.lid = identifier_reference;
+    newNode.reference_type = reference_type;
+    newNode.minimum_occurrences = minimum_occurrences;
+    newNode.maximum_occurrences = minimum_occurrences;
+    
+    if (reference_type == 'component_of') forms.show('show_component_of');
+    else if (reference_type == 'attribute_of') forms.show('show_attribute_of');
+    
+    addListeners();
 };
 
 function saveNode() {
+    event.preventDefault();
+    // validates second page of new node form
     newNode.name = document.getElementById('name').value;
     newNode.version_id = document.getElementById('version_id').value;
     newNode.submitter_name = document.getElementById('submitter_name').value;
     newNode.definition = document.getElementById('definition').value;
-    if (r_t == 'attribute_of') {
+    let validationErrors = {};
+    const missingValue = 'Value is required.';
+    
+    // form validation
+    let valid_one = validateForm(['name','version_id','submitter_name','definition']);
+    
+    // could be one of two different forms
+    // must check and, if necessary, validate both
+    if (reference_type == 'attribute_of') {
         let dt = $('#value_data_type').val();
         
         newNode.nillable_flag = $('input[name=nillable_flag]:checked').val();
@@ -269,7 +352,10 @@ function saveNode() {
             if (min || min === 0) newNode.value_domain.minimum_characters = [min];
             if (max || max === 0) newNode.value_domain.maximum_characters = [max];
         }
+        
+        let valid_two = validateForm(['nillable_flag','enumeration_flag','value_data_type','unit_of_measure_type']);
     }
+    if (!valid_one) return showErrors();
     
     // metadata has been collected from user:
     // update model and d3
@@ -280,8 +366,6 @@ function saveNode() {
     // close modal
     closeModal();
 };
-
-
 
 function closeModal() {
     Custombox.modal.close();
