@@ -129,6 +129,7 @@ button, a, i, [type="submit"]{
     padding: 1em 1em;
     border: 1px solid black;
     box-shadow: 1px 2px 5px 1px lightgrey;
+    background: #f6f6f6;
     left: 0;
     top: 0;
     display: flex;
