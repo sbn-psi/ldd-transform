@@ -24,7 +24,7 @@ var id,
     verticalPadding = 5,
     verticalSpacing = ry * 2 + verticalPadding,
     rootNodeFill = 'lightgreen',
-    classNodeFill = 'lightblue',
+    classNodeFill = '#ADD8E6',
     attributeNodeFill = 'white',
     nodeStroke = 'black',
     nodeStrokeWidth = '1px',
@@ -736,6 +736,19 @@ function addListeners() {
             $(this).text('Show');
         } else {
             throw new Error('unexpected text');
+        }
+    });
+    
+    $('#legend-toggle').unbind().on('click', function() {
+        const current = $(this).text();
+        if (current == 'Hide') {
+            $('#legend').fadeOut();
+            $(this).text('Show');
+        } else if (current == 'Show') {
+            $('#legend').fadeIn();
+            $(this).text('Hide');
+        } else {
+            throw new Error('unexpected text input');
         }
     });
     

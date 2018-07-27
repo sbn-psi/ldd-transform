@@ -99,7 +99,7 @@ button, a, i, [type="submit"]{
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 999;
+    z-index: 997;
     height: calc(100vh - 2em);
     width: calc(399px - 2em);
     border-right: 1px solid black;
@@ -110,6 +110,7 @@ button, a, i, [type="submit"]{
     margin-top: 3em;
 }
 #tools {
+    z-index: 998;
     margin-bottom: 2em;
     padding: 1em 1em;
     border-bottom: 1px solid black;
@@ -122,6 +123,27 @@ button, a, i, [type="submit"]{
     flex-flow: row nowrap;
     background: white;
     justify-content: space-between;
+}
+#legend-container {
+    padding: 0.5em;
+    position: fixed;
+    display: flex;
+    flex-flow: column;
+    width: 200px;
+    right: 2em;
+    top: 2em;
+    z-index: 999;
+    background: white;
+    color: black;
+    border: 1px solid black;
+}
+#legend-toggle {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+}
+#legend {
+    height: 200px;
 }
 .key {
     margin-top: 0.25em;
