@@ -4,7 +4,40 @@
     
     <h2>Create New Node</h2>
     
-    <form id="create-new-node" name="create-new-node">
+    <form id="create_new_node" class="form">
+
+        <label for="identifier_reference">identifier_reference<input type="text" name="identifier_reference" id="identifier_reference" autofocus></label>
+
+        <label for="reference_type">reference_type<select name="reference_type" id="reference_type"><option value="component_of">component_of</option><option value="attribute_of">attribute_of</option></select></label>
+
+        <label for="minimum_occurrences">minimum_occurrences<input type="text" name="minimum_occurrences" id="minimum_occurrences"></label>
+
+        <label for="maximum_occurrences">maximum_occurrences<input type="text" name="maximum_occurrences" id="maximum_occurrences"></label>
+
+        <div class="submit-row">
+            <button class="button" id="cancel">Cancel</button>
+            <button class="button" id="next">Next</button>
+        </div>
+    </form>
+    
+    
+    <!-- OR -->
+    
+    <form id="show_component_of" class="form">
+        
+        <label for="name">name<input type="text" name="name" id="name" autofocus></label>
+        <label for="version_id">version_id<input type="text" name="version_id" id="version_id"></label>
+        <label for="submitter_name">submitter_name<input type="text" name="submitter_name" id="submitter_name"></label>
+        <label for="definition">definition<input type="text" name="definition" id="definition"></label>
+        
+        <div class="submit-row">
+            <button class="button" id="cancel">Cancel</button>
+            <button class="button" id="save">Save</button>
+        </div>
+        
+    </form>
+    
+    <form id="show_attribute_of" class="form">
         
         <label for="name">name<input type="text" name="name" id="name" autofocus></label>
         
@@ -46,10 +79,12 @@
                 <option class="unit_of_measure_type_option" value="Units_of_None" selected>Units_of_None</option>
             </select>
         </label>
-
+        
+        <div class="submit-row">
+            <button class="button" id="cancel">Cancel</button>
+            <button class="button" id="save">Save</button>
+        </div>
+        
     </form>
-
     
-    <button class="button" id="cancel">Cancel</button>
-    <button class="button" id="save">Save</button>
 </div>
