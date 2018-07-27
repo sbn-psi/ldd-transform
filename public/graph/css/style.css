@@ -105,6 +105,7 @@ button, a, i, [type="submit"]{
     border-right: 1px solid black;
     background: white;
     overflow: scroll;
+    box-shadow: 1px 2px 5px 1px lightgrey;
 }
 #toolbar-content {
     margin-top: 3em;
@@ -114,7 +115,7 @@ button, a, i, [type="submit"]{
     margin-bottom: 2em;
     padding: 1em 1em;
     border-bottom: 1px solid black;
-    box-shadow: 0 1px 5px 1px lightgrey;
+    box-shadow: 1px 2px 5px 1px lightgrey;
     position: fixed;
     left: 0;
     top: 0;
@@ -136,6 +137,7 @@ button, a, i, [type="submit"]{
     background: white;
     color: black;
     border: 1px solid black;
+    box-shadow: 1px 2px 5px 1px lightgrey;
 }
 #legend-toggle {
     position: absolute;
