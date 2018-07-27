@@ -45,6 +45,12 @@ button, a, i, [type="submit"]{
     background: lightgrey;
     color: grey;
 }
+.error {
+    color: red;
+}
+.error-highlight {
+    border: 1px solid red;
+}
 .link {
     fill: none;
 }
