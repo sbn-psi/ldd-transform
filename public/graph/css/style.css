@@ -122,18 +122,15 @@ button, a, i, [type="submit"]{
     box-shadow: 1px 2px 5px 1px lightgrey;
 }
 #toolbar-content {
-    margin-top: 3em;
 }
 #tools {
     z-index: 998;
     margin-bottom: 2em;
     padding: 1em 1em;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
     box-shadow: 1px 2px 5px 1px lightgrey;
-    position: fixed;
     left: 0;
     top: 0;
-    width: calc(399px - 3em);
     display: flex;
     flex-flow: row nowrap;
     background: white;
@@ -154,12 +151,12 @@ button, a, i, [type="submit"]{
     box-shadow: 1px 2px 5px 1px lightgrey;
 }
 #legend-toggle {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
+    float: right;
 }
 #legend {
     height: 200px;
+    border: 1px solid black;
+    box-shadow: 1px 2px 5px 1px lightgrey;
 }
 .key {
     margin-top: 0.25em;
