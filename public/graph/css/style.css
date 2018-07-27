@@ -82,7 +82,6 @@ button, a, i, [type="submit"]{
     padding: 0.1em;
     position: absolute;
     top: 0.5em;
-    background: red;
     right: 0.5em;
     cursor: pointer;
 }
