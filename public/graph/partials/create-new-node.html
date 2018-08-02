@@ -4,81 +4,80 @@
     
     <h2>Create New Node</h2>
     
-    <form id="create_new_node" class="form">
+    <form id="create_new_node" class="form" disabled>
+        
+        <!-- <label for="node_namespace">
+            Namespace
+            <input type="text" name="node_namespace" id="node_namespace">
+        </label> -->
 
+        <label for="name">
+            Name
+            <input type="text" name="name" id="name" autofocus>
+        </label>
+        
+        <label for="version_id">
+            Version ID
+            <input type="text" name="version_id" id="version_id">
+        </label>
+        
         <label for="identifier_reference">identifier_reference<input type="text" name="identifier_reference" id="identifier_reference" autofocus></label>
 
-        <label for="reference_type">reference_type<select name="reference_type" id="reference_type"><option value="component_of">component_of</option><option value="attribute_of">attribute_of</option></select></label>
-
-        <label for="minimum_occurrences">minimum_occurrences<input type="text" name="minimum_occurrences" id="minimum_occurrences"></label>
-
-        <label for="maximum_occurrences">maximum_occurrences<input type="text" name="maximum_occurrences" id="maximum_occurrences"></label>
-
-        <div class="submit-row">
-            <button class="button" id="cancel">Cancel</button>
-            <button class="button" id="next">Next</button>
-        </div>
-    </form>
-    
-    
-    <!-- OR -->
-    
-    <form id="show_component_of" class="form">
-        
-        <label for="name">name<input type="text" name="name" id="name" autofocus></label>
-        <label for="version_id">version_id<input type="text" name="version_id" id="version_id"></label>
-        <label for="submitter_name">submitter_name<input type="text" name="submitter_name" id="submitter_name"></label>
-        <label for="definition">definition<input type="text" name="definition" id="definition"></label>
-        
-        <div class="submit-row">
-            <button class="button" id="cancel">Cancel</button>
-            <button class="button" id="save">Save</button>
-        </div>
-        
-    </form>
-    
-    <form id="show_attribute_of" class="form">
-        
-        <label for="name">name<input type="text" name="name" id="name" autofocus></label>
-        
-        <label for="version_id">version_id<input type="text" name="version_id" id="version_id"></label>
-        
-        <label for="submitter_name">submitter_name<input type="text" name="submitter_name" id="submitter_name"></label>
-        
-        <label for="definition">definition<input type="text" name="definition" id="definition"></label>
-        
-        <label for="nillable_flag">
-            Nillable Flag
+        <label for="reference_type">Reference Type
             <span style="width:50%;text-align:right;">
-                True <input type="radio" name="nillable_flag" value="true" id="nillable_flag_true">
-                False <input type="radio" name="nillable_flag" value="false" id="nillable_flag_false">
+                Class
+                <input type="radio" name="reference_type" id="component_of" value="component_of">
+                Attribute
+                <input type="radio" name="reference_type" id="attribute_of" value="attribute_of">
             </span>
         </label>
-        
-        <label for="enumeration_flag">
-            Enumeration Flag
-            <span>
-                True <input type="radio" name="enumeration_flag" value="true" id="enumeration_flag-true">
-                False <input type="radio" name="enumeration_flag" value="false" id="enumeration_flag-false">
-            </span>
+
+        <label for="minimum_occurrences">
+            Minimum Occurrences
+            <input type="text" name="minimum_occurrences" id="minimum_occurrences">
+        </label>
+
+        <label for="maximum_occurrences">
+            Maximum Occurrences
+            <input type="text" name="maximum_occurrences" id="maximum_occurrences">
         </label>
         
-        <label for="value_data_type">
-            Data Type
-            <select name="value_data_type" class="value_data_type" id="value_data_type">
-                <option></option>
-                <option class="value_data_type_option" value="ASCII_Integer">ASCII_Integer</option>
-                <option class="value_data_type_option" value="ASCII_Short_String_Collapsed">ASCII_Short_String_Collapsed</option>
-            </select>
-        </label>
-        
-        <label for="unit_of_measure_type">
-            Unit Type
-            <select name="unit_of_measure_type" class="unit_of_measure_type" id="unit_of_measure_type">
-                <option></option>
-                <option class="unit_of_measure_type_option" value="Units_of_None" selected>Units_of_None</option>
-            </select>
-        </label>
+        <div id="show_attribute_of">
+            
+            <label for="nillable_flag">
+                Nillable Flag
+                <span style="width:50%;text-align:right;">
+                    True <input type="radio" name="nillable_flag" value="true" id="nillable_flag_true">
+                    False <input type="radio" name="nillable_flag" value="false" id="nillable_flag_false">
+                </span>
+            </label>
+            
+            <label for="enumeration_flag">
+                Enumeration Flag
+                <span>
+                    True <input type="radio" name="enumeration_flag" value="true" id="enumeration_flag-true">
+                    False <input type="radio" name="enumeration_flag" value="false" id="enumeration_flag-false">
+                </span>
+            </label>
+            
+            <label for="value_data_type">
+                Data Type
+                <select name="value_data_type" class="value_data_type" id="value_data_type">
+                    <option></option>
+                    <option class="value_data_type_option" value="ASCII_Integer">ASCII_Integer</option>
+                    <option class="value_data_type_option" value="ASCII_Short_String_Collapsed">ASCII_Short_String_Collapsed</option>
+                </select>
+            </label>
+            
+            <label for="unit_of_measure_type">
+                Unit Type
+                <select name="unit_of_measure_type" class="unit_of_measure_type" id="unit_of_measure_type">
+                    <option></option>
+                    <option class="unit_of_measure_type_option" value="Units_of_None" selected>Units_of_None</option>
+                </select>
+            </label>
+            
+        </div>
         
         <div class="submit-row">
             <button class="button" id="cancel">Cancel</button>
