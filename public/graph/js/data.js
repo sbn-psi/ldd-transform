@@ -393,10 +393,6 @@ function Data(json) {
         return parents;
     };
     
-    this.createNode = function() {
-        newModal('node');
-    };
-    
     this.createLink = function(node) {
         var sourceCol = data.getNode(activeNode.lid).col;
         var targetCol = data.getNode(node.lid).col;
