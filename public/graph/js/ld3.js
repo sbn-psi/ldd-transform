@@ -693,13 +693,129 @@ function newActiveChild(node) {
 };
 
 function addListeners() {
-    $('#cancel').unbind().on('click', closeModal);
+    $('#cancel').unbind().on('click', function() {
+        event.preventDefault();
+        closeModal();
+    });
 
     $('#next').unbind().on('click', next);
 
-    $('#save').unbind().on('click', saveNode);
+    $('#save').unbind().on('click', function saveNode(event) {
+        event.preventDefault();
+
+        const missingValue = 'Value is required.';
+        let formValues = [
+            'namespace',
+            'name',
+            'version_id',
+            'reference_type',
+            'minimum_occurrences',
+            'maximum_occurrences',
+            'submitter_name',
+            'definition'
+        ];
+        let validationErrors = {};
+        let value_domain = [];
+        let newNode = {
+            namespace: $('#namespace').val(),
+            name: $('#name').val(),
+            version_id: $('#version_id').val(),
+            reference_type: $('input[name="reference_type"]:checked').val(),
+            minimum_occurrences: $('#minimum_occurrences').val(),
+            maximum_occurrences: $('#maximum_occurrences').val(),
+            submitter_name: $('#submitter_name').val(),
+            definition: $('#definition').val()
+        };
+        
+        if (newNode.reference_type == 'attribute_of') {
+            const dataType = $('#value_data_type').val();
+            
+            formValues.push('nillable_flag');
+            newNode.nillable_flag = $('input[name=nillable_flag]:checked').val();
+            newNode.value_domain = {
+                enumeration_flag: [$('input[name=enumeration_flag]:checked').val()],
+                value_data_type: [dataType],
+                unit_of_measure_type: [$('#unit_of_measure_type').val()]
+            }
+            formValues.push('value_domain');
+            value_domain = ['enumeration_flag','value_data_type','unit_of_measure_type'];
+            
+            if (dataType == 'ASCII_Integer') {
+                const min = $('#minimum_value').val();
+                const max = $('#maximum_value').val();
+                value_domain.push('minimum_value');
+                if (min || min === 0) newNode.value_domain.minimum_value = [min];
+                value_domain.push('maximum_value');
+                if (max) newNode.value_domain.maximum_value = [max];
+            }
+            else if (dataType == 'ASCII_Short_String_Collapsed') {
+                const min = $('#minimum_characters').val();
+                const max = $('#maximum_characters').val();
+                value_domain.push('minimum_characters');
+                if (min || min === 0) newNode.value_domain.minimum_characters = [min];
+                value_domain.push('maximum_characters');
+                if (max || max === 0) newNode.value_domain.maximum_characters = [max];
+            }
+            
+        };
+        
+        // now, validate
+        const formIsValid = validate(newNode,formValues,value_domain);
+        
+        function validate(node,keywords,value_domain) {
+            const errors = [];
+
+            keywords.map(value => {
+                if (value == 'value_domain') {
+                    value_domain.map(key => {
+                        $(`label[for="${key}"]`).removeClass('error');
+                    });
+                }
+                $(`label[for="${value}"]`).removeClass('error');
+                if (!node[value]) errors.push(value);
+            });
+
+            if (node.reference_type == 'attribute_of') {
+                value_domain.map(value => {
+                    if (!node['value_domain'][value] || !node['value_domain'][value][0]) {
+                        errors.push(value);
+                    }
+                    else if (value == 'value_data_type' && value_domain[value] == 'ASCII_Integer') {
+                        // validate minimum_value
+                        if (!value_domain[value]['minimum_value']) errors.push('minimum_value');
+                        // validate maxnimum_value
+                        if (!value_domain[value]['maximum_value']) errors.push('maximum_value');
+                    } else if (value == 'value_data_type' && value_domain[value] == 'ASCII_Short_String_Collapsed') {
+                        // validate minimum_characters
+                        if (!value_domain[value]['minimum_characters']) errors.push('minimum_characters');
+                        // validate maximum_characters
+                        if (!value_domain[value]['maximum_characters']) errors.push('maximum_characters');
+                    }
+                });
+            };
+
+            errors.map(key => {
+                $(`label[for="${key}"]`).addClass('error');
+            });
+
+            if (errors.length) return false;
+            else return true;
+        };
+        
+        if (formIsValid === true) {
+            // metadata has been collected from user:
+            newNode.identifier_reference = newNode.namespace + '.' + newNode.name;
+            // update model and d3
+            data.addNode(newNode);
+            toggleNodes();
+            // close modal
+            closeModal();
+        };
+    });
     
-    $('#create-node').unbind().on('click', data.createNode);
+    $('#create-node').unbind().on('click', function() {
+        newModal('node');
+    });
     
     $('#create-link').unbind().on('click', data.linkMode);
     

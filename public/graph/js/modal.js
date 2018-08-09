@@ -2,6 +2,8 @@ var modal = null;
 var newNode = {};
 
 function newModal(type) {
+    $('#ld3-modal').empty();
+    
     switch (type) {
         // new node modal
         case 'node':
@@ -47,8 +49,6 @@ function newModal(type) {
 };
 
 function editNodeModal() {
-    $('#ld3-modal').empty();
-    
     // only nodes in LDD namespace can be modified
     if (activeNode.lid.indexOf('.') != -1 && activeNode.lid.split('.')[0] != data.model['Ingest_LDD']['namespace_id']) {
 
@@ -177,8 +177,6 @@ function enableInput(id) {
 };
 
 function editLddModal() {
-    $('#ld3-modal').empty();
-
     $('#ld3-modal').load('./partials/ldd.edit.html', function() {
 
         $('#name').val(data.model['Ingest_LDD']['name'][0]);
@@ -194,42 +192,63 @@ function editLddModal() {
     });
 };
 
-let forms = {
+let newNodeForm = {
     list: {
-        'create_new_node': true,
-        'show_component_of': false,
         'show_attribute_of': false,
+        'show_integer': false,
+        'show_string': false
     },
-    
-    config: function() {
+    init: function() {
         for (const form in this.list) {
             const $form = $(`#${form}`);
             if (this.list[form]) $form.show();
             else $form.hide();
         };
     },
-    
-    hideAll: function() {
-        for (const form in this.list) {
-            this.hide(form);
-        };
-    },
-    
     show: function(formName) {
-        this.hideAll();
-        $(`#${formName}`).show();
+        $(`#${formName}`).fadeIn();
         this['list'][formName] = true;
+        
+        if (formName == 'show_attribute_of') {
+            if ($('#value_data_type').val() == 'ASCII_Integer') this.show('show_integer');
+            else if ($('#value_data_type').val() == 'ASCII_Short_String_Collapsed') this.show('show_string');
+        }
     },
     hide: function(formName) {
-        $(`#${formName}`).hide();
+        $(`#${formName}`).fadeOut();
         this['list'][formName] = false;
     }
 };
 
 function createNodeModal() {
-    $('#ld3-modal').empty().load('./partials/create-new-node.html', function() {
-        forms.config();
+    $('#ld3-modal').load('./partials/create-new-node.html', function() {
+        newNodeForm.init();
+        // fill placeholders
+        const model = {
+            submitter_name: data.model['Ingest_LDD']['full_name'][0],
+            namespace: data.model['Ingest_LDD']['namespace_id'][0]
+        };
+        $("#submitter_name").val(model.submitter_name);
+        $("#namespace").val(model.namespace);
         addListeners();
+        // add listener for reference_type
+        $('[name="reference_type"]').unbind().on('click', function(event) {
+            const type = $(event.target).attr('id');
+            const formName = 'show_attribute_of';
+            
+            if (type == 'attribute_of') newNodeForm.show(formName); 
+            else newNodeForm.hide(formName);
+            
+            if (newNodeForm.list.show_attribute_of) $('#value_data_type').unbind().on('click', function(event) {
+                if ($('#value_data_type').val() == 'ASCII_Integer') {
+                    newNodeForm.hide('show_string');
+                    newNodeForm.show('show_integer');
+                } else {
+                    newNodeForm.hide('show_integer');
+                    newNodeForm.show('show_string');
+                }
+            });
+        });
     });
 };
 
@@ -290,7 +309,6 @@ function validateForm(keywords) {
 
 function next() {
     event.preventDefault();
-    console.log('next');
     // validates first page of new node form
     let validationErrors = {};
     
@@ -313,58 +331,6 @@ function next() {
     else if (reference_type == 'attribute_of') forms.show('show_attribute_of');
     
     addListeners();
-};
-
-function saveNode() {
-    event.preventDefault();
-    // validates second page of new node form
-    newNode.name = document.getElementById('name').value;
-    newNode.version_id = document.getElementById('version_id').value;
-    newNode.submitter_name = document.getElementById('submitter_name').value;
-    newNode.definition = document.getElementById('definition').value;
-    let validationErrors = {};
-    const missingValue = 'Value is required.';
-    
-    // form validation
-    let valid_one = validateForm(['name','version_id','submitter_name','definition']);
-    
-    // could be one of two different forms
-    // must check and, if necessary, validate both
-    if (reference_type == 'attribute_of') {
-        let dt = $('#value_data_type').val();
-        
-        newNode.nillable_flag = $('input[name=nillable_flag]:checked').val();
-        newNode.value_domain = {
-            enumeration_flag: [$('input[name=enumeration_flag]:checked').val()],
-            value_data_type: [dt],
-            unit_of_measure_type: [$('#unit_of_measure_type').val()]
-        }
-        
-        if (dt == 'ASCII_Integer') {
-            let min = $('#minimum_value').val();
-            let max = $('#maximum_value').val();
-            if (min || min === 0) newNode.value_domain.minimum_value = [min];
-            if (max) newNode.value_domain.minimum_value = [max];
-        }
-        else if (dt == 'ASCII_Short_String_Collapsed') {
-            let min = $('#minimum_characters').val();
-            let max = $('#maximum_characters').val();
-            if (min || min === 0) newNode.value_domain.minimum_characters = [min];
-            if (max || max === 0) newNode.value_domain.maximum_characters = [max];
-        }
-        
-        let valid_two = validateForm(['nillable_flag','enumeration_flag','value_data_type','unit_of_measure_type']);
-    }
-    if (!valid_one) return showErrors();
-    
-    // metadata has been collected from user:
-    // update model and d3
-    data.addNode(newNode);
-
-    toggleNodes();
-
-    // close modal
-    closeModal();
 };
 
 function closeModal() {
