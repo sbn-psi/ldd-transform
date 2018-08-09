@@ -2,10 +2,6 @@
 
 CONTAINER_NAME="ldd-transform"
 
-ENV=$1
-
-npm i --only=production
-
 grunt deploy:$1
 
 docker stop $CONTAINER_NAME
