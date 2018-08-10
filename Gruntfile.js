@@ -4,6 +4,7 @@ module.exports = function(grunt) {
         expand: true,
         src: [
             'public/**/*',
+            '!**/legend/*',
             '*',
             '!node_modules',
             '!.git'
@@ -31,6 +32,12 @@ module.exports = function(grunt) {
                         return content;
                     }
                 }
+            },
+            images: {
+                expand: true,
+                flatten: true,
+                src: 'public/graph/legend/legend.png',
+                dest: 'build/public/graph/legend/'
             }
         }
     });
@@ -38,6 +45,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('deploy:dev', ['clean', 'copy:dev']);
-    grunt.registerTask('deploy:production', ['clean', 'copy:production']);
+    grunt.registerTask('deploy:dev', ['clean', 'copy:dev', 'copy:images']);
+    grunt.registerTask('deploy:production', ['clean', 'copy:production', 'copy:images']);
 };
