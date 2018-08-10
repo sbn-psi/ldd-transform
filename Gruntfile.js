@@ -3,14 +3,15 @@ module.exports = function(grunt) {
     var files = [{
         expand: true,
         src: [
-            '**/*',
-            '!build',
-            '!build/**/*',
+            'public/**/*',
+            '*',
             '!node_modules',
-            '!node_modules/**/*',
             '!.git'
         ],
-        dest: 'build/'
+        dest: 'build/',
+        options: {
+            noProcess: '**/*.png'
+        }
     }];
 
     grunt.initConfig({
