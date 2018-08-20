@@ -129,12 +129,10 @@ function toggleForm(dataType,formName) {
                 $(`#${formName}`).append(html);
                 
                 if (activeNode['DD_Value_Domain'][0]['minimum_value']) { // fill min value 
-                    // console.log('min',);
                     $('#minimum_value').val(activeNode['DD_Value_Domain'][0]['minimum_value'][0]);
                 }
                 
                 if (activeNode['DD_Value_Domain'][0]['maximum_value']) { // fill min value 
-                    // console.log('max',);
                     $('#maximum_value').val(activeNode['DD_Value_Domain'][0]['maximum_value'][0]);
                 }
                 
@@ -177,7 +175,6 @@ function enableInput(id) {
 };
 
 function editLddModal() {
-    console.log(2);
     $('#ld3-modal').load('./partials/ldd/edit.ldd.html', function() {
 
         $('#name').val(data.model['Ingest_LDD']['name'][0]);
