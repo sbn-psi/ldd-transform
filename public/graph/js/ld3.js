@@ -57,7 +57,7 @@ function loadFile() {
     if (window.localStorage.getItem('ld3')) {
         main(window.localStorage.getItem('ld3'));
     } else {
-        main(JSON.stringify(_root));
+        main(JSON.stringify(_template));
     }
 };
 
@@ -547,7 +547,7 @@ function updateToolbar(flag) {
     function defaultToolbar(cb) {
         resetToolbar();
         
-        $('#tools').load('./partials/tools.default.html',null,function(toolsHTML) {
+        $('#tools').load('./partials/tools/default.tools.html',null,function(toolsHTML) {
             $("#tools").replaceWith(toolsHTML);
             
             $('#toolbar-content').load('partials/toolbar.default.html', function(toolbarHtml) {
@@ -577,7 +577,7 @@ function updateToolbar(flag) {
             }
         };
         
-        $.get("partials/tools.node.html", function(data) {
+        $.get("partials/tools/node.tools.html", function(data) {
             $("#tools").replaceWith(data);
             
             var node = activeNode;
@@ -632,7 +632,7 @@ function updateToolbar(flag) {
     };
     
     function linkModeToolbar(cb) {
-        $.get("partials/tools.link-mode.html", function(data) {
+        $.get("partials/tools/link-mode.tools.html", function(data) {
             $("#tools").replaceWith(data);
             cb();
         });
