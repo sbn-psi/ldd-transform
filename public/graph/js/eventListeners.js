@@ -167,12 +167,12 @@ function addListeners() {
         const current = $(this).text();
         
         // show or hide
-        if (current == 'Show') {
+        if (/Show/.test(current)) {
             $("#show-and-hide").fadeIn();
-            $(this).text('Hide');
-        } else if (current == 'Hide') {
+            $(this).text('Hide Details');
+        } else if (/Hide/.test(current)) {
             $('#show-and-hide').fadeOut();
-            $(this).text('Show');
+            $(this).text('Show Details');
         } else {
             throw new Error('unexpected text');
         }
