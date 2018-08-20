@@ -58,14 +58,18 @@ function editNodeModal() {
         });
 
     } else {
-
+        function enableAllInputs() {
+            enableInput('identifier_reference-editnode');
+            enableInput('name-editnode');
+        };
+        
         $('#ld3-modal').load('./partials/node.edit.html', function() {
 
             $('#version_id-editnode').val(activeNode.version_id[0]).focus();
             
             $('#identifier_reference-editnode').val(function() {
-                if (activeNode.lid.indexOf('.') == -1 || activeNode.lid == 'Click to Edit') {
-                    enableInput('identifier_reference-editnode');
+                if (/template/i.test(activeNode.lid)) {
+                    enableAllInputs();
                     return activeNode.lid;
                 } else {
                     try {
