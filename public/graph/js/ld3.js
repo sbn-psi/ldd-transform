@@ -582,11 +582,7 @@ function updateToolbar(flag) {
             
             var node = activeNode;
             // update toolbar - node details
-            $('#active-node-details').load('./partials/node.details.html', function() {
-                $('#active-node-title').text(node.lid);
-                
-                $('#active-node-title').prepend('<i class="fas fa-pencil-alt" id="editnode" title="Edit Element"></i>');
-                
+            $('#active-node-details').load('./partials/node/details.node.html', function() {
                 $('#name-node').text(node.name[0]);
                 $('#identifier_reference-node').text(function() {
                     try {
