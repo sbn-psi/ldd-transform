@@ -182,6 +182,9 @@ label[for="value_meaning"] {
 .form label {
     margin: 0.25em 0;
 }
+.form textarea {
+    min-height: 80px;
+}
 .submit-row {
     width: 80%;
     margin: 0 auto;
