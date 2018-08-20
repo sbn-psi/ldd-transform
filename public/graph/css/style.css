@@ -121,7 +121,14 @@ button, a, i, [type="submit"]{
     overflow: scroll;
     box-shadow: 1px 2px 5px 1px lightgrey;
 }
-#toolbar-content {
+#ldd-details-header {
+    position: absolute;
+    right: 1em;
+    text-align: right;
+}
+#ldd-details-header a {
+    display: flex;
+    justify-content: flex-end;
 }
 #tools {
     z-index: 998;
