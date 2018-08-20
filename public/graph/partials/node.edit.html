@@ -1,7 +1,7 @@
 <!-- Active Node Details -->
 <h2>Edit Element</h2>
 
-<form name="editnodeform" id="editnodeform">
+<form name="editnodeform" class="form" id="editnodeform">
     <label for="name-editnode">
         Name
         <input type="text" class="value" id="name-editnode" disabled>
@@ -16,15 +16,15 @@
         Version
         <input type="text" class="value" id="version_id-editnode">
     </label>
+    
+    <label for="submitter_name-editnode">
+        Submitter Name
+        <input type="text" class="value" id="submitter_name-editnode">
+    </label>
 
     <label for="definition-editnode">
         Definition
         <textarea class="value" id="definition-editnode"></textarea>
-    </label>
-
-    <label for="submitter_name-editnode">
-        Submitter Name
-        <input type="text" class="value" id="submitter_name-editnode">
     </label>
     
     <label for="enumeration_flag">
@@ -51,8 +51,10 @@
             <option class="unit_of_measure_type_option" value="Units_of_None" selected>Units_of_None</option>
         </select>
     </label>
-
+    
+    <div class="submit-row">
+        <button id="editnode-cancel" class="button decline">Cancel</button>
+        <button id="editnode-save" class="button">Save</button>
+    </div>
+    
 </form>
-
-<input name="submit" id="editnode-cancel" type="submit" value="Cancel" class="decline">
-<input name="submit" id="editnode-save" type="submit" value="Save" class="confirm">
