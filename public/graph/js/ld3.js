@@ -491,6 +491,13 @@ function linkOpacity(l) {
     });
     
     parent['DD_Association'].map(a => {
+        if (!a.lid) {
+            try {
+                a.lid = a.local_identifier[0];
+            } catch (e) {
+                a.lid = a.identifier_reference[0];
+            }
+        }
         
         if (a.lid == childNode.lid) {
             if (!childNode.minimum_occurrences) isRequired = true;
