@@ -163,7 +163,7 @@ function addListeners() {
     });
     
     $('#show-and-hide').hide();
-    $('#toggle-ldd').unbind().on('click', function() {
+    $('#toggle-ldd-details').unbind().on('click', function() {
         const current = $(this).text();
         
         // show or hide
@@ -191,11 +191,28 @@ function addListeners() {
         }
     });
     
+    //////// EDIT NODE FORM ////////
+    
     $('#editnode').unbind().on('click', function() {
         newModal('editnode');
     });
-    
-    $('#editnode-save').unbind().on('click', function() {
+    $('#toggle-node-details').unbind().on('click', function(event) {
+        event.preventDefault();
+        const current = $(this).text();
+        
+        if (/Show/.test(current)) {
+            $('.node-details').fadeIn();
+            $(this).text('Hide Details');
+        } else if (/Hide/.test(current)) {
+            $('.node-details').fadeOut();
+            $(this).text('Show Details');
+        } else {
+            throw new Error('unexpected text input');
+        };
+    });
+    $('#editnode-save').unbind().on('click', function(event) {
+        event.preventDefault();
+        
         var values = {
             'name': $('#name-editnode').val(),
             'local_identifier': $('#identifier_reference-editnode').val(),
