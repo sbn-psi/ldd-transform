@@ -177,7 +177,8 @@ function enableInput(id) {
 };
 
 function editLddModal() {
-    $('#ld3-modal').load('./partials/ldd.edit.html', function() {
+    console.log(2);
+    $('#ld3-modal').load('./partials/ldd/edit.ldd.html', function() {
 
         $('#name').val(data.model['Ingest_LDD']['name'][0]);
         $('#ldd_version_id').val(data.model['Ingest_LDD']['ldd_version_id'][0]);
@@ -221,7 +222,7 @@ let newNodeForm = {
 };
 
 function createNodeModal() {
-    $('#ld3-modal').load('./partials/create-new-node.html', function() {
+    $('#ld3-modal').load('./partials/node/create.node.html', function() {
         newNodeForm.init();
         // fill placeholders
         const model = {
