@@ -140,10 +140,10 @@ function addListeners() {
     //////// EDIT LDD FORM ////////
     
     $('#editldd').unbind().on('click', function() {
-        console.log(1);
         newModal('ldd');
     });
-    $('#edit-ldd-save').unbind().on('click', function() {
+    $('#edit-ldd-save').unbind().on('click', function(event) {
+        event.preventDefault();
         var values = {};
         
         $.each($('#editlddform').serializeArray(), function(i, field) {
