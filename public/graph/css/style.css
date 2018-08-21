@@ -16,6 +16,9 @@ a {
     color: blue;
     text-decoration: underline;
 }
+i {
+    color: black;
+}
 button, a, i, [type="submit"]{
     cursor: pointer;
 }
@@ -199,7 +202,7 @@ label[for="value_meaning"] {
     flex-flow: row nowrap;
     justify-content: center;
 }
-#create-new-node /* modal form */ {
+#create-new-node {
     margin: 2em 0 0;
 }
 #active-node-title {
@@ -209,32 +212,24 @@ label[for="value_meaning"] {
 #active-node-children, #active-node-parents {
     display: flex;
     flex-flow: column;
-    align-items: center;
 }
 .clickable {
     cursor: pointer;
 }
 .active-child {
     margin: 0.5em 0;
-    padding: 2em 0.5em 0.5em 0.5em;
-    width: 80%;
+    padding: 0.3em;
     position: relative;
-    border: 1px solid black;
-    overflow: scroll;
-}
-.active-child .title {
+    background: #ededed;
     color: #6464a9;
-}
-.active-child-buttons {
-    position: absolute;
-    right: 0.5em;
-    top: 0.75em;
-    cursor: pointer;
-}
-.child-key {
     display: flex;
-    flex-flow: column;
-    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+}
+.parent-child-details i {
+    margin: 0 0.3em 0 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
