@@ -627,7 +627,7 @@ function updateToolbar(flag) {
                     $('#active-parents-title').text(`Parents (${node.parents.length})`);
                     $('#active-node-parents').empty();
                     node.parents.map(p => {
-                        $('#active-node-parents').append(newActiveChild(p));
+                        $('#active-node-parents').append(newActiveParent(p));
                     });
                 } else {
                     $('#active-parents-title').text(`Parents (0)`);
@@ -661,38 +661,29 @@ function newActiveChild(node) {
     let childLid,
         htmlChildLid;
     
-    let keys = ['minimum_occurrences','maximum_occurrences'];
-    
-    try {
+    if (node['local_identifier'] && node['local_identifier'][0]) {
         childLid = node['local_identifier'][0];
-        keys.unshift('local_identifier');
-    } catch (err) {
+    } else {
         childLid = node['identifier_reference'][0];
-        keys.unshift('identifier_reference');
     }
     
-    htmlChildLid = childLid.replace('.','-');
+    let childTitle = `<h3 class="active-child-clickable clickable">${childLid}</h3>`;
     
-    let childTitle = `<h3 class="title active-child-clickable clickable">${childLid}</h3>`;
+    return `<div class="active-child" data-node-name="${childLid}" class="active-child">${childTitle}<i class="fas fa-unlink" alt="Unlink" title="Unlink"></i></div>`;
+};
+function newActiveParent(node) {
+    let childLid,
+        htmlChildLid;
     
-    let minOcc = node['minimum_occurrences'];
-    let maxOcc = node['maximum_occurrences'];
-    
-    let values = '';
-    values += `<h4 class="key">${keys[0]}</h4>`;
-    values += `<h4 class="value">${childLid}</h4>`;
-    
-    if (minOcc && maxOcc) {
-        values += `<h4 class="key">${keys[1]}</h4>`;
-        values += `<h4 class="value">${minOcc}</h4>`;
-        
-        values += `<h4 class="key">${keys[2]}</h4>`;
-        values += `<h4 class="value">${maxOcc}</h4>`;
+    if (node['local_identifier'][0]) {
+        childLid = node['local_identifier'][0];
+    } else {
+        childLid = node['identifier_reference'][0];
     }
     
-    let childButtons = `<div class="active-child-buttons ${htmlChildLid}"><i class="fas fa-lg fa-trash-alt"></i></div>`;
+    let childTitle = `<h3 class="active-child-clickable clickable">${childLid}</h3>`;
     
-    return `<form name="${childLid}-form" class="active-child">${childTitle}${values}${childButtons}</form>`;
+    return `<div class="active-child" name="${childLid}-details" class="active-child">${childTitle}</div>`;
 };
 
 $(document).ready(function() {

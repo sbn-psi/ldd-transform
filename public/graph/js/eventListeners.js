@@ -277,6 +277,7 @@ function addListeners() {
     });
     
     $('.active-child-clickable').unbind().on('click', function(event) {
+        event.preventDefault();
         var lid = $(event.target).text();
         var nodeIdx = data.getNode(lid,true);
         
@@ -288,12 +289,12 @@ function addListeners() {
     });
     
     // add event listeners to trash icons now that they exist in DOM
-    $('.fa-trash-alt').unbind().on('click',function(event) {
+    $('.fa-unlink').unbind().on('click',function(event) {
         let target = event.target;
-        let _confirm = confirm('Are you sure you want to delete this node?');
+        let _confirm = confirm('Are you sure you want to remove this link?');
 
         if (_confirm) {
-            let deleteLid = $(target).parent().attr('class').split(' ')[1].trim().replace('-','.');
+            const deleteLid = $(target).parent().attr('data-node-name');
             data.deleteNode(deleteLid);
             toggleNodes();
         } else {
