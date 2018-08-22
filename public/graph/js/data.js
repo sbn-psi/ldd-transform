@@ -61,7 +61,7 @@ function Data(json) {
             this.nodes.push(c);
         });
         
-        dd_attribute.map(a => {
+        if (dd_attribute) dd_attribute.map(a => {
             a.className = 'attribute';
             this.nodes.push(a);
         });
