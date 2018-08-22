@@ -61,10 +61,14 @@ function Data(json) {
             this.nodes.push(c);
         });
         
-        if (dd_attribute) dd_attribute.map(a => {
-            a.className = 'attribute';
-            this.nodes.push(a);
-        });
+        if (dd_attribute) {
+            dd_attribute.map(a => {
+                a.className = 'attribute';
+                this.nodes.push(a);
+            });
+        } else {
+            model['Ingest_LDD']['DD_Attribute'] = [];
+        };
 
         let id = 0;
         this.nodes.map((e, idx) => {
@@ -364,11 +368,15 @@ function Data(json) {
                 return p['identifier_reference'][0] == activeNode.lid;
             }
         });
-            
+        
         let modelIdx = this.model['Ingest_LDD']['DD_Class'].indexOf(modelParent);
-
-        this.model['Ingest_LDD']['DD_Class'][modelIdx]['DD_Association'].push(nodeInstance);
-        this.model['Ingest_LDD']['DD_Class'][modelIdx]['children'].push(nodeInstance);
+        let associationArray = this.model['Ingest_LDD']['DD_Class'][modelIdx];
+        
+        if (!associationArray['DD_Association']) associationArray['DD_Association'] = [nodeInstance];
+        else associationArray['DD_Association'].push(nodeInstance);
+        
+        if (!associationArray['children']) associationArray['children'] = nodeInstance;
+        else associationArray['children'].push(nodeInstance);
         
         // // // // // UPDATE D3 // // // // //
 
