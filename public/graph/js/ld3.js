@@ -675,7 +675,7 @@ function newActiveParent(node) {
     let childLid,
         htmlChildLid;
     
-    if (node['local_identifier'][0]) {
+    if (node['local_identifier'] && node['local_identifier'][0]) {
         childLid = node['local_identifier'][0];
     } else {
         childLid = node['identifier_reference'][0];
