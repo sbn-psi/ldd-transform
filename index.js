@@ -25,6 +25,8 @@ app.listen(3001);
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
 
+console.clear();
+
 //////////////////ENDPOINTS////////////////////
 
 // reports an error if present. returns whether or not an error was sent
@@ -37,7 +39,7 @@ function reportError(err, res, callback) {
         if (callback) {
             callback(err);
         }
-    } 
+    }
     return false;
 }
 
@@ -91,7 +93,7 @@ app.post('/file/to/html', function(req, res) {
 
 function xmlToHtml(xml, res, callback) {
     libxslt.parse(htmlxslt, function(err, stylesheet) {
-        if (!reportError(err, res, callback)) {  
+        if (!reportError(err, res, callback)) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res, callback)) {
                     if (res) res.send(result);
@@ -116,7 +118,7 @@ app.post('/file/to/graph', function(req, res) {
 
 function xmlToGraph(xml, res, callback) {
     libxslt.parse(dotxslt, function(err, stylesheet) {
-        if (!reportError(err, res, callback)) {  
+        if (!reportError(err, res, callback)) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res, callback)) {
                     let svg = viz(result);
