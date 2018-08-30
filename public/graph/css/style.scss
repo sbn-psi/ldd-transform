@@ -1,0 +1,266 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+svg {
+    position: absolute;
+    background: #f6f6f6;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: blue;
+    text-decoration: underline;
+}
+i {
+    color: black;
+}
+button, a, i, [type="submit"]{
+    cursor: pointer;
+}
+.button {
+    height: 2em;
+    width: 5em;
+    border: none;
+    border-radius: 0.5em;
+    background: darkblue;
+    color: white;
+    font-family: inherit;
+    font-size: 1em;
+    box-shadow: 1px 2px 5px 0 grey;
+    margin: 1em;
+    :active {
+        box-shadow: none;
+    }
+    .positive {
+        background: forestgreen;
+        color: white;
+    }
+    .negative {
+        background: red;
+        color: white;
+    }
+    .disabled {
+        background: lightgrey;
+        color: grey;
+    }
+}
+.selected {
+    box-shadow: 2px 4px 10px 0 #404040;
+}
+.notSelected {
+    box-shadow: none;
+}
+.enabled {
+    cursor: pointer;
+    color: black;
+}
+.disabled {
+    cursor: default;
+    color: #acacac;
+}
+.error {
+    color: red;
+}
+.error-highlight {
+    border: 1px solid red;
+}
+.link {
+    fill: none;
+}
+.node {
+    cursor: pointer;
+}
+.axis {
+    path {
+        display: none;
+    }
+    line {
+        stroke-opacity: 0.3;
+        shape-rendering: crispEdges;
+    }
+}
+.view {
+    fill: none;
+}
+.title {
+    text-align: center;
+}
+.curtain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(225,225,225,0.7);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+.modal {
+    padding: 2em;
+    margin: 3em auto;
+    position: relative;
+    background: white;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    box-shadow: 0 0 1em 0 black;
+    border-radius: 0.25em;
+    .flex-row {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-around;
+    }
+}
+.modal-close {
+    padding: 0.1em;
+    position: absolute;
+    top: 0.25em;
+    right: 0.25em;
+    cursor: pointer;
+}
+.create-node {
+    padding: 0.1em;
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    cursor: pointer;
+}
+
+#toolbar {
+    padding: 1em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    height: calc(100vh - 2em);
+    width: calc(399px - 2em);
+    border-right: 1px solid black;
+    background: white;
+    overflow: scroll;
+    box-shadow: 1px 2px 5px 1px lightgrey;
+}
+.details-header {
+    position: absolute;
+    right: 1em;
+    text-align: right;
+}
+.details-header a {
+    display: flex;
+    justify-content: flex-end;
+}
+#tools {
+    margin-bottom: 2em;
+    padding: 1em 1em;
+    border: 1px solid black;
+    box-shadow: 1px 2px 5px 1px lightgrey;
+    background: #f6f6f6;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    background: white;
+    justify-content: space-between;
+}
+#toolbox {
+    padding: 0.5em;
+    position: fixed;
+    display: flex;
+    flex-flow: column;
+    width: 200px;
+    right: 2em;
+    top: 2em;
+    z-index: 99;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    box-shadow: 1px 2px 5px 1px lightgrey;
+}
+#legend-toggle {
+    float: right;
+}
+#legend {
+    height: 200px;
+    border: 1px solid black;
+    box-shadow: 1px 2px 5px 1px lightgrey;
+}
+.key {
+    margin-top: 0.25em;
+}
+.value {
+    margin: 0.25em 0 1em 0.25em;
+    color: #505050;
+}
+label[for="value"] {
+    margin-top: 0.5em;
+}
+label[for="value_meaning"] {
+    margin-bottom: 0.5em;
+}
+#create-node-modal {
+    text-align: center;
+}
+.form {
+    width: 80%;
+    margin: 0 auto;
+}
+.form label {
+    margin: 0.25em 0;
+}
+.form textarea {
+    min-height: 80px;
+}
+.submit-row {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+#create-new-node {
+    margin: 2em 0 0;
+}
+#active-node-title {
+    text-align: center;
+    margin: 1em 0;
+}
+.clickable {
+    cursor: pointer;
+}
+.active-child {
+    margin: 0.5em 0;
+    padding: 0.3em;
+    position: relative;
+    background: #ededed;
+    color: #6464a9;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+}
+.parent-child-details i {
+    margin: 0 0.3em 0 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    display: flex;
+    flex-flow: column;
+}
+label {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
