@@ -1,13 +1,25 @@
-<div id="legend-container">
+<div id="toolbox">
     <div id="tools">
         <div class="toolgroup">
-            <i class="fas fa-plus fa-lg disabled" id="create-node" title="Create a new node [disabled]"></i>
-            <i class="fas fa-link disabled" id="create-link" title="Create a new link [disabled]"></i>
+            <i ng-show="!ld3.isEnabled.addNode()" class="fas fa-plus fa-lg disabled" title="Create a new node [disabled]"></i>
+            <i ng-show="ld3.isEnabled.addNode()" ng-click="ld3.addNode()" class="fas fa-plus fa-lg" title="Create a new node"></i>
+
+            <i ng-show="!ld3.isEnabled.addLink()" class="fas fa-link disabled" title="Create a new link [disabled]"></i>
+            <i ng-show="ld3.isEnabled.addLink()" ng-click="ld3.addLink()" class="fas fa-link" title="Create a new link"></i>
         </div>
         <div class="toolgroup">
-            <i class="far fa-arrow-alt-circle-down fa-lg enabled" id="download" title="Download Current Ingest_LDD File"></i>
+            <i ng-click="ld3.download()" class="far fa-arrow-alt-circle-down fa-lg enabled" title="Download Current Ingest_LDD File"></i>
         </div>
     </div>
-    <h4>Legend <a id="legend-toggle">Hide</a></h4>
-    <img src="img/legend.png" id="legend">
+    <a
+        id="legend-toggle"
+        ng-show="ld3.isVisible.legend"
+        ng-click="ld3.isVisible.legend = !ld3.isVisible.legend">
+        Hide</a>
+    <a
+        id="legend-toggle"
+        ng-show="!ld3.isVisible.legend"
+        ng-click="ld3.isVisible.legend = !ld3.isVisible.legend">
+        Show</a>
+    <img ng-show="ld3.isVisible.legend" ng-src="img/legend.png" id="legend">
 </div>

@@ -1,1 +1,8 @@
-<div id="ld3-modal" class="modal"></div>
+<div class="curtain" ng-show="modal.isVisible">
+    <div id="ld3-modal" class="modal">
+
+        <!-- addNode -->
+        <ld3-node-form ng-show="modal.type == 'addNode'"></ld3-node-form>
+
+    </div>
+</div>

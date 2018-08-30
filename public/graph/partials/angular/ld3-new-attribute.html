@@ -1,0 +1,70 @@
+<!--
+
+name
+version_id
+local_identifier
+nillable_flag
+submitter_name
+definition
+comment
+
+    DD_Value_Domain
+        enumeration_flag
+        value_data_type
+        minimum_characters
+        maximum_characters
+        minimum_value
+        maximum_value
+        unit_of_measure_type
+
+        DD_Permissible_Value
+            value
+            value_meaning
+
+-->
+
+
+<form class="form">
+
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" ng-model="newNode.name">
+
+    <label for="version_id">Version</label>
+    <input type="text" name="version_id" id="version_id" ng-model="newNode.version_id">
+
+    <label for="local_identifier">Local Identifier</label>
+    <input type="text" name="local_identifier" id="local_identifier" ng-model="newNode.local_identifier">
+
+    <label for="nillable_flag">Nillable Flag</label>
+    <span>
+        <input type="radio" name="nillable_flag" id="nillable_flag" ng-value="true" ng-model="newNode.nillable_flag">
+        True
+    </span>
+    <span>
+        <input type="radio" name="nillable_flag" id="nillable_flag" ng-value="false" ng-model="newNode.nillable_flag">
+        False
+    </span>
+
+    <label for="submitter_name">Submitter Name</label>
+    <input type="text" name="submitter_name" id="submitter_name" ng-model="newNode.submitter_name">
+
+    <label for="definition">Definition</label>
+    <textarea name="definition" id="definition" ng-model="newNode.definition"></textarea>
+
+    <label for="comment">Comment</label>
+    <input type="text" name="comment" id="comment" ng-model="newNode.comment">
+
+    <label for="enumeration_flag">Enumeration Flag</label>
+    <span>
+        <input type="radio" name="enumeration_flag" id="enumeration_flag" ng-value="true" ng-model="newNode.enumeration_flag">
+        True
+    </span>
+    <span>
+        <input type="radio" name="enumeration_flag" id="enumeration_flag" ng-value="false" ng-model="newNode.enumeration_flag">
+        False
+    </span>
+
+    <label for="value_data_type">Data Type</label>
+    <input type="text" name="value_data_type" id="value_data_type" ng-model="newNode.value_data_type">
+
+</form>

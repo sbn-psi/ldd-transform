@@ -1,17 +1,48 @@
 <div id="toolbar">
+
     <h2>LD3 Tool</h2>
 
     <hr/>
 
-    <div id="toolbar-content"></div>
+    <span class="details-header">
+        <a
+            ng-show="!ld3.isVisible.lddDetails"
+            ng-click="ld3.isVisible.lddDetails = !ld3.isVisible.lddDetails">
+            Show Details</a>
+        <a
+            ng-show="ld3.isVisible.lddDetails"
+            ng-click="ld3.isVisible.lddDetails = !ld3.isVisible.lddDetails">
+            Hide Details</a>
+        <a id="editldd">Edit Details</a>
+    </span>
+    <h3 class="key">LDD Name</h3>
+    <h3 class="value">{{ ingest.name[0] }}</h3>
+
+    <div ng-show="ld3.isVisible.lddDetails">
+        <h3 class="key">LDD Version</h3>
+        <h3 class="value">{{ ingest.ldd_version_id[0] }}</h3>
+
+        <h3 class="key">Full Name</h3>
+        <h3 class="value">{{ ingest.full_name[0] }}</h3>
+
+        <h3 class="key">Steward</h3>
+        <h3 class="value">{{ ingest.steward_id[0] }}</h3>
+
+        <h3 class="key">Namespace</h3>
+        <h3 class="value">{{ ingest.namespace_id[0] }}</h3>
+
+        <h3 class="key">PDS4 IM Version</h3>
+        <h3 class="value">{{ data.pds4IMVersion }}</h3>
+
+        <h3 class="key">Comment</h3>
+        <h3 class="value">{{ ingest.comment[0] }}</h3>
+    </div>
 
     <hr/>
 
-    <div id="active-node-details"></div>
+    <ld3-active-node ng-show="data.activeNode" node="data.activeNode"></ld3-active-node>
 
-    <h3 id="active-children-title"></h3>
-    <div id="active-node-children"></div>
+    <ld3-active-node-children children="data.activeNode.children"></ld3-active-node-children>
+    <ld3-active-node-parents parents="data.activeNode.parents"></ld3-active-node-parents>
 
-    <h3 id="active-parents-title"></h3>
-    <div id="active-node-parents"></div>
 </div>

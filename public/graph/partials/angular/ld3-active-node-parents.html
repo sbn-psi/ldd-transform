@@ -1,0 +1,6 @@
+<div ng-show="parents && parents.length">
+    <h3>Parents ({{ parents.length }})</h3>
+    <div ng-repeat="parent in parents" class="active-child" name="{{ parent.lid }}">
+        <h3 class="active-child-clickable clickable">{{ parent.lid }}</h3>
+    </div>
+</div>

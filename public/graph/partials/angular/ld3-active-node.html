@@ -1,0 +1,30 @@
+<!-- Active Node Details -->
+
+<div class="details-header">
+    <a
+        ng-show="showDetails"
+        ng-click="showDetails = !showDetails">
+        Hide Details</a>
+    <a
+        ng-show="!showDetails"
+        ng-click="showDetails = !showDetails">
+        Show Details</a>
+    <a id="editnode">Edit Details</a>
+</div>
+
+<h4 class="key">Name</h4>
+<h4 class="value">{{ node.name[0] }}</h4>
+
+<div ng-show="showDetails">
+    <h4 class="key">Identifier Reference</h4>
+    <h4 class="value">{{ node.lid }}</h4>
+
+    <h4 class="key">Version</h4>
+    <h4 class="value">{{ node.version_id[0] }}</h4>
+
+    <h4 class="key">Definition</h4>
+    <h4 class="value">{{ node.definition[0] }}</h4>
+
+    <h4 class="key">Submitter Name</h4>
+    <h4 class="value">{{ node.submitter_name[0] }}</h4>
+</div>

@@ -1,0 +1,41 @@
+<!--
+
+{DD_Class}
+
+name
+version_id
+local_identifier
+submitter_name
+definition
+(?) abstract_flag
+(?) element_flag
+
+DD_Association
+    identifier_reference
+    reference_type
+    minimum_occurrences
+    maximum_occurrences
+    constant_value
+
+    DD_Attribute_Reference
+
+-->
+
+<form class="form">
+
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" ng-model="newNode.name">
+
+    <label for="version_id">Version</label>
+    <input type="text" name="version_id" id="version_id" ng-model="newNode.version_id">
+
+    <label for="local_identifier">Local Identifier</label>
+    <input type="text" name="local_identifier" id="local_identifier" ng-model="newNode.local_identifier">
+
+    <label for="submitter_name">Submitter Name</label>
+    <input type="text" name="submitter_name" id="submitter_name" ng-model="newNode.submitter_name">
+
+    <label for="definition">Definition</label>
+    <textarea name="definition" id="definition" ng-model="newNode.definition"></textarea>
+
+</form>
