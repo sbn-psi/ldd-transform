@@ -32,10 +32,10 @@ function addListeners() {
             submitter_name: $('#submitter_name').val(),
             definition: $('#definition').val()
         };
-        
+
         if (newNode.reference_type == 'attribute_of') {
             const dataType = $('#value_data_type').val();
-            
+
             formValues.push('nillable_flag');
             newNode.nillable_flag = $('input[name=nillable_flag]:checked').val();
             newNode.value_domain = {
@@ -45,7 +45,7 @@ function addListeners() {
             }
             formValues.push('value_domain');
             value_domain = ['enumeration_flag','value_data_type','unit_of_measure_type'];
-            
+
             if (dataType == 'ASCII_Integer') {
                 const min = $('#minimum_value').val();
                 const max = $('#maximum_value').val();
@@ -62,12 +62,12 @@ function addListeners() {
                 value_domain.push('maximum_characters');
                 if (max || max === 0) newNode.value_domain.maximum_characters = [max];
             }
-            
+
         };
-        
+
         // now, validate
         const formIsValid = validate(newNode,formValues,value_domain);
-        
+
         function validate(node,keywords,value_domain) {
             const errors = [];
 
@@ -107,7 +107,7 @@ function addListeners() {
             if (errors.length) return false;
             else return true;
         };
-        
+
         if (formIsValid === true) {
             // metadata has been collected from user:
             newNode.identifier_reference = newNode.namespace + '.' + newNode.name;
@@ -118,54 +118,42 @@ function addListeners() {
             closeModal();
         };
     });
-    
+
     $('#create-node').unbind().on('click', function() {
         newModal('node');
     });
-    
+
     $('#create-link').unbind().on('click', data.linkMode);
-    
-    $('#startover').unbind().on('click', function() {
-        let _confirm = confirm('Are you sure you want to start over? All of your changes will be lost.');
-        
-        if (_confirm) return startOver();
-        else return;
-        
-        function startOver() {
-            localStorage.removeItem('ld3');
-            loadFile();
-        };
-    });
-    
+
     //////// EDIT LDD FORM ////////
-    
+
     $('#editldd').unbind().on('click', function() {
         newModal('ldd');
     });
     $('#edit-ldd-save').unbind().on('click', function(event) {
         event.preventDefault();
         var values = {};
-        
+
         $.each($('#editlddform').serializeArray(), function(i, field) {
             values[field.name] = field.value;
         });
-        
+
         data.modifyLddDetails(values);
-        
+
         updateToolbar(null);
-        
+
         closeModal();
     });
-    
+
     $('.decline').unbind().on('click', function(event) {
         event.preventDefault();
         closeModal();
     });
-    
+
     $('#show-and-hide').hide();
     $('#toggle-ldd-details').unbind().on('click', function() {
         const current = $(this).text();
-        
+
         // show or hide
         if (/Show/.test(current)) {
             $("#show-and-hide").fadeIn();
@@ -177,7 +165,7 @@ function addListeners() {
             throw new Error('unexpected text');
         }
     });
-    
+
     $('#legend-toggle').unbind().on('click', function() {
         const current = $(this).text();
         if (current == 'Hide') {
@@ -190,16 +178,16 @@ function addListeners() {
             throw new Error('unexpected text input');
         }
     });
-    
+
     //////// EDIT NODE FORM ////////
-    
+
     $('#editnode').unbind().on('click', function() {
         newModal('editnode');
     });
     $('#toggle-node-details').unbind().on('click', function(event) {
         event.preventDefault();
         const current = $(this).text();
-        
+
         if (/Show/.test(current)) {
             $('.node-details').fadeIn();
             $(this).text('Hide Details');
@@ -212,7 +200,7 @@ function addListeners() {
     });
     $('#editnode-save').unbind().on('click', function(event) {
         event.preventDefault();
-        
+
         var values = {
             'name': $('#name-editnode').val(),
             'local_identifier': $('#identifier_reference-editnode').val(),
@@ -220,7 +208,7 @@ function addListeners() {
             'definition': $('#definition-editnode').val(),
             'submitter_name': $('#submitter_name-editnode').val()
         };
-        
+
         if (activeNode.className == 'attribute') {
             // do attribute stuff to values
             values['value_domain'] = {
@@ -230,14 +218,14 @@ function addListeners() {
                 'value_data_type': [$('#value_data_type-editnode').val()]
             };
             var dataType = $('#value_data_type-editnode').val();
-            
+
             if (dataType == 'ASCII_Integer') {
                 // if (min) add min to value_domain
                 var min = $('#minimum_value').val();
                 if (min) {
                     values['value_domain']['minimum_value'] = [min];
                 }
-                
+
                 // if (max) add max to value_domain
                 var max = $('#maximum_value').val();
                 if (max) {
@@ -268,26 +256,26 @@ function addListeners() {
                 console.error('unexpected data type');
             }
         };
-        
+
         data.modifyNode(activeNode.lid, values);
-        
+
         updateToolbar();
-        
+
         closeModal();
     });
-    
+
     $('.active-child-clickable').unbind().on('click', function(event) {
         event.preventDefault();
         var lid = $(event.target).text();
         var nodeIdx = data.getNode(lid,true);
-        
+
         update();
-        
+
         toggleNodes(data.nodes[nodeIdx]);
-        
+
         updateToolbar();
     });
-    
+
     // add event listeners to trash icons now that they exist in DOM
     $('.fa-unlink').unbind().on('click',function(event) {
         let target = event.target;
@@ -305,7 +293,7 @@ function addListeners() {
     $('#download').unbind().on('click',function() {
         var currentModel = data.pureModel();
         var dateTime = currentModel['Ingest_LDD']['last_modification_date_time'][0];
-        
+
         $.ajax({
             type: 'POST',
             url: '../json/to/xml',
