@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="LD3">
 
 <head>
-    
+
     <base href="/graph/">
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -22,43 +22,24 @@
     <script src="./js/FileSaver.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js" charset="utf-8" async defer></script>
     <script src="./js/eventListeners.js" charset="utf-8" async defer></script>
     <script src="./js/root.js" charset="utf-8" async defer></script>
     <script src="./js/data.js" charset="utf-8" async defer></script>
     <script src="./js/modal.js" charset="utf-8" async defer></script>
     <script src="./js/ld3.js" charset="utf-8" async defer></script>
+
+    <script src="./js/app.js" charset="utf-8"></script>
+
     <title>LD3 Tool</title>
 </head>
 
-<body>
+<body ng-controller="ld3Controller">
 
-    <div id="toolbar">
-        <h2>LD3 Tool</h2>
-        
-        <hr/>
-        
-        <div id="toolbar-content"></div>
-
-        <hr/>
-
-        <div id="active-node-details"></div>
-
-        <h3 id="active-children-title"></h3>
-        <div id="active-node-children"></div>
-
-        <h3 id="active-parents-title"></h3>
-        <div id="active-node-parents"></div>
-    </div>
-    
-    <div id="legend-container">
-        <h4>Tools</h4>
-        <div id="tools"></div>
-        <h4>Legend <a id="legend-toggle">Hide</a></h4>
-        <img src="legend/legend.png" id="legend">
-    </div>
-
-    <div id="ld3-modal" class="modal"></div>
+    <ld3-toolbar></ld3-toolbar>
+    <ld3-toolbox></ld3-toolbox>
+    <ld3-modal></ld3-modal>
 
     <svg class="main"></svg>
 
