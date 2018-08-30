@@ -1,4 +1,5 @@
 function addListeners() {
+    return console.log('addListeners has been disabled');
     $('#cancel').unbind().on('click', function() {
         event.preventDefault();
         closeModal();
@@ -119,12 +120,6 @@ function addListeners() {
         };
     });
 
-    $('#create-node').unbind().on('click', function() {
-        newModal('node');
-    });
-
-    $('#create-link').unbind().on('click', data.linkMode);
-
     //////// EDIT LDD FORM ////////
 
     $('#editldd').unbind().on('click', function() {
@@ -150,53 +145,10 @@ function addListeners() {
         closeModal();
     });
 
-    $('#show-and-hide').hide();
-    $('#toggle-ldd-details').unbind().on('click', function() {
-        const current = $(this).text();
-
-        // show or hide
-        if (/Show/.test(current)) {
-            $("#show-and-hide").fadeIn();
-            $(this).text('Hide Details');
-        } else if (/Hide/.test(current)) {
-            $('#show-and-hide').fadeOut();
-            $(this).text('Show Details');
-        } else {
-            throw new Error('unexpected text');
-        }
-    });
-
-    $('#legend-toggle').unbind().on('click', function() {
-        const current = $(this).text();
-        if (current == 'Hide') {
-            $('#legend').fadeOut();
-            $(this).text('Show');
-        } else if (current == 'Show') {
-            $('#legend').fadeIn();
-            $(this).text('Hide');
-        } else {
-            throw new Error('unexpected text input');
-        }
-    });
-
     //////// EDIT NODE FORM ////////
 
     $('#editnode').unbind().on('click', function() {
         newModal('editnode');
-    });
-    $('#toggle-node-details').unbind().on('click', function(event) {
-        event.preventDefault();
-        const current = $(this).text();
-
-        if (/Show/.test(current)) {
-            $('.node-details').fadeIn();
-            $(this).text('Hide Details');
-        } else if (/Hide/.test(current)) {
-            $('.node-details').fadeOut();
-            $(this).text('Show Details');
-        } else {
-            throw new Error('unexpected text input');
-        };
     });
     $('#editnode-save').unbind().on('click', function(event) {
         event.preventDefault();
@@ -288,24 +240,5 @@ function addListeners() {
         } else {
             return;
         }
-    });
-
-    $('#download').unbind().on('click',function() {
-        var currentModel = data.pureModel();
-        var dateTime = currentModel['Ingest_LDD']['last_modification_date_time'][0];
-
-        $.ajax({
-            type: 'POST',
-            url: '../json/to/xml',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify(currentModel),
-            success: function(res) {
-                var blob = new Blob([res], {type: "text/xml;charset=utf-8"});
-                saveAs(blob,`ldd.out.${dateTime}.xml`);
-                data.defineNodesAndLinks();
-            }
-        });
     });
 };
