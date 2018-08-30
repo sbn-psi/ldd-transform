@@ -411,11 +411,11 @@ function Data(json) {
         return parents;
     };
 
-    this.createLink = function(node) {
-        var sourceCol = data.getNode(activeNode.lid).col;
-        var targetCol = data.getNode(node.lid).col;
-        var sourceIdx = data.getNode(activeNode.lid,true);
-        var targetIdx = data.getNode(node.lid,true);
+    this.createLink = function(node,activeNode) {
+        var sourceCol = this.getNode(activeNode.lid).col;
+        var targetCol = this.getNode(node.lid).col;
+        var sourceIdx = this.getNode(activeNode.lid,true);
+        var targetIdx = this.getNode(node.lid,true);
         var parentIdx,
             childIdx;
 
@@ -427,10 +427,10 @@ function Data(json) {
             childIdx = (sourceCol > targetCol) ? sourceIdx : targetIdx;
         }
 
-        var parent = data.nodes[parentIdx];
-        var child = data.nodes[childIdx];
+        var parent = this.nodes[parentIdx];
+        var child = this.nodes[childIdx];
 
-        data.model['Ingest_LDD']['DD_Class'] = data.model['Ingest_LDD']['DD_Class'].map(c => {
+        this.model['Ingest_LDD']['DD_Class'] = this.model['Ingest_LDD']['DD_Class'].map(c => {
             if (c.lid == parent.lid) {
                 c['DD_Association'].push(child);
                 c['children'].push(child);
@@ -439,11 +439,7 @@ function Data(json) {
             return c;
         });
 
-        this.linkMode(null);
-
         this.defineNodesAndLinks();
-
-        update();
     };
 
     this.linkMode = function(node) {
