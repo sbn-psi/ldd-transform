@@ -13,13 +13,7 @@ app
     })
     .directive('ld3ActiveNode', () => {
         return {
-            templateUrl: './partials/angular/ld3-active-node.html',
-            scope: {
-                node: '='
-            },
-            controller: function($scope) {
-                $scope.showDetails = true;
-            }
+            templateUrl: './partials/angular/ld3-active-node.html'
         }
     })
     .directive('ld3ActiveNodeChildren', () => {
@@ -46,9 +40,19 @@ app
             templateUrl: './partials/angular/ld3-modal.html'
         }
     })
+    .directive('ld3ModalCloseButton', () => {
+        return {
+            template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.close()"></i>'
+        }
+    })
     .directive('ld3NodeForm', () => {
         return {
             templateUrl: './partials/angular/ld3-node-form.html'
+        }
+    })
+    .directive('ld3EditNodeForm', () => {
+        return {
+            templateUrl: './partials/angular/ld3-edit-node-form.html'
         }
     })
     .directive('ld3EditLddForm', () => {
