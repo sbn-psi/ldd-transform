@@ -1,17 +1,6 @@
-app.controller('ld3Controller', ['$scope', '$window', 'Data', function($scope, $window, Data) {
+app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function($scope, $window, Data, Modal) {
     // initialize application state
-    $scope.modal = {
-        isVisible: false,
-        type: null,
-        open: function(type) {
-            this.isVisible = true;
-            this.type = type;
-        },
-        close: function() {
-            this.isVisible = false;
-            this.type = null;
-        }
-    };
+    $scope.modal = Modal.new();
     $scope.ld3 = {
         isVisible: {
             legend: true,
@@ -48,15 +37,19 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', function($scope, $
                 })()
             }
         },
+        editNode: function() {
+            $scope.modal.open('editNode');
+            console.log($scope.data.activeNode);
+        },
+        saveModifiedNode: function() {
+            console.log('save that thang');
+        },
         editLdd: function() {
             $scope.modal.open('editLdd');
-            console.log($scope.modal);
             return;
         },
         saveLdd: function() {
-            console.log('save ldd details!');
             $scope.modal.close();
-            console.log($scope.ldd.edit);
             $scope.data.modifyLddDetails($scope.ldd.edit);
             $scope.ldd = {
                 original: $scope.data.ldd(),
