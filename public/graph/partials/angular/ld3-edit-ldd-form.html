@@ -1,0 +1,43 @@
+<form class="form">
+
+    <label for="name">
+        Name
+    </label>
+    <input type="text" name="name" id="name" ng-model="ldd.edit.name" autofocus>
+
+    <label for="ldd_version_id">
+        LDD Version
+    </label>
+    <input type="text" name="ldd_version_id" ng-model="ldd.edit.ldd_version_id" id="ldd_version_id">
+
+    <label for="full_name">
+        Full Name
+    </label>
+    <input type="text" name="full_name" ng-model="ldd.edit.full_name" id="full_name">
+
+    <label for="steward_id">
+        Steward ID
+    </label>
+    <input type="text" name="steward_id" ng-model="ldd.edit.steward_id" id="steward_id">
+
+    <label for="namespace_id">
+        Namespace
+    </label>
+    <input type="text" name="namespace_id" ng-model="ldd.edit.namespace_id" id="namespace_id">
+
+    <label for="pds4_im_version">
+        PDS4 IM Version (Hexidecimal, no dots/periods)
+    </label>
+    <input type="text" name="pds4_im_version" ng-model="ldd.edit.pds4_im_version" id="pds4_im_version">
+
+    <label for="comment">
+        Comment
+    </label>
+    <textarea name="comment" ng-model="ldd.edit.comment" id="comment"></textarea>
+
+    <div class="submit-row">
+        <button ng-click="modal.close()" class="button">Cancel</button>
+        <button ng-click="ld3.saveLdd()" class="button">Save</button>
+    </div>
+
+</form>

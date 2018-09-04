@@ -122,9 +122,6 @@ function addListeners() {
 
     //////// EDIT LDD FORM ////////
 
-    $('#editldd').unbind().on('click', function() {
-        newModal('ldd');
-    });
     $('#edit-ldd-save').unbind().on('click', function(event) {
         event.preventDefault();
         var values = {};
@@ -137,11 +134,6 @@ function addListeners() {
 
         updateToolbar(null);
 
-        closeModal();
-    });
-
-    $('.decline').unbind().on('click', function(event) {
-        event.preventDefault();
         closeModal();
     });
 

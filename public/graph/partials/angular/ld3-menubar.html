@@ -13,29 +13,29 @@
             ng-show="ld3.isVisible.lddDetails"
             ng-click="ld3.isVisible.lddDetails = !ld3.isVisible.lddDetails">
             Hide Details</a>
-        <a id="editldd">Edit Details</a>
+        <a ng-click="ld3.editLdd()">Edit Details</a>
     </span>
     <h3 class="key">LDD Name</h3>
-    <h3 class="value">{{ ingest.name[0] }}</h3>
+    <h3 class="value">{{ ldd.original.name }}</h3>
 
     <div ng-show="ld3.isVisible.lddDetails">
         <h3 class="key">LDD Version</h3>
-        <h3 class="value">{{ ingest.ldd_version_id[0] }}</h3>
+        <h3 class="value">{{ ldd.original.ldd_version_id }}</h3>
 
         <h3 class="key">Full Name</h3>
-        <h3 class="value">{{ ingest.full_name[0] }}</h3>
+        <h3 class="value">{{ ldd.original.full_name }}</h3>
 
         <h3 class="key">Steward</h3>
-        <h3 class="value">{{ ingest.steward_id[0] }}</h3>
+        <h3 class="value">{{ ldd.original.steward_id }}</h3>
 
         <h3 class="key">Namespace</h3>
-        <h3 class="value">{{ ingest.namespace_id[0] }}</h3>
+        <h3 class="value">{{ ldd.original.namespace_id }}</h3>
 
         <h3 class="key">PDS4 IM Version</h3>
-        <h3 class="value">{{ data.pds4IMVersion }}</h3>
+        <h3 class="value">{{ ldd.original.pds4_im_version }}</h3>
 
         <h3 class="key">Comment</h3>
-        <h3 class="value">{{ ingest.comment[0] }}</h3>
+        <h3 class="value">{{ ldd.original.comment }}</h3>
     </div>
 
     <hr/>

@@ -49,6 +49,20 @@ function Data(json) {
         return model;
     };
 
+    this.ldd = function() {
+        const model = this.model['Ingest_LDD'];
+        const lddDetails = {
+            name: model['name'][0],
+            ldd_version_id: model['ldd_version_id'][0],
+            full_name: model['full_name'][0],
+            steward_id: model['steward_id'][0],
+            namespace_id: model['namespace_id'][0],
+            comment: model['comment'][0],
+            pds4_im_version: this.pds4IMVersion
+        };
+        return lddDetails;
+    };
+
     this.rootNodes = [];
 
     this.activeNode = null;
@@ -484,8 +498,7 @@ function Data(json) {
         };
 
         this.defineNodesAndLinks();
-
-        update();
+        this.ldd();
     };
 
     this.modifyNode = function(lid,values) {
@@ -512,4 +525,5 @@ function Data(json) {
     };
 
     this.defineNodesAndLinks();
+    this.ldd();
 };

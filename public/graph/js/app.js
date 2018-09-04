@@ -38,6 +38,9 @@ app
             }
         }
     })
+
+
+    // MODAL FORMS
     .directive('ld3Modal', () => {
         return {
             templateUrl: './partials/angular/ld3-modal.html'
@@ -48,6 +51,13 @@ app
             templateUrl: './partials/angular/ld3-node-form.html'
         }
     })
+    .directive('ld3EditLddForm', () => {
+        return {
+            templateUrl: './partials/angular/ld3-edit-ldd-form.html'
+        }
+    })
+
+
     .directive('ld3NewClass', () => {
         return {
             templateUrl: './partials/angular/ld3-new-class.html'

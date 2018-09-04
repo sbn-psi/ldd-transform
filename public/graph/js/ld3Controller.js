@@ -48,6 +48,23 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', function($scope, $
                 })()
             }
         },
+        editLdd: function() {
+            $scope.modal.open('editLdd');
+            console.log($scope.modal);
+            return;
+        },
+        saveLdd: function() {
+            console.log('save ldd details!');
+            $scope.modal.close();
+            console.log($scope.ldd.edit);
+            $scope.data.modifyLddDetails($scope.ldd.edit);
+            $scope.ldd = {
+                original: $scope.data.ldd(),
+                edit: $scope.data.ldd()
+            };
+            update();
+            return;
+        },
         download: function() {
             const currentModel = $scope.data.pureModel();
             const stewardId = currentModel['Ingest_LDD']['steward_id'][0].toUpperCase();
@@ -325,9 +342,12 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', function($scope, $
 
     function main(json) {
         $scope.data = Data.new(json);
+        $scope.ldd = {
+            original: $scope.data.ldd(),
+            edit: $scope.data.ldd()
+        };
+        console.log($scope.ldd);
         // console.log($scope.data);
-        $scope.ingest = $scope.data.model['Ingest_LDD'];
-        // console.log($scope.ingest);
 
         // remove old tree
         d3.select('.tree').remove();
