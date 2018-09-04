@@ -6,9 +6,9 @@ app
             templateUrl: './partials/angular/ld3-toolbox.html'
         }
     })
-    .directive('ld3Toolbar', () => {
+    .directive('ld3Menubar', () => {
         return {
-            templateUrl: './partials/angular/ld3-toolbar.html'
+            templateUrl: './partials/angular/ld3-menubar.html'
         }
     })
     .directive('ld3ActiveNode', () => {

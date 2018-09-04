@@ -152,7 +152,7 @@ button, a, i, [type=submit] {
   cursor: pointer;
 }
 
-#toolbar {
+#menubar {
   padding: 1em;
   position: absolute;
   left: 0;
