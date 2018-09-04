@@ -1,0 +1,60 @@
+<!-- Active Node Details -->
+<h2>Edit Element</h2>
+
+<form name="editnodeform" class="form" id="editnodeform">
+    <label for="name">
+        Name
+        <input type="text" class="value" id="name" ng-model="data.activeNode['name'][0]" disabled>
+    </label>
+
+    <label for="identifier_reference">
+        Identifier Reference
+        <input type="text" class="value" id="identifier_reference" ng-model="data.activeNode['local_identifier'][0]" disabled>
+    </label>
+
+    <label for="version_id">
+        Version
+        <input type="text" class="value" id="version_id" ng-model="data.activeNode['version_id'][0]">
+    </label>
+
+    <label for="submitter_name">
+        Submitter Name
+        <input type="text" class="value" id="submitter_name" ng-model="data.activeNode['submitter_name'][0]">
+    </label>
+
+    <label for="definition">
+        Definition
+        <textarea class="value" id="definition" ng-model="data.activeNode['definition'][0]"></textarea>
+    </label>
+
+    <label for="enumeration_flag">
+        Enumeration Flag
+        <span>
+            <input type="radio" name="enumeration_flag" ng-value="true" id="enumeration_flag-true" ng-model="data.activeNode['enumeration_flag'][0]">True
+            <input type="radio" name="enumeration_flag" ng-value="false" id="enumeration_flag-false" ng-model="data.activeNode['enumeration_flag'][0]">False
+        </span>
+    </label>
+
+    <label for="value_data_type">
+        Data Type
+        <select name="value_data_type" class="value_data_type" id="value_data_type" ng-model="data.activeNode['value_data_type'][0]">
+            <option></option>
+            <option class="value_data_type_option" value="ASCII_Integer">ASCII_Integer</option>
+            <option class="value_data_type_option" value="ASCII_Short_String_Collapsed">ASCII_Short_String_Collapsed</option>
+        </select>
+    </label>
+
+    <label for="unit_of_measure_type">
+        Unit Type
+        <select name="unit_of_measure_type" class="unit_of_measure_type" id="unit_of_measure_type" ng-model="data.activeNode['unit_of_measure_type'][0]">
+            <option></option>
+            <option class="unit_of_measure_type_option" value="Units_of_None" selected>Units_of_None</option>
+        </select>
+    </label>
+
+    <div class="submit-row">
+        <button ng-click="modal.close()" class="button">Cancel</button>
+        <button ng-click="ld3.saveModifiedNode()" class="button">Save</button>
+    </div>
+
+</form>
