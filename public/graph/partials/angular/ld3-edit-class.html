@@ -1,0 +1,25 @@
+<h2>Edit Class</h2>
+
+<form class="form">
+
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" ng-model="modifiedNode['name'][0]">
+
+    <label for="version_id">Version</label>
+    <input type="text" name="version_id" id="version_id" ng-model="modifiedNode['version_id'][0]">
+
+    <label for="local_identifier">Local Identifier</label>
+    <input type="text" name="local_identifier" id="local_identifier" ng-model="modifiedNode['local_identifier'][0]">
+
+    <label for="submitter_name">Submitter Name</label>
+    <input type="text" name="submitter_name" id="submitter_name" ng-model="modifiedNode['submitter_name'][0]">
+
+    <label for="definition">Definition</label>
+    <textarea name="definition" id="definition" ng-model="modifiedNode['definition'][0]"></textarea>
+
+    <div class="submit-row">
+        <button class="button" ng-click="modal.close()">Cancel</button>
+        <button class="button" ng-click="ld3.modifyClass()">Save</button>
+    </div>
+
+</form>
