@@ -1,6 +1,6 @@
 <div ng-show="children && children.length">
     <h3>Children ({{ children.length }})</h3>
-    <div ng-repeat="child in children" class="active-child" data-node-name="{{ child.lid }}">
+    <div ng-repeat="child in children track by $index" class="active-child" data-node-name="{{ child.lid }}">
         <h3 class="active-child-clickable clickable">{{ child.lid }}</h3><i class="fas fa-unlink" alt="Unlink" title="Unlink"></i>
     </div>
 </div>
