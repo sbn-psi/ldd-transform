@@ -63,7 +63,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             $scope.data.addClass($scope.newNode);
 
             update();
-            toggleNodes();
+            toggleNodes(null);
 
             $scope.modal.close();
             $scope.newNode = {};
