@@ -39,10 +39,68 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         },
         editNode: function() {
             $scope.modal.open('editNode');
-            console.log($scope.data.activeNode);
+            $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
         },
-        saveModifiedNode: function() {
-            console.log('save that thang');
+        addAttribute: function() {
+            console.log('add attribute!');
+            return;
+        },
+        addClass: function() {
+            let errors = {};
+
+            if (!$scope.newNode.name) errors.name = 'Name is required.';
+
+            if (!$scope.newNode.version_id) errors.version_id = 'Version number is required.';
+
+            if (!$scope.newNode.local_identifier) errors.local_identifier = 'Local Identifier is required.';
+
+            if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
+
+            if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
+
+            if (Object.keys(errors).length) return $scope.errors = errors;
+
+            $scope.data.addClass($scope.newNode);
+
+            update();
+            toggleNodes();
+
+            $scope.modal.close();
+            $scope.newNode = {};
+            return;
+        },
+        modifyAttribute: function() {
+            const lid = $scope.data.activeNode.lid;
+            const values = {
+                name: $scope.modifiedNode['name'][0],
+                version_id: $scope.modifiedNode['version_id'][0],
+                local_identifier: $scope.modifiedNode['local_identifier'][0],
+                nillable_flag: $scope.modifiedNode['nillable_flag'][0],
+                submitter_name: $scope.modifiedNode['submitter_name'][0],
+                definition: $scope.modifiedNode['definition'][0],
+            };
+
+            $scope.data.modifyAttribute(lid,values);
+
+            update();
+
+            $scope.modal.close();
+        },
+        modifyClass: function() {
+            const lid = $scope.data.activeNode.lid;
+            const values = {
+                name: $scope.modifiedNode['name'][0],
+                version_id: $scope.modifiedNode['version_id'][0],
+                local_identifier: $scope.modifiedNode['local_identifier'][0],
+                submitter_name: $scope.modifiedNode['submitter_name'][0],
+                definition: $scope.modifiedNode['definition'][0]
+            };
+
+            $scope.data.modifyClass(lid,values);
+
+            update();
+
+            $scope.modal.close();
         },
         editLdd: function() {
             $scope.modal.open('editLdd');
@@ -253,7 +311,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                 }
 
             })
-        $scope.$apply();
+        $scope.$applyAsync();
     };
 
     //
@@ -334,14 +392,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
     };
 
     function main(json) {
-        $scope.data = Data.new(json);
-        $scope.ldd = {
-            original: $scope.data.ldd(),
-            edit: $scope.data.ldd()
-        };
-        console.log($scope.ldd);
-        // console.log($scope.data);
-
         // remove old tree
         d3.select('.tree').remove();
 
@@ -349,12 +399,17 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             .append('g')
             .attr('class', 'tree');
 
-        update();
-
-        updateToolbar(null);
+        update(json);
     };
 
-    function update() {
+    function update(json) {
+        if (angular.isDefined(json)) $scope.data = Data.new(json);
+        else $scope.data = Data.new(JSON.stringify($scope.data.model));
+        $scope.ldd = {
+            original: $scope.data.ldd(),
+            edit: $scope.data.ldd()
+        };
+
         var tIn = d3.transition()
             .duration(1000);
 
@@ -421,6 +476,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             .classed('node', true)
             .on('click', toggleNodes)
             .attr('id', function(d) {
+                console.log(d);
                 let _id;
 
                 try {
@@ -507,14 +563,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             .remove();
 
         // TODO transition on update here:
-        node
-            .transition()
-            .duration(750)
-            .delay(1000)
-            .attr('transform',function(d) {
-                return `translate(${d.x},${d.y})`;
-            });
-
         link
             .transition()
             .duration(750)
@@ -527,6 +575,14 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                     return getNodeByIdx(l).y;
                 })
             );
+
+        node
+            .transition()
+            .duration(750)
+            .delay(1000)
+            .attr('transform',function(d) {
+                return `translate(${d.x},${d.y})`;
+            });
     };
 
     function initGrid() {
@@ -652,74 +708,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
     function getNodeByIdx(nodeIdx) {
         return $scope.data.nodes[nodeIdx];
-    };
-
-    function updateToolbar(flag) {
-        return console.log('toolbar state must be handled by angular now');
-
-        if (flag === null) return console.log('default toolbar state is now being handled by angular');
-        else if ($scope.ld3.linkMode) linkModeToolbar(addListeners);
-        else nodeToolbar(addListeners);
-
-        function nodeToolbar(cb) {
-            resetToolbar();
-
-            function tryReturn(val) {
-                try {
-                    return val;
-                } catch (err) {
-                    console.error(err)
-                    return '';
-                }
-            };
-        };
-
-        function linkModeToolbar(cb) {
-            $.get("partials/tools/link-mode.tools.html", function(data) {
-                $("#tools").replaceWith(data);
-                cb();
-            });
-        };
-
-        function resetToolbar() {
-            $('#active-node-title').empty();
-            $('#active-node-details').empty();
-            $('#active-children-title').empty();
-            $('#active-parents-title').empty();
-            $('#active-node-children').empty();
-            $('#active-node-parents').empty();
-            $('#create-node').remove();
-        };
-    };
-
-    // TODO create partial, fill in values with jQuery
-    function newActiveChild(node) {
-        let childLid,
-            htmlChildLid;
-
-        if (node['local_identifier'] && node['local_identifier'][0]) {
-            childLid = node['local_identifier'][0];
-        } else {
-            childLid = node['identifier_reference'][0];
-        }
-
-        let childTitle = `<h3 class="active-child-clickable clickable">${childLid}</h3>`;
-
-        return `<div class="active-child" data-node-name="${childLid}" class="active-child">${childTitle}<i class="fas fa-unlink" alt="Unlink" title="Unlink"></i></div>`;
-    };
-    function newActiveParent(node) {
-        let childLid,
-            htmlChildLid;
-
-        if (node['local_identifier'] && node['local_identifier'][0]) {
-            childLid = node['local_identifier'][0];
-        } else {
-            childLid = node['identifier_reference'][0];
-        }
-
-        let childTitle = `<h3 class="active-child-clickable clickable">${childLid}</h3>`;
-
-        return `<div class="active-child" name="${childLid}-details" class="active-child">${childTitle}</div>`;
     };
 
     $(document).ready(function() {
