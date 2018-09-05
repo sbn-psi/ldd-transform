@@ -1,41 +1,36 @@
-<!--
-
-{DD_Class}
-
-name
-version_id
-local_identifier
-submitter_name
-definition
-(?) abstract_flag
-(?) element_flag
-
-DD_Association
-    identifier_reference
-    reference_type
-    minimum_occurrences
-    maximum_occurrences
-    constant_value
-
-    DD_Attribute_Reference
-
--->
-
 <form class="form">
 
     <label for="name">Name</label>
+    <p class="error" ng-show="errors.name">{{ errors.name }}</p>
     <input type="text" name="name" id="name" ng-model="newNode.name">
 
     <label for="version_id">Version</label>
+    <p class="error" ng-show="errors.version_id">{{ errors.version_id }}</p>
     <input type="text" name="version_id" id="version_id" ng-model="newNode.version_id">
 
     <label for="local_identifier">Local Identifier</label>
+    <p class="error" ng-show="errors.local_identifier">{{ errors.local_identifier }}</p>
     <input type="text" name="local_identifier" id="local_identifier" ng-model="newNode.local_identifier">
 
     <label for="submitter_name">Submitter Name</label>
+    <p class="error" ng-show="errors.submitter_name">{{ errors.submitter_name }}</p>
     <input type="text" name="submitter_name" id="submitter_name" ng-model="newNode.submitter_name">
 
     <label for="definition">Definition</label>
+    <p class="error" ng-show="errors.definition">{{ errors.definition }}</p>
     <textarea name="definition" id="definition" ng-model="newNode.definition"></textarea>
+
+    <label for="minimum_occurrences">Minimum Occurrences</label>
+    <p class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
+    <input type="text" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
+
+    <label for="maximum_occurrences">Maximum Occurrences</label>
+    <p class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
+    <input type="text" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+
+    <div class="submit-row">
+        <button class="button" ng-click="modal.close()">Cancel</button>
+        <button class="button" ng-click="ld3.addClass()">Save</button>
+    </div>
 
 </form>
