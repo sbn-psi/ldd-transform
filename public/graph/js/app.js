@@ -55,6 +55,18 @@ app
             templateUrl: './partials/angular/ld3-edit-node-form.html'
         }
     })
+    .directive('ld3EditClass', () => {
+        return {
+            templateUrl: './partials/angular/ld3-edit-class.html',
+            controller: function($scope) {
+            }
+        }
+    })
+    .directive('ld3EditAttribute', () => {
+        return {
+            templateUrl: './partials/angular/ld3-edit-attribute.html'
+        }
+    })
     .directive('ld3EditLddForm', () => {
         return {
             templateUrl: './partials/angular/ld3-edit-ldd-form.html'
