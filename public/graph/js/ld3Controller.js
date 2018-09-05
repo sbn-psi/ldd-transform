@@ -34,7 +34,9 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             $scope.newNode = {
                 reference_type: (() => {
                     return refType == 'class' ? 'component_of' : 'attribute_of';
-                })()
+                })(),
+                unit_of_measure_type: 'Units_of_None',
+                value_data_type: 'ASCII_Real'
             }
         },
         editNode: function() {
@@ -42,21 +44,39 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
         },
         addAttribute: function() {
-            console.log('add attribute!');
+            let errors = {};
+
+            if (!$scope.newNode.name) errors.name = 'Name is required.';
+            if (!$scope.newNode.version_id) errors.version_id = 'Version is required.';
+            if (!$scope.newNode.local_identifier) errors.local_identifier = 'Local Identifier is required.';
+            if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
+            if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
+            if (!$scope.newNode.minimum_occurrences) errors.minimum_occurrences = 'Minimum Occurrences is required.';
+            if (!$scope.newNode.maximum_occurrences) errors.maximum_occurrences = 'Maximum Occurrences is required.';
+            if (!angular.isDefined($scope.newNode.nillable_flag)) errors.nillable_flag = 'Nillable Flag is required.';
+            if (!angular.isDefined($scope.newNode.enumeration_flag)) errors.enumeration_flag = 'Enumeration Flag is required.';
+
+            if (Object.keys(errors).length) return $scope.errors = errors;
+
+            $scope.data.addAttribute($scope.newNode);
+
+            update();
+            toggleNodes(null);
+
+            $scope.modal.close();
+            $scope.newNode = {};
             return;
         },
         addClass: function() {
             let errors = {};
 
             if (!$scope.newNode.name) errors.name = 'Name is required.';
-
             if (!$scope.newNode.version_id) errors.version_id = 'Version number is required.';
-
             if (!$scope.newNode.local_identifier) errors.local_identifier = 'Local Identifier is required.';
-
             if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
-
             if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
+            if (!$scope.newNode.minimum_occurrences) errors.minimum_occurrences = 'Minimum Occurrences is required.';
+            if (!$scope.newNode.maximum_occurrences) errors.maximum_occurrences = 'Maximum Occurrences is required.';
 
             if (Object.keys(errors).length) return $scope.errors = errors;
 
@@ -476,7 +496,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             .classed('node', true)
             .on('click', toggleNodes)
             .attr('id', function(d) {
-                console.log(d);
                 let _id;
 
                 try {
