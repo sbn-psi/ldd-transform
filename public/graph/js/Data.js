@@ -411,6 +411,44 @@ function Data(json) {
         update();
     };
 
+    this.addAttribute = function(node) {
+        // create DD_Attribute definition
+        const newAttribute = {
+            name: [node.name],
+            version_id: [node.version_id],
+            local_identifier: [node.local_identifier],
+            lid: [this.ldd().namespace_id[0] + '.' + node.name],
+            nillable_flag: [node.nillable_flag],
+            submitter_name: [node.submitter_name],
+            definition: [node.definition],
+            DD_Value_Domain: {
+                enumeration_flag: [node.enumeration_flag],
+                value_data_type: [node.value_data_type],
+                minimum_value: [node.minimum_value],
+                maximum_value: [node.maximum_value],
+                unit_of_measure_type: [node.unit_of_measure_type]
+            }
+        };
+
+        const index = this.model['Ingest_LDD']['DD_Attribute'].length;
+        this.model['Ingest_LDD']['DD_Attribute'].push(newAttribute);
+
+        // create link between newAttribute and activeNode
+        const newNode = this.model['Ingest_LDD']['DD_Attribute'][index];
+
+        // add reference to attribute from activeNode
+        this.activeNode['DD_Association'].push({
+            identifier_reference: [node.local_identifier],
+            reference_type: ['attribute_of'],
+            minimum_occurrences: [node.minimum_occurrences],
+            maximum_occurrences: [node.maximum_occurrences],
+            DD_Attribute_Reference: {
+                namespace_id: [this.ldd().namespace_id],
+                name: [node.name]
+            }
+        });
+    };
+
     this.addClass = function(node) {
         // create DD_Class definition
         const newClass = {
@@ -426,22 +464,19 @@ function Data(json) {
         this.model['Ingest_LDD']['DD_Class'].push(newClass);
 
         // create link between newClass and activeNode
-
         const newNode = this.model['Ingest_LDD']['DD_Class'][index];
 
         // add reference to class from activeNode
         this.activeNode['DD_Association'].push({
             identifier_reference: [newNode.local_identifier[0]],
-            reference_type: 'component_of',
+            reference_type: ['component_of'],
             minimum_occurrences: [node.minimum_occurrences],
             maximum_occurrences: [node.maximum_occurrences],
-            DD_Attribute_Reference: {
-                namespace_id: this.ldd().namespace_id,
-                name: newNode.name
+            DD_Class_Reference: {
+                namespace_id: [this.ldd().namespace_id],
+                name: [newNode.name]
             }
-        })
-
-        this.defineNodesAndLinks();
+        });
     };
 
     this.getParents = function(idx) {
