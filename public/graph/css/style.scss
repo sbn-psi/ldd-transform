@@ -107,6 +107,7 @@ button, a, i, [type="submit"]{
     position: relative;
     background: white;
     height: 80vh;
+    width: 40vw;
     display: flex;
     justify-content: center;
     overflow: scroll;
@@ -120,11 +121,24 @@ button, a, i, [type="submit"]{
     }
 }
 .modal-close {
-    padding: 0.1em;
+    padding: 0;
     position: absolute;
     top: 0.25em;
     right: 0.25em;
     cursor: pointer;
+}
+.form {
+    margin: 1em auto;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    label {
+        margin: 0.75em 0 0.25em;
+    }
+    textarea {
+        min-height: 80px;
+    }
 }
 .create-node {
     padding: 0.1em;
@@ -201,38 +215,12 @@ button, a, i, [type="submit"]{
     margin: 0.25em 0 1em 0.25em;
     color: #505050;
 }
-label[for="value"] {
-    margin-top: 0.5em;
-}
-label[for="value_meaning"] {
-    margin-bottom: 0.5em;
-}
-#create-node-modal {
-    text-align: center;
-}
-.form {
-    width: 80%;
-    margin: 0 auto;
-}
-.form label {
-    margin: 0.25em 0;
-}
-.form textarea {
-    min-height: 80px;
-}
 .submit-row {
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-}
-#create-new-node {
-    margin: 2em 0 0;
-}
-#active-node-title {
-    text-align: center;
-    margin: 1em 0;
 }
 .clickable {
     cursor: pointer;
@@ -256,14 +244,4 @@ label[for="value_meaning"] {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
-}
-
-form {
-    display: flex;
-    flex-flow: column;
-}
-label {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
 }
