@@ -237,56 +237,6 @@ function Data(json) {
         localStorage.setItem('ld3',JSON.stringify(this.model));
     };
 
-    this.deleteNode = function(lid) {
-        let linkCount = 0;
-
-        // // // // // Update Model // // // // //
-        // remove node from 'DD_Association' and 'chilren' arrays
-        var pLid = activeNode.lid;      // parent lid
-        var aLid = lid;                 // associated lid
-        var nodeIdx = this.getNode(lid,true);
-
-        this.model['Ingest_LDD']['DD_Class'].map(filterAssociations);
-        this.model['Ingest_LDD']['DD_Attribute'].map(filterAssociations);
-
-        this.links.map(l => {
-            if (l.source == nodeIdx
-                || l.target == nodeIdx) {
-                linkCount++;
-            }
-        });
-
-        // remove element definition from
-        // 'DD_Class' or 'DD_Attribute'
-        if (linkCount == 1) this.removeNode(lid);
-
-        this.defineNodesAndLinks();
-
-        update();
-
-        toggleNodes();
-
-        function filterAssociations(d) {
-            if (d.lid == pLid) {
-                d['DD_Association'] = d['DD_Association'].filter(a => {
-                    try {
-                        return (a['local_identifier'][0] == aLid) ? false : true;
-                    } catch (err) {
-                        return (a['identifier_reference'][0] == aLid) ? false : true;
-                    }
-                });
-                d['children'] = d['children'].filter(c => {
-                    try {
-                        return (c['local_identifier'][0] == aLid) ? false : true;
-                    } catch (err) {
-                        return (c['identifier_reference'][0] == aLid) ? false : true;
-                    }
-                });
-            };
-            return d;
-        };
-    };
-
     this.removeNode = function(lid) {
         let node = this.getNode(lid);
         let array = node.className == 'class' ? 'DD_Class' : 'DD_Attribute';
@@ -295,26 +245,6 @@ function Data(json) {
             if (el.lid == lid) return false;
             else return true;
         });
-    };
-
-    this.parents = function(lid,getIdx) {
-        let idx = this.getNode(lid,true);
-        let _parents = [];
-
-        this.links.map(l => {
-            if (l.target == idx) _parents.push(l.source);
-        });
-
-        if (getIdx) {
-            return _parents;
-        } else {
-            _parents = _parents.map(p => {
-                return data.nodes[p];
-            });
-
-            return _parents;
-        }
-
     };
 
     this.getNode = function(lid,getIdx) {
@@ -338,77 +268,6 @@ function Data(json) {
 
         if (getIdx) return nodeIdx;
         else return node;
-    };
-
-    // // // // // // // CREATE // // // // // // //
-    this.addNode = function(node) {
-        let type = node.reference_type == 'component_of' ? 'class' : 'attribute';
-        let modelArray = type == 'class' ? 'DD_Class' : 'DD_Attribute';
-
-        // // // // // UPDATE MODEL // // // // //
-        // add global keyword definition
-        let nodeGlobal = {
-            name: [node.name],
-            className: type,
-            version_id: [node.version_id],
-            identifier_reference: [node.identifier_reference],
-            submitter_name: [node.submitter_name],
-            definition: [node.definition]
-        };
-
-        if (type == 'class') {
-            nodeGlobal['DD_Association'] = [];
-            nodeGlobal['children'] = [];
-        } else if (type == 'attribute') {
-            nodeGlobal['nillable_flag'] = [node.nillable_flag],
-            nodeGlobal['DD_Value_Domain'] = [node.value_domain];
-        }
-
-        this.model['Ingest_LDD'][modelArray].push(nodeGlobal);
-
-        // add keyword instance definiton to
-        // parent node "DD_Association" and "children" arrays
-        let nodeInstance = {
-            name: [node.name],
-            col: activeNode.col + 1,
-            className: type,
-            definition: [node.definition],
-            identifier_reference: [node.identifier_reference],
-            version_id: [node.version_id],
-            submitter_name: [node.submitter_name],
-            definition: [node.definition],
-
-            identifier_reference: [node.identifier_reference],
-            reference_type: [node.reference_type],
-            minimum_occurrences: [node.minimum_occurrences],
-            maximum_occurrences: [node.maximum_occurrences],
-            name: [node.name]
-        };
-        let modelParent = this.model['Ingest_LDD']['DD_Class'].find(p => {
-            try {
-                return p['local_identifier'][0] == activeNode.lid;
-            } catch (err) {
-                return p['identifier_reference'][0] == activeNode.lid;
-            }
-        });
-
-        let modelIdx = this.model['Ingest_LDD']['DD_Class'].indexOf(modelParent);
-        let associationArray = this.model['Ingest_LDD']['DD_Class'][modelIdx];
-
-        if (!associationArray['DD_Association']) associationArray['DD_Association'] = [nodeInstance];
-        else associationArray['DD_Association'].push(nodeInstance);
-
-        if (!associationArray['children']) associationArray['children'] = nodeInstance;
-        else associationArray['children'].push(nodeInstance);
-
-        // // // // // UPDATE D3 // // // // //
-
-        let parent = this.nodes.find(el => { return el.lid == activeNode.lid; });
-        let parentIdx = this.nodes.indexOf(parent);
-
-        this.defineNodesAndLinks();
-
-        update();
     };
 
     this.addAttribute = function(node) {
