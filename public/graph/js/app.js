@@ -49,19 +49,20 @@ app
     })
     .directive('ld3EditNodeForm', () => {
         return {
-            templateUrl: './partials/ld3-edit-node-form.html'
+            templateUrl: './partials/ld3-edit-node-form.html',
+            transclude: true
         }
     })
     .directive('ld3EditClass', () => {
         return {
             templateUrl: './partials/ld3-edit-class.html',
-            controller: function($scope) {
-            }
+            transclude: true
         }
     })
     .directive('ld3EditAttribute', () => {
         return {
-            templateUrl: './partials/ld3-edit-attribute.html'
+            templateUrl: './partials/ld3-edit-attribute.html',
+            transclude: true
         }
     })
     .directive('ld3EditLddForm', () => {

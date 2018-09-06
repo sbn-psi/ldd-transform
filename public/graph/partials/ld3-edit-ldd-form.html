@@ -1,6 +1,6 @@
-<ld3-modal-close-button></ld3-modal-close-button>
+<form class="modal form">
 
-<form class="form">
+    <h3 class="title">Edit LDD Details</h3>
 
     <label for="name">
         Name
@@ -38,8 +38,8 @@
     <textarea name="comment" ng-model="ldd.edit.comment" id="comment"></textarea>
 
     <div class="submit-row">
-        <button ng-click="modal.close()" class="button">Cancel</button>
-        <button ng-click="ld3.saveLdd()" class="button">Save</button>
+        <div ng-click="modal.close()" class="button-choice">Cancel</div>
+        <div ng-click="ld3.saveLdd()" class="button-choice positive">Save</div>
     </div>
 
 </form>

@@ -49,12 +49,6 @@ button, a, i, [type="submit"]{
         color: grey;
     }
 }
-.selected {
-    box-shadow: 2px 4px 10px 0 #404040;
-}
-.notSelected {
-    box-shadow: none;
-}
 .enabled {
     cursor: pointer;
     color: black;
@@ -76,6 +70,101 @@ button, a, i, [type="submit"]{
 .node {
     cursor: pointer;
 }
+.modal {
+    margin: 3em auto;
+    padding: 3em 1em;
+    background: white;
+    width: 30vw;
+    box-shadow: 0 0 1em 0 black;
+    border-radius: 0.25em;
+    overflow: scroll;
+    max-height: calc(90vh - 6em);
+
+}
+.curtain {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(225,225,225,0.7);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+.modal-close {
+    padding: 0;
+    position: absolute;
+    top: 0.25em;
+    right: 0.25em;
+    cursor: pointer;
+}
+.form {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    label {
+        width: 100%;
+        margin: 0.75em 0 0.25em;
+    }
+    textarea {
+        min-height: 80px;
+    }
+    .flex-row {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-around;
+    }
+}
+.submit-row {
+    padding: 0;
+    margin-top: 3em;
+    width: 100%;
+    background: white;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .button-choice {
+        padding: 1em 0;
+        background: #dddddd;
+        text-align: center;
+        width: 30%;
+        cursor: pointer;
+    }
+
+    .positive {
+        background: #c4c4ff;
+    }
+}
+
+.tabs-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    .tab {
+        flex: 1;
+        text-align: center;
+        border: 1px solid black;
+        background: #fafafa;
+        padding: 6px 20px 3px 20px;
+        width: auto;
+        box-shadow: none;
+        font-size: 0.9em;
+        text-decoration: none;
+
+        &.active {
+            background: #dddddd;
+            font-size: 1em;
+            box-shadow: 2px 4px 10px 0 #404040;
+        }
+    }
+}
 .axis {
     path {
         display: none;
@@ -90,56 +179,6 @@ button, a, i, [type="submit"]{
 }
 .title {
     text-align: center;
-}
-.curtain {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(225,225,225,0.7);
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-}
-.modal {
-    padding: 2em;
-    margin: 3em auto;
-    position: relative;
-    background: white;
-    height: 80vh;
-    width: 40vw;
-    display: flex;
-    justify-content: center;
-    overflow: scroll;
-    box-shadow: 0 0 1em 0 black;
-    border-radius: 0.25em;
-    .flex-row {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        justify-content: space-around;
-    }
-}
-.modal-close {
-    padding: 0;
-    position: absolute;
-    top: 0.25em;
-    right: 0.25em;
-    cursor: pointer;
-}
-.form {
-    margin: 1em auto;
-    position: relative;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    label {
-        margin: 0.75em 0 0.25em;
-    }
-    textarea {
-        min-height: 80px;
-    }
 }
 .create-node {
     padding: 0.1em;
@@ -215,13 +254,6 @@ button, a, i, [type="submit"]{
 .value {
     margin: 0.25em 0 1em 0.25em;
     color: #505050;
-}
-.submit-row {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
 }
 .clickable {
     cursor: pointer;
