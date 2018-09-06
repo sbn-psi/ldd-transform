@@ -8,7 +8,8 @@
             <i ng-show="ld3.isEnabled.addLink()" ng-click="ld3.addLink()" class="fas fa-link" title="Create a new link"></i>
         </div>
         <div class="toolgroup">
-            <i ng-click="ld3.download()" class="far fa-arrow-alt-circle-down fa-lg enabled" title="Download Current Ingest_LDD File"></i>
+            <i ng-hide="ld3.linkMode" ng-click="ld3.download()" class="far fa-arrow-alt-circle-down fa-lg enabled" title="Download Current Ingest_LDD File"></i>
+            <i ng-show="ld3.linkMode" class="far fa-arrow-alt-circle-down fa-lg disabled" title="Download Current Ingest_LDD File [disabled]"></i>
         </div>
     </div>
     <a
