@@ -18,10 +18,7 @@ app
     })
     .directive('ld3ActiveNodeChildren', () => {
         return {
-            templateUrl: './partials/ld3-active-node-children.html',
-            scope: {
-                children: '='
-            }
+            templateUrl: './partials/ld3-active-node-children.html'
         }
     })
     .directive('ld3ActiveNodeParents', () => {
