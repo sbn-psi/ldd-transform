@@ -258,7 +258,7 @@ function Data(json) {
 
         // remove element definition from
         // 'DD_Class' or 'DD_Attribute'
-        if (linkCount == 1) this.removeNodeDefinition(lid);
+        if (linkCount == 1) this.removeNode(lid);
 
         this.defineNodesAndLinks();
 
@@ -287,7 +287,7 @@ function Data(json) {
         };
     };
 
-    this.removeNodeDefinition = function(lid) {
+    this.removeNode = function(lid) {
         let node = this.getNode(lid);
         let array = node.className == 'class' ? 'DD_Class' : 'DD_Attribute';
 
@@ -512,6 +512,29 @@ function Data(json) {
         });
 
         this.defineNodesAndLinks();
+    };
+
+    this.removeLink = function(lid) {
+        // remove referenced lid from activeNode
+        this.activeNode['DD_Association'] = this.activeNode['DD_Association'].filter(ref => {
+            return ref.lid != lid;
+        });
+
+        this.defineNodesAndLinks();
+
+        const links = this.getLinks(lid);
+        if (!links.length) this.removeNode(lid);
+    };
+
+    this.getLinks = function(lid) {
+        const node = this.getNode(lid);
+        const index = this.getNode(lid,true);
+        let links = [];
+        this.links.map(link => {
+            if (link.source == index) links.push(link);
+            if (link.target == index) links.push(link);
+        });
+        return links;
     };
 
     this.imVersion = function(ver) {
