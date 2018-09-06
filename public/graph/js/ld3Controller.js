@@ -30,6 +30,15 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         addLink: function() {
             $scope.ld3.linkMode = !$scope.ld3.linkMode;
         },
+        removeLink: function(lid /* lid of node to be removed from activeNode */) {
+            const confirmed = confirm('Are you sure you want to remove this link?');
+
+            if (confirmed) $scope.data.removeLink(lid);
+
+            update();
+
+            return;
+        },
         newNode: function(refType) {
             $scope.newNode = {
                 reference_type: (() => {
@@ -121,15 +130,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             update();
 
             $scope.modal.close();
-        },
-        removeLink: function(lid /* lid of node to be removed from activeNode */) {
-            const confirmed = confirm('Are you sure you want to remove this link?');
-
-            if (confirmed) $scope.data.removeLink(lid);
-
-            update();
-
-            return;
         },
         editLdd: function() {
             $scope.modal.open('editLdd');
