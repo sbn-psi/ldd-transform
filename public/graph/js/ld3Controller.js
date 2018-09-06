@@ -729,8 +729,4 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         return $scope.data.nodes[nodeIdx];
     };
 
-    $(document).ready(function() {
-        addListeners();
-    });
-
 }]);
