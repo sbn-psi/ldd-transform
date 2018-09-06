@@ -319,21 +319,20 @@ function Data(json) {
             definition: [node.definition],
             DD_Association: []
         };
+
         const index = this.model['Ingest_LDD']['DD_Class'].length;
         this.model['Ingest_LDD']['DD_Class'].push(newClass);
 
         // create link between newClass and activeNode
-        const newNode = this.model['Ingest_LDD']['DD_Class'][index];
-
-        // add reference to class from activeNode
+        // by adding reference to class from activeNode
         this.activeNode['DD_Association'].push({
-            identifier_reference: [newNode.local_identifier[0]],
+            identifier_reference: [node.local_identifier],
             reference_type: ['component_of'],
             minimum_occurrences: [node.minimum_occurrences],
             maximum_occurrences: [node.maximum_occurrences],
             DD_Class_Reference: {
                 namespace_id: [this.ldd().namespace_id],
-                name: [newNode.name]
+                name: [node.name]
             }
         });
     };

@@ -7,12 +7,12 @@
         <a
         class="tab"
         ng-class="{active:newNode.reference_type == 'component_of'}"
-        ng-click="ld3.newNode('class')">
+        ng-click="newNode.reference_type = 'component_of'">
         Class</a>
         <a
         class="tab"
         ng-class="{active:newNode.reference_type == 'attribute_of'}"
-        ng-click="ld3.newNode('attribute')">
+        ng-click="newNode.reference_type = 'attribute_of'">
         Attribute</a>
     </div>
 

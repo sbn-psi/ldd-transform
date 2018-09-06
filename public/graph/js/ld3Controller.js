@@ -24,9 +24,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             }
         },
         linkMode: false,
-        addNode: function() {
-            $scope.modal.open('addNode');
-        },
         addLink: function() {
             $scope.ld3.linkMode = !$scope.ld3.linkMode;
         },
@@ -39,13 +36,11 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
             return;
         },
-        newNode: function(refType) {
-            console.log();
+        openAddNodeModal: function(refType) {
+            $scope.modal.open('addNode');
 
             $scope.newNode = {
-                reference_type: (() => {
-                    return refType == 'class' ? 'component_of' : 'attribute_of';
-                })(),
+                reference_type: 'component_of',
                 unit_of_measure_type: 'Units_of_None',
                 value_data_type: 'ASCII_Real',
                 version_id: '1.0',
@@ -72,6 +67,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
             if (Object.keys(errors).length) return $scope.errors = errors;
 
+            $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
+
             $scope.data.addAttribute($scope.newNode);
 
             update();
@@ -94,6 +91,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
             if (Object.keys(errors).length) return $scope.errors = errors;
 
+            $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
+            console.log($scope.newNode);
             $scope.data.addClass($scope.newNode);
 
             update();

@@ -1,6 +1,6 @@
 <form class="form">
 
-    <label for="name">Name</label>
+    <label for="name">Attribute Name</label>
     <p class="error" ng-show="errors.name">{{ errors.name }}</p>
     <input type="text" name="name" id="name" ng-model="newNode.name">
 
@@ -8,9 +8,13 @@
     <p class="error" ng-show="errors.version_id">{{ errors.version_id }}</p>
     <input type="text" name="version_id" id="version_id" ng-model="newNode.version_id">
 
-    <label for="local_identifier">Local Identifier</label>
+    <label for="namespace_id">Namespace</label>
+    <p class="error" ng-show="errors.namespace_id">{{ errors.namespace_id }}</p>
+    <input type="text" name="namespace_id" id="namespace_id" ng-model="newNode.namespace_id">
+
+    <!-- <label for="local_identifier">Local Identifier</label>
     <p class="error" ng-show="errors.local_identifier">{{ errors.local_identifier }}</p>
-    <input type="text" name="local_identifier" id="local_identifier" ng-model="newNode.local_identifier">
+    <input type="text" name="local_identifier" id="local_identifier" ng-model="newNode.local_identifier"> -->
 
     <label for="submitter_name">Submitter Name</label>
     <p class="error" ng-show="errors.submitter_name">{{ errors.submitter_name }}</p>
