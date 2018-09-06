@@ -40,13 +40,18 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             return;
         },
         newNode: function(refType) {
+            console.log();
+
             $scope.newNode = {
                 reference_type: (() => {
                     return refType == 'class' ? 'component_of' : 'attribute_of';
                 })(),
                 unit_of_measure_type: 'Units_of_None',
-                value_data_type: 'ASCII_Real'
-            }
+                value_data_type: 'ASCII_Real',
+                version_id: '1.0',
+                namespace_id: $scope.ldd.original.namespace_id,
+                submitter_name: $scope.ldd.original.full_name
+            };
         },
         editNode: function() {
             $scope.modal.open('editNode');
@@ -57,7 +62,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
             if (!$scope.newNode.name) errors.name = 'Name is required.';
             if (!$scope.newNode.version_id) errors.version_id = 'Version is required.';
-            if (!$scope.newNode.local_identifier) errors.local_identifier = 'Local Identifier is required.';
+            if (!$scope.newNode.namespace_id) errors.namespace_id = 'Namespace is required.';
             if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
             if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
             if (!$scope.newNode.minimum_occurrences) errors.minimum_occurrences = 'Minimum Occurrences is required.';
@@ -81,7 +86,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
             if (!$scope.newNode.name) errors.name = 'Name is required.';
             if (!$scope.newNode.version_id) errors.version_id = 'Version number is required.';
-            if (!$scope.newNode.local_identifier) errors.local_identifier = 'Local Identifier is required.';
+            if (!$scope.newNode.namespace_id) errors.namespace_id = 'Namespace is required.';
             if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
             if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
             if (!$scope.newNode.minimum_occurrences) errors.minimum_occurrences = 'Minimum Occurrences is required.';
