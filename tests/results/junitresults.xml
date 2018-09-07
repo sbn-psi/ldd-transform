@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites disabled="0" errors="0" failures="0" tests="8" time="5.062">
+ <testsuite name="Protractor Tests" timestamp="2018-09-07T15:11:38" hostname="localhost" time="1.914" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="Protractor Tests" name="should be configured properly" time="1.89" />
+ </testsuite>
+ <testsuite name="LD3 Tool" timestamp="2018-09-07T15:11:40" hostname="localhost" time="1.598" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="LD3 Tool" name="should load an existing Ingest_LDD file" time="0.048" />
+ </testsuite>
+ <testsuite name="LD3 Tool.should be able to modify LDD details" timestamp="2018-09-07T15:11:40" hostname="localhost" time="1.55" errors="0" tests="6" skipped="0" disabled="0" failures="0">
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="name" time="0.412" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="version id" time="0.206" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="full name" time="0.2" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="steward id" time="0.222" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="namespace" time="0.308" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="comment" time="0.2" />
+ </testsuite>
+</testsuites>

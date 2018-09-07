@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-model
+  href=“https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch” schematypens=“http://purl.oclc.org/dsdl/schematron”
+  ?>
+
+<!-- PDS4 Local Data Dictionary Ingest File -->
+
+<Ingest_LDD 
+  xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd"
+  >
+  
+  <name>Nuclear Spectroscopy IngestLDD</name>
+  <ldd_version_id>1.0.0.0</ldd_version_id>
+  <full_name>Conor Kingston</full_name>
+  <steward_id>sbn</steward_id>
+  <namespace_id>grns</namespace_id>
+  <comment>This is a demo IngestLDD file for the nuclear spectroscopy discipline dictionary.</comment>
+  <last_modification_date_time>2018-08-23T17:14:05Z</last_modification_date_time>
+  
+  <DD_Attribute>
+    <name>exponent</name>
+    <version_id>1.0</version_id>
+    <local_identifier>grns.exponent</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Conor Kingston</submitter_name>
+    <definition>The exponent definition.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <minimum_value>0</minimum_value>
+      <maximum_value>0</maximum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  
+  <DD_Attribute>
+    <name>coefficient</name>
+    <version_id>1.0</version_id>
+    <local_identifier>grns.coefficient</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Conor Kingston</submitter_name>
+    <definition>The coefficient definition.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <minimum_value>0</minimum_value>
+      <maximum_value>0</maximum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  
+  <DD_Attribute>
+    <name>index</name>
+    <version_id>1.0</version_id>
+    <local_identifier>grns.index</local_identifier>
+    <nillable_flag>true</nillable_flag>
+    <submitter_name>Conor Kingston</submitter_name>
+    <definition>The index definition.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <minimum_value>0</minimum_value>
+      <maximum_value>255</maximum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  
+  <DD_Class>
+    <name>GRNS_Observation</name>
+    <version_id>1.0</version_id>
+    <local_identifier>grns.GRNS_Observation</local_identifier>
+    <submitter_name>Conor Kingston</submitter_name>
+    <definition>This class defines a single nuclear spectroscopy observation.</definition>
+    <DD_Association>
+      <identifier_reference>grns.Energy_Calibration</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+      <DD_Class_Reference>
+        <namespace_id>grns</namespace_id>
+        <name>Energy_Calibration</name>
+      </DD_Class_Reference>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>grns.Instrument_State</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>*</maximum_occurrences>
+      <DD_Class_Reference>
+        <namespace_id>grns</namespace_id>
+        <name>Instrument_State</name>
+      </DD_Class_Reference>
+    </DD_Association>
+  </DD_Class>
+  
+  <DD_Class>
+    <name>Energy_Calibration</name>
+    <version_id>1.0</version_id>
+    <local_identifier>grns.Energy_Calibration</local_identifier>
+    <submitter_name>Conor Kingston</submitter_name>
+    <definition>The definition for the energy calibration class.</definition>
+    <DD_Association>
+      <identifier_reference>grns.Polynomial_Coefficient</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>*</maximum_occurrences>
+      <DD_Class_Reference>
+        <namespace_id>grns</namespace_id>
+        <name>Polynomial_Coefficient</name>
+      </DD_Class_Reference>
+    </DD_Association>
+  </DD_Class>
+  
+  <DD_Class>
+    <name>Polynomial_Coefficient</name>
+    <version_id>1.0</version_id>
+    <local_identifier>grns.Polynomial_Coefficient</local_identifier>
+    <submitter_name>Conor Kingston</submitter_name>
+    <definition>The definition for the polynomial coefficient class.</definition>
+    <DD_Association>
+      <identifier_reference>grns.exponent</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+      <DD_Attribute_Reference>
+        <namespace_id>grns</namespace_id>
+        <name>exponent</name>
+      </DD_Attribute_Reference>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>grns.coefficient</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+      <DD_Attribute_Reference>
+        <namespace_id>grns</namespace_id>
+        <name>coefficient</name>
+      </DD_Attribute_Reference>
+    </DD_Association>
+  </DD_Class>
+  
+  <DD_Class>
+    <name>Instrument_State</name>
+    <version_id>1.0</version_id>
+    <local_identifier>grns.Instrument_State</local_identifier>
+    <submitter_name>Conor Kingston</submitter_name>
+    <definition>The definition for the instrument state class.</definition>
+    <DD_Association>
+      <identifier_reference>grns.index</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>*</maximum_occurrences>
+      <DD_Attribute_Reference>
+        <namespace_id>grns</namespace_id>
+        <name>index</name>
+      </DD_Attribute_Reference>
+    </DD_Association>
+  </DD_Class>
+  
+</Ingest_LDD>
