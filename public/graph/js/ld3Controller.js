@@ -51,6 +51,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         editNode: function() {
             $scope.modal.open('editNode');
             $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
+            $scope.modifiedNode.namespace_id = [$scope.ldd.original.namespace_id];
         },
         addAttribute: function() {
             let errors = {};
@@ -107,7 +108,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             const values = {
                 name: $scope.modifiedNode['name'][0],
                 version_id: $scope.modifiedNode['version_id'][0],
-                local_identifier: $scope.modifiedNode['local_identifier'][0],
+                local_identifier: $scope.modifiedNode['namespace_id'][0] + '.' + $scope.modifiedNode['name'][0],
                 nillable_flag: $scope.modifiedNode['nillable_flag'][0],
                 submitter_name: $scope.modifiedNode['submitter_name'][0],
                 definition: $scope.modifiedNode['definition'][0],
@@ -124,7 +125,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             const values = {
                 name: $scope.modifiedNode['name'][0],
                 version_id: $scope.modifiedNode['version_id'][0],
-                local_identifier: $scope.modifiedNode['local_identifier'][0],
+                local_identifier: $scope.modifiedNode['namespace_id'][0] + '.' + $scope.modifiedNode['name'][0],
                 submitter_name: $scope.modifiedNode['submitter_name'][0],
                 definition: $scope.modifiedNode['definition'][0]
             };
@@ -147,6 +148,12 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                 edit: $scope.data.ldd()
             };
             update();
+
+            if ($scope.newLddMode) {
+                $scope.data.activeNode = $scope.data.getNode('placeholder.Template_Class');
+                $scope.ld3.editNode();
+            };
+
             return;
         },
         download: function() {
@@ -420,6 +427,9 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         if (window.localStorage.getItem('ld3')) {
             main(window.localStorage.getItem('ld3'));
         } else {
+            console.log('new ldd!');
+            $scope.modal.open('newLdd');
+            $scope.newLddMode = true;
             main(JSON.stringify(_template));
         }
     };
