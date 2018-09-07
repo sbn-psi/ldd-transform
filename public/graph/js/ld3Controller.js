@@ -441,7 +441,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         if (window.localStorage.getItem('ld3')) {
             main(window.localStorage.getItem('ld3'));
         } else {
-            console.log('new ldd!');
             $scope.modal.open('editLdd');
             $scope.newLddMode = true;
             main(JSON.stringify(_template));
