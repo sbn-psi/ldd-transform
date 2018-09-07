@@ -142,6 +142,20 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             return;
         },
         saveLdd: function() {
+            const errors = {};
+
+            if (!$scope.ldd.edit.name) errors.name = 'LDD Name is required.';
+            if (!$scope.ldd.edit.ldd_version_id) errors.ldd_version_id = 'LDD Version is required.';
+            if (!$scope.ldd.edit.full_name) errors.full_name = 'Full Name is required.';
+            if (!$scope.ldd.edit.steward_id) errors.steward_id = 'Steward ID is required.';
+            if (!$scope.ldd.edit.namespace_id) errors.namespace_id = 'Namespace is required.';
+            if (!$scope.ldd.edit.comment) errors.comment = 'Comment is required.';
+
+            if (Object.keys(errors).length) {
+                console.log('ERRORS');
+                return $scope.errors = errors;
+            };
+
             $scope.modal.close();
             $scope.data.modifyLddDetails($scope.ldd.edit);
             $scope.ldd = {
@@ -428,7 +442,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             main(window.localStorage.getItem('ld3'));
         } else {
             console.log('new ldd!');
-            $scope.modal.open('newLdd');
+            $scope.modal.open('editLdd');
             $scope.newLddMode = true;
             main(JSON.stringify(_template));
         }

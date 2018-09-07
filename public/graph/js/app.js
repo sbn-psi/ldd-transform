@@ -65,11 +65,6 @@ app
             transclude: true
         }
     })
-    .directive('ld3NewLddForm', () => {
-        return {
-            templateUrl: './partials/ld3-new-ldd-form.html'
-        }
-    })
     .directive('ld3EditLddForm', () => {
         return {
             templateUrl: './partials/ld3-edit-ldd-form.html'
