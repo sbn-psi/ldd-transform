@@ -139,6 +139,9 @@ button, a, i, [type="submit"]{
         text-align: center;
         width: 30%;
         cursor: pointer;
+        border: none;
+        font-size: 100%;
+        font-family: inherit;
     }
 
     .positive {
