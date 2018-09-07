@@ -43,7 +43,8 @@
     <textarea name="comment" ng-model="ldd.edit.comment" id="comment"></textarea>
 
     <div class="submit-row">
-        <button ng-click="modal.close()" class="button-choice">Cancel</button>
+        <div class="ghost" ng-show="newLddMode"></div>
+        <button ng-click="modal.close()" class="button-choice" ng-hide="newLddMode">Cancel</button>
         <button ng-click="ld3.saveLdd()" class="button-choice positive">Save</button>
     </div>
 
