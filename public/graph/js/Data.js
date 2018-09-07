@@ -308,7 +308,7 @@ function Data(json) {
         });
     };
 
-    this.addClass = function(node) {
+    this.addClass = function(node,newLddMode) {
         // create DD_Class definition
         const newClass = {
             name: [node.name],
@@ -325,6 +325,8 @@ function Data(json) {
 
         // create link between newClass and activeNode
         // by adding reference to class from activeNode
+        if (newLddMode) return;
+        
         this.activeNode['DD_Association'].push({
             identifier_reference: [node.local_identifier],
             reference_type: ['component_of'],

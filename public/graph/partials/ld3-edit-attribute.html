@@ -3,16 +3,13 @@
     <h3 class="title">Edit Attribute</h3>
 
     <label for="name">Attribute Name</label>
-    <input type="text" name="name" id="name" ng-model="modifiedNode['name'][0]">
+    <input type="text" name="name" id="name" ng-model="modifiedNode['name'][0]" disabled>
+
+    <label for="namespace_id">Namespace</label>
+    <input type="text" name="namespace_id" id="namespace_id" ng-model="modifiedNode['namespace_id'][0]" disabled>
 
     <label for="version_id">Version</label>
     <input type="text" name="version_id" id="version_id" ng-model="modifiedNode['version_id'][0]">
-
-    <label for="namespace_id">Namespace</label>
-    <input type="text" name="namespace_id" id="namespace_id" ng-model="modifiedNode['namespace_id'][0]">
-<!--
-    <label for="local_identifier">Local Identifier</label>
-    <input type="text" name="local_identifier" id="local_identifier" ng-model="modifiedNode['local_identifier'][0]"> -->
 
     <label for="submitter_name">Submitter Name</label>
     <input type="text" name="submitter_name" id="submitter_name" ng-model="modifiedNode['submitter_name'][0]">

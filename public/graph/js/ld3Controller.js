@@ -51,7 +51,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         editNode: function() {
             $scope.modal.open('editNode');
             $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
-            $scope.modifiedNode.namespace_id = [$scope.ldd.original.namespace_id];
+            $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
         },
         addAttribute: function() {
             let errors = {};
@@ -93,8 +93,9 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             if (Object.keys(errors).length) return $scope.errors = errors;
 
             $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
-            console.log($scope.newNode);
-            $scope.data.addClass($scope.newNode);
+
+            $scope.data.addClass($scope.newNode,$scope.newLddMode);
+            $scope.newLddMode = false;
 
             update();
             toggleNodes(null);
@@ -150,8 +151,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             update();
 
             if ($scope.newLddMode) {
-                $scope.data.activeNode = $scope.data.getNode('placeholder.Template_Class');
-                $scope.ld3.editNode();
+                $scope.ld3.openAddNodeModal();
             };
 
             return;

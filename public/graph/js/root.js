@@ -13,13 +13,6 @@ const _template = {
         "comment": ["This is a template IngestLDD file."],
         "last_modification_date_time": [""],
         "DD_Attribute": [],
-        "DD_Class": [{
-            "name": ["Template_Class"],
-            "version_id": ["1.0"],
-            "local_identifier": ["placeholder.Template_Class"],
-            "submitter_name": ["Johnny Appleseed"],
-            "definition": ["This is a placeholder class. This element can be edited to begin construction of a new IngestLDD file."],
-            "DD_Association": []
-        }]
+        "DD_Class": []
     }
 };
