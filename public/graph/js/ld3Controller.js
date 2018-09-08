@@ -153,7 +153,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             if (!$scope.ldd.edit.comment) errors.comment = 'Comment is required.';
 
             if (Object.keys(errors).length) {
-                console.log('ERRORS');
                 return $scope.errors = errors;
             };
 
@@ -310,6 +309,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                     _lid = d['identifier_reference'][0];
                 }
 
+                if ($scope.data.activeNode && d.lid == $scope.data.activeNode.lid) return activeNodeStroke;
+
                 _active = activeNodes.find(e => {
                     try {
                         return e['local_identifier'][0] == _lid;
@@ -411,6 +412,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         rootNodeFill = 'lightgreen',
         classNodeFill = '#ADD8E6',
         attributeNodeFill = 'white',
+        activeNodeStroke = '#666666',
         nodeStroke = 'black',
         nodeStrokeWidth = '1px',
         nodeHighlightStroke = 'orange',
