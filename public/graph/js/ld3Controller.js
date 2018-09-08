@@ -206,27 +206,20 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
         if ($scope.data.activeNode == node) {
             $scope.data.activeNode = null;
-            nodeGen = [];
         } else if (!node) {
             g2 = nextGen(g1);
-            g3 = nextGen(g2);
-            nodeGen = g1.concat(g2);
             activeNodes = activeNodes
                 .concat(g1)
                 .concat(g2)
-                .concat(g3);
         } else {
             g1 = [node];
             g2 = nextGen(g1);
-            g3 = nextGen(g2);
-            nodeGen = g1.concat(g2);
             var nodeIdx = $scope.data.getNode(node.lid,true);
             $scope.data.activeNode = $scope.data.nodes[nodeIdx];
             $scope.data.activeNode.parents = $scope.data.getParents(nodeIdx);
             activeNodes = activeNodes
                 .concat(g1)
                 .concat(g2)
-                .concat(g3);
         }
 
         svg.selectAll('.link')
@@ -240,7 +233,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                     _lid = getNodeByIdx(link.source)['identifier_reference'][0];
                 }
 
-                _active = nodeGen.find(d => {
+                _active = g1.find(d => {
                     try {
                         return d['local_identifier'][0] == _lid;
                     } catch (err) {
@@ -273,7 +266,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                     _lid = getNodeByIdx(link.source)['identifier_reference'][0];
                 }
 
-                _active = nodeGen.find(d => {
+                _active = g1.find(d => {
                     try {
                         return d['local_identifier'][0] == _lid;
                     } catch (err) {
@@ -418,7 +411,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         nodeHighlightStroke = 'orange',
         nodeHighlightStrokeWidth = '3px',
         activeNodes = [],
-        nodeGen = [],
         nodes = null,
         links = null,
         rootNodes = [],
@@ -693,9 +685,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         sim.selectAll('.tick text').remove();
     };
 
-    var g1,
-        g2,
-        g3;
+    let g1;
+    let g2;
 
     function linkOpacity(l) {
         var isRequired;
