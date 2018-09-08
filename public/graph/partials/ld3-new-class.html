@@ -24,13 +24,15 @@
     <p class="error" ng-show="errors.definition">{{ errors.definition }}</p>
     <textarea name="definition" id="definition" ng-model="newNode.definition"></textarea>
 
-    <label for="minimum_occurrences">Minimum Occurrences</label>
-    <p class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
-    <input type="text" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
+    <div ng-hide="newLddMode">
+        <label for="minimum_occurrences">Minimum Occurrences</label>
+        <p class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
+        <input type="text" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
 
-    <label for="maximum_occurrences">Maximum Occurrences</label>
-    <p class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
-    <input type="text" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+        <label for="maximum_occurrences">Maximum Occurrences</label>
+        <p class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
+        <input type="text" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+    </div>
 
     <div class="submit-row">
         <div class="ghost" ng-show="newLddMode"></div>

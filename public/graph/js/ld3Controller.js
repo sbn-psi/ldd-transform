@@ -38,6 +38,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         },
         openAddNodeModal: function(refType) {
             $scope.modal.open('addNode');
+            $scope.errors = {};
 
             $scope.newNode = {
                 reference_type: 'component_of',
@@ -50,6 +51,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         },
         editNode: function() {
             $scope.modal.open('editNode');
+            $scope.errors = {};
             $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
             $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
         },
@@ -87,8 +89,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             if (!$scope.newNode.namespace_id) errors.namespace_id = 'Namespace is required.';
             if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
             if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
-            if (!$scope.newNode.minimum_occurrences) errors.minimum_occurrences = 'Minimum Occurrences is required.';
-            if (!$scope.newNode.maximum_occurrences) errors.maximum_occurrences = 'Maximum Occurrences is required.';
 
             if (Object.keys(errors).length) return $scope.errors = errors;
 
@@ -139,6 +139,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         },
         editLdd: function() {
             $scope.modal.open('editLdd');
+            $scope.errors = {};
             return;
         },
         saveLdd: function() {
@@ -442,6 +443,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             main(window.localStorage.getItem('ld3'));
         } else {
             $scope.modal.open('editLdd');
+            $scope.errors = {};
             $scope.newLddMode = true;
             main(JSON.stringify(_template));
         }
