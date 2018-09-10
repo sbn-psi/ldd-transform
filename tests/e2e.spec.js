@@ -199,7 +199,7 @@ describe('A user', function() {
         })
     });
 
-    it('can link an attribute to a parent class', function() {
+    xit('can link an attribute to a parent class', function() {
         browser.refresh()
         browser.sleep(1500);
 
