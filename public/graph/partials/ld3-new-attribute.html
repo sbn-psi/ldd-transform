@@ -1,65 +1,65 @@
 <form class="form">
 
-    <label for="name">Attribute Name</label>
+    <label for="attribute-name">Attribute Name</label>
     <p class="error" ng-show="errors.name">{{ errors.name }}</p>
-    <input type="text" name="name" id="name" ng-model="newNode.name">
+    <input type="text" name="attribute-name" id="attribute-name" ng-model="newNode.name">
 
-    <label for="namespace_id">Namespace</label>
+    <label for="attribute-namespace_id">Namespace</label>
     <p class="error" ng-show="errors.namespace_id">{{ errors.namespace_id }}</p>
-    <input type="text" name="namespace_id" id="namespace_id" ng-model="newNode.namespace_id">
+    <input type="text" name="attribute-namespace_id" id="attribute-namespace_id" ng-model="newNode.namespace_id">
 
-    <label for="version_id">Version</label>
+    <label for="attribute-version_id">Version</label>
     <p class="error" ng-show="errors.version_id">{{ errors.version_id }}</p>
-    <input type="text" name="version_id" id="version_id" ng-model="newNode.version_id">
+    <input type="text" name="attribute-version_id" id="attribute-version_id" ng-model="newNode.version_id">
 
     <!-- <label for="local_identifier">Local Identifier</label>
     <p class="error" ng-show="errors.local_identifier">{{ errors.local_identifier }}</p>
     <input type="text" name="local_identifier" id="local_identifier" ng-model="newNode.local_identifier"> -->
 
-    <label for="submitter_name">Submitter Name</label>
+    <label for="attribute-submitter_name">Submitter Name</label>
     <p class="error" ng-show="errors.submitter_name">{{ errors.submitter_name }}</p>
-    <input type="text" name="submitter_name" id="submitter_name" ng-model="newNode.submitter_name">
+    <input type="text" name="attribute-submitter_name" id="attribute-submitter_name" ng-model="newNode.submitter_name">
 
-    <label for="definition">Definition</label>
+    <label for="attribute-definition">Definition</label>
     <p class="error" ng-show="errors.definition">{{ errors.definition }}</p>
-    <textarea name="definition" id="definition" ng-model="newNode.definition"></textarea>
+    <textarea name="attribute-definition" id="attribute-definition" ng-model="newNode.definition"></textarea>
 
-    <label for="minimum_occurrences">Minimum Occurrences</label>
+    <label for="attribute-minimum_occurrences">Minimum Occurrences</label>
     <p class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
-    <input type="text" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
+    <input type="text" name="attribute-minimum_occurrences" id="attribute-minimum_occurrences" ng-model="newNode.minimum_occurrences">
 
-    <label for="maximum_occurrences">Maximum Occurrences</label>
+    <label for="attribute-maximum_occurrences">Maximum Occurrences</label>
     <p class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
-    <input type="text" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+    <input type="text" name="attribute-maximum_occurrences" id="attribute-maximum_occurrences" ng-model="newNode.maximum_occurrences">
 
     <!-- <label for="comment">Comment</label>
     <input type="text" name="comment" id="comment" ng-model="newNode.comment"> -->
 
-    <label for="nillable_flag">Nillable Flag</label>
+    <label for="attribute-nillable_flag">Nillable Flag</label>
     <p class="error" ng-show="errors.nillable_flag">{{ errors.nillable_flag }}</p>
     <span>
-        <input type="radio" name="nillable_flag" id="nillable_flag" ng-value="true" ng-model="newNode.nillable_flag">
+        <input type="radio" name="attribute-nillable_flag" id="attribute-nillable_flag" ng-value="true" ng-model="newNode.nillable_flag">
         True
     </span>
     <span>
-        <input type="radio" name="nillable_flag" id="nillable_flag" ng-value="false" ng-model="newNode.nillable_flag">
+        <input type="radio" name="attribute-nillable_flag" id="attribute-nillable_flag" ng-value="false" ng-model="newNode.nillable_flag">
         False
     </span>
 
-    <label for="enumeration_flag">Enumeration Flag</label>
+    <label for="attribute-enumeration_flag">Enumeration Flag</label>
     <p class="error" ng-show="errors.enumeration_flag">{{ errors.enumeration_flag }}</p>
     <span>
-        <input type="radio" name="enumeration_flag" id="enumeration_flag" ng-value="true" ng-model="newNode.enumeration_flag">
+        <input type="radio" name="attribute-enumeration_flag" id="attribute-enumeration_flag" ng-value="true" ng-model="newNode.enumeration_flag">
         True
     </span>
     <span>
-        <input type="radio" name="enumeration_flag" id="enumeration_flag" ng-value="false" ng-model="newNode.enumeration_flag">
+        <input type="radio" name="attribute-enumeration_flag" id="attribute-enumeration_flag" ng-value="false" ng-model="newNode.enumeration_flag">
         False
     </span>
 
-    <label for="value_data_type">Data Type</label>
+    <label for="attribute-value_data_type">Data Type</label>
     <p class="error" ng-show="errors.value_data_type">{{ errors.value_data_type }}</p>
-    <select name="value_data_type" id="value_data_type" ng-model="newNode.value_data_type">
+    <select name="attribute-value_data_type" id="attribute-value_data_type" ng-model="newNode.value_data_type">
         <option value="ASCII_AnyURI">ASCII_AnyURI</option>
         <option value="ASCII_Boolean">ASCII_Boolean</option>
         <option value="ASCII_DOI">ASCII_DOI</option>
@@ -96,9 +96,9 @@
         <option value="Vector_Cartesian_3_Velocity">Vector_Cartesian_3_Velocity</option>
     </select>
 
-    <label for="unit_of_measure_type">Unit Type</label>
+    <label for="attribute-unit_of_measure_type">Unit Type</label>
     <p class="error" ng-show="errors.unit_of_measure_type">{{ errors.unit_of_measure_type }}</p>
-    <select name="unit_of_measure_type" id="unit_of_measure_type" ng-model="newNode.unit_of_measure_type">
+    <select name="attribute-unit_of_measure_type" id="attribute-unit_of_measure_type" ng-model="newNode.unit_of_measure_type">
         <option value="Units_of_Acceleration">Acceleration</option>
         <option value="Units_of_Amount_Of_Substance">Amount_Of_Substance</option>
         <option value="Units_of_Angle">Angle</option>
