@@ -352,6 +352,7 @@ function Data(json) {
         return parents;
     };
 
+    // this.addClassAssociation = function(node) {
     this.createLink = function(node) {
         // active node should always be parent
         const sourceCol = this.getNode(this.activeNode.lid).col;
@@ -364,8 +365,19 @@ function Data(json) {
 
         this.model['Ingest_LDD']['DD_Class'] = this.model['Ingest_LDD']['DD_Class'].map(c => {
             if (c.lid == parent.lid) {
-                c['DD_Association'].push(child);
-                c['children'].push(child);
+                let output = {
+                    identifier_reference: node['local_identifier'],
+                    reference_type: (() => {
+                        return (node['className'] == 'class') ? ['component_of'] : ['attribute_of'];
+                    })(),
+                    minimum_occurrences: null,
+                    maximum_occurrences: null,
+                    DD_Class_Reference: {
+                        namespace_id: [node['local_identifier'][0].split('.')[0]],
+                        name: node['name']
+                    }
+                };
+                c['DD_Association'].push(output);
             };
 
             return c;
