@@ -177,7 +177,29 @@ describe('A user', function() {
         expect(element.all(by.css('.link')).count()).toBe(2);
     });
 
-    it('can create a new link', function() {
+    it('can load an existing Ingest_LDD file', function() {
+        browser.waitForAngularEnabled(false);
+
+        browser.get('/');
+
+        browser.executeScript('localStorage.clear()').then(function() {
+
+            element(by.css('input[type="file"]')).sendKeys(file);
+            element(by.id('vis-button')).click();
+
+            browser.sleep(1000);
+
+            expect(browser.getCurrentUrl()).toMatch(/graph/);
+
+            expect(element.all(by.css('.node')).count()).toBe(7);
+            expect(element.all(by.css('.link')).count()).toBe(6);
+
+            browser.waitForAngularEnabled(true);
+
+        })
+    });
+
+    it('can link an attribute to a parent class', function() {
         browser.refresh()
         browser.sleep(1500);
 
@@ -210,26 +232,16 @@ describe('A user', function() {
         expect(element.all(by.css('.link')).count()).toBe(3);
     });
 
-    it('can load an existing Ingest_LDD file', function() {
-        browser.waitForAngularEnabled(false);
+    xit('can link a class to a parent class', function() {
 
-        browser.get('/');
+    });
 
-        browser.executeScript('localStorage.clear()').then(function() {
+    xit('can remove a link from between a parent class and a descendent attribute', function() {
 
-            element(by.css('input[type="file"]')).sendKeys(file);
-            element(by.id('vis-button')).click();
+    });
 
-            browser.sleep(1000);
+    xit('can remove a link from between a parent class and a descendent class', function() {
 
-            expect(browser.getCurrentUrl()).toMatch(/graph/);
-
-            expect(element.all(by.css('.node')).count()).toBe(7);
-            expect(element.all(by.css('.link')).count()).toBe(6);
-
-            browser.waitForAngularEnabled(true);
-
-        })
     });
 
 });
