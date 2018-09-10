@@ -36,8 +36,8 @@ module.exports = function(grunt) {
             images: {
                 expand: true,
                 flatten: true,
-                src: 'public/graph/legend/legend.png',
-                dest: 'build/public/graph/legend/'
+                src: 'public/graph/img/legend.png',
+                dest: 'build/public/graph/img/'
             }
         },
         protractor: {
