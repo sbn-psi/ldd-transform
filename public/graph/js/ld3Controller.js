@@ -1,6 +1,46 @@
 app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function($scope, $window, Data, Modal) {
+    let svg;
+    let activeNodes = [];
+
+    const toolbarWidth = '400'; // px
+    const width = $(document).width() - toolbarWidth;
+    const height = $(document).height();
+    const tDuration = 1000; // transition duration (ms)
+    // Edges (Lines)
+    const linkHighlightStroke = 'orange';
+    const linkHighlightStrokeWidth = '5px';
+    const linkStroke = 'black';
+    const linkStrokeWidth = '1px';
+    const optional = 0.25;    // link opacity
+    const required = 1;       // link opacity
+    // Nodes
+    const rx = 70; // x radius of ellipse
+    const ry = 20; // y radius of ellipse
+    const verticalOffset = 50; // px
+    const verticalPadding = 5; // px
+    const verticalSpacing = ry * 2 + verticalPadding; // px
+    const rootNodeFill = 'lightgreen';
+    const classNodeFill = '#ADD8E6';
+    const attributeNodeFill = 'white';
+    const activeNodeStroke = '#666666';
+    const nodeStroke = 'black';
+    const nodeStrokeWidth = '1px';
+    const nodeHighlightStroke = 'orange';
+    const nodeHighlightStrokeWidth = '3px';
+
+    const zoomScale = [0.1, 10];
+    const tree = d3.tree()
+        .size([height, width]);
+    const zoomBounds = [
+        [-20 * width, -10 * height],
+        [10 * width, 40 * height]
+    ]; // [[-x,y],[x,-y]]
+    const colWidth = 225; // px
+    const xOffset = 100; // px
+
     // initialize application state
     $scope.modal = Modal.new();
+
     $scope.ld3 = {
         isVisible: {
             legend: true,
@@ -228,9 +268,9 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                     _active = null;
 
                 try {
-                    _lid = getNodeByIdx(link.source)['local_identifier'][0];
+                    _lid = $scope.data.nodes[link.source]['local_identifier'][0];
                 } catch (err) {
-                    _lid = getNodeByIdx(link.source)['identifier_reference'][0];
+                    _lid = $scope.data.nodes[link.source]['identifier_reference'][0];
                 }
 
                 _active = g1.find(d => {
@@ -261,9 +301,9 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                     _active = null;
 
                 try {
-                    _lid = getNodeByIdx(link.source)['local_identifier'][0];
+                    _lid = $scope.data.nodes[link.source]['local_identifier'][0];
                 } catch (err) {
-                    _lid = getNodeByIdx(link.source)['identifier_reference'][0];
+                    _lid = $scope.data.nodes[link.source]['identifier_reference'][0];
                 }
 
                 _active = g1.find(d => {
@@ -382,51 +422,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
     //
     //
     //
-
-    var id,
-        data,
-        svg,
-        ldd = 'root',
-        toolbarWidth = '400',
-        width = $(document).width() - toolbarWidth,
-        height = $(document).height(),
-        tDuration = 1000, // transition duration (ms)
-        // Edges (Lines)
-        linkHighlightStroke = 'orange',
-        linkHighlightStrokeWidth = '5px',
-        linkStroke = 'black',
-        linkStrokeWidth = '1px',
-        // Nodes
-        rx = 70, // x radius of ellipse
-        ry = 20, // y radius of ellipse
-        verticalOffset = 50,
-        verticalPadding = 5,
-        verticalSpacing = ry * 2 + verticalPadding,
-        rootNodeFill = 'lightgreen',
-        classNodeFill = '#ADD8E6',
-        attributeNodeFill = 'white',
-        activeNodeStroke = '#666666',
-        nodeStroke = 'black',
-        nodeStrokeWidth = '1px',
-        nodeHighlightStroke = 'orange',
-        nodeHighlightStrokeWidth = '3px',
-        activeNodes = [],
-        nodes = null,
-        links = null,
-        rootNodes = [],
-        optional = 0.25,    // link opacity
-        required = 1,       // link opacity
-        lidType = null,
-        zoomScale = [0.1, 10],
-        tree = d3.tree()
-            .size([height, width]),
-        zoomBounds = [
-            [-20 * width, -10 * height],
-            [10 * width, 40 * height]
-        ]; // [[-x,y],[x,-y]]
-
-    const colWidth = 225;
-    const xOffset = 100;
 
     initGrid();
 
@@ -592,10 +587,10 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         linkEnter
             .attr('d', d3.linkHorizontal()
                 .x(function(d) {
-                    return getNodeByIdx(d).x;
+                    return $scope.data.nodes[d].x;
                 })
                 .y(function(d) {
-                    return getNodeByIdx(d).y;
+                    return $scope.data.nodes[d].y;
                 })
             )
             .attr('fill', 'none')
@@ -620,10 +615,10 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             .delay(1000)
             .attr('d', d3.linkHorizontal()
                 .x(function(l,idx) {
-                    return getNodeByIdx(l).x;
+                    return $scope.data.nodes[l].x;
                 })
                 .y(function(l,idx) {
-                    return getNodeByIdx(l).y;
+                    return $scope.data.nodes[l].y;
                 })
             );
 
@@ -745,8 +740,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         let _nextGen = [];
 
         $scope.data.links.map(link => {
-            let source = getNodeByIdx(link.source);
-            let target = getNodeByIdx(link.target);
+            let source = $scope.data.nodes[link.source];
+            let target = $scope.data.nodes[link.target];
 
             if (parent && parent.indexOf(source) != -1 && _nextGen.indexOf(target) == -1) {
                 _nextGen.push(target);
@@ -754,10 +749,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         });
 
         return _nextGen;
-    };
-
-    function getNodeByIdx(nodeIdx) {
-        return $scope.data.nodes[nodeIdx];
     };
 
 }]);
