@@ -81,4 +81,25 @@ app
         return {
             templateUrl: './partials/ld3-new-attribute.html'
         }
+    });
+
+app.filter('classes', function() {
+        return function(input) {
+            if (!input) return null;
+            const output = input.filter(elem => {
+                if (!elem['reference_type']) return elem['local_identifier'][0] == 'component_of';
+                else return elem['reference_type'][0] == 'component_of';
+            });
+            return output;
+        };
+    })
+    .filter('attributes', function() {
+        return function(input) {
+            if (!input) return null;
+            const output = input.filter(elem => {
+                if (!elem['reference_type']) return elem['local_identifier'][0] == 'attribute_of';
+                else return elem['reference_type'][0] == 'attribute_of';
+            });
+            return output;
+        };
     })

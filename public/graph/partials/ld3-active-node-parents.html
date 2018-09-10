@@ -1,7 +1,7 @@
 <div ng-show="parents && parents.length">
     <hr>
     <h3>Parents ({{ parents.length }})</h3>
-    <div ng-repeat="parent in parents track by $index" class="active-child" name="{{ parent.lid }}">
+    <div ng-repeat="parent in parents track by child.lid" class="active-child" name="{{ parent.lid }}">
         <h3 class="active-child-clickable clickable">{{ parent.lid }}</h3>
     </div>
 </div>
