@@ -53,9 +53,9 @@ const checkValue = function(keyword,value) {
     });
 };
 
-describe('A user can', function() {
+describe('A user', function() {
 
-    it('create a new Ingest_LDD file from scratch', function() {
+    it('can create a new Ingest_LDD file from scratch', function() {
         browser.waitForAngularEnabled(false);
         browser.get('/');
 
@@ -81,7 +81,7 @@ describe('A user can', function() {
         expect(element.all(by.css('.link')).count()).toBe(0);
     });
 
-    describe('modify LDD details', function() {
+    describe('can modify LDD', function() {
 
         beforeEach(function() {
             element(by.css('[ng-click="ld3.editLdd()"]')).click();
@@ -119,7 +119,7 @@ describe('A user can', function() {
 
     });
 
-    it('add a new class', function() {
+    it('can add a new class', function() {
         const parent = {};
         parent.lid = ldd.original.namespace_id + '-' + classes[0].name;
         parent.elem = element(by.id(parent.lid));
@@ -146,7 +146,7 @@ describe('A user can', function() {
         expect(element.all(by.css('.link')).count()).toBe(1);
     });
 
-    it('add a new attribute', function() {
+    it('can add a new attribute', function() {
         const parent = {};
         parent.lid = ldd.original.namespace_id + '-' + classes[1].name;
         parent.elem = element(by.id(parent.lid));
@@ -177,7 +177,40 @@ describe('A user can', function() {
         expect(element.all(by.css('.link')).count()).toBe(2);
     });
 
-    it('load an existing Ingest_LDD file', function() {
+    it('can create a new link', function() {
+        browser.refresh()
+        browser.sleep(1500);
+
+        expect(element.all(by.css('.node')).count()).toBe(3);
+        expect(element.all(by.css('.link')).count()).toBe(2);
+
+        const parent = {};
+        parent.lid = ldd.original.namespace_id + '-' + classes[0].name;
+        parent.elem = element(by.id(parent.lid));
+
+        // select parent class
+        parent.elem.click();
+
+        browser.waitForAngular();
+
+        // click linkMode button
+        element(by.css('[ng-click="ld3.addLink()"]')).click();
+
+        const child = {};
+        child.lid = ldd.original.namespace_id + '-' + attributes[0].name;
+        child.elem = element(by.id(child.lid));
+
+        // select child attribute
+        child.elem.click();
+
+        browser.waitForAngular();
+
+        // evaluate
+        expect(element.all(by.css('.node')).count()).toBe(3);
+        expect(element.all(by.css('.link')).count()).toBe(3);
+    });
+
+    it('can load an existing Ingest_LDD file', function() {
         browser.waitForAngularEnabled(false);
 
         browser.get('/');
