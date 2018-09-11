@@ -115,7 +115,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             $scope.data.addAttribute($scope.newNode);
 
             update();
-            toggleNodes(null);
+            toggleHighlights(null);
 
             $scope.modal.close();
             $scope.newNode = {};
@@ -138,7 +138,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             $scope.newLddMode = false;
 
             update();
-            toggleNodes(null);
+            toggleHighlights(null);
 
             $scope.modal.close();
             $scope.newNode = {};
@@ -235,173 +235,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         }
     };
 
-    const toggleNodes = function(node) {
-        if ($scope.ld3.linkMode) {
-            $scope.data.createLink(node,$scope.data.activeNode);
-            $scope.ld3.linkMode = false;
-            update();
-        }
-
-        activeNodes = [];
-
-        if ($scope.data.activeNode == node) {
-            $scope.data.activeNode = null;
-        } else if (!node) {
-            g2 = nextGen(g1);
-            activeNodes = activeNodes
-                .concat(g1)
-                .concat(g2)
-        } else {
-            g1 = [node];
-            g2 = nextGen(g1);
-            var nodeIdx = $scope.data.getNode(node.lid,true);
-            $scope.data.activeNode = $scope.data.nodes[nodeIdx];
-            $scope.data.activeNode.parents = $scope.data.getParents(nodeIdx);
-            activeNodes = activeNodes
-                .concat(g1)
-                .concat(g2)
-        }
-
-        svg.selectAll('.link')
-            .style('stroke', function(link) {
-                let _lid,
-                    _active = null;
-
-                try {
-                    _lid = $scope.data.nodes[link.source]['local_identifier'][0];
-                } catch (err) {
-                    _lid = $scope.data.nodes[link.source]['identifier_reference'][0];
-                }
-
-                _active = g1.find(d => {
-                    try {
-                        return d['local_identifier'][0] == _lid;
-                    } catch (err) {
-                        return d['identifier_reference'][0] == _lid;
-                    }
-                })
-
-                if (_active) {
-                    return linkHighlightStroke;
-                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
-                    return linkStroke;
-                } else {
-                    return $scope.data.activeNode.parents.find(d => {
-                        if ($scope.data.getNode(d.lid,true) == link.source
-                        && $scope.data.getNode($scope.data.activeNode.lid,true) == link.target) {
-                            return d;
-                        } else {
-                            return false;
-                        }
-                    }) ? 'red' : linkStroke;
-                }
-            })
-            .style('stroke-width', function(link) {
-                let _lid,
-                    _active = null;
-
-                try {
-                    _lid = $scope.data.nodes[link.source]['local_identifier'][0];
-                } catch (err) {
-                    _lid = $scope.data.nodes[link.source]['identifier_reference'][0];
-                }
-
-                _active = g1.find(d => {
-                    try {
-                        return d['local_identifier'][0] == _lid;
-                    } catch (err) {
-                        return d['identifier_reference'][0] == _lid;
-                    }
-                })
-
-                if (_active) {
-                    return linkHighlightStrokeWidth;
-                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
-                    return linkStrokeWidth;
-                } else {
-                    return $scope.data.activeNode.parents.find(d => {
-                        if ($scope.data.getNode(d.lid,true) == link.source
-                                && $scope.data.getNode($scope.data.activeNode.lid,true) == link.target) {
-                            return d;
-                        } else {
-                            return false;
-                        }
-                    }) ? linkHighlightStrokeWidth : linkStrokeWidth;
-                }
-            })
-            .style('opacity', linkOpacity);
-
-        svg.selectAll('.circle')
-            .style('stroke', function(d) {
-                let _lid,
-                    _active = null;
-
-                try {
-                    _lid = d['local_identifier'][0];
-                } catch (err) {
-                    _lid = d['identifier_reference'][0];
-                }
-
-                if ($scope.data.activeNode && d.lid == $scope.data.activeNode.lid) return activeNodeStroke;
-
-                _active = activeNodes.find(e => {
-                    try {
-                        return e['local_identifier'][0] == _lid;
-                    } catch (err) {
-                        return e['identifier_reference'][0] == _lid;
-                    }
-                });
-
-                if (_active) {
-                    return nodeHighlightStroke;
-                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
-                    return nodeStroke;
-                } else {
-                    return $scope.data.activeNode.parents.find(e => {
-                        try {
-                            return e['local_identifier'][0] == _lid;
-                        } catch (err) {
-                            return e['identifier_reference'][0] == _lid;
-                        }
-                    }) ? 'red' : nodeStroke;
-                }
-
-            })
-            .style('stroke-width', function(d) {
-                let _lid,
-                    _active = null;
-
-                try {
-                    _lid = d['local_identifier'][0];
-                } catch (err) {
-                    _lid = d['identifier_reference'][0];
-                }
-
-                _active = activeNodes.find(e => {
-                    try {
-                        return e['local_identifier'][0] == _lid;
-                    } catch (err) {
-                        return e['identifier_reference'][0] == _lid;
-                    }
-                });
-
-                if (_active) {
-                    return nodeHighlightStrokeWidth;
-                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
-                    return nodeStrokeWidth;
-                } else {
-                    return $scope.data.activeNode.parents.find(e => {
-                        try {
-                            return e['local_identifier'][0] == _lid;
-                        } catch (err) {
-                            return e['identifier_reference'][0] == _lid;
-                        }
-                    }) ? nodeHighlightStrokeWidth : nodeStrokeWidth;
-                }
-
-            })
-        $scope.$applyAsync();
-    };
 
     //
     //
@@ -521,7 +354,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         var nodeEnter = node
             .enter().append('g')
             .classed('node', true)
-            .on('click', toggleNodes)
+            .on('click', toggleHighlights)
             .attr('id', function(d) {
                 let _id;
 
@@ -678,6 +511,175 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         };
 
         sim.selectAll('.tick text').remove();
+    };
+
+
+    function toggleHighlights(targetNode) {
+        if ($scope.ld3.linkMode) {
+            $scope.data.createLink(targetNode,$scope.data.activeNode);
+            $scope.ld3.linkMode = false;
+            update();
+        }
+
+        activeNodes = [];
+
+        if ($scope.data.activeNode == targetNode) {
+            $scope.data.activeNode = null;
+        } else if (!targetNode) {
+            g2 = nextGen(g1);
+            activeNodes = activeNodes
+                .concat(g1)
+                .concat(g2)
+        } else {
+            g1 = [targetNode];
+            g2 = nextGen(g1);
+            var nodeIdx = $scope.data.getNode(targetNode.lid,true);
+            $scope.data.activeNode = $scope.data.nodes[nodeIdx];
+            $scope.data.activeNode.parents = $scope.data.getParents(nodeIdx);
+            activeNodes = activeNodes
+                .concat(g1)
+                .concat(g2)
+        }
+
+        svg.selectAll('.link')
+            .style('stroke', function(link) {
+                let _lid,
+                    _active = null;
+
+                try {
+                    _lid = $scope.data.nodes[link.source]['local_identifier'][0];
+                } catch (err) {
+                    _lid = $scope.data.nodes[link.source]['identifier_reference'][0];
+                }
+
+                _active = g1.find(d => {
+                    try {
+                        return d['local_identifier'][0] == _lid;
+                    } catch (err) {
+                        return d['identifier_reference'][0] == _lid;
+                    }
+                })
+
+                if (_active) {
+                    return linkHighlightStroke;
+                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
+                    return linkStroke;
+                } else {
+                    return $scope.data.activeNode.parents.find(d => {
+                        if ($scope.data.getNode(d.lid,true) == link.source
+                        && $scope.data.getNode($scope.data.activeNode.lid,true) == link.target) {
+                            return d;
+                        } else {
+                            return false;
+                        }
+                    }) ? 'red' : linkStroke;
+                }
+            })
+            .style('stroke-width', function(link) {
+                let _lid,
+                    _active = null;
+
+                try {
+                    _lid = $scope.data.nodes[link.source]['local_identifier'][0];
+                } catch (err) {
+                    _lid = $scope.data.nodes[link.source]['identifier_reference'][0];
+                }
+
+                _active = g1.find(d => {
+                    try {
+                        return d['local_identifier'][0] == _lid;
+                    } catch (err) {
+                        return d['identifier_reference'][0] == _lid;
+                    }
+                })
+
+                if (_active) {
+                    return linkHighlightStrokeWidth;
+                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
+                    return linkStrokeWidth;
+                } else {
+                    return $scope.data.activeNode.parents.find(d => {
+                        if ($scope.data.getNode(d.lid,true) == link.source
+                                && $scope.data.getNode($scope.data.activeNode.lid,true) == link.target) {
+                            return d;
+                        } else {
+                            return false;
+                        }
+                    }) ? linkHighlightStrokeWidth : linkStrokeWidth;
+                }
+            })
+            .style('opacity', linkOpacity);
+
+        svg.selectAll('.circle')
+            .style('stroke', function(d) {
+                let _lid,
+                    _active = null;
+
+                try {
+                    _lid = d['local_identifier'][0];
+                } catch (err) {
+                    _lid = d['identifier_reference'][0];
+                }
+
+                if ($scope.data.activeNode && d.lid == $scope.data.activeNode.lid) return activeNodeStroke;
+
+                _active = activeNodes.find(e => {
+                    try {
+                        return e['local_identifier'][0] == _lid;
+                    } catch (err) {
+                        return e['identifier_reference'][0] == _lid;
+                    }
+                });
+
+                if (_active) {
+                    return nodeHighlightStroke;
+                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
+                    return nodeStroke;
+                } else {
+                    return $scope.data.activeNode.parents.find(e => {
+                        try {
+                            return e['local_identifier'][0] == _lid;
+                        } catch (err) {
+                            return e['identifier_reference'][0] == _lid;
+                        }
+                    }) ? 'red' : nodeStroke;
+                }
+
+            })
+            .style('stroke-width', function(d) {
+                let _lid,
+                    _active = null;
+
+                try {
+                    _lid = d['local_identifier'][0];
+                } catch (err) {
+                    _lid = d['identifier_reference'][0];
+                }
+
+                _active = activeNodes.find(e => {
+                    try {
+                        return e['local_identifier'][0] == _lid;
+                    } catch (err) {
+                        return e['identifier_reference'][0] == _lid;
+                    }
+                });
+
+                if (_active) {
+                    return nodeHighlightStrokeWidth;
+                } else if (!$scope.data.activeNode || !$scope.data.activeNode.parents) {
+                    return nodeStrokeWidth;
+                } else {
+                    return $scope.data.activeNode.parents.find(e => {
+                        try {
+                            return e['local_identifier'][0] == _lid;
+                        } catch (err) {
+                            return e['identifier_reference'][0] == _lid;
+                        }
+                    }) ? nodeHighlightStrokeWidth : nodeStrokeWidth;
+                }
+
+            })
+        $scope.$applyAsync();
     };
 
     let g1;
