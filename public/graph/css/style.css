@@ -306,6 +306,10 @@ button, a, i, [type=submit] {
   align-items: flex-start;
   justify-content: space-between;
 }
+.active-child input {
+  width: 30px;
+  text-align: center;
+}
 .active-child span {
   width: 100%;
   display: flex;
