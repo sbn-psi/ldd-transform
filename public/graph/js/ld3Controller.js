@@ -1,24 +1,27 @@
-app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function($scope, $window, Data, Modal) {
-    let svg;
+app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', 'Visualizations', function($scope, $window, Data, Modal, Visualizations) {
     let activeNodes = [];
+    let g1;
+    let g2;
 
     const toolbarWidth = '400'; // px
     const width = $(document).width() - toolbarWidth;
     const height = $(document).height();
-    const tDuration = 1000; // transition duration (ms)
+    const tDuration = 1000;                                 // transition duration (ms)
+
     // Edges (Lines)
     const linkHighlightStroke = 'orange';
     const linkHighlightStrokeWidth = '5px';
     const linkStroke = 'black';
     const linkStrokeWidth = '1px';
-    const optional = 0.25;    // link opacity
-    const required = 1;       // link opacity
+    const optional = 0.25;                                  // link opacity
+    const required = 1;                                     // link opacity
+
     // Nodes
-    const rx = 70; // x radius of ellipse
-    const ry = 20; // y radius of ellipse
-    const verticalOffset = 50; // px
-    const verticalPadding = 5; // px
-    const verticalSpacing = ry * 2 + verticalPadding; // px
+    const rx = 70;                                          // x radius of ellipse
+    const ry = 20;                                          // y radius of ellipse
+    const verticalOffset = 50;                              // px
+    const verticalPadding = 5;                              // px
+    const verticalSpacing = ry * 2 + verticalPadding;       // px
     const rootNodeFill = 'lightgreen';
     const classNodeFill = '#ADD8E6';
     const attributeNodeFill = 'white';
@@ -28,18 +31,14 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
     const nodeHighlightStroke = 'orange';
     const nodeHighlightStrokeWidth = '3px';
 
-    const zoomScale = [0.1, 10];
-    const tree = d3.tree()
-        .size([height, width]);
-    const zoomBounds = [
-        [-20 * width, -10 * height],
-        [10 * width, 40 * height]
-    ]; // [[-x,y],[x,-y]]
-    const colWidth = 225; // px
-    const xOffset = 100; // px
+    const colWidth = 225;                                   // px
+    const xOffset = 100;                                    // px
 
     // initialize application state
     $scope.modal = Modal.new();
+
+    $scope.vis = Visualizations;
+    $scope.vis.new();
 
     $scope.ld3 = {
         isVisible: {
@@ -235,30 +234,15 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         }
     };
 
-
-    //
-    //
-    //
-    //
-
-    //
-    //
-    //
-    //
-
-    //
-    //
-    //
-    //
-
-    //
-    //
-    //
-    //
-
-    initGrid();
-
+    // // // // // // //
+    // INITIALIZE D3  //
+    // // // // // // //
+    $scope.vis.initGrid();
     loadFile();
+
+    // // // // // // //
+    // HELPER METHODS //
+    // // // // // // //
 
     function loadFile() {
         if (window.localStorage.getItem('ld3')) {
@@ -275,7 +259,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         // remove old tree
         d3.select('.tree').remove();
 
-        svg = d3.select('.main')
+        $scope.vis.svg = d3.select('.main')
             .append('g')
             .attr('class', 'tree');
 
@@ -296,7 +280,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
         var tOut = d3.transition()
             .duration(1000);
 
-        var link = svg.selectAll('.link')
+        var link = $scope.vis.svg.selectAll('.link')
             .data($scope.data.links,function(l,idx) {
                 return l.id;
             })
@@ -312,7 +296,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                 return l;
             });
 
-        var node = svg.selectAll('g')
+        var node = $scope.vis.svg.selectAll('g')
             .data($scope.data.nodes,function(d,idx) {
                 // this is update because:
                 // on enter(), these nodes don't actually exist yet
@@ -337,7 +321,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                 return d.lid;
             });
 
-        var title = svg.selectAll('.node-title')
+        var title = $scope.vis.svg.selectAll('.node-title')
             .text(function(d) {
                 return d.name[0];
             });
@@ -464,56 +448,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             });
     };
 
-    function initGrid() {
-        var sim = d3.select('svg')
-            .attr('width', width)
-            .attr('height', height);
-
-        var zoom = d3.zoom()
-            .scaleExtent(zoomScale)
-            .translateExtent(zoomBounds)
-            .on('zoom', zoomed);
-
-        var x = d3.scaleLinear()
-            .domain([-1, width + 1])
-            .range([-1, width + 1]);
-
-        var y = d3.scaleLinear()
-            .domain([-1, height + 1])
-            .range([-1, height + 1]);
-
-        var xAxis = d3.axisBottom(x)
-            .ticks((width + 2) / (height + 2) * 10)
-            .tickSize(height)
-            .tickPadding(8 - height);
-
-        var yAxis = d3.axisRight(y)
-            .ticks(10)
-            .tickSize(width)
-            .tickPadding(8 - width);
-
-        var gX = sim.append('g')
-            .attr('class', 'axis axis--x')
-            .call(xAxis);
-
-        var gY = sim.append('g')
-            .attr('class', 'axis axis--y')
-            .call(yAxis);
-
-        sim.call(zoom)
-            .on('dblclick.zoom', null);
-
-        function zoomed() {
-            sim.selectAll('.tick text').remove();
-            gX.call(xAxis.scale(d3.event.transform.rescaleX(x)));
-            gY.call(yAxis.scale(d3.event.transform.rescaleY(y)));
-            svg.attr('transform', d3.event.transform);
-        };
-
-        sim.selectAll('.tick text').remove();
-    };
-
-
     function toggleHighlights(targetNode) {
         if ($scope.ld3.linkMode) {
             $scope.data.createLink(targetNode,$scope.data.activeNode);
@@ -541,7 +475,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                 .concat(g2)
         }
 
-        svg.selectAll('.link')
+        $scope.vis.svg.selectAll('.link')
             .style('stroke', function(link) {
                 let _lid,
                     _active = null;
@@ -610,7 +544,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             })
             .style('opacity', linkOpacity);
 
-        svg.selectAll('.circle')
+        $scope.vis.svg.selectAll('.circle')
             .style('stroke', function(d) {
                 let _lid,
                     _active = null;
@@ -681,9 +615,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
             })
         $scope.$applyAsync();
     };
-
-    let g1;
-    let g2;
 
     function linkOpacity(l) {
         var isRequired;
