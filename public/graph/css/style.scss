@@ -12,6 +12,9 @@ svg {
     margin: 0;
     padding: 0;
 }
+.fa-external-link-alt {
+    color: blue;
+}
 a {
     color: blue;
     text-decoration: underline;
@@ -276,6 +279,10 @@ button, a, i, [type="submit"]{
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    input {
+        width: 30px;
+        text-align: center;
+    }
     span {
         width: 100%;
         display: flex;

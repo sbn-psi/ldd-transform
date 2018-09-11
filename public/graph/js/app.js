@@ -29,6 +29,19 @@ app
             }
         }
     })
+    .directive('ld3CoreModelLink', function() {
+        return {
+            templateUrl: './partials/ld3-core-model-link.html',
+            scope: {
+                lid: '@'
+            },
+            controller: function($scope, $window) {
+                $scope.href = function() {
+                    return $window.open($scope.lid,'_blank');
+                }
+            }
+        }
+    })
 
 
     // MODAL FORMS

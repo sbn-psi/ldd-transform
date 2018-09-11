@@ -1,6 +1,6 @@
 <form class="form">
 
-    <label for="attribute-name">Attribute Name</label>
+    <label for="attribute-name">Attribute Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_name"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.name">{{ errors.name }}</p>
     <input type="text" name="attribute-name" id="attribute-name" ng-model="newNode.name">
 
@@ -8,34 +8,27 @@
     <p class="error" ng-show="errors.namespace_id">{{ errors.namespace_id }}</p>
     <input type="text" name="attribute-namespace_id" id="attribute-namespace_id" ng-model="newNode.namespace_id">
 
-    <label for="attribute-version_id">Version</label>
+    <label for="attribute-version_id">Version <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_version_id"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.version_id">{{ errors.version_id }}</p>
     <input type="text" name="attribute-version_id" id="attribute-version_id" ng-model="newNode.version_id">
 
-    <!-- <label for="local_identifier">Local Identifier</label>
-    <p class="error" ng-show="errors.local_identifier">{{ errors.local_identifier }}</p>
-    <input type="text" name="local_identifier" id="local_identifier" ng-model="newNode.local_identifier"> -->
-
-    <label for="attribute-submitter_name">Submitter Name</label>
+    <label for="attribute-submitter_name">Submitter Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_submitter_name"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.submitter_name">{{ errors.submitter_name }}</p>
     <input type="text" name="attribute-submitter_name" id="attribute-submitter_name" ng-model="newNode.submitter_name">
 
-    <label for="attribute-definition">Definition</label>
+    <label for="attribute-definition">Definition <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_definition"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.definition">{{ errors.definition }}</p>
     <textarea name="attribute-definition" id="attribute-definition" ng-model="newNode.definition"></textarea>
 
-    <label for="attribute-minimum_occurrences">Minimum Occurrences</label>
+    <label for="attribute-minimum_occurrences">Minimum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_minimum_occurrences"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
     <input type="text" name="attribute-minimum_occurrences" id="attribute-minimum_occurrences" ng-model="newNode.minimum_occurrences">
 
-    <label for="attribute-maximum_occurrences">Maximum Occurrences</label>
+    <label for="attribute-maximum_occurrences">Maximum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_maximum_occurrences"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
     <input type="text" name="attribute-maximum_occurrences" id="attribute-maximum_occurrences" ng-model="newNode.maximum_occurrences">
 
-    <!-- <label for="comment">Comment</label>
-    <input type="text" name="comment" id="comment" ng-model="newNode.comment"> -->
-
-    <label for="attribute-nillable_flag">Nillable Flag</label>
+    <label for="attribute-nillable_flag">Nillable Flag <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_nillable_flag"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.nillable_flag">{{ errors.nillable_flag }}</p>
     <span>
         <input type="radio" name="attribute-nillable_flag" id="attribute-nillable_flag" ng-value="true" ng-model="newNode.nillable_flag">
@@ -46,7 +39,7 @@
         False
     </span>
 
-    <label for="attribute-enumeration_flag">Enumeration Flag</label>
+    <label for="attribute-enumeration_flag">Enumeration Flag <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_value_domain_pds_enumeration_flag"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.enumeration_flag">{{ errors.enumeration_flag }}</p>
     <span>
         <input type="radio" name="attribute-enumeration_flag" id="attribute-enumeration_flag" ng-value="true" ng-model="newNode.enumeration_flag">
@@ -57,7 +50,7 @@
         False
     </span>
 
-    <label for="attribute-value_data_type">Data Type</label>
+    <label for="attribute-value_data_type">Data Type <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_value_domain_pds_value_data_type"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.value_data_type">{{ errors.value_data_type }}</p>
     <select name="attribute-value_data_type" id="attribute-value_data_type" ng-model="newNode.value_data_type">
         <option value="ASCII_AnyURI">ASCII_AnyURI</option>
@@ -96,7 +89,7 @@
         <option value="Vector_Cartesian_3_Velocity">Vector_Cartesian_3_Velocity</option>
     </select>
 
-    <label for="attribute-unit_of_measure_type">Unit Type</label>
+    <label for="attribute-unit_of_measure_type">Unit Type <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_value_domain_pds_unit_of_measure_type"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.unit_of_measure_type">{{ errors.unit_of_measure_type }}</p>
     <select name="attribute-unit_of_measure_type" id="attribute-unit_of_measure_type" ng-model="newNode.unit_of_measure_type">
         <option value="Units_of_Acceleration">Acceleration</option>
