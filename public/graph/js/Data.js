@@ -1,13 +1,26 @@
-app.factory('DataModel', function($window) {
+app.factory('DataModel', function($window,$injector) {
     let _col;
     let json;
+    let newLddMode = false;
 
-    if (window.localStorage.getItem('ld3')) json = JSON.parse(window.localStorage.getItem('ld3'));
-    else json = JSON.stringify(_template);
+    if (window.localStorage.getItem('ld3')) {
+        json = JSON.parse(window.localStorage.getItem('ld3'));
+    } else {
+        newLddMode = true;
+        json = _template
+    };
 
     const Data = {
+        setActiveNode: function(node) {
+            if (this.activeNode == node) this.activeNode = null;
+            else this.activeNode = node;
+
+            $injector.get('Visualizations').toggleHighlights();
+        },
         activeNode: null,
         rootNodes: [],
+
+        newLddMode: newLddMode,
 
         nodes: [],
         links: [],
@@ -181,9 +194,6 @@ app.factory('DataModel', function($window) {
             });
 
             this.sortCols(this.rootNodes);
-
-            localStorage.setItem('ld3',JSON.stringify(this.model));
-
         },
 
         defineNodesAndLinks: function() {
@@ -330,7 +340,7 @@ app.factory('DataModel', function($window) {
 
             // create link between newClass and activeNode
             // by adding reference to class from activeNode
-            if (newLddMode) return;
+            if (newLddMode) return this.defineNodesAndLinks();
 
             this.activeNode['DD_Association'].push({
                 identifier_reference: [node.local_identifier],
@@ -361,8 +371,6 @@ app.factory('DataModel', function($window) {
 
         createLink: function(node) {
             // active node should always be parent
-            const sourceCol = this.getNode(this.activeNode.lid).col;
-            const targetCol = this.getNode(node.lid).col;
             const parentIdx = this.getNode(this.activeNode.lid,true);
             const childIdx = this.getNode(node.lid,true);
 

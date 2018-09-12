@@ -1,4 +1,4 @@
-app.factory('Visualizations', function(DataModel) {
+app.factory('Visualizations', function(DataModel, $rootScope) {
     const dataModel = DataModel;
 
     // Nodes
@@ -36,6 +36,9 @@ app.factory('Visualizations', function(DataModel) {
     ]; // [[-x,y],[x,-y]]\
 
     let svg = null;
+    let activeNodes = [];
+    let g1 = [];
+    let g2 = [];
 
     const nextGen = function(parent) {
         let _nextGen = [];
@@ -54,6 +57,8 @@ app.factory('Visualizations', function(DataModel) {
 
     return {
         svg: svg,
+
+        linkMode: false,
 
         initGrid: function() {
             var sim = d3.select('svg')
@@ -102,8 +107,10 @@ app.factory('Visualizations', function(DataModel) {
             };
 
             sim.selectAll('.tick text').remove();
+
+            this.update();
         },
-        update: function(data) {
+        update: function() {
             // remove old tree
             d3.select('.tree').remove();
 
@@ -172,10 +179,22 @@ app.factory('Visualizations', function(DataModel) {
                 .delay(100)
                 .style('opacity', this.linkOpacity);
 
+            const that = this;
+
             var nodeEnter = node
                 .enter().append('g')
                 .classed('node', true)
-                .on('click', this.toggleHighlights)
+
+                .on('click', function(target) {
+                    if (that.linkMode) {
+                        that.linkMode = false;
+                        dataModel.createLink(target);
+                        that.update();
+                    } else {
+                        dataModel.setActiveNode(target);
+                    }
+                })
+
                 .attr('id', function(d) {
                     let _id;
 
@@ -338,33 +357,20 @@ app.factory('Visualizations', function(DataModel) {
         },
 
         toggleHighlights: function(targetNode) {
-            // if ($scope.ld3.linkMode) {
-            //     dataModel.createLink(targetNode,dataModel.activeNode);
-            //     $scope.ld3.linkMode = false;
-            //     update(dataModel);
-            // }
-
             activeNodes = [];
 
-            if (dataModel.activeNode == targetNode) {
-                dataModel.activeNode = null;
-            } else if (!targetNode) {
-                g2 = nextGen(g1);
-                activeNodes = activeNodes
-                    .concat(g1)
-                    .concat(g2)
+            if (!dataModel.activeNode) {
+                g1 = [];
+                g2 = [];
+                activeNodes = [];
             } else {
-                g1 = [targetNode];
+                g1 = [dataModel.activeNode];
                 g2 = nextGen(g1);
-                var nodeIdx = dataModel.getNode(targetNode.lid,true);
-                dataModel.activeNode = dataModel.nodes[nodeIdx];
-                dataModel.activeNode.parents = dataModel.getParents(nodeIdx);
+                var nodeIdx = dataModel.getNode(dataModel.activeNode.lid,true);
                 activeNodes = activeNodes
                     .concat(g1)
-                    .concat(g2)
-            }
-
-            // console.log(this);
+                    .concat(g2);
+            };
 
             svg.selectAll('.link')
                 .style('stroke', function(link) {
@@ -504,6 +510,7 @@ app.factory('Visualizations', function(DataModel) {
                     }
 
                 })
+            $rootScope.$applyAsync();
         }
     }
 });
