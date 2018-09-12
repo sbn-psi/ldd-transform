@@ -1,6 +1,8 @@
-app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function($scope, $window, Data, Modal) {
+app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', function($scope, $window, DataModel, Modal) {
     // initialize application state
     $scope.modal = Modal.new();
+    $scope.data = DataModel;
+    $scope.ldd = $scope.data.ldd();
     $scope.ld3 = {
         isVisible: {
             legend: true,
@@ -158,17 +160,11 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
 
             $scope.modal.close();
             $scope.data.modifyLddDetails($scope.ldd.edit);
-            $scope.ldd = {
-                original: $scope.data.ldd(),
-                edit: $scope.data.ldd()
-            };
-            update();
+            $scope.ldd = $scope.data.ldd();
 
             if ($scope.newLddMode) {
                 $scope.ld3.openAddNodeModal();
             };
-
-            return;
         },
         download: function() {
             const currentModel = $scope.data.pureModel();
@@ -189,7 +185,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
                 success: function(res) {
                     const blob = new Blob([res], {type: "text/xml;charset=utf-8"});
                     saveAs(blob,fileName);
-                    $scope.data.defineNodesAndLinks();
                 }
             });
         }
@@ -455,13 +450,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', function(
     };
 
     function update(json) {
-        if (angular.isDefined(json)) $scope.data = Data.new(json);
-        else $scope.data = Data.new(JSON.stringify($scope.data.model));
-        $scope.ldd = {
-            original: $scope.data.ldd(),
-            edit: $scope.data.ldd()
-        };
-
         var tIn = d3.transition()
             .duration(1000);
 
