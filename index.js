@@ -31,9 +31,13 @@ console.clear();
 
 // reports an error if present. returns whether or not an error was sent
 function reportError(err, res, callback) {
-    if (err && err.length > 0) {
-        if(res) {
-            res.status(500).send(err);
+    if (err) {
+        let errorMessage = err;
+        if( err instanceof Error) {
+            errorMessage = err.message;
+        }
+        if(res && errorMessage && errorMessage.length > 0) {
+            res.status(500).send(errorMessage);
             return true;
         }
         if (callback) {
@@ -121,9 +125,13 @@ function xmlToGraph(xml, res, callback) {
         if (!reportError(err, res, callback)) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res, callback)) {
-                    let svg = viz(result);
-                    if( res ) res.send(svg);
-                    if( callback ) callback(null, svg);
+                    try { 
+                        let svg = viz(result);
+                        if( res ) res.send(svg);
+                        if( callback ) callback(null, svg);
+                    } catch (vizErr) {
+                        reportError("Error visualizing graph", res);
+                    }
                 }
             })
         }
