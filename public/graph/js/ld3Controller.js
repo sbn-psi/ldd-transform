@@ -3,7 +3,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', 'Visualiz
     let g1;
     let g2;
 
-    const toolbarWidth = '400'; // px
+    const toolbarWidth = '400';                             // px
     const width = $(document).width() - toolbarWidth;
     const height = $(document).height();
     const tDuration = 1000;                                 // transition duration (ms)
@@ -36,10 +36,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', 'Visualiz
 
     // initialize application state
     $scope.modal = Modal.new();
-
-    $scope.vis = Visualizations;
-    $scope.vis.new();
-
+    $scope.vis = Visualizations.new();
     $scope.ld3 = {
         isVisible: {
             legend: true,
@@ -238,221 +235,33 @@ app.controller('ld3Controller', ['$scope', '$window', 'Data', 'Modal', 'Visualiz
     // INITIALIZE D3  //
     // // // // // // //
     $scope.vis.initGrid();
-    loadFile();
+
+    if (window.localStorage.getItem('ld3')) {
+        const json = window.localStorage.getItem('ld3');
+        $scope.vis.update(json);
+        $scope.data = Data.new(json);
+    } else {
+        const json = JSON.stringify(_template);
+        $scope.modal.open('editLdd');
+        $scope.errors = {};
+        $scope.newLddMode = true;
+        $scope.vis.update(json);
+    };
+
+    $scope.ldd = {
+        original: $scope.data.ldd(),
+        edit: $scope.data.ldd()
+    };
 
     // // // // // // //
     // HELPER METHODS //
     // // // // // // //
 
-    function loadFile() {
-        if (window.localStorage.getItem('ld3')) {
-            main(window.localStorage.getItem('ld3'));
-        } else {
-            $scope.modal.open('editLdd');
-            $scope.errors = {};
-            $scope.newLddMode = true;
-            main(JSON.stringify(_template));
-        }
-    };
-
-    function main(json) {
-        // remove old tree
-        d3.select('.tree').remove();
-
-        $scope.vis.svg = d3.select('.main')
-            .append('g')
-            .attr('class', 'tree');
-
-        update(json);
-    };
-
-    function update(json) {
-        if (angular.isDefined(json)) $scope.data = Data.new(json);
-        else $scope.data = Data.new(JSON.stringify($scope.data.model));
-        $scope.ldd = {
-            original: $scope.data.ldd(),
-            edit: $scope.data.ldd()
-        };
-
-        var tIn = d3.transition()
-            .duration(1000);
-
-        var tOut = d3.transition()
-            .duration(1000);
-
-        var link = $scope.vis.svg.selectAll('.link')
-            .data($scope.data.links,function(l,idx) {
-                return l.id;
-            })
-            .datum(function(l,i,nodes) {
-                // update link values to reflect new data indices
-                let st = l.id.split(':');
-                let s = $scope.data.getNode(st[0],true);
-                let t = $scope.data.getNode(st[1],true);
-
-                l.source = s;
-                l.target = t;
-
-                return l;
-            });
-
-        var node = $scope.vis.svg.selectAll('g')
-            .data($scope.data.nodes,function(d,idx) {
-                // this is update because:
-                // on enter(), these nodes don't actually exist yet
-                let lidId;
-
-                try {
-                    lidId = d['local_identifier'][0];
-                } catch (err) {
-                    lidId = d['identifier_reference'][0];
-                }
-
-                // configure horiontal (x) position
-
-                if (d.rootNode) d.x = colWidth - xOffset;
-                else d.x = d.col * colWidth - xOffset;
-
-                // configure vertical (y) position
-                d.y = verticalOffset + idx * verticalSpacing;
-
-                d.lid = lidId;
-
-                return d.lid;
-            });
-
-        var title = $scope.vis.svg.selectAll('.node-title')
-            .text(function(d) {
-                return d.name[0];
-            });
-
-        var linkEnter = link
-            .enter().append('path')
-            .attr('class', 'link')
-            .style('opacity',1e-6);
-
-        linkEnter.transition(tIn)
-            .delay(100)
-            .style('opacity', linkOpacity);
-
-        var nodeEnter = node
-            .enter().append('g')
-            .classed('node', true)
-            .on('click', toggleHighlights)
-            .attr('id', function(d) {
-                let _id;
-
-                try {
-                    _id = d['local_identifier'][0].replace('.', '-');
-                } catch (err) {
-                    _id = d['identifier_reference'][0].replace('.', '-');
-                }
-
-                return _id;
-            })
-            .style('opacity',1e-6)
-            .attr('transform', function(d,idx) {
-                return `translate(${d.x,d.y})`;
-            });
-
-        nodeEnter.transition(tIn)
-            .style('opacity',1)
-
-        // configure behavior when nodes enter
-        // append ellipse to each node group
-        nodeEnter
-            .append('ellipse')
-            .attr('class', 'circle')
-            .style('stroke', nodeStroke)
-            .style('fill', highlightNode)
-            .attr('rx',1e-6)
-            .attr('ry',1e-6)
-            .transition(tIn)
-            .attr('rx', rx)
-            .attr('ry', ry)
-
-        // append text to each node group
-        nodeEnter
-            .append('text')
-            .attr('class','node-title')
-            .text(function(d) {
-                return d.name[0];
-            })
-            .style('font-size', function(d) {
-                let maths = Math.min(2 * ry, (2 * ry) / this.getComputedTextLength() * 40);
-                return `${maths}px`;
-            })
-            .attr('dx', () => rx * -.8)
-            .attr('dy', () => ry / 4)
-            .style('opacity',1e-6)
-            .transition(tIn)
-            .delay(750)
-            .style('opacity',1);
-        nodeEnter
-            .attr('transform', function(d, idx) {
-                // configure horiontal (x) position
-
-                if (d.rootNode) d.x = colWidth - xOffset;
-                else d.x = d.col * colWidth - xOffset;
-
-                // configure vertical (y) position
-                d.y = verticalOffset + idx * verticalSpacing;
-                return `translate(${d.x},${d.y})`;
-            });
-
-        // configure behavior when links enter
-        linkEnter
-            .attr('d', d3.linkHorizontal()
-                .x(function(d) {
-                    return $scope.data.nodes[d].x;
-                })
-                .y(function(d) {
-                    return $scope.data.nodes[d].y;
-                })
-            )
-            .attr('fill', 'none')
-            .attr('stroke', linkStroke)
-            .attr('stroke-width', linkStrokeWidth);
-
-        // // // REMOVE // // //
-        var nodeExit = node.exit()
-            .transition(tOut)
-            .style('opacity',1e-6)
-            .remove();
-
-        var linkExit = link.exit()
-            .transition(tOut)
-            .style('opacity',1e-6)
-            .remove();
-
-        // TODO transition on update here:
-        link
-            .transition()
-            .duration(750)
-            .delay(1000)
-            .attr('d', d3.linkHorizontal()
-                .x(function(l,idx) {
-                    return $scope.data.nodes[l].x;
-                })
-                .y(function(l,idx) {
-                    return $scope.data.nodes[l].y;
-                })
-            );
-
-        node
-            .transition()
-            .duration(750)
-            .delay(1000)
-            .attr('transform',function(d) {
-                return `translate(${d.x},${d.y})`;
-            });
-    };
-
     function toggleHighlights(targetNode) {
         if ($scope.ld3.linkMode) {
             $scope.data.createLink(targetNode,$scope.data.activeNode);
             $scope.ld3.linkMode = false;
-            update();
+            update($scope.data);
         }
 
         activeNodes = [];
