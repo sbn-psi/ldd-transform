@@ -108,16 +108,13 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
 
             sim.selectAll('.tick text').remove();
 
-            this.update();
-        },
-        update: function() {
-            // remove old tree
-            d3.select('.tree').remove();
-
             svg = d3.select('.main')
                 .append('g')
                 .attr('class','tree');
 
+            this.update();
+        },
+        update: function() {
             var tIn = d3.transition()
                 .duration(1000);
 
