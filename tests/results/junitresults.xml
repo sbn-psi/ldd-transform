@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="0" tests="8" time="4.952">
- <testsuite name="Protractor Tests" timestamp="2018-09-07T15:16:07" hostname="localhost" time="1.924" errors="0" tests="1" skipped="0" disabled="0" failures="0">
-  <testcase classname="Protractor Tests" name="should be configured properly" time="1.919" />
+<testsuites disabled="0" errors="0" failures="0" tests="8" time="4.956">
+ <testsuite name="Protractor Tests" timestamp="2018-09-11T15:21:22" hostname="localhost" time="1.85" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="Protractor Tests" name="should be configured properly" time="1.848" />
  </testsuite>
- <testsuite name="LD3 Tool" timestamp="2018-09-07T15:16:09" hostname="localhost" time="1.549" errors="0" tests="1" skipped="0" disabled="0" failures="0">
-  <testcase classname="LD3 Tool" name="should load an existing Ingest_LDD file" time="0.068" />
+ <testsuite name="LD3 Tool" timestamp="2018-09-11T15:21:23" hostname="localhost" time="1.581" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="LD3 Tool" name="should load an existing Ingest_LDD file" time="0.056" />
  </testsuite>
- <testsuite name="LD3 Tool.should be able to modify LDD details" timestamp="2018-09-07T15:16:09" hostname="localhost" time="1.479" errors="0" tests="6" skipped="0" disabled="0" failures="0">
-  <testcase classname="LD3 Tool.should be able to modify LDD details" name="name" time="0.336" />
-  <testcase classname="LD3 Tool.should be able to modify LDD details" name="version id" time="0.238" />
-  <testcase classname="LD3 Tool.should be able to modify LDD details" name="full name" time="0.2" />
-  <testcase classname="LD3 Tool.should be able to modify LDD details" name="steward id" time="0.202" />
-  <testcase classname="LD3 Tool.should be able to modify LDD details" name="namespace" time="0.293" />
-  <testcase classname="LD3 Tool.should be able to modify LDD details" name="comment" time="0.209" />
+ <testsuite name="LD3 Tool.should be able to modify LDD details" timestamp="2018-09-11T15:21:23" hostname="localhost" time="1.525" errors="0" tests="6" skipped="0" disabled="0" failures="0">
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="name" time="0.35" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="version id" time="0.228" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="full name" time="0.198" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="steward id" time="0.264" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="namespace" time="0.28" />
+  <testcase classname="LD3 Tool.should be able to modify LDD details" name="comment" time="0.203" />
  </testsuite>
 </testsuites>

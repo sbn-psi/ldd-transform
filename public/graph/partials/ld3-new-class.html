@@ -20,17 +20,17 @@
     <p class="error" ng-show="errors.definition">{{ errors.definition }}</p>
     <textarea name="definition" id="definition" ng-model="newNode.definition"></textarea>
 
-    <label ng-hide="newLddMode" for="minimum_occurrences">Minimum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_minimum_occurrences"></ld3-core-model-link></label>
-    <p ng-hide="newLddMode" class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
-    <input ng-hide="newLddMode" type="text" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
+    <label ng-hide="data.newLddMode" for="minimum_occurrences">Minimum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_minimum_occurrences"></ld3-core-model-link></label>
+    <p ng-hide="data.newLddMode" class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
+    <input ng-hide="data.newLddMode" type="text" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
 
-    <label ng-hide="newLddMode" for="maximum_occurrences">Maximum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_maximum_occurrences"></ld3-core-model-link></label>
-    <p ng-hide="newLddMode" class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
-    <input ng-hide="newLddMode" type="text" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+    <label ng-hide="data.newLddMode" for="maximum_occurrences">Maximum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_maximum_occurrences"></ld3-core-model-link></label>
+    <p ng-hide="data.newLddMode" class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
+    <input ng-hide="data.newLddMode" type="text" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
 
     <div class="submit-row">
-        <div class="ghost" ng-show="newLddMode"></div>
-        <button class="button-choice" ng-click="modal.close()" ng-hide="newLddMode">Cancel</button>
+        <div class="ghost" ng-show="data.newLddMode"></div>
+        <button class="button-choice" ng-click="modal.close()" ng-hide="data.newLddMode">Cancel</button>
         <button class="button-choice positive" ng-click="ld3.addClass()">Save</button>
     </div>
 

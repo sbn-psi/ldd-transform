@@ -2,8 +2,8 @@
 
     <h3 class="title">Define LDD Details</h3>
 
-    <p class="note" ng-show="newLddMode">Begin by filling in the following fields.</p>
-    <p class="note" ng-show="newLddMode">These values can be changed again later.</p>
+    <p class="note" ng-show="data.newLddMode">Begin by filling in the following fields.</p>
+    <p class="note" ng-show="data.newLddMode">These values can be changed again later.</p>
 
     <label for="name">LDD Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_name"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.name">{{ errors.name }}</p>
@@ -27,7 +27,6 @@
 
     <label for="pds4_im_version">PDS4 IM Version</label>
     <p class="error" ng-show="errors.pds4_im_version">{{ errors.pds4_im_version }}</p>
-    <p class="note">Hexidecimal, no dots/periods</p>
     <select name="pds4_im_version" ng-model="ldd.edit.pds4_im_version" id="pds4_im_version">
         <option value="1A00">1.10.0.0</option>
     </select>
@@ -37,8 +36,8 @@
     <textarea name="comment" ng-model="ldd.edit.comment" id="comment"></textarea>
 
     <div class="submit-row">
-        <div class="ghost" ng-show="newLddMode"></div>
-        <button ng-click="modal.close()" class="button-choice" ng-hide="newLddMode">Cancel</button>
+        <div class="ghost" ng-show="data.newLddMode"></div>
+        <button ng-click="modal.close()" class="button-choice" ng-hide="data.newLddMode">Cancel</button>
         <button ng-click="ld3.saveLdd()" class="button-choice positive">Save</button>
     </div>
 

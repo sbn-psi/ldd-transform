@@ -5,7 +5,7 @@
             <i ng-show="ld3.isEnabled.addNode()" ng-click="ld3.openAddNodeModal()" class="fas fa-plus fa-lg" title="Create a new node"></i>
 
             <i ng-show="!ld3.isEnabled.addLink()" class="fas fa-link disabled" title="Create a new link [disabled]"></i>
-            <i ng-show="ld3.isEnabled.addLink()" ng-click="ld3.addLink()" class="fas fa-link" title="Create a new link"></i>
+            <i ng-show="ld3.isEnabled.addLink()" ng-click="ld3.toggleLinkMode()" class="fas fa-link" title="Create a new link"></i>
         </div>
         <div class="toolgroup">
             <i ng-hide="ld3.linkMode" ng-click="ld3.download()" class="far fa-arrow-alt-circle-down fa-lg enabled" title="Download Current Ingest_LDD File"></i>
