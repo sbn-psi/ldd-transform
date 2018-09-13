@@ -255,9 +255,10 @@ app.factory('DataModel', function($window,$injector) {
             let array = node.className == 'class' ? 'DD_Class' : 'DD_Attribute';
 
             this.model['Ingest_LDD'][array] = this.model['Ingest_LDD'][array].filter(function(el) {
-                if (el.lid == lid) return false;
-                else return true;
+                return el.lid != lid;
             });
+
+            this.defineNodesAndLinks();
         },
 
         getNode: function(lid,getIdx) {
