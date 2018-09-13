@@ -115,13 +115,15 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
             this.update();
         },
         update: function() {
-            var tIn = d3.transition()
+            const that = this;
+
+            const tIn = d3.transition()
                 .duration(1000);
 
-            var tOut = d3.transition()
+            const tOut = d3.transition()
                 .duration(1000);
 
-            var link = svg.selectAll('.link')
+            const link = svg.selectAll('.link')
                 .data(dataModel.links,function(l,idx) {
                     return l.id;
                 })
@@ -137,7 +139,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     return l;
                 });
 
-            var node = svg.selectAll('g')
+            const node = svg.selectAll('g')
                 .data(dataModel.nodes,function(d,idx) {
                     // this is update because:
                     // on enter(), these nodes don't actually exist yet
@@ -150,7 +152,6 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     }
 
                     // configure horiontal (x) position
-
                     if (d.rootNode) d.x = colWidth - xOffset;
                     else d.x = d.col * colWidth - xOffset;
 
@@ -162,26 +163,60 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     return d.lid;
                 });
 
-            var title = svg.selectAll('.node-title')
+            // TODO transition on update here:
+            link
+                .transition()
+                .duration(750)
+                .delay(1000)
+                .attr('d', d3.linkHorizontal()
+                    .x(function(l,idx) {
+                        return dataModel.nodes[l].x;
+                    })
+                    .y(function(l,idx) {
+                        return dataModel.nodes[l].y;
+                    })
+                );
+
+            node
+                .transition()
+                .duration(750)
+                .delay(1000)
+                .each(d => {
+                    return d;
+                })
+                .attr('transform',function(d) {
+                    return `translate(${d.x},${d.y})`;
+                });
+
+            const title = svg.selectAll('.node-title')
                 .text(function(d) {
                     return d.name[0];
                 });
 
-            var linkEnter = link
-                .enter().append('path')
+            const linkEnter = link
+                .enter()
+                .append('path')
                 .attr('class', 'link')
-                .style('opacity',1e-6);
+                .style('opacity',1e-6)
+                .attr('d', d3.linkHorizontal()
+                    .x(function(d) {
+                        return dataModel.nodes[d].x;
+                    })
+                    .y(function(d) {
+                        return dataModel.nodes[d].y;
+                    })
+                )
+                .attr('fill', 'none')
+                .attr('stroke', linkStroke)
+                .attr('stroke-width', linkStrokeWidth)
+                .transition(tIn)
+                    .delay(100)
+                    .style('opacity', this.linkOpacity);
 
-            linkEnter.transition(tIn)
-                .delay(100)
-                .style('opacity', this.linkOpacity);
-
-            const that = this;
-
-            var nodeEnter = node
-                .enter().append('g')
+            const nodeEnter = node
+                .enter()
+                .append('g')
                 .classed('node', true)
-
                 .on('click', function(target) {
                     if (that.linkMode) {
                         that.linkMode = false;
@@ -191,7 +226,6 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                         dataModel.setActiveNode(target);
                     }
                 })
-
                 .attr('id', function(d) {
                     let _id;
 
@@ -209,7 +243,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 });
 
             nodeEnter.transition(tIn)
-                .style('opacity',1)
+                .style('opacity',1);
 
             // configure behavior when nodes enter
             // append ellipse to each node group
@@ -237,7 +271,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .attr('ry',1e-6)
                 .transition(tIn)
                 .attr('rx', rx)
-                .attr('ry', ry)
+                .attr('ry', ry);
 
             // append text to each node group
             nodeEnter
@@ -256,6 +290,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .transition(tIn)
                 .delay(750)
                 .style('opacity',1);
+
             nodeEnter
                 .attr('transform', function(d, idx) {
                     // configure horiontal (x) position
@@ -268,52 +303,20 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     return `translate(${d.x},${d.y})`;
                 });
 
-            // configure behavior when links enter
-            linkEnter
-                .attr('d', d3.linkHorizontal()
-                    .x(function(d) {
-                        return dataModel.nodes[d].x;
-                    })
-                    .y(function(d) {
-                        return dataModel.nodes[d].y;
-                    })
-                )
-                .attr('fill', 'none')
-                .attr('stroke', linkStroke)
-                .attr('stroke-width', linkStrokeWidth);
+
 
             // // // REMOVE // // //
-            var nodeExit = node.exit()
+            const nodeExit = node
+                .exit()
                 .transition(tOut)
-                .style('opacity',1e-6)
+                    .style('opacity',1e-6)
                 .remove();
 
-            var linkExit = link.exit()
+            const linkExit = link
+                .exit()
                 .transition(tOut)
-                .style('opacity',1e-6)
+                    .style('opacity',1e-6)
                 .remove();
-
-            // TODO transition on update here:
-            link
-                .transition()
-                .duration(750)
-                .delay(1000)
-                .attr('d', d3.linkHorizontal()
-                    .x(function(l,idx) {
-                        return dataModel.nodes[l].x;
-                    })
-                    .y(function(l,idx) {
-                        return dataModel.nodes[l].y;
-                    })
-                );
-
-            node
-                .transition()
-                .duration(750)
-                .delay(1000)
-                .attr('transform',function(d) {
-                    return `translate(${d.x},${d.y})`;
-                });
 
         },
 
