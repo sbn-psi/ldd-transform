@@ -371,6 +371,8 @@ app.factory('DataModel', function($window,$injector) {
         },
 
         createLink: function(node) {
+            if (node == this.activeNode) return alert('Error: Cannot make a class its own parent.');
+
             // active node should always be parent
             const parentIdx = this.getNode(this.activeNode.lid,true);
             const childIdx = this.getNode(node.lid,true);
