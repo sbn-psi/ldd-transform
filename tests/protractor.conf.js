@@ -8,6 +8,7 @@ exports.config = {
         'browserName': 'chrome',
         'chromeOptions': {
             args: [
+                '--headless',
                 '--window-size=1600,1200',
                 '--inspect-brk'
             ]
