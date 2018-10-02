@@ -219,9 +219,13 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .classed('node', true)
                 .on('click', function(target) {
                     if (that.linkMode) {
-                        that.linkMode = false;
-                        dataModel.createLink(target);
-                        that.update();
+                        const linkCreated = dataModel.createLink(target);
+                        if (linkCreated) {
+                            that.linkMode = false;
+                            dataModel.defineNodesAndLinks();
+                            that.update();
+                            that.toggleHighlights();
+                        }
                     } else {
                         dataModel.setActiveNode(target);
                     }
