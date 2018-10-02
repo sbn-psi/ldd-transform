@@ -371,7 +371,10 @@ app.factory('DataModel', function($window,$injector) {
         },
 
         createLink: function(node) {
-            if (node == this.activeNode) return alert('Error: Cannot make a class its own parent.');
+            if (node == this.activeNode) {
+                alert('Error: Cannot make a class its own parent.');
+                return false;
+            };
 
             // active node should always be parent
             const parentIdx = this.getNode(this.activeNode.lid,true);
@@ -379,9 +382,18 @@ app.factory('DataModel', function($window,$injector) {
 
             const parent = this.nodes[parentIdx];
             const child = this.nodes[childIdx];
+            
+            const parentParents = this.getParents(parentIdx);
+            const childIsParent = parentParents.find(function(elem) {
+                return elem == child;
+            });
+            if (childIsParent) {
+                alert('Error: Cannot make a parent node the child of its own child.');
+                return false;
+            }
 
-            this.model['Ingest_LDD']['DD_Class'] = this.model['Ingest_LDD']['DD_Class'].map(c => {
-                if (c.lid == parent.lid) {
+            this.model['Ingest_LDD']['DD_Class'] = this.model['Ingest_LDD']['DD_Class'].map(classNode => {
+                if (classNode.lid == parent.lid) {
                     let output = {
                         identifier_reference: node['local_identifier'],
                         reference_type: (() => {
@@ -394,13 +406,15 @@ app.factory('DataModel', function($window,$injector) {
                             name: node['name']
                         }
                     };
-                    c['DD_Association'].push(output);
+                    classNode['DD_Association'].push(output);
                 };
 
-                return c;
+                return classNode;
+                
             });
 
             this.defineNodesAndLinks();
+            return true;
         },
 
         removeLink: function(lid) {
