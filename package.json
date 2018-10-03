@@ -34,6 +34,6 @@
     "grunt-protractor-runner": "^5.0.0",
     "jasmine-fail-fast": "^2.0.0",
     "jasmine-reporters": "^2.3.2",
-    "sass": "^1.13.0"
+    "sass": "^1.14.1"
   }
 }
