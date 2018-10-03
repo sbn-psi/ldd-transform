@@ -25,7 +25,7 @@ app.listen(3001);
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
 
-console.clear();
+console.log('server running');
 
 //////////////////ENDPOINTS////////////////////
 
