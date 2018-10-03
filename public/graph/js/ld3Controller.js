@@ -186,6 +186,29 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                     saveAs(blob,fileName);
                 }
             });
+        },
+        showUndo: function() {
+            if ($scope.data.history.length > 1 && $scope.data.historyIdx != $scope.data.history.length - 1) return true;
+            else if ($scope.data.historyIdx == $scope.data.history.length - 1) return false;
+            else return false;
+        },
+        undo: function() {
+            const history = $scope.data.history;
+            $scope.data.historyIdx++;
+            $scope.data.timeTravel(history[$scope.data.historyIdx]);
+            $scope.vis.update();
+            $scope.vis.toggleHighlights();
+        },
+        showRedo: function() {
+            if ($scope.data.historyIdx != 0) return true;
+            else return false;
+        },
+        redo: function() {
+            const history = $scope.data.history;
+            $scope.data.historyIdx--;
+            $scope.data.timeTravel(history[$scope.data.historyIdx]);
+            $scope.vis.update();
+            $scope.vis.toggleHighlights();
         }
     };
 

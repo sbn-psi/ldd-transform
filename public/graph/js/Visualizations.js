@@ -325,6 +325,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
         },
 
         linkOpacity: function(l) {
+            // console.log(l);
             let isRequired;
 
             var parentIdx = l.source;
@@ -360,7 +361,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
             return isRequired ? required : optional;
         },
 
-        toggleHighlights: function(targetNode) {
+        toggleHighlights: function() {
             activeNodes = [];
 
             if (!dataModel.activeNode) {

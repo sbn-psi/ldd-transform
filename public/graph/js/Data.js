@@ -1,33 +1,42 @@
-app.factory('DataModel', function($window,$injector) {
+app.factory('DataModel', function($window,$injector,$rootScope) {
     let _col;
-    let json;
+    let model;
     let newLddMode = false;
 
     if (window.localStorage.getItem('ld3')) {
-        json = JSON.parse(window.localStorage.getItem('ld3'));
+        model = JSON.parse(window.localStorage.getItem('ld3'));
     } else {
         newLddMode = true;
-        json = _template
+        model = _template
     };
 
     const Data = {
-        setActiveNode: function(node) {
+        setActiveNode: function(node,boo) {
             if (this.activeNode == node) this.activeNode = null;
             else this.activeNode = node;
 
-            $injector.get('Visualizations').toggleHighlights();
+            if (!boo) $injector.get('Visualizations').toggleHighlights();
         },
         activeNode: null,
         rootNodes: [],
+        
+        history: [],
+        maxHistory: 10,
+        historyIdx: 0,
 
         newLddMode: newLddMode,
 
         nodes: [],
         links: [],
 
-        model: (function() {
-            return json;
-        })(),
+        model: model,
+
+        timeTravel: function(newModel) {
+            this.model = JSON.parse(newModel);
+            this.updateNodes();
+            this.updateLinks();
+            this.setActiveNode(this.getNode(this.activeNode.lid),true);
+        },
 
         pureModel: function() {
             // make a copy of the model so the active copy is not altered
@@ -199,6 +208,12 @@ app.factory('DataModel', function($window,$injector) {
         defineNodesAndLinks: function() {
             this.updateNodes();
             this.updateLinks();
+            if (this.historyIdx != 0) {
+                this.history.splice(0,this.historyIdx,JSON.stringify(this.model));
+            } else {
+                this.history.unshift(JSON.stringify(this.model));
+            }
+            this.historyIdx = 0;
         },
 
         sortCols: function(nodes) {
@@ -423,10 +438,13 @@ app.factory('DataModel', function($window,$injector) {
                 return ref.lid != lid;
             });
 
-            this.defineNodesAndLinks();
+            this.updateNodes();
+            this.updateLinks();
 
             const links = this.getLinks(lid);
+
             if (!links.length) this.removeNode(lid);
+            else this.defineNodesAndLinks();
         },
 
         getLinks: function(lid) {
