@@ -10,7 +10,7 @@
 
     <label for="version_id">Version <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_class_pds_version_id"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.version_id">{{ errors.version_id }}</p>
-    <input type="text" name="version_id" id="version_id" ng-model="newNode.version_id">
+    <input type="text" class="xs" name="version_id" id="version_id" ng-model="newNode.version_id">
 
     <label for="submitter_name">Submitter Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_class_pds_submitter_name"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.submitter_name">{{ errors.submitter_name }}</p>
@@ -22,11 +22,11 @@
 
     <label ng-hide="data.newLddMode" for="minimum_occurrences">Minimum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_minimum_occurrences"></ld3-core-model-link></label>
     <p ng-hide="data.newLddMode" class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
-    <input ng-hide="data.newLddMode" type="text" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
+    <input ng-hide="data.newLddMode" type="text" class="xs" name="minimum_occurrences" id="minimum_occurrences" ng-model="newNode.minimum_occurrences">
 
     <label ng-hide="data.newLddMode" for="maximum_occurrences">Maximum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_maximum_occurrences"></ld3-core-model-link></label>
     <p ng-hide="data.newLddMode" class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
-    <input ng-hide="data.newLddMode" type="text" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+    <input ng-hide="data.newLddMode" type="text" class="xs" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
 
     <div class="submit-row">
         <div class="ghost" ng-show="data.newLddMode"></div>

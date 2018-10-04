@@ -10,7 +10,7 @@
 
     <label for="attribute-version_id">Version <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_version_id"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.version_id">{{ errors.version_id }}</p>
-    <input type="text" name="attribute-version_id" id="attribute-version_id" ng-model="newNode.version_id">
+    <input type="text" class="xs" name="attribute-version_id" id="attribute-version_id" ng-model="newNode.version_id">
 
     <label for="attribute-submitter_name">Submitter Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_submitter_name"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.submitter_name">{{ errors.submitter_name }}</p>
@@ -22,11 +22,11 @@
 
     <label for="attribute-minimum_occurrences">Minimum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_minimum_occurrences"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.minimum_occurrences">{{ errors.minimum_occurrences }}</p>
-    <input type="text" name="attribute-minimum_occurrences" id="attribute-minimum_occurrences" ng-model="newNode.minimum_occurrences">
+    <input type="text" class="xs" name="attribute-minimum_occurrences" id="attribute-minimum_occurrences" ng-model="newNode.minimum_occurrences">
 
     <label for="attribute-maximum_occurrences">Maximum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_maximum_occurrences"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
-    <input type="text" name="attribute-maximum_occurrences" id="attribute-maximum_occurrences" ng-model="newNode.maximum_occurrences">
+    <input type="text" class="xs" name="attribute-maximum_occurrences" id="attribute-maximum_occurrences" ng-model="newNode.maximum_occurrences">
 
     <label for="attribute-nillable_flag">Nillable Flag <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_nillable_flag"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.nillable_flag">{{ errors.nillable_flag }}</p>

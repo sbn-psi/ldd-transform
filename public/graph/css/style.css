@@ -91,11 +91,16 @@ button, a, i, [type=submit] {
   cursor: pointer;
 }
 
+.centered-text {
+  text-align: center;
+  margin: 1em auto;
+}
+
 .modal {
   margin: 3em auto;
   padding: 3em 1em;
   background: white;
-  width: 30vw;
+  width: 20vw;
   box-shadow: 0 0 1em 0 black;
   border-radius: 0.25em;
   overflow: scroll;
@@ -128,9 +133,11 @@ button, a, i, [type=submit] {
   flex-flow: column;
 }
 .form label {
-  width: 100%;
   margin: 0.75em 0 0.25em;
   font-weight: 500;
+}
+.form select {
+  align-self: flex-start;
 }
 .form textarea {
   min-height: 80px;
@@ -140,6 +147,12 @@ button, a, i, [type=submit] {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
+}
+.form .sm {
+  width: 4em;
+}
+.form .xs {
+  width: 2em;
 }
 
 .submit-row {
