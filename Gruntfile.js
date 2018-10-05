@@ -36,7 +36,11 @@ module.exports = function(grunt) {
             images: {
                 expand: true,
                 flatten: true,
-                src: 'public/graph/img/legend.png',
+                src: [
+                    'public/graph/img/legend.png',
+                    'public/graph/img/logo.png',
+                    'public/graph/img/logo_no_title.png'
+                ],
                 dest: 'build/public/graph/img/'
             }
         },
