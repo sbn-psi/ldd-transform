@@ -9,11 +9,11 @@ $ ./deploy.sh dev
 To deploy a production build, run the following command
 
 ```shell
-$ ./deploy.sh production
+$ [sudo] ./deploy.sh production
 ```
 
-The app deploys in a docker container. The docker container can be listed using the command
+The app deploys in a docker container. Docker containers can be listed using the command
 
 ```shell
-$ docker ps
+$ [sudo] docker ps
 ```
