@@ -195,6 +195,7 @@ app.factory('DataModel', function($window,$injector,$rootScope) {
                 let _match = this.links.find(link => link.target == idx);
                 if (!_match) {
                     node.rootNode = true;
+                    node.element_flag = true;
                     node.col = _col;
                     this.rootNodes.push(node);
                 };
