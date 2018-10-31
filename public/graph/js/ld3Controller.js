@@ -213,8 +213,25 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
     };
 
     // // // // // // //
+    // // WATCHERS // //
+    // // // // // // //
+
+    $scope.$watch('unboundedCheckboxValue', (newVal,oldVal) => {
+        if (!angular.isDefined(newVal)) {
+            $scope.unbounded = false;
+        } else {
+            $scope.unbounded = newVal;
+            $scope.boundValue = $scope.newNode.maximum_occurrences;
+        }
+
+        if ($scope.unbounded) $scope.newNode.maximum_occurrences = '*';
+        else if (!$scope.unbounded && $scope.newNode) $scope.newNode.maximum_occurrences = '';
+    });
+
+    // // // // // // //
     // INITIALIZE D3  //
     // // // // // // //
+
     $scope.vis.initGrid();
 
     if ($scope.data.newLddMode) $scope.modal.open('editLdd');

@@ -26,7 +26,12 @@
 
     <label ng-hide="data.newLddMode" for="maximum_occurrences">Maximum Occurrences <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_association_pds_maximum_occurrences"></ld3-core-model-link></label>
     <p ng-hide="data.newLddMode" class="error" ng-show="errors.maximum_occurrences">{{ errors.maximum_occurrences }}</p>
-    <input ng-hide="data.newLddMode" type="text" class="xs" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+    <span>
+        <input ng-hide="data.newLddMode || unbounded" type="text" class="xs" name="maximum_occurrences" id="maximum_occurrences" ng-model="newNode.maximum_occurrences">
+        <input ng-hide="data.newLddMode || !unbounded" value="" disabled type="text" class="xs">
+        <input type="checkbox" ng-model="unboundedCheckboxValue" name="unbounded" id="unbounded" style="margin-left:2em;">
+        <label for="unbounded">Unbounded</label>
+    </span>
 
     <div class="attribute-list" ng-show="newNode.reference_type == 'attribute_of'">
         <label for="nillable_flag">Nillable Flag <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_nillable_flag"></ld3-core-model-link></label>
