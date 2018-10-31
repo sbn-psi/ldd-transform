@@ -84,15 +84,9 @@ app
         }
     })
 
-
-    .directive('ld3NewClass', () => {
+    .directive('ld3NewElement', () => {
         return {
-            templateUrl: './partials/ld3-new-class.html'
-        }
-    })
-    .directive('ld3NewAttribute', () => {
-        return {
-            templateUrl: './partials/ld3-new-attribute.html'
+            templateUrl: './partials/modal.new-element.html'
         }
     });
 

@@ -131,31 +131,31 @@ button, a, i, [type=submit] {
   cursor: pointer;
 }
 
-.form {
+.form, .form .attribute-list {
   position: relative;
   display: flex;
   flex-flow: column;
 }
-.form label {
+.form label, .form .attribute-list label {
   margin: 0.75em 0 0.25em;
   font-weight: 500;
 }
-.form select {
+.form select, .form .attribute-list select {
   align-self: flex-start;
 }
-.form textarea {
+.form textarea, .form .attribute-list textarea {
   min-height: 80px;
 }
-.form .flex-row {
+.form .flex-row, .form .attribute-list .flex-row {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
 }
-.form .sm {
+.form .sm, .form .attribute-list .sm {
   width: 4em;
 }
-.form .xs {
+.form .xs, .form .attribute-list .xs {
   width: 2em;
 }
 

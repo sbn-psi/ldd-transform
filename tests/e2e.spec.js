@@ -163,12 +163,13 @@ describe('A user', function() {
         // fill form
         element(by.css('[ng-click="newNode.reference_type = \'attribute_of\'"]')).click();
 
-        element(by.id('attribute-name')).sendKeys(attributes[0]['name']);
-        element(by.id('attribute-definition')).sendKeys(attributes[0]['definition']);
-        element(by.id('attribute-minimum_occurrences')).sendKeys(attributes[0]['minimum_occurrences']);
-        element(by.id('attribute-maximum_occurrences')).sendKeys(attributes[0]['maximum_occurrences']);
-        element(by.css(`[id="attribute-nillable_flag"][ng-value="${attributes[0]['nillable_flag']}"]`)).click();
-        element(by.css(`[id="attribute-enumeration_flag"][ng-value="${attributes[0]['enumeration_flag']}"]`)).click();
+        element(by.id('name')).sendKeys(attributes[0]['name']);
+        element(by.id('definition')).sendKeys(attributes[0]['definition']);
+        element(by.id('minimum_occurrences')).sendKeys(attributes[0]['minimum_occurrences']);
+        element(by.id('maximum_occurrences')).sendKeys(attributes[0]['maximum_occurrences']);
+        browser.sleep(5000);
+        element(by.css(`[id="nillable_flag"][ng-value="${attributes[0]['nillable_flag']}"]`)).click();
+        element(by.css(`[id="enumeration_flag"][ng-value="${attributes[0]['enumeration_flag']}"]`)).click();
 
         // click save button
         element(by.css('[ng-click="ld3.addAttribute()"]')).click();
