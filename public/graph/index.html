@@ -20,6 +20,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.22/angular-ui-router.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js" charset="utf-8" async defer></script>
     <script src="./js/root.js" charset="utf-8" async defer></script>
 
@@ -32,13 +33,12 @@
     <title>LD3 Tool</title>
 </head>
 
-<body ng-controller="ld3Controller">
+<body></body>
 
     <ld3-menubar></ld3-menubar>
     <ld3-toolbox></ld3-toolbox>
     <ld3-modal></ld3-modal>
+    
+    <div ui-view></div>
 
-    <svg class="main"></svg>
-
-</body>
 </html>

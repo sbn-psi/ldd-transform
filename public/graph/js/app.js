@@ -1,6 +1,38 @@
-let app = angular.module('LD3', []);
+let app = angular.module('LD3', ['ui.router']);
 
 app
+    .config(function($urlRouterProvider, $locationProvider, $stateProvider) {
+        // catches invalid states, redirects user to root
+        $urlRouterProvider.otherwise('/');
+        
+        // enable and configure HTML5 mode
+        // anonymous config object passed into html5mode() is to prevent
+        // angular uiRouter from treating anchor <a> tags as browser links
+        // but instead as various uiRouter states
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false,
+            rewriteLinks: false
+        });
+        
+        // Defines data-type-independent states
+        $stateProvider
+            .state('graph', {
+                url: '/',
+                templateUrl: 'partials/states/graph.html',
+                controller: 'ld3Controller'
+            })
+            .state('error', {
+                url: '/error',
+                template: '<div ui-view></div>'
+            })
+            .state('error.file', {
+                url: '/file',
+                templateUrl: 'partials/states/file-error.html'
+            })
+    })
+    
+    // // // DIRECTIVES // // //
     .directive('ld3Toolbox', () => {
         return {
             templateUrl: './partials/ld3-toolbox.html'
@@ -84,15 +116,9 @@ app
         }
     })
 
-
-    .directive('ld3NewClass', () => {
+    .directive('ld3NewElement', () => {
         return {
-            templateUrl: './partials/ld3-new-class.html'
-        }
-    })
-    .directive('ld3NewAttribute', () => {
-        return {
-            templateUrl: './partials/ld3-new-attribute.html'
+            templateUrl: './partials/modal.new-element.html'
         }
     });
 

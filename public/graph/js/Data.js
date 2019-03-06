@@ -1,4 +1,4 @@
-app.factory('DataModel', function($window,$injector,$rootScope) {
+app.factory('DataModel', function($window,$injector,$rootScope,$state) {
     let _col;
     let model;
     let newLddMode = false;
@@ -195,6 +195,7 @@ app.factory('DataModel', function($window,$injector,$rootScope) {
                 let _match = this.links.find(link => link.target == idx);
                 if (!_match) {
                     node.rootNode = true;
+                    node.element_flag = true;
                     node.col = _col;
                     this.rootNodes.push(node);
                 };
@@ -531,8 +532,9 @@ app.factory('DataModel', function($window,$injector,$rootScope) {
             this.defineNodesAndLinks();
         }
     };
-
-    Data.defineNodesAndLinks();
+    
+    if (!model || !model['Ingest_LDD']) return $state.go('error.file');
+    else Data.defineNodesAndLinks();
 
     return Data;
 });

@@ -209,12 +209,36 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             $scope.data.timeTravel(history[$scope.data.historyIdx]);
             $scope.vis.update();
             $scope.vis.toggleHighlights();
+        },
+        // exits LD3 Tool and returns user to LDD Transform page
+        exit: function() {
+            const root = '/';
+            const userConfirm = confirm('Are you sure you want to leave this page? Any unsaved changes will be lost.');
+            
+            return (!userConfirm) ? null : window.location = root;
         }
     };
 
     // // // // // // //
+    // // WATCHERS // //
+    // // // // // // //
+
+    $scope.$watch('unboundedCheckboxValue', (newVal,oldVal) => {
+        if (!angular.isDefined(newVal)) {
+            $scope.unbounded = false;
+        } else {
+            $scope.unbounded = newVal;
+            $scope.boundValue = $scope.newNode.maximum_occurrences;
+        }
+
+        if ($scope.unbounded) $scope.newNode.maximum_occurrences = '*';
+        else if (!$scope.unbounded && $scope.newNode) $scope.newNode.maximum_occurrences = '';
+    });
+
+    // // // // // // //
     // INITIALIZE D3  //
     // // // // // // //
+
     $scope.vis.initGrid();
 
     if ($scope.data.newLddMode) $scope.modal.open('editLdd');
