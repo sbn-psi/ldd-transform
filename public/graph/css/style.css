@@ -5,7 +5,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-svg {
+.main {
   position: absolute;
   background: #f6f6f6;
   top: 0;
@@ -31,20 +31,34 @@ button, a, i, [type=submit] {
   cursor: pointer;
 }
 
+.linebreak {
+  height: 1px;
+  width: 100%;
+  background: grey;
+  margin: 1em 0;
+}
+
 .logo {
   width: 6em;
+  height: 6em;
 }
 
 .button {
   height: 2em;
-  width: 5em;
+  min-width: 5em;
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
   border: none;
   border-radius: 0.5em;
   background: darkblue;
   color: white;
   font-family: inherit;
   font-size: 1em;
-  box-shadow: 1px 2px 5px 0 grey;
+  box-shadow: 0 0 4px 1px grey;
   margin: 1em;
 }
 .button :active {
@@ -61,6 +75,14 @@ button, a, i, [type=submit] {
 .button .disabled {
   background: lightgrey;
   color: grey;
+}
+.button:hover {
+  background: #0000be;
+  box-shadow: 0 0 3px 1px grey;
+}
+.button:active {
+  background: #0000f1;
+  box-shadow: 0 0 2px 1px grey;
 }
 
 .enabled {
@@ -101,14 +123,15 @@ button, a, i, [type=submit] {
 }
 
 .modal {
+  align-self: center;
   margin: 3em auto;
   padding: 3em 1em;
   background: white;
   width: 20vw;
   box-shadow: 0 0 1em 0 black;
   border-radius: 0.25em;
-  overflow: scroll;
-  max-height: calc(90vh - 6em);
+  display: flex;
+  flex-direction: column;
 }
 
 .curtain {
@@ -243,6 +266,23 @@ button, a, i, [type=submit] {
   background: white;
   overflow: scroll;
   box-shadow: 1px 2px 5px 1px lightgrey;
+}
+#menubar #ldd {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+#menubar #ldd div {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}
+#menubar #ldd div i {
+  color: grey;
+  padding-right: 0.5em;
+}
+#menubar #ldd div:hover {
+  box-shadow: 0 0 3px 1px grey;
 }
 
 #menubar > .key {

@@ -1,8 +1,15 @@
 <div id="menubar">
+    
+    <div id="ldd">
+        <div ng-click="ld3.exit()" title="Back to LDD Transform">
+            <i class="fas fa-sm fa-arrow-left"></i>
+            <i class="fas fa-2x fa-home"></i>
+        </div>
+        
+        <img src="./img/logo.png" alt="LD3 Tool" title="LD3 Tool" class="logo">
+    </div>
 
-    <img src="./img/logo.png" alt="LD3 Tool" title="LD3 Tool" class="logo">
-
-    <hr/>
+    <div class="linebreak"></div>
 
     <span class="details-header">
         <a
@@ -40,11 +47,10 @@
         <h3 class="value">{{ ldd.original.comment }}</h3>
     </div>
 
-    <hr/>
+    <div class="linebreak"></div>
 
     <ld3-active-node ng-show="data.activeNode"></ld3-active-node>
 
     <ld3-active-node-children children="data.activeNode.children"></ld3-active-node-children>
-    <!-- <ld3-active-node-parents parents="data.activeNode.parents"></ld3-active-node-parents> -->
 
 </div>
