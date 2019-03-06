@@ -145,12 +145,25 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         },
         saveLdd: function() {
             const errors = {};
+            const spaceError = function(keyword) {
+                return `Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.`;
+            };
 
-            if (!$scope.ldd.edit.name) errors.name = 'LDD Name is required.';
+            const name = $scope.ldd.edit.name.trim();
+            if (!name) errors.name = 'LDD Name is required.';
+            else if (/ /g.test(name)) errors.name = spaceError('LDD name');
+            
             if (!$scope.ldd.edit.ldd_version_id) errors.ldd_version_id = 'LDD Version is required.';
             if (!$scope.ldd.edit.full_name) errors.full_name = 'Full Name is required.';
-            if (!$scope.ldd.edit.steward_id) errors.steward_id = 'Steward ID is required.';
-            if (!$scope.ldd.edit.namespace_id) errors.namespace_id = 'Namespace is required.';
+            
+            const stewardId = $scope.ldd.edit.steward_id.trim();
+            if (!stewardId) errors.steward_id = 'Steward ID is required.';
+            else if (/ /g.test(stewardId)) errors.steward_id = spaceError('steward ID');
+            
+            const namespaceId = $scope.ldd.edit.namespace_id.trim();
+            if (!namespaceId) errors.namespace_id = 'Namespace is required.';
+            else if (/ /g.test(namespaceId)) errors.namespace_id = spaceError('namespace ID');
+            
             if (!$scope.ldd.edit.comment) errors.comment = 'Comment is required.';
 
             if (Object.keys(errors).length) {

@@ -1,3 +1,5 @@
+@import 'variables';
+
 body {
     margin: 0;
     padding: 0;
@@ -14,6 +16,7 @@ body {
 }
 .fa-external-link-alt {
     color: blue;
+    float: right;
 }
 a {
     color: blue;
@@ -45,12 +48,12 @@ button, a, i, [type="submit"]{
     align-items: center;
     text-decoration: none;
     border: none;
-    border-radius: 0.5em;
+    border-radius: 0.2em;
     background: darkblue;
     color: white;
     font-family: inherit;
     font-size: 1em;
-    box-shadow: 0 0 4px 1px grey;
+    // box-shadow: 0 0 4px 1px grey;
     margin: 1em;
     :active {
         box-shadow: none;
@@ -69,11 +72,9 @@ button, a, i, [type="submit"]{
     }
     &:hover {
         background: lighten(darkblue,10%);
-        box-shadow: 0 0 3px 1px grey;
     }
     &:active {
         background: lighten(darkblue,20%);
-        box-shadow: 0 0 2px 1px grey;
     }
 }
 .enabled {
@@ -113,10 +114,20 @@ button, a, i, [type="submit"]{
     width: 20vw;
     box-shadow: 0 0 1em 0 black;
     border-radius: 0.25em;
-    // overflow: scroll;
-    // max-height: calc(90vh - 6em);
     display: flex;
     flex-direction: column;
+    
+    overflow: scroll;
+    max-height: calc(90vh - 6em);
+    
+    &.form {
+        input[type="text"] {
+            padding: 0.3em;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+        }
+    }
 }
 .curtain {
     position: relative;
@@ -175,18 +186,27 @@ button, a, i, [type="submit"]{
     justify-content: space-between;
 
     .button-choice {
-        padding: 1em 0;
         background: #dddddd;
-        text-align: center;
-        width: 30%;
-        cursor: pointer;
-        border: none;
         font-size: 100%;
         font-family: inherit;
+        
+        &:hover {
+            background: darken(#dddddd,50%);
+        }
+        &:active {
+            background: darken(#dddddd,10%);
+        }
     }
 
     .positive {
-        background: #c4c4ff;
+        background: $darkPurple;
+        
+        &:hover {
+            background: darken($darkPurple,5%);
+        }
+        &:active {
+            background: darken($darkPurple,10%);
+        }
     }
 }
 

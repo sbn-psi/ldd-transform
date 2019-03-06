@@ -16,6 +16,7 @@ body {
 
 .fa-external-link-alt {
   color: blue;
+  float: right;
 }
 
 a {
@@ -53,12 +54,11 @@ button, a, i, [type=submit] {
   align-items: center;
   text-decoration: none;
   border: none;
-  border-radius: 0.5em;
+  border-radius: 0.2em;
   background: darkblue;
   color: white;
   font-family: inherit;
   font-size: 1em;
-  box-shadow: 0 0 4px 1px grey;
   margin: 1em;
 }
 .button :active {
@@ -78,11 +78,9 @@ button, a, i, [type=submit] {
 }
 .button:hover {
   background: #0000be;
-  box-shadow: 0 0 3px 1px grey;
 }
 .button:active {
   background: #0000f1;
-  box-shadow: 0 0 2px 1px grey;
 }
 
 .enabled {
@@ -132,6 +130,14 @@ button, a, i, [type=submit] {
   border-radius: 0.25em;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
+  max-height: calc(90vh - 6em);
+}
+.modal.form input[type=text] {
+  padding: 0.3em;
+  border-top: none;
+  border-right: none;
+  border-left: none;
 }
 
 .curtain {
@@ -194,17 +200,24 @@ button, a, i, [type=submit] {
   justify-content: space-between;
 }
 .submit-row .button-choice {
-  padding: 1em 0;
   background: #dddddd;
-  text-align: center;
-  width: 30%;
-  cursor: pointer;
-  border: none;
   font-size: 100%;
   font-family: inherit;
 }
+.submit-row .button-choice:hover {
+  background: #5e5e5e;
+}
+.submit-row .button-choice:active {
+  background: #c4c4c4;
+}
 .submit-row .positive {
-  background: #c4c4ff;
+  background: #9999ff;
+}
+.submit-row .positive:hover {
+  background: #8080ff;
+}
+.submit-row .positive:active {
+  background: #6666ff;
 }
 
 .tabs-container {
