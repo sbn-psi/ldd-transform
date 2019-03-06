@@ -17,6 +17,7 @@ $(document).ready( function() {
     $("#vis-button").click(function(e) {
         // prevent default form action
         e.preventDefault();
+        $('#vis-error').hide();
         
         var fileInput = document.getElementById('inputfile');
         var file = fileInput.files[0];
@@ -29,8 +30,12 @@ $(document).ready( function() {
         xhr.send(formData);
         xhr.onreadystatechange = function(res) {
             if (xhr.readyState === 4) {
-                localStorage.setItem('ld3',xhr.response);
-                window.location.href = graphLocation;
+                if (xhr.status == 200) {
+                    localStorage.setItem('ld3',xhr.response);
+                    return window.location.href = graphLocation;
+                } else {
+                    return $('#vis-error').show();
+                }
             };
         };
     });
