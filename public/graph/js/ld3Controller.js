@@ -209,6 +209,13 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             $scope.data.timeTravel(history[$scope.data.historyIdx]);
             $scope.vis.update();
             $scope.vis.toggleHighlights();
+        },
+        // exits LD3 Tool and returns user to LDD Transform page
+        exit: function() {
+            const root = '/';
+            const userConfirm = confirm('Are you sure you want to leave this page? Any unsaved changes will be lost.');
+            
+            return (!userConfirm) ? null : window.location = root;
         }
     };
 
