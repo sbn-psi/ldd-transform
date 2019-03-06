@@ -1,4 +1,4 @@
-app.factory('DataModel', function($window,$injector,$rootScope) {
+app.factory('DataModel', function($window,$injector,$rootScope,$state) {
     let _col;
     let model;
     let newLddMode = false;
@@ -532,8 +532,9 @@ app.factory('DataModel', function($window,$injector,$rootScope) {
             this.defineNodesAndLinks();
         }
     };
-
-    Data.defineNodesAndLinks();
+    
+    if (!model || !model['Ingest_LDD']) return $state.go('error.file');
+    else Data.defineNodesAndLinks();
 
     return Data;
 });
