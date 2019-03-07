@@ -6,7 +6,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-h1,h2,h3,h4 {
+h1, h2, h3, h4 {
     font-weight: 600;
 }
 
@@ -36,12 +36,12 @@ hr {
 }
 
 #inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
 .file-picker {
@@ -66,8 +66,8 @@ hr {
     margin-right: 0.25em;
 }
 
-#inputfile:focus + .file-picker,
-#inputfile.has-focus + .file-picker,
+#inputfile:focus+.file-picker,
+#inputfile.has-focus+.file-picker,
 .file-picker:hover {
     color: #722040;
 }
@@ -75,10 +75,10 @@ hr {
 .buttons input {
     font-size: 1rem;
     color: #f1e5e6;
-    padding:0.5em 1.5em; 
-    background:#d3394c; 
-    border:0 none;
-    cursor:pointer;
+    padding: 0.5em 1.5em;
+    background: #d3394c;
+    border: 0 none;
+    cursor: pointer;
     margin: 1em;
 }
 
@@ -96,60 +96,111 @@ hr {
     width: 40px;
     height: 40px;
     margin: 100px auto;
-  }
-  
-  .sk-cube-grid .sk-cube {
+}
+
+.sk-cube-grid .sk-cube {
     width: 33%;
     height: 33%;
     background-color: #d3394c;
     float: left;
     -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-            animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
-  }
-  .sk-cube-grid .sk-cube1 {
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+
+.sk-cube-grid .sk-cube1 {
     -webkit-animation-delay: 0.2s;
-            animation-delay: 0.2s; }
-  .sk-cube-grid .sk-cube2 {
+    animation-delay: 0.2s;
+}
+
+.sk-cube-grid .sk-cube2 {
     -webkit-animation-delay: 0.3s;
-            animation-delay: 0.3s; }
-  .sk-cube-grid .sk-cube3 {
+    animation-delay: 0.3s;
+}
+
+.sk-cube-grid .sk-cube3 {
     -webkit-animation-delay: 0.4s;
-            animation-delay: 0.4s; }
-  .sk-cube-grid .sk-cube4 {
+    animation-delay: 0.4s;
+}
+
+.sk-cube-grid .sk-cube4 {
     -webkit-animation-delay: 0.1s;
-            animation-delay: 0.1s; }
-  .sk-cube-grid .sk-cube5 {
+    animation-delay: 0.1s;
+}
+
+.sk-cube-grid .sk-cube5 {
     -webkit-animation-delay: 0.2s;
-            animation-delay: 0.2s; }
-  .sk-cube-grid .sk-cube6 {
+    animation-delay: 0.2s;
+}
+
+.sk-cube-grid .sk-cube6 {
     -webkit-animation-delay: 0.3s;
-            animation-delay: 0.3s; }
-  .sk-cube-grid .sk-cube7 {
+    animation-delay: 0.3s;
+}
+
+.sk-cube-grid .sk-cube7 {
     -webkit-animation-delay: 0s;
-            animation-delay: 0s; }
-  .sk-cube-grid .sk-cube8 {
+    animation-delay: 0s;
+}
+
+.sk-cube-grid .sk-cube8 {
     -webkit-animation-delay: 0.1s;
-            animation-delay: 0.1s; }
-  .sk-cube-grid .sk-cube9 {
+    animation-delay: 0.1s;
+}
+
+.sk-cube-grid .sk-cube9 {
     -webkit-animation-delay: 0.2s;
-            animation-delay: 0.2s; }
-  
-  @-webkit-keyframes sk-cubeGridScaleDelay {
+    animation-delay: 0.2s;
+}
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
     0%, 70%, 100% {
-      -webkit-transform: scale3D(1, 1, 1);
-              transform: scale3D(1, 1, 1);
-    } 35% {
-      -webkit-transform: scale3D(0, 0, 1);
-              transform: scale3D(0, 0, 1); 
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
     }
-  }
-  
-  @keyframes sk-cubeGridScaleDelay {
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@keyframes sk-cubeGridScaleDelay {
     0%, 70%, 100% {
-      -webkit-transform: scale3D(1, 1, 1);
-              transform: scale3D(1, 1, 1);
-    } 35% {
-      -webkit-transform: scale3D(0, 0, 1);
-              transform: scale3D(0, 0, 1);
-    } 
-  }
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+/* GitHub Ribbon */
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+    0%, 100% {
+        transform: rotate(0)
+    }
+
+    20%, 60% {
+        transform: rotate(-25deg)
+    }
+
+    40%, 80% {
+        transform: rotate(10deg)
+    }
+}
+
+@media (max-width:500px) {
+    .github-corner:hover .octo-arm {
+        animation: none
+    }
+
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+    }
+}
