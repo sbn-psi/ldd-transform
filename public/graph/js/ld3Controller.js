@@ -270,15 +270,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
     // // // // // // //
 
     $scope.$watch('unboundedCheckboxValue', (newVal,oldVal) => {
-        if (!angular.isDefined(newVal)) {
-            $scope.unbounded = false;
-        } else {
-            $scope.unbounded = newVal;
-            $scope.boundValue = $scope.newNode.maximum_occurrences;
-        }
-
-        if ($scope.unbounded) $scope.newNode.maximum_occurrences = '*';
-        else if (!$scope.unbounded && $scope.newNode) $scope.newNode.maximum_occurrences = '';
+        if (newVal === true) $scope.newNode.maximum_occurrences = 'unbounded';
+        else if (newVal === false && $scope.newNode) $scope.newNode.maximum_occurrences = '';
     });
 
     // // // // // // //
