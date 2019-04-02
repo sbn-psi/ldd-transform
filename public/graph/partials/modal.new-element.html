@@ -1,8 +1,13 @@
 <form class="form">
 
-    <label for="name">Class Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_class_pds_name"></ld3-core-model-link></label>
-    <p class="error" ng-show="errors.name">{{ errors.name }}</p>
-    <input type="text" name="name" id="name" ng-model="newNode.name">
+    <!-- Show different text for new class vs. new attribute -->
+    <label for="name" ng-show="newNode.reference_type == 'component_of'">Class Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_class_pds_name"></ld3-core-model-link></label>
+    <p class="error" ng-show="errors.name && newNode.reference_type == 'component_of'">{{ errors.name }}</p>
+    <input type="text" name="name" id="name" ng-model="newNode.name" ng-show="newNode.reference_type == 'component_of'">
+    
+    <label for="name" ng-show="newNode.reference_type == 'attribute_of'">Attribute Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_dd_attribute_pds_name"></ld3-core-model-link></label>
+    <p class="error" ng-show="errors.name && newNode.reference_type == 'attribute_of'">{{ errors.name }}</p>
+    <input type="text" name="name" id="name" ng-model="newNode.name" ng-show="newNode.reference_type == 'attribute_of'">
 
     <label for="namespace_id">Namespace</label>
     <p class="error" ng-show="errors.namespace_id">{{ errors.namespace_id }}</p>
@@ -135,9 +140,9 @@
 
     <div class="submit-row">
         <div class="ghost" ng-show="data.newLddMode"></div>
-        <button class="button-choice" ng-click="modal.close()" ng-hide="data.newLddMode">Cancel</button>
-        <button class="button-choice positive" ng-show="newNode.reference_type == 'attribute_of'" ng-click="ld3.addAttribute()">Save Attribute</button>
-        <button class="button-choice positive" ng-show="newNode.reference_type == 'component_of'" ng-click="ld3.addClass()">Save Class</button>
+        <button class="button button-choice" ng-click="modal.close()" ng-hide="data.newLddMode">Cancel</button>
+        <button class="button button-choice positive" ng-show="newNode.reference_type == 'attribute_of'" ng-click="ld3.addAttribute()">Save Attribute</button>
+        <button class="button button-choice positive" ng-show="newNode.reference_type == 'component_of'" ng-click="ld3.addClass()">Save Class</button>
     </div>
 
 </form>
