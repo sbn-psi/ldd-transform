@@ -62,6 +62,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             let errors = {};
 
             if (!$scope.newNode.name) errors.name = 'Name is required.';
+            else if (/ /g.test($scope.newNode.name)) errors.name = 'No spaces allowed- consider replacing spaces with underscores.';
+            
             if (!$scope.newNode.version_id) errors.version_id = 'Version is required.';
             if (!$scope.newNode.namespace_id) errors.namespace_id = 'Namespace is required.';
             if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
@@ -87,6 +89,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             let errors = {};
 
             if (!$scope.newNode.name) errors.name = 'Name is required.';
+            else if (/ /g.test($scope.newNode.name)) errors.name = 'No spaces allowed- consider replacing spaces with underscores.';
+            
             if (!$scope.newNode.version_id) errors.version_id = 'Version number is required.';
             if (!$scope.newNode.namespace_id) errors.namespace_id = 'Namespace is required.';
             if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
