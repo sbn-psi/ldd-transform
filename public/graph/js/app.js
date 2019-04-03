@@ -33,14 +33,9 @@ app
     })
     
     // // // DIRECTIVES // // //
-    .directive('ld3Toolbox', () => {
+    .directive('ld3Toolbar', () => {
         return {
-            templateUrl: './partials/ld3-toolbox.html'
-        }
-    })
-    .directive('ld3Menubar', () => {
-        return {
-            templateUrl: './partials/ld3-menubar.html'
+            templateUrl: './partials/toolbar.html'
         }
     })
     .directive('ld3ActiveNode', () => {

@@ -1,0 +1,46 @@
+<div id="toolbar">
+    
+    <!-- LD3 Logo -->
+    
+    <div class="toolgroup toolgroup-row">
+        <img src="./img/logo.png" alt="LD3 Tool" title="LD3 Tool" class="logo">
+        <span style="margin-left:1em;" class="toolgroup-name">
+            <p class="toolgroup-header">Info</p>
+            <h4>{{ ldd.original.name }}</h4>
+        </span>
+    </div>
+    
+    <div class="toolgroup toolgroup-row" ng-hide="true">
+        <p class="toolgroup-header">Tools</p>
+        <!-- ADD NODE -->
+        <i class="fas fa-plus fa-lg" ng-show="ld3.isEnabled.addNode()" ng-click="ld3.openAddNodeModal()" title="Create a new node"></i>
+        <i class="fas fa-plus fa-lg disabled" ng-show="!ld3.isEnabled.addNode()" title="Create a new node [disabled]"></i>
+        <!-- ADD LINK -->
+        <i class="fas fa-link" ng-show="ld3.isEnabled.addLink()" ng-click="ld3.toggleLinkMode()" title="Create a new link"></i>
+        <i class="fas fa-link disabled" ng-show="!ld3.isEnabled.addLink()" title="Create a new link [disabled]"></i>
+        <!-- UNDO -->
+        <i class="fas fa-undo" ng-click="ld3.undo()" ng-show="ld3.showUndo()"></i>
+        <i class="fas fa-undo disabled" ng-show="!ld3.showUndo()"></i>
+        <!-- REDO -->
+        <i class="fas fa-redo" ng-click="ld3.redo()" ng-show="data.historyIdx > 0"></i>
+        <i class="fas fa-redo disabled" ng-show="data.historyIdx == 0"></i>
+    </div>
+    
+    <div class="toolgroup toolgroup-download" ng-click="ld3.download()">
+        <!-- <i ng-show="ld3.linkMode" class="far fa-arrow-alt-circle-down fa-lg disabled" title="Download Current Ingest_LDD File [disabled]"></i> -->
+        <i class="far fa-arrow-alt-circle-down fa-lg enabled" title="Download Current Ingest_LDD File"></i>
+        <p>Download</p>
+        <p>Ingest_LDD</p>
+    </div>
+    <!-- <a
+        id="legend-toggle"
+        ng-show="ld3.isVisible.legend"
+        ng-click="ld3.isVisible.legend = !ld3.isVisible.legend">
+        Hide Legend</a> -->
+    <!-- <a
+        id="legend-toggle"
+        ng-show="!ld3.isVisible.legend"
+        ng-click="ld3.isVisible.legend = !ld3.isVisible.legend">
+        Show Legend</a> -->
+    <!-- <img ng-show="ld3.isVisible.legend" ng-src="img/legend.png" id="legend"> -->
+</div>

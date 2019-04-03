@@ -1,24 +1,40 @@
 <div ng-show="data.activeNode.children && data.activeNode.children.length">
     <hr>
     <h3>Children ({{ data.activeNode.children.length }})</h3>
-    <!-- <h4 style="text-align:right;">Classes</h4> -->
     <div ng-repeat="child in data.activeNode.children | classes" class="active-child" data-node-name="{{ child.lid }}">
         <span>
             <h3 class="active-child-clickable clickable">{{ child.lid }}</h3><i class="fas fa-unlink" alt="Unlink" title="Unlink" ng-click="ld3.removeLink(child.lid)"></i>
         </span>
-        <label for="child-class-min">Minimum Occurrences</label>
-        <input type="text" id="child-class-min" name="child-class-min" ng-model="child.minimum_occurrences">
-        <label for="child-class-max">Maximum Occurrences</label>
-        <input type="text" id="child-class-max" name="child-class-max" ng-model="child.maximum_occurrences">
+        <fieldset class="fieldset">
+            <label for="child-class-min">Minimum Occurrences</label>
+            <input type="text" id="child-class-min" name="child-class-min" ng-model="child.minimum_occurrences">
+        </fieldset>
+        <fieldset class="fieldset">
+            <label for="child-class-max">Maximum Occurrences</label>
+            <div class="max-box">
+                <input type="text" id="child-class-max" name="child-class-max" ng-model="child.maximum_occurrences" ng-show="!child.maximum_occurrences_unbounded">
+                <input type="text" id="child-class-max" name="child-class-max" disabled ng-show="child.maximum_occurrences_unbounded">
+                <input type="checkbox" ng-model="child.maximum_occurrences_unbounded" name="unbounded-class" id="unbounded-class">
+                <label for="unbounded-class">Unbounded</label>
+            </div>
+        </fieldset>
     </div>
-    <!-- <h4 style="text-align:right;">Attributes</h4> -->
     <div ng-repeat="child in data.activeNode.children | attributes" class="active-child" data-node-name="{{ child.lid }}">
         <span>
             <h3 class="active-child-clickable clickable">{{ child.lid }}</h3><i class="fas fa-unlink" alt="Unlink" title="Unlink" ng-click="ld3.removeLink(child.lid)"></i>
         </span>
-        <label for="child-attribute-min">Minimum Occurrences</label>
-        <input type="text" id="child-attribute-min" name="child-attribute-min" ng-model="child.minimum_occurrences">
-        <label for="child-attribute-max">Maximum Occurrences</label>
-        <input type="text" id="child-attribute-max" name="child-attribute-max" ng-model="child.maximum_occurrences">
+        <fieldset class="fieldset">
+            <label for="child-attribute-min">Minimum Occurrences</label>
+            <input type="text" id="child-attribute-min" name="child-attribute-min" ng-model="child.minimum_occurrences">
+        </fieldset>
+        <fieldset class="fieldset">
+            <label for="child-attribute-max">Maximum Occurrences</label>
+            <div class="max-box">
+                <input type="text" id="child-attribute-max" name="child-attribute-max" ng-model="child.maximum_occurrences" ng-show="!child.maximum_occurrences_unbounded">
+                <input type="text" id="child-attribute-max" name="child-attribute-max" disabled ng-show="child.maximum_occurrences_unbounded">
+                <input type="checkbox" ng-model="child.maximum_occurrences_unbounded" name="unbounded-attribute" id="unbounded-attribute">
+                <label for="unbounded-attribute">Unbounded</label>
+            </div>
+        </fieldset>
     </div>
 </div>

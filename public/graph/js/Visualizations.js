@@ -6,7 +6,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
     const ry = 20;                                          // y radius of ellipse
     const colWidth = 225; // px
     const xOffset = 100; // px
-    const verticalOffset = 50;                              // px
+    const verticalOffset = 150;                             // px
     const verticalPadding = 5;                              // px
     const verticalSpacing = ry * 2 + verticalPadding;       // px
     const nodeStroke = 'black';
@@ -27,7 +27,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
     const required = 1;                                     // link opacity
 
     const toolbarWidth = '400'; // px
-    const width = $(document).width() - toolbarWidth;
+    const width = $(document).width();
     const height = $(document).height();
     const zoomScale = [0.1, 10];
     const zoomBounds = [

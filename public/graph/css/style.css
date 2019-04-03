@@ -9,7 +9,8 @@ body {
   position: absolute;
   background: #f6f6f6;
   top: 0;
-  right: 0;
+  left: 0;
+  width: 100vw;
   margin: 0;
   padding: 0;
 }
@@ -40,8 +41,56 @@ button, a, i, [type=submit] {
 }
 
 .logo {
-  width: 6em;
-  height: 6em;
+  width: 4em;
+  height: 4em;
+}
+
+#toolbar {
+  background: white;
+  border-bottom: 2px solid black;
+  width: 100vw;
+  position: absolute;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+#toolbar .toolgroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#toolbar .toolgroup:not(:first-of-type) {
+  border-left: 1px solid black;
+}
+#toolbar .toolgroup.toolgroup-row {
+  flex-flow: row nowrap;
+}
+#toolbar .toolgroup.toolgroup-download p {
+  margin: 0;
+}
+#toolbar .toolgroup .toolgroup-header {
+  position: absolute;
+  margin: 0.2em;
+  top: 0;
+  left: 0;
+  font-size: 0.8em;
+  font-variant: small-caps;
+  color: #acacac;
+}
+#toolbar .toolgroup .toolgroup-name {
+  border-left: 1px solid black;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 .button {
@@ -313,20 +362,6 @@ button, a, i, [type=submit] {
   justify-content: flex-end;
 }
 
-#tools {
-  margin-bottom: 2em;
-  padding: 1em 1em;
-  border: 1px solid black;
-  box-shadow: 1px 2px 5px 1px lightgrey;
-  background: #f6f6f6;
-  left: 0;
-  top: 0;
-  display: flex;
-  flex-flow: row nowrap;
-  background: white;
-  justify-content: space-between;
-}
-
 #toolbox {
   padding: 0.5em;
   position: fixed;
@@ -365,6 +400,15 @@ button, a, i, [type=submit] {
   cursor: pointer;
 }
 
+.fieldset {
+  border: none;
+  width: calc(100% - 0.5em);
+  margin: 0;
+  padding: 0.25em;
+  display: flex;
+  flex-direction: column;
+}
+
 .active-child {
   margin: 0.5em 0;
   padding: 0.3em;
@@ -375,6 +419,11 @@ button, a, i, [type=submit] {
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+}
+.active-child .max-box {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
 }
 .active-child input {
   width: 30px;

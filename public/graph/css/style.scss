@@ -10,7 +10,8 @@ body {
     position: absolute;
     background: #f6f6f6;
     top: 0;
-    right: 0;
+    left: 0;
+    width: 100vw;
     margin: 0;
     padding: 0;
 }
@@ -35,8 +36,63 @@ button, a, i, [type="submit"]{
     margin: 1em 0;
 }
 .logo {
-    width: 6em;
-    height: 6em;
+    width: 4em;
+    height: 4em;
+}
+#toolbar {
+    background: white;
+    border-bottom: 2px solid black;
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    
+    .toolgroup {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        
+        &:not(:first-of-type) {
+            border-left: 1px solid black;
+        }
+        
+        &.toolgroup-row {
+            flex-flow: row nowrap;
+        }
+        
+        &.toolgroup-download {
+            p {
+                margin: 0;
+            }
+        }
+        
+        .toolgroup-header {
+            position: absolute;
+            margin: 0.2em;
+            top: 0;
+            left: 0;
+            font-size: 0.8em;
+            font-variant: small-caps;
+            color: #acacac;
+        }
+        
+        .toolgroup-name {
+            border-left: 1px solid black;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+        }
+    }
 }
 .button {
     height: 2em;
@@ -53,7 +109,6 @@ button, a, i, [type="submit"]{
     color: white;
     font-family: inherit;
     font-size: 1em;
-    // box-shadow: 0 0 4px 1px grey;
     margin: 1em;
     :active {
         box-shadow: none;
@@ -302,19 +357,6 @@ button, a, i, [type="submit"]{
     display: flex;
     justify-content: flex-end;
 }
-#tools {
-    margin-bottom: 2em;
-    padding: 1em 1em;
-    border: 1px solid black;
-    box-shadow: 1px 2px 5px 1px lightgrey;
-    background: #f6f6f6;
-    left: 0;
-    top: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    background: white;
-    justify-content: space-between;
-}
 #toolbox {
     padding: 0.5em;
     position: fixed;
@@ -347,6 +389,14 @@ button, a, i, [type="submit"]{
 .clickable {
     cursor: pointer;
 }
+.fieldset {
+    border: none;
+    width: calc(100% - 0.5em);
+    margin: 0;
+    padding: 0.25em;
+    display: flex;
+    flex-direction: column;
+}
 .active-child {
     margin: 0.5em 0;
     padding: 0.3em;
@@ -357,6 +407,11 @@ button, a, i, [type="submit"]{
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    .max-box {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+    }
     input {
         width: 30px;
         text-align: center;
