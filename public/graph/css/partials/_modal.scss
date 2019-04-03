@@ -1,0 +1,41 @@
+.modal {
+    align-self: center;
+    margin: 3em auto;
+    padding: 3em 1em;
+    background: $white;
+    width: 20vw;
+    box-shadow: 0 0 1em 0 $black;
+    border-radius: 0.25em;
+    display: flex;
+    flex-direction: column;
+    
+    overflow: scroll;
+    max-height: calc(90vh - 6em);
+    
+    &.form {
+        input[type="text"] {
+            padding: 0.3em;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+        }
+    }
+}
+.modal-close {
+    padding: 0;
+    position: absolute;
+    top: 0.25em;
+    right: 0.25em;
+    cursor: pointer;
+}
+.curtain {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(225,225,225,0.7);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+.main {
+    position: absolute;
+    background: #f6f6f6;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+.fa-external-link-alt {
+    color: blue;
+    float: right;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: blue;
+    text-decoration: underline;
+}
+i {
+    color: $black;
+}
+button, a, i, [type="submit"]{
+    cursor: pointer;
+}
+.linebreak {
+    height: 1px;
+    width: 100%;
+    background: $grey;
+    margin: 1em 0;
+}
+.logo {
+    width: 4em;
+    height: 4em;
+}
+.title {
+    text-align: center;
+    margin: 0.5em 0;
+}
+.key {
+    margin-top: 0.25em;
+    font-variant: small-caps;
+    color: $grey;
+    &.key-sm {
+        font-size: 0.8em;
+    }
+}
+.value {
+    margin: 0.25em 0.25em 1em;
+}
+.clickable {
+    cursor: pointer;
+}
+.enabled {
+    cursor: pointer;
+    color: $black;
+}
+.disabled {
+    cursor: default;
+    color: #acacac;
+}
+.error {
+    color: red;
+    margin: 0;
+}
+.note {
+    margin: 0.1em;
+    font-size: 0.8em;
+}
+.error-highlight {
+    @include border-mixin(red);
+}

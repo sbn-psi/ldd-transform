@@ -1,0 +1,70 @@
+.form, .form .attribute-list {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    label {
+        margin: 0.75em 0 0.25em;
+        font-weight: 500;
+    }
+    select {
+        align-self: flex-start;
+    }
+    textarea {
+        min-height: 80px;
+    }
+    .flex-row {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .sm {
+        width: 4em;
+    }
+    .xs {
+        width: 2em;
+    }
+}
+.submit-row {
+    padding: 0;
+    margin-top: 3em;
+    width: 100%;
+    background: $white;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .button-choice {
+        background: #dddddd;
+        font-size: 100%;
+        font-family: inherit;
+        
+        &:hover {
+            background: darken(#dddddd,50%);
+        }
+        &:active {
+            background: darken(#dddddd,10%);
+        }
+    }
+
+    .positive {
+        background: $darkPurple;
+        
+        &:hover {
+            background: darken($darkPurple,5%);
+        }
+        &:active {
+            background: darken($darkPurple,10%);
+        }
+    }
+}
+.fieldset {
+    border: none;
+    width: calc(100% - 0.5em);
+    margin: 0;
+    padding: 0.25em;
+    display: flex;
+    flex-direction: column;
+}

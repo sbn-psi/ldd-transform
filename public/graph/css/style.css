@@ -1,38 +1,3 @@
-#toolbar {
-  background: #ffffff;
-  border-bottom: 1px solid #000000;
-  box-shadow: 0 0 5px 1px #4d4d4d;
-  width: 100vw;
-  position: absolute;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  top: 0;
-  left: 0;
-  z-index: 999;
-}
-#toolbar .toolgroup {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-#toolbar .toolgroup:not(:first-of-type) {
-  border-left: 1px solid #000000;
-}
-#toolbar .toolgroup.toolgroup-row {
-  flex-flow: row nowrap;
-}
-#toolbar .toolgroup.toolgroup-download p {
-  margin: 0;
-}
-#toolbar .toolgroup .toolgroup-info {
-  height: 100%;
-  border-left: 1px solid #000000;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -53,6 +18,11 @@ body {
 .fa-external-link-alt {
   color: blue;
   float: right;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -102,57 +72,6 @@ button, a, i, [type=submit] {
   cursor: pointer;
 }
 
-#active-node {
-  padding: 0.3em;
-  background: #ffffff;
-  z-index: 999;
-  max-width: 25vw;
-  border: 1px solid #9a9a9a;
-  box-shadow: 0 0 5px 1px #4d4d4d;
-  position: absolute;
-  top: 20vh;
-  right: 5vw;
-}
-
-.button {
-  height: 2em;
-  min-width: 5em;
-  cursor: pointer;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  border: none;
-  border-radius: 0.2em;
-  background: darkblue;
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 1em;
-  margin: 1em;
-}
-.button :active {
-  box-shadow: none;
-}
-.button .positive {
-  background: forestgreen;
-  color: #ffffff;
-}
-.button .negative {
-  background: red;
-  color: #ffffff;
-}
-.button .disabled {
-  background: #9a9a9a;
-  color: #808080;
-}
-.button:hover {
-  background: #0000be;
-}
-.button:active {
-  background: #0000f1;
-}
-
 .enabled {
   cursor: pointer;
   color: #000000;
@@ -177,17 +96,62 @@ button, a, i, [type=submit] {
   border: 1px solid red;
 }
 
-.link {
-  fill: none;
+#toolbar {
+  background: #ffffff;
+  border-bottom: 1px solid #000000;
+  box-shadow: 0 0 5px 1px #4d4d4d;
+  width: 100vw;
+  position: absolute;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
-
-.node {
+#toolbar .toolgroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#toolbar .toolgroup:not(:first-of-type) {
+  border-left: 1px solid #000000;
+}
+#toolbar .toolgroup.toolgroup-row {
+  flex-flow: row nowrap;
+}
+#toolbar .toolgroup.toolgroup-download {
   cursor: pointer;
 }
+#toolbar .toolgroup.toolgroup-download p {
+  margin: 0;
+}
+#toolbar .toolgroup .toolgroup-info {
+  height: calc(100% - 0.4em);
+  padding: 0.2em;
+}
+#toolbar .toolgroup .toolgroup-info:first-of-type {
+  border-left: 1px solid #000000;
+}
+#toolbar .toolgroup .toolgroup-info:not(:first-of-type) {
+  border-left: 1px solid #9a9a9a;
+}
+#toolbar .toolgroup .toolgroup-info:last-of-type {
+  border-right: 1px solid #000000;
+}
 
-.centered-text {
-  text-align: center;
-  margin: 1em auto;
+#active-node {
+  padding: 0.3em;
+  background: #ffffff;
+  z-index: 999;
+  max-width: 25vw;
+  border: 1px solid #9a9a9a;
+  box-shadow: 0 0 5px 1px #4d4d4d;
+  position: absolute;
+  top: 20vh;
+  right: 5vw;
 }
 
 .modal {
@@ -210,6 +174,14 @@ button, a, i, [type=submit] {
   border-left: none;
 }
 
+.modal-close {
+  padding: 0;
+  position: absolute;
+  top: 0.25em;
+  right: 0.25em;
+  cursor: pointer;
+}
+
 .curtain {
   position: relative;
   top: 0;
@@ -220,14 +192,6 @@ button, a, i, [type=submit] {
   z-index: 100;
   display: flex;
   justify-content: center;
-}
-
-.modal-close {
-  padding: 0;
-  position: absolute;
-  top: 0.25em;
-  right: 0.25em;
-  cursor: pointer;
 }
 
 .form, .form .attribute-list {
@@ -290,6 +254,15 @@ button, a, i, [type=submit] {
   background: #6666ff;
 }
 
+.fieldset {
+  border: none;
+  width: calc(100% - 0.5em);
+  margin: 0;
+  padding: 0.25em;
+  display: flex;
+  flex-direction: column;
+}
+
 .tabs-container {
   width: 100%;
   display: flex;
@@ -313,140 +286,20 @@ button, a, i, [type=submit] {
   box-shadow: 2px 4px 10px 0 #404040;
 }
 
+.link {
+  fill: none;
+}
+
+.node {
+  cursor: pointer;
+}
+
 .axis path {
   display: none;
 }
 .axis line {
   stroke-opacity: 0.3;
   shape-rendering: crispEdges;
-}
-
-.view {
-  fill: none;
-}
-
-.create-node {
-  padding: 0.1em;
-  position: absolute;
-  top: 0.5em;
-  left: 0.5em;
-  cursor: pointer;
-}
-
-#menubar {
-  padding: 1em;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 99;
-  height: calc(100vh - 2em);
-  width: calc(399px - 2em);
-  border-right: 1px solid #000000;
-  background: #ffffff;
-  overflow: scroll;
-  box-shadow: 1px 2px 5px 1px #9a9a9a;
-}
-#menubar #ldd {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-}
-#menubar #ldd div {
-  display: flex;
-  align-items: center;
-  align-self: flex-start;
-}
-#menubar #ldd div i {
-  color: #808080;
-  padding-right: 0.5em;
-}
-#menubar #ldd div:hover {
-  box-shadow: 0 0 3px 1px #808080;
-}
-
-#menubar > .key {
-  margin: 1em 0 0;
-}
-
-.details-header {
-  position: absolute;
-  right: 1em;
-  text-align: right;
-}
-
-.details-header a {
-  display: flex;
-  justify-content: flex-end;
-}
-
-#toolbox {
-  padding: 0.5em;
-  position: fixed;
-  display: flex;
-  flex-flow: column;
-  width: 200px;
-  right: 2em;
-  top: 2em;
-  z-index: 99;
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #000000;
-  box-shadow: 1px 2px 5px 1px #9a9a9a;
-}
-
-#legend-toggle {
-  float: right;
-}
-
-#legend {
-  height: 200px;
-  border: 1px solid #000000;
-  box-shadow: 1px 2px 5px 1px #9a9a9a;
-}
-
-.fieldset {
-  border: none;
-  width: calc(100% - 0.5em);
-  margin: 0;
-  padding: 0.25em;
-  display: flex;
-  flex-direction: column;
-}
-
-.active-child {
-  margin: 0.5em 0;
-  padding: 0.3em;
-  position: relative;
-  background: #ededed;
-  color: #6464a9;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-.active-child .max-box {
-  width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-}
-.active-child input {
-  width: 30px;
-  text-align: center;
-}
-.active-child span {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.parent-child-details i {
-  margin: 0 0.3em 0 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  padding: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

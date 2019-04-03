@@ -17,7 +17,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
         
         &:not(:first-of-type) {
             border-left: 1px solid $black;
@@ -28,14 +27,24 @@
         }
         
         &.toolgroup-download {
+            cursor: pointer;
             p {
                 margin: 0;
             }
         }
         
         .toolgroup-info {
-            height: 100%;
-            border-left: 1px solid $black;
+            height: calc(100% - 0.4em);
+            padding: 0.2em;
+            &:first-of-type {
+                border-left: 1px solid $black;
+            }
+            &:not(:first-of-type) {
+                border-left: 1px solid $lightGrey;
+            }
+            &:last-of-type {
+                border-right: 1px solid $black;
+            }
         }
     }
 }

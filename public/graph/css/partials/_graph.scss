@@ -1,0 +1,15 @@
+.link {
+    fill: none;
+}
+.node {
+    cursor: pointer;
+}
+.axis {
+    path {
+        display: none;
+    }
+    line {
+        stroke-opacity: 0.3;
+        shape-rendering: crispEdges;
+    }
+}
