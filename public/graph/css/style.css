@@ -5,16 +5,6 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.main {
-  position: absolute;
-  background: #f6f6f6;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
 .fa-external-link-alt {
   color: blue;
   float: right;
@@ -149,7 +139,7 @@ button, a, i, [type=submit] {
 #active-node {
   padding: 0.3em;
   background: #ffffff;
-  z-index: 998;
+  z-index: 996;
   max-width: 25vw;
   border: 1px solid #9a9a9a;
   box-shadow: 0 0 5px 1px #4d4d4d;
@@ -193,7 +183,7 @@ button, a, i, [type=submit] {
   width: 100vw;
   height: 100vh;
   background: rgba(225, 225, 225, 0.7);
-  z-index: 100;
+  z-index: 997;
   display: flex;
   justify-content: center;
 }
@@ -289,6 +279,16 @@ button, a, i, [type=submit] {
   background: #dddddd;
   font-size: 1em;
   box-shadow: 2px 4px 10px 0 #404040;
+}
+
+.main {
+  position: absolute;
+  background: #f6f6f6;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 .link {
