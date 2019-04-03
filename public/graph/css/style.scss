@@ -39,6 +39,10 @@ button, a, i, [type="submit"]{
     width: 4em;
     height: 4em;
 }
+.title {
+    text-align: center;
+    margin: 0.5em 0;
+}
 #toolbar {
     background: white;
     border-bottom: 2px solid black;
@@ -93,6 +97,17 @@ button, a, i, [type="submit"]{
             align-items: flex-start;
         }
     }
+}
+#active-node {
+    padding: 0.3em;
+    background: white;
+    z-index: 999;
+    width: 25vw;
+    border: 1px solid #aaaaaa;
+    box-shadow: 0 0 5px 1px #acacac;
+    position: absolute;
+    top: 20vh;
+    right: 5vw;
 }
 .button {
     height: 2em;
@@ -300,9 +315,6 @@ button, a, i, [type="submit"]{
 }
 .view {
     fill: none;
-}
-.title {
-    text-align: center;
 }
 .create-node {
     padding: 0.1em;

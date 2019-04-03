@@ -40,7 +40,10 @@ app
     })
     .directive('ld3ActiveNode', () => {
         return {
-            templateUrl: './partials/ld3-active-node.html'
+            templateUrl: './partials/active-node.html',
+            scope: {
+                activeNode: '='
+            }
         }
     })
     .directive('ld3ActiveNodeChildren', () => {
