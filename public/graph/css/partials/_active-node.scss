@@ -1,7 +1,7 @@
 #active-node {
     padding: 0.3em;
     background: $white;
-    z-index: 999;
+    z-index: $layer-2;
     max-width: 25vw;
     @include border-mixin($lightGrey);
     box-shadow: $shadow-1;

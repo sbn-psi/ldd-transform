@@ -11,3 +11,9 @@ $darkGrey: darken($grey,10%);
 $superDarkGrey: darken($grey,20%);
 
 $shadow-1: 0 0 5px 1px $superDarkGrey;
+
+$layer-1: 999; // layer closest to user
+$layer-2: 998;
+$layer-3: 997;
+$layer-4: 996;
+$layer-5: 995; // layer furthest from user

@@ -9,11 +9,11 @@
     text-decoration: none;
     border: none;
     border-radius: 0.2em;
-    background: darkblue;
+    background: blue;
     color: $white;
     font-family: inherit;
-    font-size: 1em;
-    margin: 1em;
+    font-size: 0.9em;
+    margin: 0.5em;
     :active {
         box-shadow: none;
     }
@@ -29,10 +29,13 @@
         background: $lightGrey;
         color: $grey;
     }
+    &.centered {
+        margin: 0.5em auto;
+    }
     &:hover {
-        background: lighten(darkblue,10%);
+        background: lighten(blue,10%);
     }
     &:active {
-        background: lighten(darkblue,20%);
+        background: lighten(blue,20%);
     }
 }

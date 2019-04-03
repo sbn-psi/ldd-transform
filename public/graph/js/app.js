@@ -42,7 +42,8 @@ app
         return {
             templateUrl: './partials/active-node.html',
             scope: {
-                activeNode: '='
+                activeNode: '=',
+                openAddNodeModal: '='
             }
         }
     })
@@ -75,11 +76,6 @@ app
 
 
     // MODAL FORMS
-    .directive('ld3Modal', () => {
-        return {
-            templateUrl: './partials/ld3-modal.html'
-        }
-    })
     .directive('ld3ModalCloseButton', () => {
         return {
             template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.close()"></i>'

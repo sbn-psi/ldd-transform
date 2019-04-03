@@ -2,6 +2,7 @@
     position: relative;
     display: flex;
     flex-flow: column;
+    z-index: $layer-1;
     label {
         margin: 0.75em 0 0.25em;
         font-weight: 500;

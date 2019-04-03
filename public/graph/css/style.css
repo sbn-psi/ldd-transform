@@ -20,6 +20,10 @@ body {
   float: right;
 }
 
+.fas-white {
+  color: #ffffff;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
@@ -107,7 +111,7 @@ button, a, i, [type=submit] {
   justify-content: space-between;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 998;
 }
 #toolbar .toolgroup {
   position: relative;
@@ -145,7 +149,7 @@ button, a, i, [type=submit] {
 #active-node {
   padding: 0.3em;
   background: #ffffff;
-  z-index: 999;
+  z-index: 998;
   max-width: 25vw;
   border: 1px solid #9a9a9a;
   box-shadow: 0 0 5px 1px #4d4d4d;
@@ -156,7 +160,7 @@ button, a, i, [type=submit] {
 
 .modal {
   align-self: center;
-  margin: 3em auto;
+  margin: 6em auto;
   padding: 3em 1em;
   background: #ffffff;
   width: 20vw;
@@ -198,6 +202,7 @@ button, a, i, [type=submit] {
   position: relative;
   display: flex;
   flex-flow: column;
+  z-index: 999;
 }
 .form label, .form .attribute-list label {
   margin: 0.75em 0 0.25em;
@@ -300,6 +305,48 @@ button, a, i, [type=submit] {
 .axis line {
   stroke-opacity: 0.3;
   shape-rendering: crispEdges;
+}
+
+.button {
+  height: 2em;
+  min-width: 5em;
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.2em;
+  background: blue;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.9em;
+  margin: 0.5em;
+}
+.button :active {
+  box-shadow: none;
+}
+.button .positive {
+  background: forestgreen;
+  color: #ffffff;
+}
+.button .negative {
+  background: red;
+  color: #ffffff;
+}
+.button .disabled {
+  background: #9a9a9a;
+  color: #808080;
+}
+.button.centered {
+  margin: 0.5em auto;
+}
+.button:hover {
+  background: #3333ff;
+}
+.button:active {
+  background: #6666ff;
 }
 
 /*# sourceMappingURL=style.css.map */
