@@ -1,4 +1,6 @@
 @import 'variables';
+@import 'mixins';
+@import 'partials/toolbar';
 
 body {
     margin: 0;
@@ -24,7 +26,7 @@ a {
     text-decoration: underline;
 }
 i {
-    color: black;
+    color: $black;
 }
 button, a, i, [type="submit"]{
     cursor: pointer;
@@ -32,7 +34,7 @@ button, a, i, [type="submit"]{
 .linebreak {
     height: 1px;
     width: 100%;
-    background: grey;
+    background: $grey;
     margin: 1em 0;
 }
 .logo {
@@ -43,68 +45,27 @@ button, a, i, [type="submit"]{
     text-align: center;
     margin: 0.5em 0;
 }
-#toolbar {
-    background: white;
-    border-bottom: 2px solid black;
-    width: 100vw;
-    position: absolute;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    
-    .toolgroup {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        
-        &:not(:first-of-type) {
-            border-left: 1px solid black;
-        }
-        
-        &.toolgroup-row {
-            flex-flow: row nowrap;
-        }
-        
-        &.toolgroup-download {
-            p {
-                margin: 0;
-            }
-        }
-        
-        .toolgroup-header {
-            position: absolute;
-            margin: 0.2em;
-            top: 0;
-            left: 0;
-            font-size: 0.8em;
-            font-variant: small-caps;
-            color: #acacac;
-        }
-        
-        .toolgroup-name {
-            border-left: 1px solid black;
-            position: relative;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-start;
-        }
+.key {
+    margin-top: 0.25em;
+    font-variant: small-caps;
+    color: $grey;
+    &.key-sm {
+        font-size: 0.8em;
     }
+}
+.value {
+    margin: 0.25em 0.25em 1em;
+}
+.clickable {
+    cursor: pointer;
 }
 #active-node {
     padding: 0.3em;
-    background: white;
+    background: $white;
     z-index: 999;
-    width: 25vw;
-    border: 1px solid #aaaaaa;
-    box-shadow: 0 0 5px 1px #acacac;
+    max-width: 25vw;
+    @include border-mixin($lightGrey);
+    box-shadow: $shadow-1;
     position: absolute;
     top: 20vh;
     right: 5vw;
@@ -121,7 +82,7 @@ button, a, i, [type="submit"]{
     border: none;
     border-radius: 0.2em;
     background: darkblue;
-    color: white;
+    color: $white;
     font-family: inherit;
     font-size: 1em;
     margin: 1em;
@@ -130,15 +91,15 @@ button, a, i, [type="submit"]{
     }
     .positive {
         background: forestgreen;
-        color: white;
+        color: $white;
     }
     .negative {
         background: red;
-        color: white;
+        color: $white;
     }
     .disabled {
-        background: lightgrey;
-        color: grey;
+        background: $lightGrey;
+        color: $grey;
     }
     &:hover {
         background: lighten(darkblue,10%);
@@ -149,7 +110,7 @@ button, a, i, [type="submit"]{
 }
 .enabled {
     cursor: pointer;
-    color: black;
+    color: $black;
 }
 .disabled {
     cursor: default;
@@ -164,7 +125,7 @@ button, a, i, [type="submit"]{
     font-size: 0.8em;
 }
 .error-highlight {
-    border: 1px solid red;
+    @include border-mixin(red);
 }
 .link {
     fill: none;
@@ -180,9 +141,9 @@ button, a, i, [type="submit"]{
     align-self: center;
     margin: 3em auto;
     padding: 3em 1em;
-    background: white;
+    background: $white;
     width: 20vw;
-    box-shadow: 0 0 1em 0 black;
+    box-shadow: 0 0 1em 0 $black;
     border-radius: 0.25em;
     display: flex;
     flex-direction: column;
@@ -248,7 +209,7 @@ button, a, i, [type="submit"]{
     padding: 0;
     margin-top: 3em;
     width: 100%;
-    background: white;
+    background: $white;
     bottom: 0;
     left: 0;
     display: flex;
@@ -289,7 +250,7 @@ button, a, i, [type="submit"]{
     .tab {
         flex: 1;
         text-align: center;
-        border: 1px solid black;
+        @include border-mixin($black);
         background: #fafafa;
         padding: 6px 20px 3px 20px;
         width: auto;
@@ -332,10 +293,10 @@ button, a, i, [type="submit"]{
     z-index: 99;
     height: calc(100vh - 2em);
     width: calc(399px - 2em);
-    border-right: 1px solid black;
-    background: white;
+    border-right: 1px solid $black;
+    background: $white;
     overflow: scroll;
-    box-shadow: 1px 2px 5px 1px lightgrey;
+    box-shadow: 1px 2px 5px 1px $lightGrey;
     
     #ldd {
         display: flex;
@@ -348,11 +309,11 @@ button, a, i, [type="submit"]{
             align-self: flex-start;
             
             i {
-                color: grey;
+                color: $grey;
                 padding-right: 0.5em;
             }
             &:hover {
-                box-shadow: 0 0 3px 1px grey;
+                box-shadow: 0 0 3px 1px $grey;
             }
         }
     }
@@ -378,28 +339,18 @@ button, a, i, [type="submit"]{
     right: 2em;
     top: 2em;
     z-index: 99;
-    background: white;
-    color: black;
-    border: 1px solid black;
-    box-shadow: 1px 2px 5px 1px lightgrey;
+    background: $white;
+    color: $black;
+    border: 1px solid $black;
+    box-shadow: 1px 2px 5px 1px $lightGrey;
 }
 #legend-toggle {
     float: right;
 }
 #legend {
     height: 200px;
-    border: 1px solid black;
-    box-shadow: 1px 2px 5px 1px lightgrey;
-}
-.key {
-    margin-top: 0.25em;
-}
-.value {
-    margin: 0.25em 0 1em 0.25em;
-    color: #505050;
-}
-.clickable {
-    cursor: pointer;
+    border: 1px solid $black;
+    box-shadow: 1px 2px 5px 1px $lightGrey;
 }
 .fieldset {
     border: none;

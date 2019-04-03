@@ -1,12 +1,17 @@
 <div id="toolbar">
     
-    <!-- LD3 Logo -->
-    
     <div class="toolgroup toolgroup-row">
+        <!-- LD3 Logo -->
         <img src="./img/logo.png" alt="LD3 Tool" title="LD3 Tool" class="logo">
-        <span style="margin-left:1em;" class="toolgroup-name">
-            <p class="toolgroup-header">Info</p>
-            <h4>{{ ldd.original.name }}</h4>
+        
+        <span class="toolgroup-info">
+            <p class="key key-sm">LDD Name</p>
+            <h4 class="value">{{ ldd.original.name }}</h4>
+        </span>
+        
+        <span class="toolgroup-info">
+            <p class="key key-sm">PDS4 IM Version</p>
+            <h4 class="value">{{ ldd.original.pds4_im_version}}</h4>
         </span>
     </div>
     
@@ -27,20 +32,8 @@
     </div>
     
     <div class="toolgroup toolgroup-download" ng-click="ld3.download()">
-        <!-- <i ng-show="ld3.linkMode" class="far fa-arrow-alt-circle-down fa-lg disabled" title="Download Current Ingest_LDD File [disabled]"></i> -->
         <i class="far fa-arrow-alt-circle-down fa-lg enabled" title="Download Current Ingest_LDD File"></i>
         <p>Download</p>
         <p>Ingest_LDD</p>
     </div>
-    <!-- <a
-        id="legend-toggle"
-        ng-show="ld3.isVisible.legend"
-        ng-click="ld3.isVisible.legend = !ld3.isVisible.legend">
-        Hide Legend</a> -->
-    <!-- <a
-        id="legend-toggle"
-        ng-show="!ld3.isVisible.legend"
-        ng-click="ld3.isVisible.legend = !ld3.isVisible.legend">
-        Show Legend</a> -->
-    <!-- <img ng-show="ld3.isVisible.legend" ng-src="img/legend.png" id="legend"> -->
 </div>

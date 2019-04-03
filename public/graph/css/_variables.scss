@@ -1,3 +1,13 @@
+$black: #000000;
+$white: #ffffff;
+
 $lightPurple: #ccccff;
 $purple: #b3b3ff;
 $darkPurple: #9999ff;
+
+$grey: #808080;
+$lightGrey: lighten($grey,10%);
+$darkGrey: darken($grey,10%);
+$superDarkGrey: darken($grey,20%);
+
+$shadow-1: 0 0 5px 1px $superDarkGrey;

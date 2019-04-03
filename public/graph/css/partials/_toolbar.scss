@@ -1,0 +1,41 @@
+#toolbar {
+    background: $white;
+    border-bottom: 1px solid $black;
+    box-shadow: $shadow-1;
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    
+    .toolgroup {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        
+        &:not(:first-of-type) {
+            border-left: 1px solid $black;
+        }
+        
+        &.toolgroup-row {
+            flex-flow: row nowrap;
+        }
+        
+        &.toolgroup-download {
+            p {
+                margin: 0;
+            }
+        }
+        
+        .toolgroup-info {
+            height: 100%;
+            border-left: 1px solid $black;
+        }
+    }
+}
