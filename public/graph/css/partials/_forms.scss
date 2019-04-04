@@ -1,8 +1,21 @@
-.form, .form .attribute-list {
+.curtain {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(225,225,225,0.7);
+    z-index: $layer-3;
+    display: flex;
+    justify-content: center;
+}
+.form {
     position: relative;
     display: flex;
     flex-flow: column;
     z-index: $layer-1;
+    margin-top: 5em;
+    background: $white;
     label {
         margin: 0.75em 0 0.25em;
         font-weight: 500;

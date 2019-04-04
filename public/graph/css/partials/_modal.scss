@@ -28,14 +28,3 @@
     right: 0.25em;
     cursor: pointer;
 }
-.curtain {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(225,225,225,0.7);
-    z-index: $layer-3;
-    display: flex;
-    justify-content: center;
-}

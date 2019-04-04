@@ -39,3 +39,15 @@
         background: lighten(blue,20%);
     }
 }
+.buttons-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0;
+    margin: 0;
+    
+    .button {
+        margin: 2em auto 0;
+    }
+}

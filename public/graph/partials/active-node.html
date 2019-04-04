@@ -4,10 +4,14 @@
 
 <div class="linebreak"></div>
 
-<!-- ADD NODE -->
-<button class="button centered" ng-click="openAddNodeModal()" title="Create a new node">Add New Element</button>
+<!-- ADD NEW ELEMENTS -->
+<div class="buttons-container" ng-show="activeNode.className === 'class'">
+    <p class="key key-sm header">Add New Element</p>
+    <button class="button centered" ng-click="addNewClass()    " title="Create a new node">New Class</button>
+    <button class="button centered" ng-click="addNewAttribute()" title="Create a new node">New Attribute</button>
+</div>
 
-<div class="linebreak"></div>
+<div class="linebreak" ng-show="activeNode.className === 'class'"></div>
 
 <h4 class="key">Identifier Reference</h4>
 <h4 class="value">{{ activeNode.lid }}</h4>

@@ -43,20 +43,15 @@ app
             templateUrl: './partials/active-node.html',
             scope: {
                 activeNode: '=',
-                openAddNodeModal: '='
-            }
-        }
-    })
-    .directive('ld3ActiveNodeChildren', () => {
-        return {
-            templateUrl: './partials/ld3-active-node-children.html'
-        }
-    })
-    .directive('ld3ActiveNodeParents', () => {
-        return {
-            templateUrl: './partials/ld3-active-node-parents.html',
-            scope: {
-                parents: '='
+                showModal: '='
+            },
+            controller: function($scope) {
+                $scope.addNewClass = function() {
+                    $scope.showModal('addClass');
+                };
+                $scope.addNewAttribute = function() {
+                    $scope.showModal('addAttribute');
+                };
             }
         }
     })
@@ -78,7 +73,7 @@ app
     // MODAL FORMS
     .directive('ld3ModalCloseButton', () => {
         return {
-            template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.close()"></i>'
+            template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.hide()"></i>'
         }
     })
     .directive('ld3NodeForm', () => {

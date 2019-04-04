@@ -2,6 +2,7 @@
     padding: 0.3em;
     background: $white;
     z-index: $layer-4;
+    min-width: 250px;
     max-width: 25vw;
     @include border-mixin($lightGrey);
     box-shadow: $shadow-1;

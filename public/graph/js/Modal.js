@@ -4,11 +4,11 @@ app.factory('Modal', function() {
         return {
             isVisible: false,
             type: type,
-            open: function(type) {
+            show: function(type) {
                 this.isVisible = true;
                 this.type = type;
             },
-            close: function() {
+            hide: function() {
                 this.isVisible = false;
                 this.type = null;
             }

@@ -46,6 +46,11 @@ button, a, i, [type="submit"]{
     &.key-sm {
         font-size: 0.8em;
     }
+    &.header {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
 .value {
     margin: 0.25em 0.25em 1em;

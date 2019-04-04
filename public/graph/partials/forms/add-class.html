@@ -1,0 +1,46 @@
+<form class="form">
+
+    <h3 class="title">New Class</h3>
+
+    <pds4-class-name
+        pds4-keyword="newNode.name"
+        error="errors.name"
+    ></pds4-class-name>
+
+    <pds4-namespace
+        pds4-keyword="newNode.namespace_id"
+        error="errors.namespace_id"
+    ></pds4-namespace>
+
+    <pds4-version
+        pds4-keyword="newNode.version_id"
+        error="errors.version_id"
+    ></pds4-version>
+
+    <pds4-submitter-name
+        pds4-keyword="newNode.submitter_name"
+        error="errors.submitter_name"
+    ></pds4-submitter-name>
+
+    <pds4-definition
+        pds4-keyword="newNode.definition"
+        error="errors.definition"
+    ></pds4-definition>
+
+    <pds4-min-occ
+        pds4-keyword="newNode.minimum_occurrences"
+        error="errors.minimum_occurrences"
+    ></pds4-min-occ>
+
+    <pds4-max-occ
+        pds4-keyword="newNode.maximum_occurrences"
+        error="errors.maximum_occurrences"
+    ></pds4-max-occ>
+
+    <div class="submit-row">
+        <div class="ghost" ng-show="data.newLddMode"></div>
+        <button class="button button-choice" ng-click="modal.hide()" ng-hide="data.newLddMode">Cancel</button>
+        <button class="button button-choice positive" ng-click="ld3.addClass()">Save Class</button>
+    </div>
+
+</form>

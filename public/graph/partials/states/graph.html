@@ -2,17 +2,20 @@
 
 <div class="curtain" ng-show="modal.isVisible">
 
-    <!-- addNode -->
-    <ld3-node-form ng-show="modal.type == 'addNode'"></ld3-node-form>
-
+    <!-- add Class element -->
+    <ld3-form-add-class     ng-show="modal.type === 'addClass'    "></ld3-form-add-class>
+    <!-- add Attribute element -->
+    <ld3-form-add-attribute ng-show="modal.type === 'addAttribute'"></ld3-form-add-attribute>
+    
+    
     <!-- editNode -->
-    <ld3-edit-node-form ng-show="modal.type == 'editNode'"></ld3-edit-node-form>
+    <!-- <ld3-edit-node-form ng-show="modal.type == 'editNode'"></ld3-edit-node-form> -->
 
     <!-- editLdd -->
-    <ld3-edit-ldd-form ng-show="modal.type == 'editLdd'"></ld3-edit-ldd-form>
+    <!-- <ld3-edit-ldd-form ng-show="modal.type == 'editLdd'"></ld3-edit-ldd-form> -->
 
 </div>
 
-<ld3-active-node id="active-node" active-node="data.activeNode" open-add-node-modal="ld3.openAddNodeModal" ng-show="data.activeNode"></ld3-active-node>
+<ld3-active-node id="active-node" active-node="data.activeNode" show-modal="ld3.openAddNodeModal" ng-show="data.activeNode"></ld3-active-node>
 
 <svg class="main"></svg>

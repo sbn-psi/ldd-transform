@@ -1,5 +1,8 @@
 app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', function($scope, $window, DataModel, Modal, Visualizations) {
     // initialize application state
+    $scope.view = {
+        
+    }
     $scope.modal = Modal.new();
     $scope.vis = Visualizations;
     $scope.data = DataModel;
@@ -39,10 +42,11 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
 
             return;
         },
-        openAddNodeModal: function(refType) {
-            $scope.modal.open('addNode');
+        openAddNodeModal: function(modalName) {
+            $scope.modal.show(modalName);
             $scope.errors = {};
 
+            // initial config for addNode form?
             $scope.newNode = {
                 reference_type: 'component_of',
                 unit_of_measure_type: 'Units_of_None',
@@ -53,7 +57,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             };
         },
         editNode: function() {
-            $scope.modal.open('editNode');
+            $scope.modal.show('editNode');
             $scope.errors = {};
             $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
             $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
@@ -81,7 +85,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
 
             $scope.vis.update();
 
-            $scope.modal.close();
+            $scope.modal.hide();
             $scope.newNode = {};
             return;
         },
@@ -105,7 +109,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
 
             $scope.vis.update();
 
-            $scope.modal.close();
+            $scope.modal.hide();
             $scope.newNode = {};
             return;
         },
@@ -124,7 +128,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
 
             $scope.vis.update();
 
-            $scope.modal.close();
+            $scope.modal.hide();
         },
         modifyClass: function() {
             const lid = $scope.data.activeNode.lid;
@@ -140,10 +144,10 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
 
             $scope.vis.update();
 
-            $scope.modal.close();
+            $scope.modal.hide();
         },
         editLdd: function() {
-            $scope.modal.open('editLdd');
+            $scope.modal.show('editLdd');
             $scope.errors = {};
             return;
         },
@@ -174,7 +178,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                 return $scope.errors = errors;
             };
 
-            $scope.modal.close();
+            $scope.modal.hide();
             $scope.data.modifyLddDetails($scope.ldd.edit);
             $scope.ldd = $scope.data.ldd();
 
@@ -280,5 +284,5 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
 
     $scope.vis.initGrid();
 
-    if ($scope.data.newLddMode) $scope.modal.open('editLdd');
+    if ($scope.data.newLddMode) $scope.modal.show('editLdd');
 }]);

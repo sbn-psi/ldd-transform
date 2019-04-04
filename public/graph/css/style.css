@@ -57,6 +57,11 @@ button, a, i, [type=submit] {
 .key.key-sm {
   font-size: 0.8em;
 }
+.key.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 .value {
   margin: 0.25em 0.25em 1em;
@@ -140,6 +145,7 @@ button, a, i, [type=submit] {
   padding: 0.3em;
   background: #ffffff;
   z-index: 996;
+  min-width: 250px;
   max-width: 25vw;
   border: 1px solid #9a9a9a;
   box-shadow: 0 0 5px 1px #4d4d4d;
@@ -188,32 +194,34 @@ button, a, i, [type=submit] {
   justify-content: center;
 }
 
-.form, .form .attribute-list {
+.form {
   position: relative;
   display: flex;
   flex-flow: column;
   z-index: 999;
+  margin-top: 5em;
+  background: #ffffff;
 }
-.form label, .form .attribute-list label {
+.form label {
   margin: 0.75em 0 0.25em;
   font-weight: 500;
 }
-.form select, .form .attribute-list select {
+.form select {
   align-self: flex-start;
 }
-.form textarea, .form .attribute-list textarea {
+.form textarea {
   min-height: 80px;
 }
-.form .flex-row, .form .attribute-list .flex-row {
+.form .flex-row {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
 }
-.form .sm, .form .attribute-list .sm {
+.form .sm {
   width: 4em;
 }
-.form .xs, .form .attribute-list .xs {
+.form .xs {
   width: 2em;
 }
 
@@ -347,6 +355,18 @@ button, a, i, [type=submit] {
 }
 .button:active {
   background: #6666ff;
+}
+
+.buttons-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0;
+  margin: 0;
+}
+.buttons-container .button {
+  margin: 2em auto 0;
 }
 
 /*# sourceMappingURL=style.css.map */
