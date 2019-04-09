@@ -219,10 +219,10 @@ button, a, i, [type=submit] {
   justify-content: space-around;
 }
 .form .sm {
-  width: 4em;
+  width: 6em;
 }
 .form .xs {
-  width: 2em;
+  width: 4em;
 }
 
 .submit-row {
