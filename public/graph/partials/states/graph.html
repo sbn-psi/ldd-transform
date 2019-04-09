@@ -16,6 +16,13 @@
 
 </div>
 
-<ld3-active-node id="active-node" active-node="data.activeNode" show-modal="ld3.openAddNodeModal" ng-show="data.activeNode"></ld3-active-node>
+<ld3-active-node
+    id="active-node"
+    active-node="data.activeNode"
+    show-modal="ld3.openAddNodeModal"
+    link-mode="ld3.linkMode"
+    toggle-link-mode="ld3.toggleLinkMode"
+    ng-show="data.activeNode">
+ </ld3-active-node>
 
 <svg class="main"></svg>

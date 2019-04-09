@@ -43,7 +43,9 @@ app
             templateUrl: './partials/active-node.html',
             scope: {
                 activeNode: '=',
-                showModal: '='
+                showModal: '=',
+                linkMode: '=',
+                toggleLinkMode: '='
             },
             controller: function($scope) {
                 $scope.addNewClass = function() {
