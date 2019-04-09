@@ -12,17 +12,68 @@ const keywordScope = {
     error: '='
 };
 
+const errorsExist = function(errObj) {
+    const keys = Object.keys(errObj);
+    
+    for (let i = 0; i < keys.length; i++) {
+        if (errObj[keys[i]].length > 0) return true;
+    }
+    
+    return false;
+}
+
 app
-.directive('ld3FormAddClass', () => {
+// // // FORMS // // //
+.directive('ld3FormAddClass', (Validate) => {
     return {
-        templateUrl: path.form('add-class')
+        templateUrl: path.form('add-class'),
+        scope: true,
+        controller: function($scope) {
+            $scope.form = {
+                addClass: function() {
+                    const formValues = $scope.newNode;
+                    
+                    $scope.errors = Validate.classForm(formValues);
+                    if (errorsExist($scope.errors)) return;
+                    
+                    $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
+                    $scope.data.addClass($scope.newNode);
+                    
+                    $scope.vis.update();
+                    $scope.modal.hide();
+                    
+                    return $scope.newNode = {};
+                }
+            };
+        }
     }
 })
-.directive('ld3FormAddAttribute', () => {
+.directive('ld3FormAddAttribute', (Validate) => {
     return {
-        templateUrl: path.form('add-attribute')
+        templateUrl: path.form('add-attribute'),
+        scope: true,
+        controller: function($scope) {
+            $scope.form = {
+                addAttribute: function() {
+                    const formValues = $scope.newNode;
+                    
+                    $scope.errors = Validate.attributeForm(formValues);
+                    if (errorsExist($scope.errors)) return;
+                    
+                    $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
+                    $scope.data.addAttribute($scope.newNode);
+                    
+                    $scope.vis.update();
+                    $scope.modal.hide();
+                    
+                    return $scope.newNode = {};
+                }
+            };
+        }
     }
 })
+
+// // // INPUTS // // //
 .directive('pds4ClassName', () => {
     return {
         templateUrl: path.input('pds4-class-name'),
@@ -68,7 +119,12 @@ app
 .directive('pds4MaxOcc', () => {
     return {
         templateUrl: path.input('pds4-maximum-occurrences'),
-        scope: keywordScope
+        scope: keywordScope,
+        controller: function($scope) {
+            $scope.$watch('unboundedCheckboxValue', (newVal,oldVal) => {
+                if (newVal === true) $scope.pds4Keyword = 'unbounded';
+            })
+        }
     }
 })
 .directive('pds4NillableFlag', () => {

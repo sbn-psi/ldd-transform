@@ -48,10 +48,10 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
 
             // initial config for addNode form?
             $scope.newNode = {
-                reference_type: 'component_of',
                 unit_of_measure_type: 'Units_of_None',
                 value_data_type: 'ASCII_Real',
                 version_id: '1.0',
+                minimum_occurrences: 0,
                 namespace_id: $scope.ldd.original.namespace_id,
                 submitter_name: $scope.ldd.original.full_name
             };
@@ -61,57 +61,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             $scope.errors = {};
             $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
             $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
-        },
-        addAttribute: function() {
-            let errors = {};
-
-            if (!$scope.newNode.name) errors.name = 'Name is required.';
-            else if (/ /g.test($scope.newNode.name)) errors.name = 'No spaces allowed- consider replacing spaces with underscores.';
-            
-            if (!$scope.newNode.version_id) errors.version_id = 'Version is required.';
-            if (!$scope.newNode.namespace_id) errors.namespace_id = 'Namespace is required.';
-            if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
-            if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
-            if (!$scope.newNode.minimum_occurrences) errors.minimum_occurrences = 'Minimum Occurrences is required.';
-            if (!$scope.newNode.maximum_occurrences) errors.maximum_occurrences = 'Maximum Occurrences is required.';
-            if (!angular.isDefined($scope.newNode.nillable_flag)) errors.nillable_flag = 'Nillable Flag is required.';
-            if (!angular.isDefined($scope.newNode.enumeration_flag)) errors.enumeration_flag = 'Enumeration Flag is required.';
-
-            if (Object.keys(errors).length) return $scope.errors = errors;
-
-            $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
-
-            $scope.data.addAttribute($scope.newNode);
-
-            $scope.vis.update();
-
-            $scope.modal.hide();
-            $scope.newNode = {};
-            return;
-        },
-        addClass: function() {
-            let errors = {};
-
-            if (!$scope.newNode.name) errors.name = 'Name is required.';
-            else if (/ /g.test($scope.newNode.name)) errors.name = 'No spaces allowed- consider replacing spaces with underscores.';
-            
-            if (!$scope.newNode.version_id) errors.version_id = 'Version number is required.';
-            if (!$scope.newNode.namespace_id) errors.namespace_id = 'Namespace is required.';
-            if (!$scope.newNode.submitter_name) errors.submitter_name = 'Submitter Name is required.';
-            if (!$scope.newNode.definition) errors.definition = 'Definition is required.';
-
-            if (Object.keys(errors).length) return $scope.errors = errors;
-
-            $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
-
-            $scope.data.addClass($scope.newNode,$scope.data.newLddMode);
-            $scope.data.newLddMode = false;
-
-            $scope.vis.update();
-
-            $scope.modal.hide();
-            $scope.newNode = {};
-            return;
         },
         modifyAttribute: function() {
             const lid = $scope.data.activeNode.lid;
