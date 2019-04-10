@@ -39,6 +39,7 @@ app
             scope: {
                 dictionary: '=',
                 saveLdd: '=',
+                downloadLdd: '=',
                 modal: '='
             },
             controller: ($scope,Modal) => {

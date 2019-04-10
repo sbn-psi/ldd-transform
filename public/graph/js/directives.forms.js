@@ -12,6 +12,11 @@ const keywordScope = {
     error: '='
 };
 
+const lddScope = {
+    lddKeyword: '=',
+    error: '='
+};
+
 const errorsExist = function(errObj) {
     const keys = Object.keys(errObj);
     
@@ -70,11 +75,6 @@ app
                 }
             };
         }
-    }
-})
-.directive('ld3FormModifyLddDetails', () => {
-    return {
-        templateUrl: path.form('modify-ldd-details')
     }
 })
 
@@ -180,5 +180,26 @@ app
     return {
         templateUrl: path.input('pds4-unit-type'),
         scope: keywordScope
+    }
+})
+
+// Modify LDD Details Form
+.directive('ld3FormModifyLddDetails', () => {
+    return {
+        templateUrl: path.form('modify-ldd-details'),
+        scope: {
+            lddDetails: '=',
+            saveLdd: '=',
+            modal: '='
+        },
+        controller: $scope => {
+            console.log($scope.lddDetails);
+        }
+    }
+})
+.directive('lddName', () => {
+    return {
+        templateUrl: path.input('ldd/name'),
+        scope: lddScope
     }
 })

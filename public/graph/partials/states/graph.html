@@ -1,6 +1,6 @@
 <ld3-toolbar
     dictionary="ldd.original"
-    save-ldd="ld3.saveLdd"
+    download-ldd="ld3.download"
     modal="modal"
 ></ld3-toolbar>
 
@@ -12,7 +12,7 @@
     <ld3-form-add-attribute ng-show="modal.type === 'addAttribute'" class="form"></ld3-form-add-attribute>
     
     <!-- modify LDD Details -->
-    <ld3-form-modify-ldd-details ng-show="modal.type == 'editLdd'" class="form"></ld3-form-modify-ldd-details>
+    <ld3-form-modify-ldd-details ng-show="modal.type == 'editLdd'" class="form" ldd-details="ldd.edit" save-ldd="ld3.saveLdd" modal="modal"></ld3-form-modify-ldd-details>
     
     <!-- editNode -->
     <!-- <ld3-edit-node-form ng-show="modal.type == 'editNode'"></ld3-edit-node-form> -->
