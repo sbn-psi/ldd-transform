@@ -41,6 +41,8 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
         pureModel: function() {
             // make a copy of the model so the active copy is not altered
             var model = JSON.parse(JSON.stringify(this.model));
+            
+            console.log(model['Ingest_LDD']);
 
             model['Ingest_LDD']['DD_Class'] = scrapeCustomKeywords(model['Ingest_LDD']['DD_Class']);
             model['Ingest_LDD']['DD_Attribute'] = scrapeCustomKeywords(model['Ingest_LDD']['DD_Attribute']);
@@ -59,16 +61,13 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     ,'$$hashKey'
                 ];
 
-                array.map(c => {
-                    if (c['DD_Association']) c['DD_Association'] = scrapeCustomKeywords(c['DD_Association']);
+                return array.map(element => {
+                    if (element['DD_Association']) element['DD_Association'] = scrapeCustomKeywords(element['DD_Association']);
                     keywords.map(k => {
-                        delete c[k];
+                        delete element[k];
                     });
-
-                    return c;
+                    return element;
                 });
-
-                return array;
             };
 
             // update 'last_modification_date_time'
@@ -318,7 +317,15 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     unit_of_measure_type: [node.unit_of_measure_type]
                 }
             };
-
+            
+            for (let i = 0; i < node.permissibleValues.length; i++) {
+                let key = 'permissible_value_' + (i + 1);
+                newAttribute['value_domain_entry'][key] = {
+                    value: [node.permissibleValues[i].value],
+                    value_meaning: [node.permissibleValues[i].value_meaning]
+                };
+            };
+            
             const index = this.model['Ingest_LDD']['DD_Attribute'].length;
             this.model['Ingest_LDD']['DD_Attribute'].push(newAttribute);
 

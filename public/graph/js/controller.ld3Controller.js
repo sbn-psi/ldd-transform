@@ -55,7 +55,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                 namespace_id: $scope.ldd.original.namespace_id,
                 submitter_name: $scope.ldd.original.full_name,
                 nillable_flag: false,
-                enumeration_flag: false
+                enumeration_flag: false,
+                permissibleValues: []
             };
         },
         editNode: function() {

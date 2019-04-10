@@ -53,12 +53,15 @@ app
         templateUrl: path.form('add-attribute'),
         scope: true,
         controller: function($scope) {
+            console.log($scope);
             $scope.form = {
                 addAttribute: function() {
                     const formValues = $scope.newNode;
                     
                     $scope.errors = Validate.attributeForm(formValues);
                     if (errorsExist($scope.errors)) return;
+                    
+                    console.log($scope.newNode);
                     
                     $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
                     $scope.data.addAttribute($scope.newNode);
@@ -150,7 +153,6 @@ app
             const newline = function() {
                 return {value: '',value_meaning: ''};
             };
-            $scope.permissibleValues = [newline()];
             
             $scope.addLine = function() {
                 $scope.permissibleValues.push(newline());
