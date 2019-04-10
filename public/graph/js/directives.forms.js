@@ -72,6 +72,11 @@ app
         }
     }
 })
+.directive('ld3FormModifyLddDetails', () => {
+    return {
+        templateUrl: path.form('modify-ldd-details')
+    }
+})
 
 // // // INPUTS // // //
 .directive('pds4ClassName', () => {

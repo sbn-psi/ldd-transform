@@ -1,4 +1,8 @@
-<ld3-toolbar dictionary="ldd.original"></ld3-toolbar>
+<ld3-toolbar
+    dictionary="ldd.original"
+    save-ldd="ld3.saveLdd"
+    modal="modal"
+></ld3-toolbar>
 
 <div class="curtain" ng-show="modal.isVisible">
 
@@ -7,12 +11,11 @@
     <!-- add Attribute element -->
     <ld3-form-add-attribute ng-show="modal.type === 'addAttribute'" class="form"></ld3-form-add-attribute>
     
+    <!-- modify LDD Details -->
+    <ld3-form-modify-ldd-details ng-show="modal.type == 'editLdd'" class="form"></ld3-form-modify-ldd-details>
     
     <!-- editNode -->
     <!-- <ld3-edit-node-form ng-show="modal.type == 'editNode'"></ld3-edit-node-form> -->
-
-    <!-- editLdd -->
-    <!-- <ld3-edit-ldd-form ng-show="modal.type == 'editLdd'"></ld3-edit-ldd-form> -->
 
 </div>
 

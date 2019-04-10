@@ -37,7 +37,15 @@ app
         return {
             templateUrl: './partials/toolbar.html',
             scope: {
-                dictionary: '='
+                dictionary: '=',
+                saveLdd: '=',
+                modal: '='
+            },
+            controller: ($scope,Modal) => {
+                $scope.modifyLdd = function() {
+                    console.log('open modal form');
+                    $scope.modal.show('editLdd');
+                };
             }
         }
     })
@@ -102,11 +110,6 @@ app
         return {
             templateUrl: './partials/ld3-edit-attribute.html',
             transclude: true
-        }
-    })
-    .directive('ld3EditLddForm', () => {
-        return {
-            templateUrl: './partials/ld3-edit-ldd-form.html'
         }
     })
 
