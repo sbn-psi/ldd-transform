@@ -37,7 +37,7 @@ button, a, i, [type="submit"]{
     }
 }
 .logo {
-    width: 4em;
+    padding: 0 0.75em;
     height: 4em;
 }
 .title {
@@ -47,6 +47,7 @@ button, a, i, [type="submit"]{
 .key {
     font-variant: small-caps;
     color: $grey;
+    margin: 0;
     &.key-sm {
         font-size: 0.8em;
     }
@@ -57,7 +58,7 @@ button, a, i, [type="submit"]{
     }
 }
 .value {
-    margin: 0 0 1em 1em;
+    margin: 0 0 .5em .5em;
 }
 .clickable {
     cursor: pointer;

@@ -4,16 +4,43 @@
         <!-- LD3 Logo -->
         <img src="./img/logo.png" alt="LD3 Tool" title="LD3 Tool" class="logo">
         
-        <span class="toolgroup-info">
-            <p class="key key-sm">LDD Name</p>
-            <h4 class="value">{{ ldd.original.name }}</h4>
-        </span>
+        <div class="ldd-details">
+            <div class="ldd-details-header">
+                <h6>LDD Details</h6>
+            </div>
+            
+            <section class="ldd-details-body">
+                
+                <span class="toolgroup-info">
+                    <p class="key key-sm">Name</p>
+                    <h4 class="value">{{ dictionary.name }}</h4>
+                </span>
+                
+                <div class="linebreak vertical"></div>
+                
+                <span class="toolgroup-info">
+                    <p class="key key-sm">Version</p>
+                    <h4 class="value">{{ dictionary.ldd_version_id }}</h4>
+                </span>
+                
+                <div class="linebreak vertical"></div>
+                
+                <span class="toolgroup-info">
+                    <p class="key key-sm">Namespace</p>
+                    <h4 class="value">{{ dictionary.namespace_id }}</h4>
+                </span>
+                
+                <div class="linebreak vertical"></div>
+                
+                <span class="toolgroup-info">
+                    <p class="key key-sm">PDS4 IM Version</p>
+                    <h4 class="value">{{ dictionary.pds4_im_version }}</h4>
+                </span>
+                
+            </section>
+            
+        </div>
         
-        <!-- TODO: Fix pds4_im_version -->
-        <!-- <span class="toolgroup-info">
-            <p class="key key-sm">PDS4 IM Version</p>
-            <h4 class="value">{{ ldd.original.pds4_im_version}}</h4>
-        </span> -->
     </div>
     
     <div class="toolgroup toolgroup-row" ng-hide="true">
@@ -33,8 +60,6 @@
     </div>
     
     <div class="toolgroup toolgroup-download" ng-click="ld3.download()">
-        <i class="far fa-arrow-alt-circle-down fa-lg enabled" title="Download Current Ingest_LDD File"></i>
-        <p>Download</p>
-        <p>Ingest_LDD</p>
+        <button class="button button">Download LDD</button>
     </div>
 </div>

@@ -35,7 +35,10 @@ app
     // // // DIRECTIVES // // //
     .directive('ld3Toolbar', () => {
         return {
-            templateUrl: './partials/toolbar.html'
+            templateUrl: './partials/toolbar.html',
+            scope: {
+                dictionary: '='
+            }
         }
     })
     .directive('ld3ActiveNode', () => {

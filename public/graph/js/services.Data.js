@@ -76,6 +76,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
 
         ldd: function() {
             const model = this.model['Ingest_LDD'];
+            const pds4Version = this.pds4IMVersion;
             const lddDetails = function() {
                 return {
                     name: model['name'][0],
@@ -84,7 +85,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     steward_id: model['steward_id'][0],
                     namespace_id: model['namespace_id'][0],
                     comment: model['comment'][0],
-                    pds4_im_version: this.pds4IMVersion
+                    pds4_im_version: pds4Version
                 }
             };
             return {
