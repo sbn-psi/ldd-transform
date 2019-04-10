@@ -13,7 +13,7 @@ const keywordScope = {
 };
 
 const lddScope = {
-    lddKeyword: '=',
+    ld3Keyword: '=',
     error: '='
 };
 
@@ -186,20 +186,6 @@ app
 // Modify LDD Details Form
 .directive('ld3FormModifyLddDetails', () => {
     return {
-        templateUrl: path.form('modify-ldd-details'),
-        scope: {
-            lddDetails: '=',
-            saveLdd: '=',
-            modal: '='
-        },
-        controller: $scope => {
-            console.log($scope.lddDetails);
-        }
-    }
-})
-.directive('lddName', () => {
-    return {
-        templateUrl: path.input('ldd/name'),
-        scope: lddScope
+        templateUrl: path.form('modify-ldd-details')
     }
 })

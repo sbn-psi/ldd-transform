@@ -44,7 +44,6 @@ app
             },
             controller: ($scope,Modal) => {
                 $scope.modifyLdd = function() {
-                    console.log('open modal form');
                     $scope.modal.show('editLdd');
                 };
             }
