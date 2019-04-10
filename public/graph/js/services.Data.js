@@ -41,8 +41,6 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
         pureModel: function() {
             // make a copy of the model so the active copy is not altered
             var model = JSON.parse(JSON.stringify(this.model));
-            
-            console.log(model['Ingest_LDD']);
 
             model['Ingest_LDD']['DD_Class'] = scrapeCustomKeywords(model['Ingest_LDD']['DD_Class']);
             model['Ingest_LDD']['DD_Attribute'] = scrapeCustomKeywords(model['Ingest_LDD']['DD_Attribute']);
