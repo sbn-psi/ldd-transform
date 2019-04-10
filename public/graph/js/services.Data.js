@@ -310,7 +310,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 nillable_flag: [node.nillable_flag],
                 submitter_name: [node.submitter_name],
                 definition: [node.definition],
-                DD_Value_Domain: {
+                value_domain_entry: {
                     enumeration_flag: [node.enumeration_flag],
                     value_data_type: [node.value_data_type],
                     minimum_value: [node.minimum_value],
