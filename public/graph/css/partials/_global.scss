@@ -35,6 +35,9 @@ button, a, i, [type="submit"]{
         width: 1px;
         margin: 0 1em;
     }
+    &.no-margin {
+        margin: 0;
+    }
 }
 .logo {
     padding: 0 0.75em;

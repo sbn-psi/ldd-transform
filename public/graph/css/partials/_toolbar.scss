@@ -46,10 +46,9 @@
                 width: 100%;
                 margin: 0;
                 padding: 0;
-                
-                h6 {
-                    margin: 0;
-                }
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
             }
             
             .ldd-details-body {

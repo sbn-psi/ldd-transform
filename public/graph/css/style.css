@@ -43,6 +43,9 @@ button, a, i, [type=submit] {
   width: 1px;
   margin: 0 1em;
 }
+.linebreak.no-margin {
+  margin: 0;
+}
 
 .logo {
   padding: 0 0.75em;
@@ -145,9 +148,9 @@ button, a, i, [type=submit] {
   width: 100%;
   margin: 0;
   padding: 0;
-}
-#toolbar .toolgroup .ldd-details .ldd-details-header h6 {
-  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 #toolbar .toolgroup .ldd-details .ldd-details-body {
   display: flex;
