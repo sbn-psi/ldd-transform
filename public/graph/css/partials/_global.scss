@@ -30,6 +30,11 @@ button, a, i, [type="submit"]{
     width: 100%;
     background: $grey;
     margin: 1em 0;
+    &.vertical {
+        height: inherit;
+        width: 1px;
+        margin: 0 1em;
+    }
 }
 .logo {
     width: 4em;
@@ -40,7 +45,6 @@ button, a, i, [type="submit"]{
     margin: 0.5em 0;
 }
 .key {
-    margin-top: 0.25em;
     font-variant: small-caps;
     color: $grey;
     &.key-sm {
@@ -53,7 +57,7 @@ button, a, i, [type="submit"]{
     }
 }
 .value {
-    margin: 0.25em 0.25em 1em;
+    margin: 0 0 1em 1em;
 }
 .clickable {
     cursor: pointer;

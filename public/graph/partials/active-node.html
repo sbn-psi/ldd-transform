@@ -6,14 +6,15 @@
 
 <!-- ADD NEW ELEMENTS -->
 <div class="buttons-container" ng-show="activeNode.className === 'class'">
-    <div class="buttons-section">
-        <p class="key key-sm header">Add New Element</p>
-        <button class="button centered" ng-click="addNewClass()    " title="Create a new node">New Class</button>
-        <button class="button centered" ng-click="addNewAttribute()" title="Create a new node">New Attribute</button>
+    <div>
+        <h6 class="title">Add New Element</h6>
+        <button class="button button-clear" ng-click="addNewClass()    " title="Create a new node">New Class</button>
+        <button class="button button-clear" ng-click="addNewAttribute()" title="Create a new node">New Attribute</button>
     </div>
-    <div class="buttons-section">
-        <p class="key key-sm header">Modify Links</p>
-        <button class="button centered" ng-click="toggleLinkMode()">Add Link</button>
+    <div class="linebreak vertical"></div>
+    <div>
+        <h6 class="title">Modify Links</h6>
+        <button class="button button-clear" ng-click="toggleLinkMode()">Add Link</button>
     </div>
 </div>
 

@@ -38,6 +38,11 @@ button, a, i, [type=submit] {
   background: #808080;
   margin: 1em 0;
 }
+.linebreak.vertical {
+  height: inherit;
+  width: 1px;
+  margin: 0 1em;
+}
 
 .logo {
   width: 4em;
@@ -50,7 +55,6 @@ button, a, i, [type=submit] {
 }
 
 .key {
-  margin-top: 0.25em;
   font-variant: small-caps;
   color: #808080;
 }
@@ -64,7 +68,7 @@ button, a, i, [type=submit] {
 }
 
 .value {
-  margin: 0.25em 0.25em 1em;
+  margin: 0 0 1em 1em;
 }
 
 .clickable {
@@ -195,22 +199,18 @@ button, a, i, [type=submit] {
 }
 
 .form {
-  position: relative;
-  display: flex;
-  flex-flow: column;
-  z-index: 999;
-  margin-top: 5em;
+  position: absolute;
+  top: 8em;
+  margin: 0 auto;
+  width: 40vw;
+  max-width: 600px;
+  min-width: 350px;
+  min-height: 350px;
+  max-height: calc(100vh - 6em - 6em);
+  overflow-y: scroll;
+  border: 1px solid #9a9a9a;
+  box-shadow: 0 0 5px 1px #4d4d4d;
   background: #ffffff;
-}
-.form label {
-  margin: 0.75em 0 0.25em;
-  font-weight: 500;
-}
-.form select {
-  align-self: flex-start;
-}
-.form textarea {
-  min-height: 80px;
 }
 .form .flex-row {
   display: flex;
@@ -218,43 +218,14 @@ button, a, i, [type=submit] {
   align-items: center;
   justify-content: space-around;
 }
+.form .flex-row.left {
+  justify-content: flex-start;
+}
 .form .sm {
   width: 6em;
 }
 .form .xs {
   width: 4em;
-}
-
-.submit-row {
-  padding: 0;
-  margin-top: 3em;
-  width: 100%;
-  background: #ffffff;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-}
-.submit-row .button-choice {
-  background: #dddddd;
-  font-size: 100%;
-  font-family: inherit;
-}
-.submit-row .button-choice:hover {
-  background: #5e5e5e;
-}
-.submit-row .button-choice:active {
-  background: #c4c4c4;
-}
-.submit-row .positive {
-  background: #9999ff;
-}
-.submit-row .positive:hover {
-  background: #8080ff;
-}
-.submit-row .positive:active {
-  background: #6666ff;
 }
 
 .fieldset {
@@ -364,12 +335,7 @@ button, a, i, [type=submit] {
   justify-content: space-around;
   padding: 0;
   margin: 0;
-}
-.buttons-container .buttons-section {
-  position: relative;
-}
-.buttons-container .button {
-  margin: 2em auto 0;
+  height: auto;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -10,68 +10,35 @@
     justify-content: center;
 }
 .form {
-    position: relative;
-    display: flex;
-    flex-flow: column;
-    z-index: $layer-1;
-    margin-top: 5em;
+    position: absolute;
+    top: 8em;
+    margin: 0 auto;
+    width: 40vw;
+    max-width: 600px;
+    min-width: 350px;
+    min-height: 350px;
+    max-height: calc(100vh - 6em - 6em);
+    overflow-y: scroll;
+    @include border-mixin($lightGrey);
+    box-shadow: $shadow-1;
     background: $white;
-    label {
-        margin: 0.75em 0 0.25em;
-        font-weight: 500;
-    }
-    select {
-        align-self: flex-start;
-    }
-    textarea {
-        min-height: 80px;
-    }
+    
     .flex-row {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
         justify-content: space-around;
+        
+        &.left {
+            justify-content: flex-start;
+        }
     }
+    
     .sm {
         width: 6em;
     }
     .xs {
         width: 4em;
-    }
-}
-.submit-row {
-    padding: 0;
-    margin-top: 3em;
-    width: 100%;
-    background: $white;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-
-    .button-choice {
-        background: #dddddd;
-        font-size: 100%;
-        font-family: inherit;
-        
-        &:hover {
-            background: darken(#dddddd,50%);
-        }
-        &:active {
-            background: darken(#dddddd,10%);
-        }
-    }
-
-    .positive {
-        background: $darkPurple;
-        
-        &:hover {
-            background: darken($darkPurple,5%);
-        }
-        &:active {
-            background: darken($darkPurple,10%);
-        }
     }
 }
 .fieldset {
