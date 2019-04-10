@@ -228,13 +228,16 @@ button, a, i, [type=submit] {
   width: 4em;
 }
 
-.fieldset {
-  border: none;
-  width: calc(100% - 0.5em);
-  margin: 0;
-  padding: 0.25em;
+.permissible-values {
   display: flex;
-  flex-direction: column;
+  justify-content: row nowrap;
+  align-items: center;
+}
+.permissible-values .inputs input:nth-child(2n-1) {
+  margin-bottom: 0.5em;
+}
+.permissible-values .inputs input:nth-child(2n) {
+  margin-bottom: 1.5em;
 }
 
 .tabs-container {

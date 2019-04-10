@@ -139,6 +139,33 @@ app
         scope: keywordScope
     }
 })
+.directive('pds4PermissibleValues', () => {
+    return {
+        templateUrl: path.input('pds4-permissible-values'),
+        scope: {
+            permissibleValues: '=',
+            error: '='
+        },
+        controller: function($scope) {
+            const newline = function() {
+                return {value: '',value_meaning: ''};
+            };
+            $scope.permissibleValues = [newline()];
+            
+            $scope.addLine = function() {
+                $scope.permissibleValues.push(newline());
+            };
+            $scope.removeLine = idx => {
+                if ($scope.permissibleValues.length === 1) {
+                    $scope.permissibleValues = [newline()];
+                    return $scope.error = 'At least one permissible value is required if the enumaration flag is `true`.';
+                } else {
+                    $scope.permissibleValues.shift(idx,1);
+                }
+            };
+        }
+    }
+})
 .directive('pds4DataType', () => {
     return {
         templateUrl: path.input('pds4-data-type'),

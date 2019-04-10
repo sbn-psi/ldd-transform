@@ -49,6 +49,12 @@
             error="errors.enumeration_flag"
         ></pds4-enumeration-flag>
 
+        <pds4-permissible-values
+            ng-show="newNode.enumeration_flag === true"
+            permissible-values="node.permissibleValues"
+            error="errors.permissible_value"
+        ></pds4-permissible-values>
+
         <pds4-data-type
             pds4-keyword="newNode.value_data_type"
             error="errors.value_data_type"
