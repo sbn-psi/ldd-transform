@@ -33,31 +33,43 @@ app
     })
     
     // // // DIRECTIVES // // //
-    .directive('ld3Toolbox', () => {
+    .directive('ld3Toolbar', () => {
         return {
-            templateUrl: './partials/ld3-toolbox.html'
-        }
-    })
-    .directive('ld3Menubar', () => {
-        return {
-            templateUrl: './partials/ld3-menubar.html'
+            templateUrl: './partials/toolbar.html',
+            scope: {
+                dictionary: '=',
+                saveLdd: '=',
+                downloadLdd: '=',
+                modal: '='
+            },
+            controller: ($scope,Modal) => {
+                $scope.modifyLdd = function() {
+                    $scope.modal.show('editLdd');
+                };
+            }
         }
     })
     .directive('ld3ActiveNode', () => {
         return {
-            templateUrl: './partials/ld3-active-node.html'
-        }
-    })
-    .directive('ld3ActiveNodeChildren', () => {
-        return {
-            templateUrl: './partials/ld3-active-node-children.html'
-        }
-    })
-    .directive('ld3ActiveNodeParents', () => {
-        return {
-            templateUrl: './partials/ld3-active-node-parents.html',
+            templateUrl: './partials/active-node.html',
             scope: {
-                parents: '='
+                activeNode: '=',
+                modal: '=',
+                showModal: '=',
+                linkMode: '=',
+                toggleLinkMode: '='
+            },
+            controller: function($scope) {
+                $scope.addNewClass = function() {
+                    $scope.showModal('addClass');
+                };
+                $scope.addNewAttribute = function() {
+                    $scope.showModal('addAttribute');
+                };
+                $scope.modifyElement = function() {
+                    if ($scope.activeNode.className === 'class') $scope.modal.show('modifyClass');
+                    else $scope.modal.show('modifyAttribute');
+                };
             }
         }
     })
@@ -77,14 +89,9 @@ app
 
 
     // MODAL FORMS
-    .directive('ld3Modal', () => {
-        return {
-            templateUrl: './partials/ld3-modal.html'
-        }
-    })
     .directive('ld3ModalCloseButton', () => {
         return {
-            template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.close()"></i>'
+            template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.hide()"></i>'
         }
     })
     .directive('ld3NodeForm', () => {
@@ -108,11 +115,6 @@ app
         return {
             templateUrl: './partials/ld3-edit-attribute.html',
             transclude: true
-        }
-    })
-    .directive('ld3EditLddForm', () => {
-        return {
-            templateUrl: './partials/ld3-edit-ldd-form.html'
         }
     })
 

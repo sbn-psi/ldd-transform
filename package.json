@@ -1,6 +1,6 @@
 {
   "name": "ldd-transform",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "description": "A tool for transforming PDS4 Local Data Dictionary Ingest Files (Ingest_LDD) between simple types. Includes an interactive graph for creating and modifying Ingest_LDD files.",
   "main": "index.js",
   "scripts": {
@@ -16,12 +16,12 @@
   },
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.2",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "express-fileupload": "^0.4.0",
-    "grunt": "^1.0.3",
+    "grunt": "^1.0.4",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-copy": "^1.0.0",
     "libxslt": "^0.7.0",
@@ -34,6 +34,6 @@
     "grunt-protractor-runner": "^5.0.0",
     "jasmine-fail-fast": "^2.0.0",
     "jasmine-reporters": "^2.3.2",
-    "sass": "^1.14.1"
+    "sass": "^1.17.3"
   }
 }

@@ -59,16 +59,13 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     ,'$$hashKey'
                 ];
 
-                array.map(c => {
-                    if (c['DD_Association']) c['DD_Association'] = scrapeCustomKeywords(c['DD_Association']);
+                return array.map(element => {
+                    if (element['DD_Association']) element['DD_Association'] = scrapeCustomKeywords(element['DD_Association']);
                     keywords.map(k => {
-                        delete c[k];
+                        delete element[k];
                     });
-
-                    return c;
+                    return element;
                 });
-
-                return array;
             };
 
             // update 'last_modification_date_time'
@@ -79,6 +76,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
 
         ldd: function() {
             const model = this.model['Ingest_LDD'];
+            const pds4Version = this.pds4IMVersion;
             const lddDetails = function() {
                 return {
                     name: model['name'][0],
@@ -87,7 +85,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     steward_id: model['steward_id'][0],
                     namespace_id: model['namespace_id'][0],
                     comment: model['comment'][0],
-                    pds4_im_version: this.pds4IMVersion
+                    pds4_im_version: pds4Version
                 }
             };
             return {
@@ -310,7 +308,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 nillable_flag: [node.nillable_flag],
                 submitter_name: [node.submitter_name],
                 definition: [node.definition],
-                DD_Value_Domain: {
+                value_domain_entry: {
                     enumeration_flag: [node.enumeration_flag],
                     value_data_type: [node.value_data_type],
                     minimum_value: [node.minimum_value],
@@ -318,7 +316,15 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     unit_of_measure_type: [node.unit_of_measure_type]
                 }
             };
-
+            
+            for (let i = 0; i < node.permissibleValues.length; i++) {
+                let key = 'permissible_value_' + (i + 1);
+                newAttribute['value_domain_entry'][key] = {
+                    value: [node.permissibleValues[i].value],
+                    value_meaning: [node.permissibleValues[i].value_meaning]
+                };
+            };
+            
             const index = this.model['Ingest_LDD']['DD_Attribute'].length;
             this.model['Ingest_LDD']['DD_Attribute'].push(newAttribute);
 

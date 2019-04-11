@@ -1,0 +1,43 @@
+<form>
+
+    <h3 class="title">Modify LDD Details</h3>
+
+    <fieldset>
+        
+        <label for="name">LDD Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_name"></ld3-core-model-link></label>
+        <p class="error" ng-show="errors.name">{{ errors.name }}</p>
+        <input type="text" name="name" id="name" ng-model="ldd.edit.name" autofocus>
+        
+        <label for="ldd_version_id">LDD Version <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_ldd_version_id"></ld3-core-model-link></label>
+        <p class="error" ng-show="errors.ldd_version_id">{{ errors.ldd_version_id }}</p>
+        <input type="text" name="ldd_version_id" ng-model="ldd.edit.ldd_version_id" id="ldd_version_id">
+        
+        <label for="full_name">Full Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_full_name"></ld3-core-model-link></label>
+        <p class="error" ng-show="errors.full_name">{{ errors.full_name }}</p>
+        <input type="text" name="full_name" ng-model="ldd.edit.full_name" id="full_name">
+        
+        <label for="steward_id">Steward ID <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_steward_id"></ld3-core-model-link></label>
+        <p class="error" ng-show="errors.steward_id">{{ errors.steward_id }}</p>
+        <input type="text" name="steward_id" ng-model="ldd.edit.steward_id" id="steward_id">
+        
+        <label for="namespace_id">Namespace <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_namespace_id"></ld3-core-model-link></label>
+        <p class="error" ng-show="errors.namespace_id">{{ errors.namespace_id }}</p>
+        <input type="text" name="namespace_id" ng-model="ldd.edit.namespace_id" id="namespace_id">
+        
+        <label for="pds4_im_version">PDS4 IM Version</label>
+        <p class="error" ng-show="errors.pds4_im_version">{{ errors.pds4_im_version }}</p>
+        <select name="pds4_im_version" ng-model="ldd.edit.pds4_im_version" id="pds4_im_version">
+            <option value="1A00">1.10.0.0</option>
+            <!-- <option value="1B00">1.11.0.0</option> -->
+        </select>
+        
+        <label for="comment">Comment <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_comment"></ld3-core-model-link></label>
+        <p class="error" ng-show="errors.comment">{{ errors.comment }}</p>
+        <textarea name="comment" ng-model="ldd.edit.comment" id="comment"></textarea>
+        
+        <button ng-click="modal.hide()" class="button button-outline" ng-hide="data.newLddMode">Cancel</button>
+        <button ng-click="ld3.saveLdd()" class="button positive">Save</button>
+        
+    </fieldset>
+
+</form>

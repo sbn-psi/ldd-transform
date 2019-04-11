@@ -1,0 +1,35 @@
+<!-- Active Node Details -->
+
+<h3 class="title">{{ activeNode.name[0] }}</h3>
+
+<button class="button button-outline" ng-click="modifyElement()">Modify Element</button>
+
+<div class="linebreak"></div>
+
+<!-- ADD NEW ELEMENTS -->
+<div class="buttons-container" ng-show="activeNode.className === 'class'">
+    <div>
+        <h6 class="title">Add New Element</h6>
+        <button class="button button-clear" ng-click="addNewClass()    " title="Create a new node">New Class</button>
+        <button class="button button-clear" ng-click="addNewAttribute()" title="Create a new node">New Attribute</button>
+    </div>
+    <div class="linebreak vertical"></div>
+    <div>
+        <h6 class="title">Modify Links</h6>
+        <button class="button button-clear" ng-click="toggleLinkMode()">Add Link</button>
+    </div>
+</div>
+
+<div class="linebreak" ng-show="activeNode.className === 'class'"></div>
+
+<h4 class="key">Identifier Reference</h4>
+<h4 class="value">{{ activeNode.lid }}</h4>
+
+<h4 class="key">Version</h4>
+<h4 class="value">{{ activeNode.version_id[0] }}</h4>
+
+<h4 class="key">Definition</h4>
+<h4 class="value">{{ activeNode.definition[0] }}</h4>
+
+<h4 class="key">Submitter Name</h4>
+<h4 class="value">{{ activeNode.submitter_name[0] }}</h4>

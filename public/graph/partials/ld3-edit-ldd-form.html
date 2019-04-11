@@ -1,9 +1,6 @@
 <form class="modal form">
 
-    <h3 class="title">Define LDD Details</h3>
-
-    <p class="note" ng-show="data.newLddMode">Begin by filling in the following fields.</p>
-    <p class="note" ng-show="data.newLddMode">These values can be changed again later.</p>
+    <h3 class="title">Local Data Dictionary Details</h3>
 
     <label for="name">LDD Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_name"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.name">{{ errors.name }}</p>
@@ -11,7 +8,7 @@
 
     <label for="ldd_version_id">LDD Version <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_ldd_version_id"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.ldd_version_id">{{ errors.ldd_version_id }}</p>
-    <input type="text" class="sm" name="ldd_version_id" ng-model="ldd.edit.ldd_version_id" id="ldd_version_id">
+    <input type="text" name="ldd_version_id" ng-model="ldd.edit.ldd_version_id" id="ldd_version_id">
 
     <label for="full_name">Full Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1A00.html#attribute_pds_ingest_ldd_pds_full_name"></ld3-core-model-link></label>
     <p class="error" ng-show="errors.full_name">{{ errors.full_name }}</p>
@@ -37,8 +34,8 @@
 
     <div class="submit-row">
         <div class="ghost" ng-show="data.newLddMode"></div>
-        <button ng-click="modal.close()" class="button-choice" ng-hide="data.newLddMode">Cancel</button>
-        <button ng-click="ld3.saveLdd()" class="button-choice positive">Save</button>
+        <button ng-click="modal.hide()" class="button button-choice" ng-hide="data.newLddMode">Cancel</button>
+        <button ng-click="ld3.saveLdd()" class="button button-choice positive">Save</button>
     </div>
 
 </form>

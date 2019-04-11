@@ -1,0 +1,73 @@
+<form>
+
+    <h3 class="title">New Attribute</h3>
+
+    <fieldset>
+
+        <pds4-attribute-name
+            pds4-keyword="newNode.name"
+            error="errors.name"
+        ></pds4-attribute-name>
+
+        <pds4-namespace
+            pds4-keyword="newNode.namespace_id"
+            error="errors.namespace_id"
+        ></pds4-namespace>
+
+        <pds4-version
+            pds4-keyword="newNode.version_id"
+            error="errors.version_id"
+        ></pds4-version>
+
+        <pds4-submitter-name
+            pds4-keyword="newNode.submitter_name"
+            error="errors.submitter_name"
+        ></pds4-submitter-name>
+
+        <pds4-definition
+            pds4-keyword="newNode.definition"
+            error="errors.definition"
+        ></pds4-definition>
+
+        <pds4-min-occ
+            pds4-keyword="newNode.minimum_occurrences"
+            error="errors.minimum_occurrences"
+        ></pds4-min-occ>
+
+        <pds4-max-occ
+            pds4-keyword="newNode.maximum_occurrences"
+            error="errors.maximum_occurrences"
+        ></pds4-max-occ>
+
+        <pds4-nillable-flag
+            pds4-keyword="newNode.nillable_flag"
+            error="errors.nillable_flag"
+        ></pds4-nillable-flag>
+
+        <pds4-enumeration-flag
+            pds4-keyword="newNode.enumeration_flag"
+            error="errors.enumeration_flag"
+        ></pds4-enumeration-flag>
+
+        <pds4-permissible-values
+            ng-show="newNode.enumeration_flag === true"
+            permissible-values="newNode.permissibleValues"
+            error="errors.permissible_value"
+        ></pds4-permissible-values>
+
+        <pds4-data-type
+            pds4-keyword="newNode.value_data_type"
+            error="errors.value_data_type"
+        ></pds4-data-type>
+
+        <pds4-unit-type
+            pds4-keyword="newNode.unit_of_measure_type"
+            error="errors.unit_of_measure_type"
+        ></pds4-unit-type>
+
+        <button class="button button-outline" ng-click="modal.hide()" ng-hide="data.newLddMode">Cancel</button>
+        <button class="button" ng-click="form.addAttribute()">Save Attribute</button>
+
+    </fieldset>
+
+</form>

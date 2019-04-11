@@ -1,5 +1,34 @@
-<ld3-menubar></ld3-menubar>
-<ld3-toolbox></ld3-toolbox>
-<ld3-modal></ld3-modal>
+<ld3-toolbar
+    dictionary="ldd.original"
+    download-ldd="ld3.download"
+    modal="modal"
+></ld3-toolbar>
+
+<div class="curtain" ng-show="modal.isVisible">
+
+    <!-- add Class element -->
+    <ld3-form-add-class     ng-show="modal.type === 'addClass'    " class="form"></ld3-form-add-class>
+    <!-- add Attribute element -->
+    <ld3-form-add-attribute ng-show="modal.type === 'addAttribute'" class="form"></ld3-form-add-attribute>
+    
+    <!-- modify LDD Details -->
+    <ld3-form-modify-ldd-details ng-show="modal.type == 'editLdd'" class="form" ldd-details="ldd.edit" save-ldd="ld3.saveLdd" modal="modal"></ld3-form-modify-ldd-details>
+    
+    <!-- modify class -->
+    <ld3-form-modify-class ng-show="modal.type == 'modifyClass'" class="form" modal="modal"></ld3-form-modify-class>
+    <!-- modify attribute -->
+    <ld3-form-modify-attribute ng-show="modal.type == 'modifyAttribute'" class="form" modal="modal"></ld3-form-modify-attribute>
+
+</div>
+
+<ld3-active-node
+    id="active-node"
+    active-node="data.activeNode"
+    modal="modal"
+    show-modal="ld3.openAddNodeModal"
+    link-mode="ld3.linkMode"
+    toggle-link-mode="ld3.toggleLinkMode"
+    ng-show="data.activeNode">
+ </ld3-active-node>
 
 <svg class="main"></svg>

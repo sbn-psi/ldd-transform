@@ -1,0 +1,56 @@
+.curtain {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(225,225,225,0.7);
+    z-index: $layer-3;
+    display: flex;
+    justify-content: center;
+}
+.form {
+    position: absolute;
+    top: 8em;
+    margin: 0 auto;
+    width: 40vw;
+    max-width: 600px;
+    min-width: 350px;
+    min-height: 350px;
+    max-height: calc(100vh - 6em - 6em);
+    overflow-y: scroll;
+    @include border-mixin($lightGrey);
+    box-shadow: $shadow-1;
+    background: $white;
+    
+    .flex-row {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-around;
+        
+        &.left {
+            justify-content: flex-start;
+        }
+    }
+    
+    .sm {
+        width: 6em;
+    }
+    .xs {
+        width: 4em;
+    }
+}
+.permissible-values {
+    display: flex;
+    justify-content: row nowrap;
+    align-items: center;
+    .inputs {
+        input:nth-child(2n - 1) {
+            margin-bottom: 0.5em;
+        }
+        input:nth-child(2n) {
+            margin-bottom: 1.5em;
+        }
+    }
+}
