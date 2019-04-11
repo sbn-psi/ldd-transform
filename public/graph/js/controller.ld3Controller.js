@@ -1,4 +1,4 @@
-app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', '$rootScope', function($scope, $window, DataModel, Modal, Visualizations, $rootScope) {
+app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', '$rootScope', 'Validate', function($scope, $window, DataModel, Modal, Visualizations, $rootScope, Validate) {
     // initialize application state
     $rootScope.$on('modal-show', function() {
         const newNode = (() => {
@@ -22,6 +22,37 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
     $scope.vis = Visualizations;
     $scope.data = DataModel;
     $scope.ldd = $scope.data.ldd();
+    $scope.form = {
+        addClass: function() {
+            console.log('add class');
+            const formValues = $scope.newNode;
+            
+            $scope.errors = Validate.classForm(formValues);
+            if (errorsExist($scope.errors)) return;
+            
+            $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
+            $scope.data.addClass($scope.newNode);
+            
+            $scope.vis.update();
+            $scope.modal.hide();
+            
+            return $scope.newNode = {};
+        },
+        addAttribute: function() {
+            const formValues = $scope.newNode;
+            
+            $scope.errors = Validate.attributeForm(formValues);
+            if (errorsExist($scope.errors)) return;
+            
+            $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
+            $scope.data.addAttribute($scope.newNode);
+            
+            $scope.vis.update();
+            $scope.modal.hide();
+            
+            return $scope.newNode = {};
+        }
+    };
     $scope.ld3 = {
         isVisible: {
             legend: true,

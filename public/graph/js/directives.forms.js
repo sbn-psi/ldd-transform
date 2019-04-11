@@ -29,50 +29,14 @@ const errorsExist = function(errObj) {
 
 app
 // // // FORMS // // //
-.directive('ld3FormAddClass', (Validate) => {
+.directive('ld3FormAddClass', () => {
     return {
-        templateUrl: path.form('add-class'),
-        controller: function($scope) {
-            $scope.form = {
-                addClass: function() {
-                    const formValues = $scope.newNode;
-                    
-                    $scope.errors = Validate.classForm(formValues);
-                    if (errorsExist($scope.errors)) return;
-                    
-                    $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
-                    $scope.data.addClass($scope.newNode);
-                    
-                    $scope.vis.update();
-                    $scope.modal.hide();
-                    
-                    return $scope.newNode = {};
-                }
-            };
-        }
+        templateUrl: path.form('add-class')
     }
 })
-.directive('ld3FormAddAttribute', (Validate) => {
+.directive('ld3FormAddAttribute', () => {
     return {
-        templateUrl: path.form('add-attribute'),
-        controller: function($scope) {
-            $scope.form = {
-                addAttribute: function() {
-                    const formValues = $scope.newNode;
-                    
-                    $scope.errors = Validate.attributeForm(formValues);
-                    if (errorsExist($scope.errors)) return;
-                    
-                    $scope.newNode.local_identifier = `${$scope.newNode.namespace_id}.${$scope.newNode.name}`;
-                    $scope.data.addAttribute($scope.newNode);
-                    
-                    $scope.vis.update();
-                    $scope.modal.hide();
-                    
-                    return $scope.newNode = {};
-                }
-            };
-        }
+        templateUrl: path.form('add-attribute')
     }
 })
 
