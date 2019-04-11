@@ -233,6 +233,7 @@ app
             $scope.data = DataModel;
             
             $rootScope.$on('modal-show',function() {
+                if (!$scope.data && !$scope.data.activeNode) return;
                 $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
                 $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
             });
