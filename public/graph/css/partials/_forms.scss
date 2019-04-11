@@ -22,24 +22,22 @@
     @include border-mixin($lightGrey);
     box-shadow: $shadow-1;
     background: $white;
+}
+.flex-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
     
-    .flex-row {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        justify-content: space-around;
-        
-        &.left {
-            justify-content: flex-start;
-        }
+    &.left {
+        justify-content: flex-start;
     }
-    
-    .sm {
-        width: 6em;
-    }
-    .xs {
-        width: 4em;
-    }
+}
+.sm {
+    width: 6em !important;
+}
+.xs {
+    width: 4em !important;
 }
 .permissible-values {
     display: flex;

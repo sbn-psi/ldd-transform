@@ -33,3 +33,12 @@
 
 <h4 class="key">Submitter Name</h4>
 <h4 class="value">{{ activeNode.submitter_name[0] }}</h4>
+
+<div class="linebreak" ng-show="activeNode.className === 'class'">
+    
+    <h5 class="title">Associated References</h5>
+    
+    <ld3-child-row ng-repeat="child in activeNode.children | classes   " class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
+    <ld3-child-row ng-repeat="child in activeNode.children | attributes" class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
+    
+</div>

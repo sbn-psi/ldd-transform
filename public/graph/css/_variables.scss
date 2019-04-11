@@ -7,10 +7,12 @@ $darkPurple: #9999ff;
 
 $grey: #808080;
 $lightGrey: lighten($grey,10%);
+$superLightGrey: lighten($grey,20%);
 $darkGrey: darken($grey,10%);
 $superDarkGrey: darken($grey,20%);
 
-$shadow-1: 0 0 5px 1px $superDarkGrey;
+$shadow-1: 0 0 5px 1px $darkGrey;
+$shadow-2: 0 0 3px 0 $superLightGrey;
 
 $layer-1: 999; // layer closest to user
 $layer-2: 998;

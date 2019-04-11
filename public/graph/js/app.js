@@ -88,6 +88,11 @@ app
             }
         }
     })
+    .directive('ld3ChildRow', function() {
+        return {
+            templateUrl: './partials/ld3-child-row.html'
+        }
+    })
 
 
     // MODAL FORMS

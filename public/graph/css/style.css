@@ -106,7 +106,7 @@ button, a, i, [type=submit] {
 #toolbar {
   background: #ffffff;
   border-bottom: 1px solid #000000;
-  box-shadow: 0 0 5px 1px #4d4d4d;
+  box-shadow: 0 0 5px 1px #676767;
   width: 100vw;
   position: absolute;
   display: flex;
@@ -160,10 +160,17 @@ button, a, i, [type=submit] {
   min-width: 250px;
   max-width: 25vw;
   border: 1px solid #9a9a9a;
-  box-shadow: 0 0 5px 1px #4d4d4d;
+  box-shadow: 0 0 5px 1px #676767;
   position: absolute;
   top: 20vh;
   right: 5vw;
+  overflow-y: scroll;
+}
+
+.child-row {
+  border: 1px solid #b3b3b3;
+  padding: 0.3em;
+  box-shadow: 0 0 3px 0 #b3b3b3;
 }
 
 .modal {
@@ -217,23 +224,26 @@ button, a, i, [type=submit] {
   max-height: calc(100vh - 6em - 6em);
   overflow-y: scroll;
   border: 1px solid #9a9a9a;
-  box-shadow: 0 0 5px 1px #4d4d4d;
+  box-shadow: 0 0 5px 1px #676767;
   background: #ffffff;
 }
-.form .flex-row {
+
+.flex-row {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
 }
-.form .flex-row.left {
+.flex-row.left {
   justify-content: flex-start;
 }
-.form .sm {
-  width: 6em;
+
+.sm {
+  width: 6em !important;
 }
-.form .xs {
-  width: 4em;
+
+.xs {
+  width: 4em !important;
 }
 
 .permissible-values {
@@ -306,7 +316,7 @@ button, a, i, [type=submit] {
   background: #ffffff;
   z-index: 998;
   border: 1px solid #808080;
-  box-shadow: 0 0 5px 1px #4d4d4d;
+  box-shadow: 0 0 5px 1px #676767;
 }
 
 .button {

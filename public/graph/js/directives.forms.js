@@ -128,6 +128,7 @@ app
         controller: function($scope) {
             $scope.$watch('unboundedCheckboxValue', (newVal,oldVal) => {
                 if (newVal === true) $scope.pds4Keyword = 'unbounded';
+                else if (newVal === false) $scope.pds4Keyword = '';
             })
         }
     }
