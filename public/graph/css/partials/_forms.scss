@@ -32,6 +32,9 @@
     &.left {
         justify-content: flex-start;
     }
+    &.wrap {
+        flex-wrap: wrap;
+    }
 }
 .sm {
     width: 6em !important;

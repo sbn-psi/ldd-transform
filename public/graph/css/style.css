@@ -237,6 +237,9 @@ button, a, i, [type=submit] {
 .flex-row.left {
   justify-content: flex-start;
 }
+.flex-row.wrap {
+  flex-wrap: wrap;
+}
 
 .sm {
   width: 6em !important;

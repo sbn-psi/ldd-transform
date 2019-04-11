@@ -90,7 +90,20 @@ app
     })
     .directive('ld3ChildRow', function() {
         return {
-            templateUrl: './partials/ld3-child-row.html'
+            templateUrl: './partials/ld3-child-row.html',
+            controller: function($scope, DataModel, Visualizations) {
+                $scope.data = DataModel;
+                $scope.vis = Visualizations;
+                $scope.removeLink = function(lid /* lid of node to be removed from activeNode */) {
+                    const confirmed = confirm('Are you sure you want to remove this link?');
+
+                    if (confirmed) $scope.data.removeLink(lid);
+
+                    $scope.vis.update();
+
+                    return;
+                };
+            }
         }
     })
 

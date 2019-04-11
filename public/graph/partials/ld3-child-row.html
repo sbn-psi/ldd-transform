@@ -1,5 +1,8 @@
 <fieldset class="child-row">
-    <h5>{{ child.lid }}</h5>
+    <div class="flex-row wrap">
+        <h5>{{ child.lid }}</h5>
+        <button class="button button-outline" ng-click="removeLink(child.lid)">Remove Association</button>
+    </div>
     
     <pds4-min-occ
         pds4-keyword="child.minimum_occurrences"

@@ -79,15 +79,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         toggleLinkMode: function() {
             $scope.vis.linkMode = !$scope.vis.linkMode;
         },
-        removeLink: function(lid /* lid of node to be removed from activeNode */) {
-            const confirmed = confirm('Are you sure you want to remove this link?');
-
-            if (confirmed) $scope.data.removeLink(lid);
-
-            $scope.vis.update();
-
-            return;
-        },
         openAddNodeModal: function(modalName) {
             $scope.modal.show(modalName);
             $scope.errors = {};
