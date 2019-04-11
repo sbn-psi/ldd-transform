@@ -54,6 +54,7 @@ app
             templateUrl: './partials/active-node.html',
             scope: {
                 activeNode: '=',
+                modal: '=',
                 showModal: '=',
                 linkMode: '=',
                 toggleLinkMode: '='
@@ -64,6 +65,10 @@ app
                 };
                 $scope.addNewAttribute = function() {
                     $scope.showModal('addAttribute');
+                };
+                $scope.modifyElement = function() {
+                    if ($scope.activeNode.className === 'class') $scope.modal.show('modifyClass');
+                    else $scope.modal.show('modifyAttribute');
                 };
             }
         }

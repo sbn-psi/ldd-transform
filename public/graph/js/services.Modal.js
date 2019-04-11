@@ -1,4 +1,4 @@
-app.factory('Modal', function() {
+app.factory('Modal', function($rootScope) {
     const Modal = function(type) {
         if (!type) type = null;
         return {
@@ -7,10 +7,12 @@ app.factory('Modal', function() {
             show: function(type) {
                 this.isVisible = true;
                 this.type = type;
+                $rootScope.$broadcast('modal-show');
             },
             hide: function() {
                 this.isVisible = false;
                 this.type = null;
+                $rootScope.$broadcast('modal-hide');
             }
         };
     };

@@ -59,45 +59,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                 permissibleValues: []
             };
         },
-        editNode: function() {
-            $scope.modal.show('editNode');
-            $scope.errors = {};
-            $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
-            $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
-        },
-        modifyAttribute: function() {
-            const lid = $scope.data.activeNode.lid;
-            const values = {
-                name: $scope.modifiedNode['name'][0],
-                version_id: $scope.modifiedNode['version_id'][0],
-                local_identifier: $scope.modifiedNode['namespace_id'][0] + '.' + $scope.modifiedNode['name'][0],
-                nillable_flag: $scope.modifiedNode['nillable_flag'][0],
-                submitter_name: $scope.modifiedNode['submitter_name'][0],
-                definition: $scope.modifiedNode['definition'][0],
-            };
-
-            $scope.data.modifyAttribute(lid,values);
-
-            $scope.vis.update();
-
-            $scope.modal.hide();
-        },
-        modifyClass: function() {
-            const lid = $scope.data.activeNode.lid;
-            const values = {
-                name: $scope.modifiedNode['name'][0],
-                version_id: $scope.modifiedNode['version_id'][0],
-                local_identifier: $scope.modifiedNode['namespace_id'][0] + '.' + $scope.modifiedNode['name'][0],
-                submitter_name: $scope.modifiedNode['submitter_name'][0],
-                definition: $scope.modifiedNode['definition'][0]
-            };
-
-            $scope.data.modifyClass(lid,values);
-
-            $scope.vis.update();
-
-            $scope.modal.hide();
-        },
         editLdd: function() {
             $scope.modal.show('editLdd');
             $scope.errors = {};
