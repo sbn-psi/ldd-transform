@@ -22,3 +22,14 @@
         shape-rendering: crispEdges;
     }
 }
+.graph-buttons {
+    position: absolute;
+    bottom: 3em;
+    left: 3em;
+    height: 10em;
+    width: 10em;
+    background: $white;
+    z-index: $layer-2;
+    @include border-mixin($grey);
+    box-shadow: $shadow-1;
+}

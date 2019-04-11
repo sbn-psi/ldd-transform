@@ -25,10 +25,6 @@
         background: red;
         color: $white;
     }
-    .disabled {
-        background: $lightGrey;
-        color: $grey;
-    }
     &.centered {
         margin: 0.5em auto;
     }
@@ -38,6 +34,11 @@
     &:active {
         background: lighten(blue,20%);
     }
+}
+.disabled {
+    color: $grey !important;
+    border-color: $grey !important;
+    cursor: default !important;
 }
 .buttons-container {
     width: 100%;

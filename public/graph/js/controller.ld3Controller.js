@@ -150,28 +150,32 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                 }
             });
         },
-        showUndo: function() {
-            if ($scope.data.history.length > 1 && $scope.data.historyIdx != $scope.data.history.length - 1) return true;
-            else if ($scope.data.historyIdx == $scope.data.history.length - 1) return false;
-            else return false;
+        undo: {
+            show: function() {
+                if ($scope.data.history.length > 1 && $scope.data.historyIdx != $scope.data.history.length - 1) return true;
+                else if ($scope.data.historyIdx == $scope.data.history.length - 1) return false;
+                else return false;
+            },
+            do: function() {
+                const history = $scope.data.history;
+                $scope.data.historyIdx++;
+                $scope.data.timeTravel(history[$scope.data.historyIdx]);
+                $scope.vis.update();
+                $scope.vis.toggleHighlights();
+            }
         },
-        undo: function() {
-            const history = $scope.data.history;
-            $scope.data.historyIdx++;
-            $scope.data.timeTravel(history[$scope.data.historyIdx]);
-            $scope.vis.update();
-            $scope.vis.toggleHighlights();
-        },
-        showRedo: function() {
-            if ($scope.data.historyIdx != 0) return true;
-            else return false;
-        },
-        redo: function() {
-            const history = $scope.data.history;
-            $scope.data.historyIdx--;
-            $scope.data.timeTravel(history[$scope.data.historyIdx]);
-            $scope.vis.update();
-            $scope.vis.toggleHighlights();
+        redo: {
+            show: function() {
+                if ($scope.data.historyIdx != 0) return true;
+                else return false;
+            },
+            do: function() {
+                const history = $scope.data.history;
+                $scope.data.historyIdx--;
+                $scope.data.timeTravel(history[$scope.data.historyIdx]);
+                $scope.vis.update();
+                $scope.vis.toggleHighlights();
+            }
         },
         // exits LD3 Tool and returns user to LDD Transform page
         exit: function() {

@@ -40,6 +40,8 @@ app
                 dictionary: '=',
                 saveLdd: '=',
                 downloadLdd: '=',
+                undo: '=',
+                redo: '=',
                 modal: '='
             },
             controller: ($scope,Modal) => {

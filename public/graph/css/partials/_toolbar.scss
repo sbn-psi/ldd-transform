@@ -15,7 +15,6 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         
         &:not(:first-of-type) {
@@ -26,11 +25,8 @@
             flex-flow: row nowrap;
         }
         
-        &.toolgroup-download {
-            cursor: pointer;
-            p {
-                margin: 0;
-            }
+        &.toolgroup-buttons {
+            align-items: flex-end;
         }
         
         .ldd-details {

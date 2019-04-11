@@ -120,7 +120,6 @@ button, a, i, [type=submit] {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 #toolbar .toolgroup:not(:first-of-type) {
@@ -129,11 +128,8 @@ button, a, i, [type=submit] {
 #toolbar .toolgroup.toolgroup-row {
   flex-flow: row nowrap;
 }
-#toolbar .toolgroup.toolgroup-download {
-  cursor: pointer;
-}
-#toolbar .toolgroup.toolgroup-download p {
-  margin: 0;
+#toolbar .toolgroup.toolgroup-buttons {
+  align-items: flex-end;
 }
 #toolbar .toolgroup .ldd-details {
   height: 100%;
@@ -301,6 +297,18 @@ button, a, i, [type=submit] {
   shape-rendering: crispEdges;
 }
 
+.graph-buttons {
+  position: absolute;
+  bottom: 3em;
+  left: 3em;
+  height: 10em;
+  width: 10em;
+  background: #ffffff;
+  z-index: 998;
+  border: 1px solid #808080;
+  box-shadow: 0 0 5px 1px #4d4d4d;
+}
+
 .button {
   height: 2em;
   min-width: 5em;
@@ -329,10 +337,6 @@ button, a, i, [type=submit] {
   background: red;
   color: #ffffff;
 }
-.button .disabled {
-  background: #9a9a9a;
-  color: #808080;
-}
 .button.centered {
   margin: 0.5em auto;
 }
@@ -341,6 +345,12 @@ button, a, i, [type=submit] {
 }
 .button:active {
   background: #6666ff;
+}
+
+.disabled {
+  color: #808080 !important;
+  border-color: #808080 !important;
+  cursor: default !important;
 }
 
 .buttons-container {
