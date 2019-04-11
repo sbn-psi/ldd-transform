@@ -38,7 +38,6 @@
     
     <h5 class="title">Associated References</h5>
     
-    <ld3-child-row ng-repeat="child in activeNode.children | classes   " class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
-    <ld3-child-row ng-repeat="child in activeNode.children | attributes" class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
+    <ld3-child-row ng-repeat="child in activeNode.children track by $index" class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
     
 </div>

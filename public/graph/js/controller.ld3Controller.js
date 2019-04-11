@@ -1,8 +1,23 @@
-app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', function($scope, $window, DataModel, Modal, Visualizations) {
+app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', '$rootScope', function($scope, $window, DataModel, Modal, Visualizations, $rootScope) {
     // initialize application state
-    $scope.view = {
-        
-    }
+    $rootScope.$on('modal-show', function() {
+        const newNode = (() => {
+            // default form values
+            return {
+                unit_of_measure_type: 'Units_of_None',
+                value_data_type: 'ASCII_Real',
+                version_id: '1.0',
+                minimum_occurrences: 0,
+                namespace_id: $scope.ldd.original.namespace_id,
+                submitter_name: $scope.ldd.original.full_name,
+                nillable_flag: false,
+                enumeration_flag: false,
+                permissibleValues: []
+            };
+        })();
+        if ($scope.modal.type == 'addAttribute') $scope.newNode = newNode;
+        if ($scope.modal.type == 'addClass'    ) $scope.newNode = newNode;
+    });
     $scope.modal = Modal.new();
     $scope.vis = Visualizations;
     $scope.data = DataModel;
@@ -45,19 +60,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         openAddNodeModal: function(modalName) {
             $scope.modal.show(modalName);
             $scope.errors = {};
-
-            // default form values
-            $scope.newNode = {
-                unit_of_measure_type: 'Units_of_None',
-                value_data_type: 'ASCII_Real',
-                version_id: '1.0',
-                minimum_occurrences: 0,
-                namespace_id: $scope.ldd.original.namespace_id,
-                submitter_name: $scope.ldd.original.full_name,
-                nillable_flag: false,
-                enumeration_flag: false,
-                permissibleValues: []
-            };
         },
         editLdd: function() {
             $scope.modal.show('editLdd');

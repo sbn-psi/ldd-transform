@@ -32,7 +32,6 @@ app
 .directive('ld3FormAddClass', (Validate) => {
     return {
         templateUrl: path.form('add-class'),
-        scope: true,
         controller: function($scope) {
             $scope.form = {
                 addClass: function() {
@@ -56,7 +55,6 @@ app
 .directive('ld3FormAddAttribute', (Validate) => {
     return {
         templateUrl: path.form('add-attribute'),
-        scope: true,
         controller: function($scope) {
             $scope.form = {
                 addAttribute: function() {
