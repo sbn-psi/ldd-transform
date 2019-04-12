@@ -24,9 +24,9 @@
     box-shadow: $shadow-1;
     background: $white;
     
-    input, select, textarea {
-        background: #fbfbfb !important;
-    }
+}
+input, select, textarea {
+    background: #fbfbfb !important;
 }
 .flex-row {
     display: flex;

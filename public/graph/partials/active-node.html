@@ -40,4 +40,6 @@
     
     <ld3-child-row ng-repeat="child in activeNode.children track by $index" class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
     
+    <p ng-show="!activeNode.children || !activeNode.children.length">Use the buttons above to add a new element or link.</p>
+    
 </div>
