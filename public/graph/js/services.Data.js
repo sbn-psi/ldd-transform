@@ -363,7 +363,10 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
 
             // create link between newClass and activeNode
             // by adding reference to class from activeNode
-            if (this.newLddMode) return this.defineNodesAndLinks();
+            if (this.newLddMode) {
+                this.newLddMode = false;
+                return this.defineNodesAndLinks();
+            }
 
             this.activeNode['DD_Association'].push({
                 identifier_reference: [node.local_identifier],
