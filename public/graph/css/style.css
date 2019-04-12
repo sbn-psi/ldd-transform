@@ -228,7 +228,8 @@ button, a, i, [type=submit] {
   box-shadow: 0 0 5px 1px #676767;
   background: #ffffff;
 }
-.form input, .form select, .form textarea {
+
+input, select, textarea {
   background: #fbfbfb !important;
 }
 
