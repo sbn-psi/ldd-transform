@@ -310,7 +310,6 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 definition: [node.definition],
                 value_domain_entry: {
                     enumeration_flag: [node.enumeration_flag],
-                    value_data_type: [node.value_data_type],
                     minimum_value: [(() => {
                         if (node.enumeration_flag === false) return node.minimum_value;
                         else return null;
@@ -319,7 +318,9 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                         if (node.enumeration_flag === false) return node.maximum_value;
                         else return null;
                     })()],
-                    unit_of_measure_type: [node.unit_of_measure_type]
+                    pattern: node.pattern,
+                    unit_of_measure_type: [node.unit_of_measure_type],
+                    value_data_type: [node.value_data_type]
                 }
             };
             

@@ -217,6 +217,7 @@ button, a, i, [type=submit] {
   position: absolute;
   top: 8em;
   margin: 0 auto;
+  padding: 0 1em;
   width: 40vw;
   max-width: 600px;
   min-width: 350px;
@@ -226,6 +227,9 @@ button, a, i, [type=submit] {
   border: 1px solid #9a9a9a;
   box-shadow: 0 0 5px 1px #676767;
   background: #ffffff;
+}
+.form input, .form select, .form textarea {
+  background: #fbfbfb !important;
 }
 
 .flex-row {

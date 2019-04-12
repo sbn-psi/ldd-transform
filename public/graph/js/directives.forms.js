@@ -107,6 +107,12 @@ app
         scope: keywordScope
     }
 })
+.directive('pds4Pattern', () => {
+    return {
+        templateUrl: path.input('pds4-pattern'),
+        scope: keywordScope
+    }
+})
 .directive('pds4NillableFlag', () => {
     return {
         templateUrl: path.input('pds4-nillable-flag'),

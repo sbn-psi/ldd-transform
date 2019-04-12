@@ -13,6 +13,7 @@
     position: absolute;
     top: 8em;
     margin: 0 auto;
+    padding: 0 1em;
     width: 40vw;
     max-width: 600px;
     min-width: 350px;
@@ -22,6 +23,10 @@
     @include border-mixin($lightGrey);
     box-shadow: $shadow-1;
     background: $white;
+    
+    input, select, textarea {
+        background: #fbfbfb !important;
+    }
 }
 .flex-row {
     display: flex;
