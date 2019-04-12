@@ -18,13 +18,12 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         if ($scope.modal.type == 'addAttribute') $scope.newNode = newNode;
         if ($scope.modal.type == 'addClass'    ) $scope.newNode = newNode;
     });
-    $scope.modal = Modal.new();
+    $scope.modal = Modal;
     $scope.vis = Visualizations;
     $scope.data = DataModel;
     $scope.ldd = $scope.data.ldd();
     $scope.form = {
         addClass: function() {
-            console.log('add class');
             const formValues = $scope.newNode;
             
             $scope.errors = Validate.classForm(formValues);
@@ -89,7 +88,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             return;
         },
         saveLdd: function() {
-            const errors = {};
+            let errors = {};
+            $scope.errors = errors;
             const spaceError = function(keyword) {
                 return `Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.`;
             };
@@ -120,7 +120,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             $scope.ldd = $scope.data.ldd();
 
             if ($scope.data.newLddMode) {
-                $scope.ld3.openAddNodeModal();
+                $scope.errors = {};
+                $scope.modal.show('addClass');
             };
         },
         download: function() {
