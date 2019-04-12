@@ -114,6 +114,32 @@ app.factory('Validate', function() {
                 });
             
             return output;
+        },
+        lddForm: function(formValues) {
+            let output = {};
+            
+            const spaceError = function(keyword) {
+                return `Spaces are not allowed in the ${keyword}.`;
+            };
+            
+            const name = formValues['name'].trim();
+            if (!name) output.name = 'LDD Name is required.';
+            else if (/ /g.test(name)) output.name = spaceError('LDD name');
+            
+            if (!formValues['ldd_version_id']) output.ldd_version_id = 'LDD Version is required.';
+            if (!formValues['full_name']) output.full_name = 'Full Name is required.';
+            
+            const stewardId = formValues['steward_id'].trim();
+            if (!stewardId) output.steward_id = 'Steward ID is required.';
+            else if (/ /g.test(stewardId)) output.steward_id = spaceError('steward ID');
+            
+            const namespaceId = formValues['namespace_id'].trim();
+            if (!namespaceId) output.namespace_id = 'Namespace is required.';
+            else if (/ /g.test(namespaceId)) output.namespace_id = spaceError('namespace ID');
+            
+            if (!formValues['comment']) output.comment = 'Comment is required.';
+            
+            return output;
         }
     };
 
