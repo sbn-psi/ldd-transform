@@ -311,11 +311,19 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 value_domain_entry: {
                     enumeration_flag: [node.enumeration_flag],
                     value_data_type: [node.value_data_type],
-                    minimum_value: [node.minimum_value],
-                    maximum_value: [node.maximum_value],
+                    minimum_value: [(() => {
+                        if (node.enumeration_flag === false) return node.minimum_value;
+                        else return null;
+                    })()],
+                    maximum_value: [(() => {
+                        if (node.enumeration_flag === false) return node.maximum_value;
+                        else return null;
+                    })()],
                     unit_of_measure_type: [node.unit_of_measure_type]
                 }
             };
+            
+            console.log(newAttribute);
             
             for (let i = 0; i < node.permissibleValues.length; i++) {
                 let key = 'permissible_value_' + (i + 1);

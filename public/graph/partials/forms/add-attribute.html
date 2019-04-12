@@ -39,6 +39,16 @@
             error="errors.maximum_occurrences"
         ></pds4-max-occ>
 
+        <pds4-data-type
+            pds4-keyword="newNode.value_data_type"
+            error="errors.value_data_type"
+        ></pds4-data-type>
+
+        <pds4-unit-type
+            pds4-keyword="newNode.unit_of_measure_type"
+            error="errors.unit_of_measure_type"
+        ></pds4-unit-type>
+
         <pds4-nillable-flag
             pds4-keyword="newNode.nillable_flag"
             error="errors.nillable_flag"
@@ -54,16 +64,20 @@
             permissible-values="newNode.permissibleValues"
             error="errors.permissible_value"
         ></pds4-permissible-values>
-
-        <pds4-data-type
-            pds4-keyword="newNode.value_data_type"
-            error="errors.value_data_type"
-        ></pds4-data-type>
-
-        <pds4-unit-type
-            pds4-keyword="newNode.unit_of_measure_type"
-            error="errors.unit_of_measure_type"
-        ></pds4-unit-type>
+        
+        
+        <pds4-min-value
+            ng-show="newNode.enumeration_flag === false"
+            pds4-keyword="newNode.minimum_value"
+            error="errors.minimum_value"
+        ></pds4-min-value>
+        <pds4-max-value
+            ng-show="newNode.enumeration_flag === false"
+            pds4-keyword="newNode.maximum_value"
+            error="errors.maximum_value"
+        ></pds4-max-value>
+        
+        <br>
 
         <button class="button button-outline" ng-click="modal.hide()" ng-hide="data.newLddMode">Cancel</button>
         <button class="button" ng-click="form.addAttribute()">Save Attribute</button>

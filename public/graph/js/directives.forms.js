@@ -95,6 +95,18 @@ app
         }
     }
 })
+.directive('pds4MinValue', () => {
+    return {
+        templateUrl: path.input('pds4-min-value'),
+        scope: keywordScope
+    }
+})
+.directive('pds4MaxValue', () => {
+    return {
+        templateUrl: path.input('pds4-max-value'),
+        scope: keywordScope
+    }
+})
 .directive('pds4NillableFlag', () => {
     return {
         templateUrl: path.input('pds4-nillable-flag'),
