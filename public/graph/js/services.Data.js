@@ -7,7 +7,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
         model = JSON.parse(window.localStorage.getItem('ld3'));
     } else {
         newLddMode = true;
-        model = _template
+        model = _template;
     };
 
     const Data = {
@@ -346,7 +346,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             this.defineNodesAndLinks();
         },
 
-        addClass: function(node,newLddMode) {
+        addClass: function(node) {
             // create DD_Class definition
             const newClass = {
                 name: [node.name],
@@ -363,7 +363,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
 
             // create link between newClass and activeNode
             // by adding reference to class from activeNode
-            if (newLddMode) return this.defineNodesAndLinks();
+            if (this.newLddMode) return this.defineNodesAndLinks();
 
             this.activeNode['DD_Association'].push({
                 identifier_reference: [node.local_identifier],
