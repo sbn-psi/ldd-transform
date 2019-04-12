@@ -91,7 +91,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             let errors = {};
             $scope.errors = errors;
             const spaceError = function(keyword) {
-                return `Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.Spaces are not allowed in the ${keyword}. Consider using underscores instead.`;
+                return `Spaces are not allowed in the ${keyword}.`;
             };
 
             const name = $scope.ldd.edit.name.trim();
