@@ -323,8 +323,6 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 }
             };
             
-            console.log(newAttribute);
-            
             for (let i = 0; i < node.permissibleValues.length; i++) {
                 let key = 'permissible_value_' + (i + 1);
                 newAttribute['value_domain_entry'][key] = {
