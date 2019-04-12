@@ -114,17 +114,6 @@ app
             template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.hide()"></i>'
         }
     })
-    .directive('ld3NodeForm', () => {
-        return {
-            templateUrl: './partials/ld3-node-form.html'
-        }
-    })
-    .directive('ld3EditNodeForm', () => {
-        return {
-            templateUrl: './partials/ld3-edit-node-form.html',
-            transclude: true
-        }
-    })
     .directive('ld3EditClass', () => {
         return {
             templateUrl: './partials/ld3-edit-class.html',
@@ -136,31 +125,4 @@ app
             templateUrl: './partials/ld3-edit-attribute.html',
             transclude: true
         }
-    })
-
-    .directive('ld3NewElement', () => {
-        return {
-            templateUrl: './partials/modal.new-element.html'
-        }
     });
-
-app.filter('classes', function() {
-        return function(input) {
-            if (!input) return null;
-            const output = input.filter(elem => {
-                if (!elem['reference_type']) return elem['local_identifier'][0] == 'component_of';
-                else return elem['reference_type'][0] == 'component_of';
-            });
-            return output;
-        };
-    })
-    .filter('attributes', function() {
-        return function(input) {
-            if (!input) return null;
-            const output = input.filter(elem => {
-                if (!elem['reference_type']) return elem['local_identifier'][0] == 'attribute_of';
-                else return elem['reference_type'][0] == 'attribute_of';
-            });
-            return output;
-        };
-    })
