@@ -337,7 +337,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 reference_type: ['attribute_of'],
                 minimum_occurrences: [node.minimum_occurrences],
                 maximum_occurrences: [node.maximum_occurrences],
-                DD_Attribute_Reference: {
+                dd_attribute_reference: {
                     namespace_id: [this.ldd().namespace_id],
                     name: [node.name]
                 }
@@ -361,19 +361,19 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             const index = this.model['Ingest_LDD']['DD_Class'].length;
             this.model['Ingest_LDD']['DD_Class'].push(newClass);
 
-            // create link between newClass and activeNode
-            // by adding reference to class from activeNode
             if (this.newLddMode) {
                 this.newLddMode = false;
                 return this.defineNodesAndLinks();
             }
 
+            // create link between new class node and activeNode
+            // by adding reference to from activeNode
             this.activeNode['DD_Association'].push({
                 identifier_reference: [node.local_identifier],
                 reference_type: ['component_of'],
                 minimum_occurrences: [node.minimum_occurrences],
                 maximum_occurrences: [node.maximum_occurrences],
-                DD_Class_Reference: {
+                dd_class_reference: {
                     namespace_id: [this.ldd().namespace_id],
                     name: [node.name]
                 }
@@ -426,7 +426,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                         })(),
                         minimum_occurrences: null,
                         maximum_occurrences: null,
-                        DD_Class_Reference: {
+                        dd_attribute_reference: {
                             namespace_id: [node['local_identifier'][0].split('.')[0]],
                             name: node['name']
                         }
