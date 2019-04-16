@@ -115,6 +115,7 @@ button, a, i, [type=submit] {
   top: 0;
   left: 0;
   z-index: 998;
+  min-height: 125px;
 }
 #toolbar .toolgroup {
   position: relative;
@@ -292,9 +293,10 @@ input, select, textarea {
 .main {
   position: absolute;
   background: #f6f6f6;
-  top: 0;
+  top: 125px;
   left: 0;
   width: 100vw;
+  height: calc(100vh - 125px);
   margin: 0;
   padding: 0;
 }

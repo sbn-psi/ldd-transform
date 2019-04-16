@@ -1,32 +1,17 @@
 app.factory('Visualizations', function(DataModel, $rootScope) {
     const dataModel = DataModel;
 
-    // Nodes
-    const rx = 70;                                          // x radius of ellipse
-    const ry = 20;                                          // y radius of ellipse
-    const colWidth = 225; // px
-    const xOffset = 100; // px
-    const verticalOffset = 150;                             // px
-    const verticalPadding = 5;                              // px
-    const verticalSpacing = ry * 2 + verticalPadding;       // px
-    const nodeStroke = 'black';
-    const rootNodeFill = 'lightgreen';
-    const classNodeFill = '#ADD8E6';
-    const attributeNodeFill = 'white';
-    const activeNodeStroke = '#666666';
-    const nodeStrokeWidth = '1px';
-    const nodeHighlightStroke = 'orange';
-    const nodeHighlightStrokeWidth = '3px';
+    // milligram
+    const $primary = '#9b4dca';
+    const $primaryLight = '#cda6e4';
+    const $secondary = '#606c76';
+    const $tertiary = '#f4f5f6';
+    const $quaternary = '#d1d1d1';
+    const $quinary = '#e1e1e1';
+    const $initial = '#ffffff';
 
-    // Edges (Lines)
-    const linkHighlightStroke = 'orange';
-    const linkHighlightStrokeWidth = '5px';
-    const linkStroke = 'black';
-    const linkStrokeWidth = '1px';
-    const optional = 0.25;                                  // link opacity
-    const required = 1;                                     // link opacity
-
-    const toolbarWidth = '400'; // px
+    const graphFontSize = 18;
+    
     const width = $(document).width();
     const height = $(document).height();
     const zoomScale = [0.1, 10];
@@ -39,6 +24,129 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
     let activeNodes = [];
     let g1 = [];
     let g2 = [];
+
+    const Link = {
+        stroke: function(link) {
+            // set link colors
+            return $secondary;
+        },
+        
+        strokeWidth: function(link) {
+            let _lid,
+                _active = null;
+
+            try {
+                _lid = dataModel.nodes[link.source]['local_identifier'][0];
+            } catch (err) {
+                _lid = dataModel.nodes[link.source]['identifier_reference'][0];
+            }
+
+            _active = g1.find(d => {
+                try {
+                    return d['local_identifier'][0] == _lid;
+                } catch (err) {
+                    return d['identifier_reference'][0] == _lid;
+                }
+            });
+
+            return (_active) ? '3px' : '1px';
+        },
+        opacity: function(link) {
+            const optional = 0.25;
+            const required = 1;
+            let isRequired = null;
+
+            var parentIdx = link.source;
+            var parentNode = dataModel.nodes[parentIdx];
+            var childIdx = link.target;
+            var childNode = dataModel.nodes[childIdx];
+
+            var parent = dataModel.model['Ingest_LDD']['DD_Class'].find(c => {
+                if (c.lid == parentNode.lid) {
+                    return c;
+                } else {
+                    return false;
+                }
+            });
+
+            parent['DD_Association'].map(a => {
+                if (!a.lid) {
+                    try {
+                        a.lid = a.local_identifier[0];
+                    } catch (e) {
+                        a.lid = a.identifier_reference[0];
+                    }
+                }
+
+                if (a.lid == childNode.lid) {
+                    if (!angular.isDefined(childNode.minimum_occurrences)) isRequired = false;
+                    else if (childNode.minimum_occurrences[0] > 0) isRequired = true;
+                    else isRequired = false;
+                }
+
+            });
+
+            // this method is broken: currently returning 1 for all links
+            return '1';
+        }
+    };
+
+    const Node = {
+        height: 40,
+        width: 200,
+        
+        offsetY: -20,
+        offsetX: 0,
+        
+        spacing: {
+            x: 100,
+            y: 50
+        },
+        padding: {
+            // inital offset for root node
+            x: 150,
+            y: 50
+        },
+        
+        'colWidth': 225,
+        'strokeWidth': '1px',
+        'nodeHighlightStrokeWidth': '3px',
+        
+        fill: function(node) {
+            return (node.rootNode || node.className === 'class') ? $quaternary : $initial;
+        },
+        
+        stroke: function(node) {
+            // set rect border colors
+            let _lid,
+                _active = null;
+
+            try {
+                _lid = node['local_identifier'][0];
+            } catch (err) {
+                _lid = node['identifier_reference'][0];
+            }
+
+            // catch active node, set custom stroke
+            if (dataModel.activeNode && node.lid == dataModel.activeNode.lid) return $primary;
+
+            _active = activeNodes.find(e => {
+                try {
+                    return e['local_identifier'][0] == _lid;
+                } catch (err) {
+                    return e['identifier_reference'][0] == _lid;
+                }
+            });
+
+            if (_active) {
+                return $primaryLight;
+            } else if (node.className === 'class') {
+                return $secondary;
+            } else {
+                return $secondary;
+            };
+        }
+    };
 
     const nextGen = function(parent) {
         let _nextGen = [];
@@ -151,19 +259,14 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                         lidId = d['identifier_reference'][0];
                     }
 
-                    // configure horiontal (x) position
-                    if (d.rootNode) d.x = colWidth - xOffset;
-                    else d.x = d.col * colWidth - xOffset;
-
-                    // configure vertical (y) position
-                    d.y = verticalOffset + idx * verticalSpacing;
+                    d.x = d.col * Node.colWidth - Node.spacing.x;
+                    d.y = (Node.spacing.y * idx) + Node.padding.y;
 
                     d.lid = lidId;
 
                     return d.lid;
                 });
 
-            // TODO transition on update here:
             link
                 .transition()
                 .duration(750)
@@ -181,9 +284,6 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .transition()
                 .duration(750)
                 .delay(1000)
-                .each(d => {
-                    return d;
-                })
                 .attr('transform',function(d) {
                     return `translate(${d.x},${d.y})`;
                 });
@@ -193,6 +293,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     return d.name[0];
                 });
 
+            // INITIAL link state
             const linkEnter = link
                 .enter()
                 .append('path')
@@ -207,11 +308,11 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     })
                 )
                 .attr('fill', 'none')
-                .attr('stroke', linkStroke)
-                .attr('stroke-width', linkStrokeWidth)
+                .attr('stroke', Link.stroke)
+                .attr('stroke-width', Link.strokeWidth)
                 .transition(tIn)
                     .delay(100)
-                    .style('opacity', this.linkOpacity);
+                    .style('opacity', Link.opacity);
 
             const nodeEnter = node
                 .enter()
@@ -241,10 +342,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
 
                     return _id;
                 })
-                .style('opacity',1e-6)
-                .attr('transform', function(d,idx) {
-                    return `translate(${d.x,d.y})`;
-                });
+                .style('opacity',1e-6);
 
             nodeEnter.transition(tIn)
                 .style('opacity',1);
@@ -252,30 +350,14 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
             // configure behavior when nodes enter
             // append ellipse to each node group
             nodeEnter
-                .append('ellipse')
-                .attr('class', 'circle')
-                .style('stroke', nodeStroke)
-                .style('fill', function highlightNode(n) {
-                    let _color,
-                        _lid;
-
-                    try {
-                        _lid = n['local_identifier'][0];
-                    } catch (err) {
-                        _lid = n['identifier_reference'][0];
-                    }
-
-                    if (n.rootNode) _color = rootNodeFill;
-                    else if (n.className == 'class') _color = classNodeFill;
-                    else _color = attributeNodeFill;
-
-                    return _color;
-                })
-                .attr('rx',1e-6)
-                .attr('ry',1e-6)
-                .transition(tIn)
-                .attr('rx', rx)
-                .attr('ry', ry);
+                .append('rect')
+                .attr('class', 'rect')
+                .style('stroke', Node.stroke)
+                .style('fill', Node.fill)
+                .attr('y', Node.offsetY)
+                .attr('x', Node.offsetX)
+                .attr('width', Node.width)
+                .attr('height', Node.height);
 
             // append text to each node group
             nodeEnter
@@ -284,31 +366,21 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .text(function(d) {
                     return d.name[0];
                 })
-                .style('font-size', function(d) {
-                    let maths = Math.min(2 * ry, (2 * ry) / this.getComputedTextLength() * 40);
-                    return `${maths}px`;
+                .style('font-size', graphFontSize)
+                .style('fill',function(d) {
+                    if (d.className === 'class') return $secondary;
+                    else return $secondary;
                 })
-                .attr('dx', () => rx * -.8)
-                .attr('dy', () => ry / 4)
+                .attr('dx', () => 3 + Node.offsetX)
+                .attr('dy', () => 10)
                 .style('opacity',1e-6)
                 .transition(tIn)
-                .delay(750)
                 .style('opacity',1);
 
             nodeEnter
                 .attr('transform', function(d, idx) {
-                    // configure horiontal (x) position
-
-                    if (d.rootNode) d.x = colWidth - xOffset;
-                    else d.x = d.col * colWidth - xOffset;
-
-                    // configure vertical (y) position
-                    d.y = verticalOffset + idx * verticalSpacing;
                     return `translate(${d.x},${d.y})`;
                 });
-
-
-
             // // // REMOVE // // //
             const nodeExit = node
                 .exit()
@@ -322,42 +394,6 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     .style('opacity',1e-6)
                 .remove();
 
-        },
-
-        linkOpacity: function(l) {
-            let isRequired;
-
-            var parentIdx = l.source;
-            var parentNode = dataModel.nodes[parentIdx];
-            var childIdx = l.target;
-            var childNode = dataModel.nodes[childIdx];
-
-            var parent = dataModel.model['Ingest_LDD']['DD_Class'].find(c => {
-                if (c.lid == parentNode.lid) {
-                    return c;
-                } else {
-                    return false;
-                }
-            });
-
-            parent['DD_Association'].map(a => {
-                if (!a.lid) {
-                    try {
-                        a.lid = a.local_identifier[0];
-                    } catch (e) {
-                        a.lid = a.identifier_reference[0];
-                    }
-                }
-
-                if (a.lid == childNode.lid) {
-                    if (!childNode.minimum_occurrences) isRequired = true;
-                    else if (childNode.minimum_occurrences[0] > 0) isRequired = true;
-                    else isRequired = false;
-                }
-
-            });
-
-            return isRequired ? required : optional;
         },
 
         toggleHighlights: function() {
@@ -377,110 +413,12 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
             };
 
             svg.selectAll('.link')
-                .style('stroke', function(link) {
-                    let _lid,
-                        _active = null;
+                .style('stroke', $secondary)
+                .style('stroke-width', Link.strokeWidth)
+                .style('opacity', Link.opacity);
 
-                    try {
-                        _lid = dataModel.nodes[link.source]['local_identifier'][0];
-                    } catch (err) {
-                        _lid = dataModel.nodes[link.source]['identifier_reference'][0];
-                    }
-
-                    _active = g1.find(d => {
-                        try {
-                            return d['local_identifier'][0] == _lid;
-                        } catch (err) {
-                            return d['identifier_reference'][0] == _lid;
-                        }
-                    })
-
-                    if (_active) {
-                        return linkHighlightStroke;
-                    } else if (!dataModel.activeNode || !dataModel.activeNode.parents) {
-                        return linkStroke;
-                    } else {
-                        return dataModel.activeNode.parents.find(d => {
-                            if (dataModel.getNode(d.lid,true) == link.source
-                            && dataModel.getNode(dataModel.activeNode.lid,true) == link.target) {
-                                return d;
-                            } else {
-                                return false;
-                            }
-                        }) ? 'red' : linkStroke;
-                    }
-                })
-                .style('stroke-width', function(link) {
-                    let _lid,
-                        _active = null;
-
-                    try {
-                        _lid = dataModel.nodes[link.source]['local_identifier'][0];
-                    } catch (err) {
-                        _lid = dataModel.nodes[link.source]['identifier_reference'][0];
-                    }
-
-                    _active = g1.find(d => {
-                        try {
-                            return d['local_identifier'][0] == _lid;
-                        } catch (err) {
-                            return d['identifier_reference'][0] == _lid;
-                        }
-                    })
-
-                    if (_active) {
-                        return linkHighlightStrokeWidth;
-                    } else if (!dataModel.activeNode || !dataModel.activeNode.parents) {
-                        return linkStrokeWidth;
-                    } else {
-                        return dataModel.activeNode.parents.find(d => {
-                            if (dataModel.getNode(d.lid,true) == link.source
-                                    && dataModel.getNode(dataModel.activeNode.lid,true) == link.target) {
-                                return d;
-                            } else {
-                                return false;
-                            }
-                        }) ? linkHighlightStrokeWidth : linkStrokeWidth;
-                    }
-                })
-                .style('opacity', this.linkOpacity);
-
-            svg.selectAll('.circle')
-                .style('stroke', function(d) {
-                    let _lid,
-                        _active = null;
-
-                    try {
-                        _lid = d['local_identifier'][0];
-                    } catch (err) {
-                        _lid = d['identifier_reference'][0];
-                    }
-
-                    if (dataModel.activeNode && d.lid == dataModel.activeNode.lid) return activeNodeStroke;
-
-                    _active = activeNodes.find(e => {
-                        try {
-                            return e['local_identifier'][0] == _lid;
-                        } catch (err) {
-                            return e['identifier_reference'][0] == _lid;
-                        }
-                    });
-
-                    if (_active) {
-                        return nodeHighlightStroke;
-                    } else if (!dataModel.activeNode || !dataModel.activeNode.parents) {
-                        return nodeStroke;
-                    } else {
-                        return dataModel.activeNode.parents.find(e => {
-                            try {
-                                return e['local_identifier'][0] == _lid;
-                            } catch (err) {
-                                return e['identifier_reference'][0] == _lid;
-                            }
-                        }) ? 'red' : nodeStroke;
-                    }
-
-                })
+            svg.selectAll('.rect')
+                .style('stroke', Node.stroke)
                 .style('stroke-width', function(d) {
                     let _lid,
                         _active = null;
@@ -500,9 +438,9 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     });
 
                     if (_active) {
-                        return nodeHighlightStrokeWidth;
+                        return Node.nodeHighlightStrokeWidth;
                     } else if (!dataModel.activeNode || !dataModel.activeNode.parents) {
-                        return nodeStrokeWidth;
+                        return Node.nodeStrokeWidth;
                     } else {
                         return dataModel.activeNode.parents.find(e => {
                             try {
@@ -510,7 +448,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                             } catch (err) {
                                 return e['identifier_reference'][0] == _lid;
                             }
-                        }) ? nodeHighlightStrokeWidth : nodeStrokeWidth;
+                        }) ? Node.nodeHighlightStrokeWidth : Node.nodeStrokeWidth;
                     }
 
                 })

@@ -1,9 +1,10 @@
 .main {
     position: absolute;
     background: #f6f6f6;
-    top: 0;
+    top: 125px;
     left: 0;
     width: 100vw;
+    height: calc(100vh - 125px);
     margin: 0;
     padding: 0;
 }
