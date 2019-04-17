@@ -216,22 +216,21 @@ button, a, i, [type=submit] {
 
 .form {
   position: absolute;
-  top: 8em;
+  top: 9em;
   margin: 0 auto;
   padding: 0 1em;
-  width: 40vw;
-  max-width: 600px;
-  min-width: 350px;
-  min-height: 350px;
   max-height: calc(100vh - 6em - 6em);
   overflow-y: scroll;
   border: 1px solid #9a9a9a;
   box-shadow: 0 0 5px 1px #676767;
-  background: #ffffff;
+  background: #fbfbfb;
 }
 
 input, select, textarea {
-  background: #fbfbfb !important;
+  background: #ffffff !important;
+}
+input[disabled], select[disabled], textarea[disabled] {
+  background: #e6e6e6 !important;
 }
 
 .flex-row {
@@ -330,41 +329,10 @@ input, select, textarea {
 }
 
 .button {
-  height: 2em;
-  min-width: 5em;
   cursor: pointer;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  border: none;
-  border-radius: 0.2em;
-  background: blue;
-  color: #ffffff;
   font-family: inherit;
-  font-size: 0.9em;
+  font-size: 0.8em;
   margin: 0.5em;
-}
-.button :active {
-  box-shadow: none;
-}
-.button .positive {
-  background: forestgreen;
-  color: #ffffff;
-}
-.button .negative {
-  background: red;
-  color: #ffffff;
-}
-.button.centered {
-  margin: 0.5em auto;
-}
-.button:hover {
-  background: #3333ff;
-}
-.button:active {
-  background: #6666ff;
 }
 
 .disabled {

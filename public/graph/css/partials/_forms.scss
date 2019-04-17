@@ -11,22 +11,20 @@
 }
 .form {
     position: absolute;
-    top: 8em;
+    top: 9em;
     margin: 0 auto;
     padding: 0 1em;
-    width: 40vw;
-    max-width: 600px;
-    min-width: 350px;
-    min-height: 350px;
     max-height: calc(100vh - 6em - 6em);
     overflow-y: scroll;
     @include border-mixin($lightGrey);
     box-shadow: $shadow-1;
-    background: $white;
-    
+    background: $offWhite;
 }
 input, select, textarea {
-    background: #fbfbfb !important;
+    background: $white !important;
+    &[disabled] {
+        background: darken($white,10%) !important;
+    }
 }
 .flex-row {
     display: flex;
