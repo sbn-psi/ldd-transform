@@ -350,6 +350,8 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
 
                     return _id;
                 })
+                .attr('data-class', d => d.className === 'class')
+                .attr('data-attr',  d => d.className === 'attribute')
                 .style('opacity',1e-6);
 
             nodeEnter.transition(tIn)
