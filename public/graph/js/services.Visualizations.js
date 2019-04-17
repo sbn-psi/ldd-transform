@@ -10,8 +10,6 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
     const $quinary = '#e1e1e1';
     const $initial = '#ffffff';
 
-    const graphFontSize = 18;
-    
     const width = $(document).width();
     const height = $(document).height();
     const zoomScale = [0.1, 10];
@@ -113,7 +111,9 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
         'nodeHighlightStrokeWidth': '3px',
         
         fill: function(node) {
-            return (node.rootNode || node.className === 'class') ? $quaternary : $initial;
+            if (node.rootNode) return $secondary;
+            else if (node.className === 'class') return $quaternary;
+            else return $initial;
         },
         
         stroke: function(node) {
@@ -145,6 +145,14 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
             } else {
                 return $secondary;
             };
+        },
+        
+        text: {
+            fontSize: 18,
+            
+            fill: function(d) {
+                return (d.rootNode) ? $initial : $secondary;
+            }
         }
     };
 
@@ -363,14 +371,9 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
             nodeEnter
                 .append('text')
                 .attr('class','node-title')
-                .text(function(d) {
-                    return d.name[0];
-                })
-                .style('font-size', graphFontSize)
-                .style('fill',function(d) {
-                    if (d.className === 'class') return $secondary;
-                    else return $secondary;
-                })
+                .text(d => d.name[0])
+                .style('font-size', Node.text.fontSize)
+                .style('fill', Node.text.fill)
                 .attr('dx', () => 3 + Node.offsetX)
                 .attr('dy', () => 10)
                 .style('opacity',1e-6)
