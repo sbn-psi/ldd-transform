@@ -6,8 +6,8 @@ exports.config = {
     ],
 
     suites: {
-        'all': ['specs/load-ingest-file.spec.js'],
-        'class': ['specs/class.spec.js']
+        'all':   ['specs/load-ingest-file.spec.js'],
+        'class': ['specs/load-ingest-file.spec.js', 'specs/class.spec.js']
     },
 
     capabilities: {
