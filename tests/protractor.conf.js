@@ -1,14 +1,19 @@
 exports.config = {
     specs: [
         // global spec config/configure testing environment
-        'e2e.spec.js',
+        'specs/e2e.spec.js',
+        'specs/class.spec.js'
     ],
+
+    suites: {
+        'all': ['specs/load-ingest-file.spec.js'],
+        'class': ['specs/class.spec.js']
+    },
 
     capabilities: {
         'browserName': 'chrome',
         'chromeOptions': {
             args: [
-                '--headless',
                 '--window-size=1600,1200',
                 '--inspect-brk'
             ]
@@ -34,8 +39,6 @@ exports.config = {
         browser.baseUrl = 'http://localhost:3001/';
         console.log(`Protractor baseUrl: ${browser.baseUrl}`);
 
-        const failFast = require('jasmine-fail-fast');
-        jasmine.getEnv().addReporter(failFast.init());
-
+        browser.waitForAngularEnabled(false);
     }
 }
