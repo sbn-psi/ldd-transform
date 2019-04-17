@@ -5,14 +5,33 @@ const ingestFile = {
     relativePath: '../files/NuclearSpectroscopy.xml'
 };
 
-describe('Class specs', function() {
-    browser.get(browser.baseUrl);
+const ActiveNode = function(element) {
+    return {
+        modalElement: element,
+        isDisplayed: () => {
+            return element.isDisplayed()
+        }
+    };
+};
+
+const select = {
+    classNode: function(done) {
+        element.all(by.css('[data-class="true"]')).then(elements => {
+            const activeNode = new ActiveNode(element(by.id('active-node')));
+            expect(activeNode.isDisplayed()).toBeFalsy();
+            elements[0].click();
+            expect(activeNode.isDisplayed()).toBeTruthy();
+            done();
+        });
+    }
+}
+
+describe('A user', () => {
+    it('can define a new CLASS element', done => {
+        select.classNode(done);
+    });
     
-    element(by.id('inputfile')).sendKeys(path.resolve(__dirname,ingestFile.relativePath));
-    
-    browser.sleep(3000);
-    
-    it('should pass a test', () => {
-        expect(true).toBe(true);
+    xit('can modify an existing CLASS element', () => {
+        
     });
 });
