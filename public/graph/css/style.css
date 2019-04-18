@@ -158,7 +158,7 @@ button, a, i, [type=submit] {
   padding: 0.3em;
   background: #ffffff;
   z-index: 996;
-  min-width: 250px;
+  min-width: 350px;
   max-width: 25vw;
   border: 1px solid #9a9a9a;
   box-shadow: 0 0 5px 1px #676767;
