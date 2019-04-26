@@ -403,6 +403,8 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
         },
 
         createLink: function(node) {
+            // node will be the child node in the link being created
+            // active node is already stored on object
             if (node == this.activeNode) {
                 alert('Error: Cannot make a class its own parent.');
                 return false;
@@ -427,14 +429,27 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             this.model['Ingest_LDD']['DD_Class'] = this.model['Ingest_LDD']['DD_Class'].map(classNode => {
                 if (classNode.lid == parent.lid) {
                     let output = {
-                        identifier_reference: node['local_identifier'],
+                        identifier_reference: (() => {
+                            try {
+                                return node['local_identifier'];
+                            } catch (e) {
+                                return node['identifier_reference'];
+                            }
+                        })(),
                         reference_type: (() => {
                             return (node['className'] == 'class') ? ['component_of'] : ['attribute_of'];
                         })(),
                         minimum_occurrences: null,
                         maximum_occurrences: null,
                         dd_attribute_reference: {
-                            namespace_id: [node['local_identifier'][0].split('.')[0]],
+                            namespace_id: (() => {
+                                console.log(node);
+                                try {
+                                    return [node['local_identifier'][0].split('.')[0]];
+                                } catch (e) {
+                                    return [node['identifier_reference'][0].split('.')[0]];
+                                }
+                            })(),
                             name: node['name']
                         }
                     };
