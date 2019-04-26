@@ -174,8 +174,6 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
     return {
         svg: svg,
 
-        linkMode: false,
-
         initGrid: function() {
             var sim = d3.select('svg')
             .attr('width', width)
@@ -326,19 +324,7 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .enter()
                 .append('g')
                 .classed('node', true)
-                .on('click', function(target) {
-                    if (that.linkMode) {
-                        const linkCreated = dataModel.createLink(target);
-                        if (linkCreated) {
-                            that.linkMode = false;
-                            dataModel.defineNodesAndLinks();
-                            that.update();
-                            that.toggleHighlights();
-                        }
-                    } else {
-                        dataModel.setActiveNode(target);
-                    }
-                })
+                .on('click', target => dataModel.setActiveNode(target))
                 .attr('id', function(d) {
                     let _id;
 

@@ -20,6 +20,9 @@
     <ld3-form-modify-class ng-show="modal.type == 'modifyClass'" class="form" modal="modal"></ld3-form-modify-class>
     <!-- modify attribute -->
     <ld3-form-modify-attribute ng-show="modal.type == 'modifyAttribute'" class="form" modal="modal"></ld3-form-modify-attribute>
+    
+    <!-- add link -->
+    <ld3-form-add-link ng-show="modal.type == 'addLink'" class="form" modal="modal"></ld3-form-add-link>
 
 </div>
 
@@ -28,8 +31,7 @@
     active-node="data.activeNode"
     modal="modal"
     show-modal="ld3.openAddNodeModal"
-    link-mode="ld3.linkMode"
-    toggle-link-mode="ld3.toggleLinkMode"
+    toggle-link-modal="ld3.toggleLinkModal"
     ng-show="data.activeNode">
  </ld3-active-node>
 

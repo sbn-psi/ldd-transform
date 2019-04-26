@@ -242,3 +242,53 @@ app
         }
     }
 })
+.directive('ld3FormAddLink', () => {
+    return {
+        templateUrl: path.form('add-link'),
+        controller: function($scope) {
+            $scope.links = {
+                ancestors: [],
+                elements: [],
+                addLink: function(lid) {
+                    const e = $scope.data.getNode(lid);
+                    $scope.data.createLink(e);
+                    $scope.vis.update();
+                    $scope.vis.toggleHighlights();
+                    $scope.modal.hide();
+                }
+            };
+            
+            const getAncestors = function(lid) {
+                const idx = $scope.data.getNode(lid,true);
+                const parents = $scope.data.getParents(idx);
+                if (parents.length) {
+                    for (let i = 0; i < parents.length; i++) {
+                        if ($scope.links.ancestors.indexOf(parents[i]) === -1) $scope.links.ancestors.push(parents[i]);
+                        getAncestors(parents[i].lid);
+                    }
+                } else {
+                    return;
+                }
+            };
+            
+            $scope.$watch('data.activeNode', newVal => {
+                if (!newVal) return;
+                $scope.links.ancestors = [];
+                getAncestors(newVal.lid);
+                $scope.links.elements = $scope.data.nodes.filter(node => {
+                    const isAncestor = x => $scope.links.ancestors.indexOf(x) !== -1;
+                    const isChild = x => {
+                        let output = false;
+                        $scope.data.activeNode.children.map(child => {
+                            if (child.lid === x.lid) output = true;
+                        });
+                        return output;
+                    };
+                    const isActiveNode = x => $scope.data.activeNode.lid === x.lid;
+                    
+                    return !isAncestor(node) && !isChild(node) && !isActiveNode(node);
+                });
+            });
+        }
+    }
+})

@@ -58,8 +58,7 @@ app
                 activeNode: '=',
                 modal: '=',
                 showModal: '=',
-                linkMode: '=',
-                toggleLinkMode: '='
+                toggleLinkModal: '='
             },
             controller: function($scope) {
                 $scope.addNewClass = function() {

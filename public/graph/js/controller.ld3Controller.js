@@ -72,7 +72,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         },
         isEnabled: {
             addNode: function() {
-                if ($scope.vis.linkMode) return false;
                 if (!$scope.data.activeNode) return false;
 
                 const refType = $scope.data.activeNode.className;
@@ -86,9 +85,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                 return true;
             }
         },
-        linkMode: false,
-        toggleLinkMode: function() {
-            $scope.vis.linkMode = !$scope.vis.linkMode;
+        toggleLinkModal: function(type) {
+            $scope.modal.show(type);
         },
         openAddNodeModal: function(modalName) {
             $scope.modal.show(modalName);
