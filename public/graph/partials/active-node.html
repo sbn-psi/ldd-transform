@@ -2,7 +2,7 @@
 
 <h3 class="title">{{ activeNode.name[0] }}</h3>
 
-<button class="button button-outline" ng-click="modifyElement()">Modify Element</button>
+<button class="button button-clear" ng-click="modifyElement()">Modify Element</button>
 
 <div class="linebreak"></div>
 
@@ -16,7 +16,8 @@
     <div class="linebreak vertical no-margin"></div>
     <div>
         <h6 class="title">Modify Links</h6>
-        <button class="button button-clear" id="add-link" ng-click="toggleLinkModal('addLink')">Add Link</button>
+        <button class="button button-clear" id="add-link" ng-click="toggleLinkModal('addLink')">Add Links</button>
+        <button class="button button-clear" id="remove-link" ng-click="toggleLinkModal('removeLink')">Remove Links</button>
     </div>
 </div>
 

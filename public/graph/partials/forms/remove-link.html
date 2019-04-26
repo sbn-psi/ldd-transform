@@ -1,0 +1,19 @@
+<form>
+
+    <h3 class="title">Remove Link</h3>
+    
+    <h4>{{ data.activeNode.name[0] }}</h4>
+
+    <p>Choose the element from which the link will be removed from the list below.</p>
+
+    <fieldset class="flex-row wrap">
+        <button class="button" ng-repeat="element in data.activeNode.children" ng-click="links.removeLink(element.lid)" ng-class="{'button-outline':element.reference_type[0] === 'attribute_of'}">{{ element.lid }}</button>
+        
+        <p ng-show="links.elements.length === 0"><b>There are no available links to be removed at this time.</b></p>
+    </fieldset>
+
+    <div class="linebreak"></div>
+
+    <button class="button right" ng-click="modal.hide()">Close</button>
+
+</form>

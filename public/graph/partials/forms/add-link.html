@@ -7,12 +7,13 @@
     <p>Choose an element from the list below to complete adding a new link.</p>
 
     <fieldset class="flex-row wrap">
-        <button class="button" ng-repeat="element in links.elements" ng-click="links.addLink(element.lid)" ng-class="{'button-outline':element.className === 'attribute'}">{{ element.name[0] }}</button>
+        <button class="button" ng-repeat="element in links.elements" ng-click="links.addLink(element.lid)" ng-class="{'button-outline':element.className === 'attribute'}">{{ element.lid }}</button>
+        
+        <p ng-show="links.elements.length === 0"><b>There are no available elements to be linked at this time.</b></p>
     </fieldset>
 
     <div class="linebreak"></div>
 
-    <button class="button button-outline" ng-click="modal.hide()">Cancel</button>
-    <button class="button" ng-click="modifyAttribute()">Save</button>
+    <button class="button right" ng-click="modal.hide()">Close</button>
 
 </form>

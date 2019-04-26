@@ -3,6 +3,9 @@
     font-family: inherit;
     font-size: 0.8em;
     margin: 0.5em;
+    &.right {
+        float: right;
+    }
 }
 .disabled {
     color: $grey !important;

@@ -328,6 +328,9 @@ input[disabled], select[disabled], textarea[disabled] {
   font-size: 0.8em;
   margin: 0.5em;
 }
+.button.right {
+  float: right;
+}
 
 .disabled {
   color: #808080 !important;
