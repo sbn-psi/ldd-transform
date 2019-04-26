@@ -183,7 +183,10 @@ app
             $scope.data = DataModel;
             
             $rootScope.$on('modal-show',function() {
-                if ($scope.data.newLddMode) return;
+                if (!$scope.data || !$scope.data.activeNode) return;
+                else if ($scope.data.newLddMode) return;
+                else if ($scope.modal.type === 'editLdd') return;
+                
                 $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
                 $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
             });
@@ -199,9 +202,7 @@ app
                 };
 
                 $scope.data.modifyClass(lid,values);
-
                 $scope.vis.update();
-
                 $scope.modal.hide();
             };
         }
@@ -215,8 +216,10 @@ app
             $scope.data = DataModel;
             
             $rootScope.$on('modal-show',function() {
-                if (!$scope.data && !$scope.data.activeNode) return;
+                if (!$scope.data || !$scope.data.activeNode) return;
                 else if ($scope.data.newLddMode) return;
+                else if ($scope.modal.type === 'editLdd') return;
+                
                 $scope.modifiedNode = JSON.parse(JSON.stringify($scope.data.activeNode));
                 $scope.modifiedNode.namespace_id = [$scope.modifiedNode['lid'].split('.')[0]];
             });
@@ -233,9 +236,7 @@ app
                 };
 
                 $scope.data.modifyAttribute(lid,values);
-
                 $scope.vis.update();
-
                 $scope.modal.hide();
             };
         }
