@@ -1,39 +1,8 @@
 .button {
-    height: 2em;
-    min-width: 5em;
     cursor: pointer;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 0.2em;
-    background: blue;
-    color: $white;
     font-family: inherit;
-    font-size: 0.9em;
+    font-size: 0.8em;
     margin: 0.5em;
-    :active {
-        box-shadow: none;
-    }
-    .positive {
-        background: forestgreen;
-        color: $white;
-    }
-    .negative {
-        background: red;
-        color: $white;
-    }
-    &.centered {
-        margin: 0.5em auto;
-    }
-    &:hover {
-        background: lighten(blue,10%);
-    }
-    &:active {
-        background: lighten(blue,20%);
-    }
 }
 .disabled {
     color: $grey !important;

@@ -45,11 +45,23 @@ module.exports = function(grunt) {
             }
         },
         protractor: {
+            options: {
+                configFile: './tests/protractor.conf.js',
+                keepAlive: false,
+                noColor: false
+            },
             runAll: {
                 options: {
-                    configFile: './tests/protractor.conf.js',
-                    keepAlive: false,
-                    noColor: false
+                    args: {
+                        suite: 'all'
+                    }
+                }
+            },
+            class: {
+                options: {
+                    args: {
+                        suite: 'class'
+                    }
                 }
             }
         }
@@ -62,4 +74,5 @@ module.exports = function(grunt) {
     grunt.registerTask('deploy:dev', ['clean', 'copy:dev', 'copy:images']);
     grunt.registerTask('deploy:production', ['clean', 'copy:production', 'copy:images']);
     grunt.registerTask('test', ['protractor:runAll']);
+    grunt.registerTask('test:class', ['protractor:class']);
 };
