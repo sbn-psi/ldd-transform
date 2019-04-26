@@ -19,17 +19,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         if ($scope.modal.type == 'addClass'    ) $scope.newNode = newNode;
     });
     
-    const extractErrors = function(errs) {
-        let errors = {};
-        const keywords = Object.keys(errs);
-        for (let i = 0; i < keywords.length; i++) {
-            const keyword = keywords[i];
-            const err = errs[keyword];
-            if (keywords[keyword] == "") errors[keyword] = err;
-        };
-        return errors;
-    };
-    
     $scope.modal = Modal;
     $scope.vis = Visualizations;
     $scope.data = DataModel;
@@ -98,8 +87,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             return;
         },
         saveLdd: function() {
-            $scope.errors = extractErrors(Validate.lddForm($scope.ldd.edit));
-            if (Object.keys($scope.errors).length) return;
+            $scope.errors = Validate.lddForm($scope.ldd.edit);
+            if (errorsExist($scope.errors)) return;
 
             $scope.modal.hide();
             $scope.data.modifyLddDetails($scope.ldd.edit);
