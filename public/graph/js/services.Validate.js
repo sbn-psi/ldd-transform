@@ -1,76 +1,28 @@
 app.factory('Validate', function() {
+    const validator = test => message => value => test(value) ? message : '';
+    const isNull = x => !x && x !== 0;
+    const isUndefined = x => x === undefined;
+    const hasWhitespace = x => / /g.test(x);
+    const lddVersionFormat = x => /[0-9].[0-9].[0-9].[0-9]/g.test(x) === false;
+    
     const validations = {
-        name: function(name) {
-            let message = '';
-            
-            if (!name) {
-                message = 'Name is required.';
-            } else if (name.match(/ /g)) {
-                message = 'Spaces are not allowed. Replace spaces with underscores.';
-            }
-            
-            return message;
-        },
-        namespace_id: function(ns) {
-            let message = '';
-            
-            if (!ns) message = 'Namespace ID is required.';
-            
-            return message;
-        },
-        version_id: function(vid) {
-            let message = '';
-            
-            if (!vid) message = 'Version is required.';
-            
-            return message;
-        },
-        submitter_name: function(sname) {
-            let message = '';
-            
-            if (!sname) message = 'Submitter name is required.';
-            
-            return message;
-        },
-        definition: function(def) {
-            let message = '';
-            
-            if (!def) message = 'Definition is required.';
-            
-            return message;
-        },
-        minimum_occurrences: function(minocc) {
-            let message = '';
-            
-            if (!minocc && minocc != 0) message = 'Minimum occurrences is required.';
-            
-            return message;
-        },
-        maximum_occurrences: function(maxocc) {
-            let message = '';
-            
-            if (!maxocc && maxocc != 0) message = 'Maximum occurrences is required.';
-            
-            return message;
-        },
-        nillable_flag: function(nflag) {
-            let message = '';
-            
-            if (nflag === undefined) message = 'Nillable flag is required.';
-            
-            return message;
-        },
-        enumeration_flag: function(eflag) {
-            let message = '';
-            
-            if (eflag === undefined) message = 'Enumeration flag is required.';
-            
-            return message;
-        }
+        comment: validator(isNull)('Comment is required.'),
+        definition: validator(isNull)('Definition is required.'),
+        enumeration_flag: validator(isUndefined)('Enumeration flag is required.'),
+        full_name: validator(isNull)('Full name is required.'),
+        ldd_version_id: validator(lddVersionFormat)('LDD Version must be of the form \'(1.2.3.4)\''),
+        maximum_occurrences: validator(isNull)('Maximum occurrences is required.'),
+        maximum_value: validator(isNull)('Maximum value is required'),
+        minimum_occurrences: validator(isNull)('Minimum occurrences is required.'),
+        minimum_value: validator(isNull)('Miniumum value is required'),
+        name: validator(isNull)('Name is required'),
+        namespace_id: validator(isNull)('Namespace is required.'),
+        nillable_flag: validator(isUndefined)('Nillable flag is required.'),
+        steward_id: validator(isNull)('Steward ID is required.')
     };
     
-    const elements = {
-        attribute: [
+    const forms = {
+        attributeForm: [
             'name',
             'namespace_id',
             'version_id',
@@ -78,12 +30,14 @@ app.factory('Validate', function() {
             'definition',
             'minimum_occurrences',
             'maximum_occurrences',
+            'minimum_value',
+            'maximum_value',
             'nillable_flag',
             'enumeration_flag',
             'value_data_type',
             'unit_of_measure_type'
         ],
-        class: [
+        classForm: [
             'name',
             'namespace_id',
             'version_id',
@@ -91,6 +45,14 @@ app.factory('Validate', function() {
             'definition',
             'minimum_occurrences',
             'maximum_occurrences'
+        ],
+        lddForm: [
+            'name',
+            'ldd_version_id',
+            'full_name',
+            'steward_id',
+            'namespace_id',
+            'comment'
         ]
     };
     
@@ -98,7 +60,7 @@ app.factory('Validate', function() {
         attributeForm: function(formValues) {
             let output = {};
             
-            elements.attribute
+            forms.attributeForm
                 .map(attr => {
                     if (validations[attr]) output[attr] = validations[attr](formValues[attr]);
                 });
@@ -108,7 +70,7 @@ app.factory('Validate', function() {
         classForm: function(formValues) {
             let output = {};
             
-            elements.class
+            forms.classForm
                 .map(attr => {
                     if (validations[attr]) output[attr] = validations[attr](formValues[attr]);
                 });
@@ -118,30 +80,14 @@ app.factory('Validate', function() {
         lddForm: function(formValues) {
             let output = {};
             
-            const spaceError = function(keyword) {
-                return `Spaces are not allowed in the ${keyword}.`;
-            };
-            
-            const name = formValues['name'].trim();
-            if (!name) output.name = 'LDD Name is required.';
-            else if (/ /g.test(name)) output.name = spaceError('LDD name');
-            
-            if (!formValues['ldd_version_id']) output.ldd_version_id = 'LDD Version is required.';
-            if (!formValues['full_name']) output.full_name = 'Full Name is required.';
-            
-            const stewardId = formValues['steward_id'].trim();
-            if (!stewardId) output.steward_id = 'Steward ID is required.';
-            else if (/ /g.test(stewardId)) output.steward_id = spaceError('steward ID');
-            
-            const namespaceId = formValues['namespace_id'].trim();
-            if (!namespaceId) output.namespace_id = 'Namespace is required.';
-            else if (/ /g.test(namespaceId)) output.namespace_id = spaceError('namespace ID');
-            
-            if (!formValues['comment']) output.comment = 'Comment is required.';
+            forms.lddForm
+                .map(keyword => {
+                    if (validations[keyword]) output[keyword] = validations[keyword](formValues[keyword]);
+                });
             
             return output;
         }
     };
-
+    
     return validate;
 });
