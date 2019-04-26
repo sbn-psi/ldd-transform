@@ -187,12 +187,6 @@ button, a, i, [type=submit] {
   overflow: scroll;
   max-height: calc(90vh - 6em);
 }
-.modal.form input[type=text] {
-  padding: 0.3em;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-}
 
 .modal-close {
   padding: 0;
