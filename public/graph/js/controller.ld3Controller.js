@@ -1,4 +1,5 @@
-app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', '$rootScope', 'Validate', function($scope, $window, DataModel, Modal, Visualizations, $rootScope, Validate) {
+app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', '$rootScope', 'Validate',
+function($scope, $window, DataModel, Modal, Visualizations, $rootScope, Validate) {
     // initialize application state
     $rootScope.$on('modal-show', function() {
         const newNode = (() => {
@@ -101,39 +102,11 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         },
         download: function() {
             let currentModel = $scope.data.pureModel();
-            
+
             const stewardId = currentModel['Ingest_LDD']['steward_id'][0].toUpperCase();
             const namespace = currentModel['Ingest_LDD']['namespace_id'][0].toUpperCase();
             const imVersion = $scope.data.pds4IMVersion;
             const lddVersion = currentModel['Ingest_LDD']['ldd_version_id'][0].replace(/\./g,'');
-            
-            // trim any properties with empty quotes as value off of the model-
-                // otherwise these would become empty XML elements
-            function traverse(x) {
-                if (isArray(x)) traverseArray(x);
-                else if ((typeof x === 'object') && (x !== null)) traverseObject(x);
-            };
-
-            function traverseArray(arr) {
-                arr.forEach(traverse);
-            };
-
-            function traverseObject(obj) {
-                for (var key in obj) {
-                    if (obj.hasOwnProperty(key)) {
-                        if (obj[key] === "") {
-                            delete obj[key];
-                        };
-                        traverse(obj[key]);
-                    };
-                };
-            };
-
-            function isArray(o) {
-                return Object.prototype.toString.call(o) === '[object Array]'
-            };
-
-            traverse(currentModel);
 
             const fileName = `${stewardId}_${namespace}_${imVersion}_${lddVersion}.xml`;
 

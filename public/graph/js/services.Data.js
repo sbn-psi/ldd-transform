@@ -67,6 +67,34 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     return element;
                 });
             };
+            
+            // trim any properties with empty quotes as value off of the model-
+                // otherwise these would become empty XML elements
+            function traverse(x) {
+                if (isArray(x)) traverseArray(x);
+                else if ((typeof x === 'object') && (x !== null)) traverseObject(x);
+            };
+
+            function traverseArray(arr) {
+                arr.forEach(traverse);
+            };
+
+            function traverseObject(obj) {
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        if (obj[key] === "") {
+                            delete obj[key];
+                        };
+                        traverse(obj[key]);
+                    };
+                };
+            };
+
+            function isArray(o) {
+                return Object.prototype.toString.call(o) === '[object Array]'
+            };
+
+            traverse(model);
 
             // update 'last_modification_date_time'
             model['Ingest_LDD']['last_modification_date_time'] = [`${moment.utc().format()}`];
