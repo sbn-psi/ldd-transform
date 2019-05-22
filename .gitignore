@@ -59,6 +59,7 @@ typings/
 
 # dotenv environment variables file
 .env
+services.env
 
 # github credentials file
 credentials.json
