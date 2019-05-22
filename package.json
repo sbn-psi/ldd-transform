@@ -19,9 +19,9 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.2",
-    "body-parser": "^1.18.3",
-    "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.4",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.0",
     "express-fileupload": "^0.4.0",
     "grunt": "^1.0.4",
     "libxslt": "^0.7.0",
@@ -34,6 +34,6 @@
     "grunt-protractor-runner": "^5.0.0",
     "jasmine-fail-fast": "^2.0.0",
     "jasmine-reporters": "^2.3.2",
-    "sass": "^1.17.3"
+    "sass": "^1.20.1"
   }
 }
