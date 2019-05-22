@@ -4,6 +4,7 @@
   "description": "A tool for transforming PDS4 Local Data Dictionary Ingest Files (Ingest_LDD) between simple types. Includes an interactive graph for creating and modifying Ingest_LDD files.",
   "main": "index.js",
   "scripts": {
+    "docker-ssh": "docker exec -it ldd-transform /bin/bash",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "wm-update": "node_modules/protractor/bin/webdriver-manager update",
