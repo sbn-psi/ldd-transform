@@ -5,6 +5,6 @@ services:
     restart: always
     build: .
     ports:
-      - "3001:3001"
+      - "49160:3001"
     environment:
       - NODE_ENV=production
