@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "docker-ssh": "docker exec -it ldd-transform /bin/bash",
+    "docker-tail": "docker exec -it harvest-server cat /proc/19/fd/2",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "wm-update": "node_modules/protractor/bin/webdriver-manager update",
@@ -23,8 +24,6 @@
     "express": "^4.16.4",
     "express-fileupload": "^0.4.0",
     "grunt": "^1.0.4",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-copy": "^1.0.0",
     "libxslt": "^0.7.0",
     "read-file-relative": "^1.2.0",
     "viz.js": "^1.8.2",
