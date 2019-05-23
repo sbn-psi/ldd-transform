@@ -9,6 +9,11 @@ const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
 
+const shell = require('shelljs');
+
+shell.exec(`sed -i 's@href="\/"@href="'$BASE'\/"@g' ./public/index.html`);
+shell.exec(`sed -i 's@href="\/graph\/"@href="'$BASE'\/graph\/"@g' ./public/graph/index.html`);
+
 // xml/js transformers
 const parseXmlString = xml2js.parseString;
 const xmlBuilder = new xml2js.Builder();
