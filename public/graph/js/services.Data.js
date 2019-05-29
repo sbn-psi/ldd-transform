@@ -177,6 +177,25 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                         if (targetLid === "XSChoice#") makeAChoice(this.nodes, this.links, sourceLid, target);
                         else proceed(this.nodes,this.links,sourceLid,targetLid);
 
+                        makeChildrenArray();
+
+                        function makeChildrenArray() {
+                            const REF = target['identifier_reference'];
+                            
+                            if (REF.length > 1 && REF[0] === 'XSChoice#') {
+                                REF.filter(r => r !== 'XSChoice#').map(r => {
+                                    let choiceTarget = that.getNode(r);
+
+                                    choiceTarget.minimum_occurrences = target['minimum_occurrences'];
+                                    choiceTarget.maximum_occurrences = target['maximum_occurrences'];
+
+                                    e.children.push(choiceTarget);
+                                });
+                            } else {
+                                e.children.push(target);
+                            };
+                        };
+
                         function makeAChoice(nodes, links, sourceLid, target) {
                             const CHOICES = target['identifier_reference'].filter(ref => ref !== 'XSChoice#').map(connectChoices);
 
@@ -223,7 +242,6 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                                 };
                                 links.push(l);
                             }
-                            e.children.push(target);
                         };
                         
                         function findMatch(nodes, targetLid) {
