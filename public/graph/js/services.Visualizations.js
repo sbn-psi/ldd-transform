@@ -264,7 +264,9 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                     } catch (err) {
                         lidId = d['identifier_reference'][0];
                     }
-
+                    
+                    // console.log(d.col);
+                    if (!d.col) console.log(d);
                     d.x = d.col * Node.colWidth - Node.spacing.x;
                     d.y = (Node.spacing.y * idx) + Node.padding.y;
 
@@ -291,6 +293,9 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .duration(750)
                 .delay(1000)
                 .attr('transform',function(d) {
+                    console.log(d);
+                    console.log(d.x,d.y);
+                    console.log('=================');
                     return `translate(${d.x},${d.y})`;
                 });
 

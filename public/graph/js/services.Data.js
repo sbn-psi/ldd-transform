@@ -49,6 +49,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 var keywords = [
                     'children'
                     ,'parents'
+                    ,'choice'
                     ,'className'
                     ,'col'
                     ,'lid'
@@ -146,6 +147,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             this.links = [];
 
             this.nodes.map((e, idx) => {
+                const that = this;
 
                 e.children = [];
                 let targets = e['DD_Association'];
@@ -154,7 +156,9 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     targets.map(target => {
 
                         let sourceLid,
-                            targetLid;
+                            sourceIdx,
+                            targetLid,
+                            targetIdx;
 
                         try {
                             sourceLid = e['local_identifier'][0];
@@ -162,54 +166,78 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                             sourceLid = e['identifier_reference'][0];
                         }
 
+                        sourceIdx = this.getNode(sourceLid, true);
+
                         try {
                             targetLid = target['local_identifier'][0];
                         } catch (err) {
                             targetLid = target['identifier_reference'][0];
                         }
 
-                        // search for lid in this.nodes array
-                        let match = this.nodes.find(el => {
-                            let _output;
-                            try {
-                                _output = el['local_identifier'][0] === targetLid;
-                            } catch (err) {
-                                _output = el['identifier_reference'][0] === targetLid;
-                            }
-                            return _output;
-                        });
+                        if (targetLid === "XSChoice#") makeAChoice(this.nodes, this.links, sourceLid, target);
+                        else proceed(this.nodes,this.links,sourceLid,targetLid);
 
-                        if (!match) {
-                            // create new node
-                            // in pds namespace
-                            target.className = 'attribute';
-                            try {
-                                target.name = [target['local_identifier'][0].replace('pds.', '')];
-                            } catch (err) {
-                                target.name = [target['identifier_reference'][0].replace('pds.', '')];
-                            }
-                            this.nodes.push(target);
-                            // then create a link in this.links array
-                            let _targetIdx = this.nodes.length - 1;
+                        function makeAChoice(nodes, links, sourceLid, target) {
+                            const CHOICES = target['identifier_reference'].filter(ref => ref !== 'XSChoice#').map(connectChoices);
 
-                            let l = {
-                                source: idx,
-                                target: _targetIdx,
-                                id: `${sourceLid}:${targetLid}`
+                            function connectChoices(choice) {
+                                const link = {
+                                    source: sourceIdx,
+                                    target: that.getNode(choice,true),
+                                    id: `${sourceLid}:${targetLid}`
+                                };
+                                
+                                links.push(link);
                             };
-                            this.links.push(l);
-                        } else {
-                            let t = this.nodes.indexOf(match);
-                            let l = {
-                                source: idx,
-                                target: t,
-                                id: `${sourceLid}:${targetLid}`
-                            };
-                            this.links.push(l);
-                        }
-                        e.children.push(target);
-                    })
+                        };
 
+                        function proceed(nodes,links,sourceLid,targetLid) {
+                            // search for lid in nodes array
+                            let match = findMatch(nodes, targetLid);
+                            
+                            if (!match) {
+                                // create new node
+                                // in pds namespace
+                                target.className = 'attribute';
+                                try {
+                                    target.name = [target['local_identifier'][0].replace('pds.', '')];
+                                } catch (err) {
+                                    target.name = [target['identifier_reference'][0].replace('pds.', '')];
+                                }
+                                nodes.push(target);
+                                // then create a link in links array
+                                let _targetIdx = nodes.length - 1;
+                                
+                                let l = {
+                                    source: idx,
+                                    target: _targetIdx,
+                                    id: `${sourceLid}:${targetLid}`
+                                };
+                                links.push(l);
+                            } else {
+                                let t = nodes.indexOf(match);
+                                let l = {
+                                    source: idx,
+                                    target: t,
+                                    id: `${sourceLid}:${targetLid}`
+                                };
+                                links.push(l);
+                            }
+                            e.children.push(target);
+                        };
+                        
+                        function findMatch(nodes, targetLid) {
+                            return nodes.find(el => {
+                                let _output;
+                                try {
+                                    _output = el['local_identifier'][0] === targetLid;
+                                } catch (err) {
+                                    _output = el['identifier_reference'][0] === targetLid;
+                                }
+                                return _output;
+                            });
+                        };
+                    });
                 }
             });
 
@@ -225,6 +253,8 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                     node.col = _col;
                     this.rootNodes.push(node);
                 };
+
+                if (!node.col) node.col = Math.max.apply(Math, this.getParents(this.nodes.indexOf(node)).map( parent => parent.col )) + 1;
 
                 return node;
             });
