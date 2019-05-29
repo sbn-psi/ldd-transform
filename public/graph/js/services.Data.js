@@ -82,7 +82,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             function traverseObject(obj) {
                 for (var key in obj) {
                     if (obj.hasOwnProperty(key)) {
-                        if (obj[key] === "") {
+                        if (obj[key] == "") {
                             delete obj[key];
                         };
                         traverse(obj[key]);
