@@ -30,8 +30,6 @@ app.factory('Validate', function() {
             'definition',
             'minimum_occurrences',
             'maximum_occurrences',
-            'minimum_value',
-            'maximum_value',
             'nillable_flag',
             'enumeration_flag',
             'value_data_type',
