@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Ingest_LDD xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd">
+  <name>nucspec</name>
+  <ldd_version_id>0.0.0.0</ldd_version_id>
+  <full_name>Small Bodies Node</full_name>
+  <steward_id>sbn</steward_id>
+  <namespace_id>nucspec</namespace_id>
+  <comment>This dictionary covers nuclear spectroscopy observations.</comment>
+  <last_modification_date_time>2019-05-21T18:44:16Z</last_modification_date_time>
+  <DD_Attribute>
+    <name>coefficient</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.coefficient</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The coefficient of a single term of the polynomial relating channel number to pulse height.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Real</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>order</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.order</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The order of a single term of the polynomial relating channel number to pulse height.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>state_index</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.state_index</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The state_index points to a row of a look up table containing the instrument settings.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>first_record</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.first_record</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The first record for which the state applies, inclusive.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <minimum_value>1</minimum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>last_record</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.last_record</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The last record for which this state applies, inclusive.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <minimum_value>1</minimum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>record_count</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.record_count</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The number of consecutive records, including the first, for which this state applies.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <minimum_value>1</minimum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>scet_start</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.scet_start</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Spacecraft event time in seconds past J2000 for the first science data record for a block of records with the same state.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Real</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>scet_stop</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.scet_stop</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Spacecraft event time in seconds past J2000 for the last science data record for a block of records with the same state.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Real</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>sclk_start_time</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.sclk_start_time</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Spacecraft clock time in ticks since spacecraft clock start for the first science data record for a block of records with the same state.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Integer</value_data_type>
+      <minimum_value>0</minimum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>sclk_stop_time</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.sclk_stop_time</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Spacecraft clock time in ticks since spacecraft clock start for the last science data record for a block of records with the same state.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Real</value_data_type>
+      <minimum_value>0</minimum_value>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>utc_start_time</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.utc_start_time</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Universal Coordinated Time for the first science data record for a block of records with the same state.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Date_Time_YMD_UTC</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>utc_stop_time</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.utc_stop_time</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Universal Coordinated Time for the last science data record for a block of records with the same state.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>ASCII_Date_Time_YMD_UTC</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>name</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.name</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The name of the detector</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>UTF8_Short_String_Collapsed</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>description</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.description</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>A description for the detector.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>UTF8_Text_Preserved</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Attribute>
+    <name>comment</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.comment</local_identifier>
+    <nillable_flag>false</nillable_flag>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Any notes about the state of the detector at the time of observation.</definition>
+    <DD_Value_Domain>
+      <enumeration_flag>false</enumeration_flag>
+      <value_data_type>UTF8_Text_Preserved</value_data_type>
+      <unit_of_measure_type>Units_of_None</unit_of_measure_type>
+    </DD_Value_Domain>
+  </DD_Attribute>
+  <DD_Class>
+    <name>NucSpec_Observation_Properties</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.NucSpec_Observation_Properties</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>This class specifies properties pertaining to a nuclear spectroscopy observation.</definition>
+    <element_flag>true</element_flag>
+    <DD_Association>
+      <identifier_reference>nucspec.Energy_Calibration</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.Instrument_Settings</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Energy_Calibration</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.Energy_Calibration</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Specifies methods and data used to determine the pulse height in energy units (e.g. MeV) for each channel of a pulse height spectrum.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.Polynomial</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.Calibration_Reference</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>unbounded</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Calibration_Reference</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.Calibration_Reference</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Contains a reference to a document that describes the energy calibration for the product.</definition>
+    <DD_Association>
+      <identifier_reference>pds.Internal_Reference</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Instrument_Settings</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.Instrument_Settings</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>This class specifies instrument settings. Instrument settings may be diven via a state table, which may be associated with specific observations within the data product, either by directly indicating those records, or indicating the observation times at which certain states apply.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.State_Table</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Polynomial</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.Polynomial</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The pulse height in energy units (e.g. MeV) is determined for a given channel number using the polynomial: H(x) = a0 + a1 x + a2 x^2 + ..., where H is pulse height with energy units and x is channel number.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.Polynomial_Term</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>unbounded</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Polynomial_Term</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.Polynomial_Term</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Describes a single term in the polynomial function.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.order</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.coefficient</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>State_Table</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.State_Table</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Specifies an additional look-up table that provides additional information about specific observations within the product.</definition>
+    <DD_Association>
+      <identifier_reference>pds.Internal_Reference</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.State_Table_Entry</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>unbounded</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.Detectors</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>State_Table_Entry</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.State_Table_Entry</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Associates individual observations in the data product with a record in the state table, providing additonal information on those observations.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.state_index</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>XSChoice#</identifier_reference>
+      <identifier_reference>Applicable_Records</identifier_reference>
+      <identifier_reference>State_Time</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Applicable_Records</name>
+    <version_id>1.0</version_id>
+    <local_identifier>Applicable_Records</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The records to which this state applies.</definition>
+    <DD_Association>
+      <identifier_reference>pds.Local_Internal_Reference</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>XSChoice#</identifier_reference>
+      <identifier_reference>First_Last</identifier_reference>
+      <identifier_reference>First_Count</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>State_Time</name>
+    <version_id>1.0</version_id>
+    <local_identifier>State_Time</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>The time during which this state was applicable.</definition>
+    <DD_Association>
+      <identifier_reference>XSChoice#</identifier_reference>
+      <identifier_reference>State_Time_SCET</identifier_reference>
+      <identifier_reference>State_Time_SCLK</identifier_reference>
+      <identifier_reference>State_Time_UTC</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>First_Last</name>
+    <version_id>1.0</version_id>
+    <local_identifier>First_Last</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+
+    <definition>Defines the first and last records for which this state applies.
+
+The record numbers are one-based and inclusive.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.first_record</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.last_record</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>First_Count</name>
+    <version_id>1.0</version_id>
+    <local_identifier>First_Count</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Defines the records to which this state applies by identifying the first record (inclusive), and the number of contiguous records, including the first.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.first_record</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.record_count</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Detectors</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.Detectors</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Specifies which detectors were active on an instrument at the time of observation.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.Detector</identifier_reference>
+      <reference_type>component_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>unbounded</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>Detector</name>
+    <version_id>1.0</version_id>
+    <local_identifier>nucspec.Detector</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Specifies a single detector which was active at the time of observation.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.name</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.description</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.comment</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>0</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>State_Time_SCET</name>
+    <version_id>1.0</version_id>
+    <local_identifier>State_Time_SCET</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Spacecraft event time in seconds past J2000 for the first and last science data records for a block of records with the same state.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.scet_start</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.scet_stop</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>State_Time_SCLK</name>
+    <version_id>1.0</version_id>
+    <local_identifier>State_Time_SCLK</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Spacecraft clock time in ticks since spacecraft clock start for the first and last science data records for a block of records with the same state.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.sclk_start_time</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.sclk_stop_time</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+  <DD_Class>
+    <name>State_Time_UTC</name>
+    <version_id>1.0</version_id>
+    <local_identifier>State_Time_UTC</local_identifier>
+    <submitter_name>Small Bodies Node</submitter_name>
+    <definition>Universal Coordinated Time for the first and last science data records for a block of records with the same state.</definition>
+    <DD_Association>
+      <identifier_reference>nucspec.utc_start_time</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+    <DD_Association>
+      <identifier_reference>nucspec.utc_stop_time</identifier_reference>
+      <reference_type>attribute_of</reference_type>
+      <minimum_occurrences>1</minimum_occurrences>
+      <maximum_occurrences>1</maximum_occurrences>
+    </DD_Association>
+  </DD_Class>
+
+  <DD_Rule>
+    <local_identifier>state_table_ref</local_identifier>
+    <rule_context>nucspec:State_Table/pds:Internal_Reference</rule_context>
+    <DD_Rule_Statement>
+      <rule_type>Assert</rule_type>
+      <rule_test>pds:reference_type = ('nucspec_product_to_state_table')</rule_test>
+      <rule_message>In the nucspec:State_Table class, the attribute pds:reference_type must be equal to 'nucspec_product_to_state_table'.</rule_message>
+    </DD_Rule_Statement>
+  </DD_Rule>
+
+  <DD_Rule>
+    <local_identifier>cal_ref_doc</local_identifier>
+    <rule_context>nucspec:Calibration_Reference/pds:Internal_Reference</rule_context>
+    <DD_Rule_Statement>
+      <rule_type>Assert</rule_type>
+      <rule_test>pds:reference_type = ('energy_calibration_to_calibration_document')</rule_test>
+      <rule_message>In the nucspec:Calibration_Reference class, the attribute pds:reference_type must be equal to 'energy_calibration_to_calibration_document'.</rule_message>
+    </DD_Rule_Statement>
+  </DD_Rule>
+
+  <DD_Rule>
+    <local_identifier>first_last_ordering</local_identifier>
+    <rule_context>nucspec:First_Last</rule_context>
+    <DD_Rule_Statement>
+      <rule_type>Assert</rule_type>
+      <rule_test>nucspec:last_record >= nucspec:first_record</rule_test>
+      <rule_message>In the nucspec:First_Last class, the index of the last record must be greater than or equal to the index of the first record.</rule_message>
+    </DD_Rule_Statement>
+  </DD_Rule>
+
+  <DD_Rule>
+    <local_identifier>applicable_records_local_reference_type</local_identifier>
+    <rule_context>nucspec:Applicable_Records/pds:Local_Internal_Reference</rule_context>
+    <DD_Rule_Statement>
+      <rule_type>Assert</rule_type>
+      <rule_test>pds:local_reference_type = ('state_table_to_data_table')</rule_test>
+      <rule_message>In the nucspec:Applicable_Records class, the attribute pds:local_reference_type must be equal to 'state_table_to_data_table'.</rule_message>
+    </DD_Rule_Statement>
+  </DD_Rule>
+
+  <DD_Rule>
+    <local_identifier>applicable_records_require_record_count</local_identifier>
+    <rule_context>nucspec:Applicable_Records</rule_context>
+    <rule_assign>name="local_id" value="pds:Local_Internal_Reference/pds:local_identifier_reference"</rule_assign>
+    <DD_Rule_Statement>
+      <rule_type>Assert</rule_type>
+      <rule_test>//*[pds:local_identifier=$local_id]/pds:records</rule_test>
+      <rule_message>In the nucspec:Applicable_Records class, the local_identifier_reference (&lt;sch:value-of select='$local_id'/&gt;) must reference a table with a record count.</rule_message>
+    </DD_Rule_Statement>
+  </DD_Rule>
+
+  <DD_Rule>
+    <local_identifier>last_bounds_check</local_identifier>
+    <rule_context>nucspec:First_Last</rule_context>
+    <rule_assign>name="local_id" value="../pds:Local_Internal_Reference/pds:local_identifier_reference"</rule_assign>
+    <rule_assign>name="record_count" value="number(//*[pds:local_identifier=$local_id]/pds:records)"</rule_assign>
+    <rule_assign>name="last_record" value="number(nucspec:last_record)"</rule_assign>
+    <DD_Rule_Statement>
+      <rule_type>Assert</rule_type>
+      <rule_test>$record_count >= $last_record</rule_test>
+      <rule_message>In the nucspec:First_Last class, the index of the last record (&lt;sch:value-of select='$last_record'/&gt;) must be less than or equal to the record count of the referenced table (&lt;sch:value-of select='$record_count'/&gt;).</rule_message>
+    </DD_Rule_Statement>
+  </DD_Rule>
+
+  <DD_Rule>
+    <local_identifier>first_count_bounds_check</local_identifier>
+    <rule_context>nucspec:First_Count</rule_context>
+    <rule_assign>name="local_id" value="../pds:Local_Internal_Reference/pds:local_identifier_reference"</rule_assign>
+    <rule_assign>name="record_count" value="number(//*[pds:local_identifier=$local_id]/pds:records)"</rule_assign>
+    <rule_assign>name="last_record" value="number(nucspec:first_record) + number(nucspec:record_count) - 1"</rule_assign>
+    <DD_Rule_Statement>
+      <rule_type>Assert</rule_type>
+      <rule_test>$record_count >= $last_record</rule_test>
+      <rule_message>In the nucspec:First_Last class, the index of the last record (&lt;sch:value-of select='$last_record'/&gt;) must be less than or equal to the record count of the referenced table (&lt;sch:value-of select='$record_count'/&gt;).</rule_message>
+    </DD_Rule_Statement>
+  </DD_Rule>
+</Ingest_LDD>
