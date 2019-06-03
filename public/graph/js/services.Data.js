@@ -384,7 +384,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                 nillable_flag: [node.nillable_flag],
                 submitter_name: [node.submitter_name],
                 definition: [node.definition],
-                value_domain_entry: {
+                DD_Value_Domain: {
                     enumeration_flag: [node.enumeration_flag],
                     value_data_type: [node.value_data_type],
                     minimum_value: [(() => {
@@ -402,7 +402,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             
             for (let i = 0; i < node.permissibleValues.length; i++) {
                 let key = 'permissible_value_' + (i + 1);
-                newAttribute['value_domain_entry'][key] = {
+                newAttribute['DD_Value_Domain'][key] = {
                     value: [node.permissibleValues[i].value],
                     value_meaning: [node.permissibleValues[i].value_meaning]
                 };
