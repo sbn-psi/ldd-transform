@@ -203,7 +203,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                                 const link = {
                                     source: sourceIdx,
                                     target: that.getNode(choice,true),
-                                    id: `${sourceLid}:${targetLid}`
+                                    id: `${sourceLid}:${choice}`
                                 };
                                 
                                 links.push(link);
