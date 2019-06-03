@@ -10,6 +10,7 @@ const async = require('async');
 const cheerio = require('cheerio');
 
 const shell = require('shelljs');
+const rp = require('request-promise');
 
 shell.exec(`sed -i 's@href="\/"@href="'$BASE'\/"@g' ./public/index.html`);
 shell.exec(`sed -i 's@href="\/graph\/"@href="'$BASE'\/graph\/"@g' ./public/graph/index.html`);

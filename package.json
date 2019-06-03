@@ -26,6 +26,8 @@
     "grunt": "^1.0.4",
     "libxslt": "^0.7.0",
     "read-file-relative": "^1.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "shelljs": "^0.8.3",
     "viz.js": "^1.8.2",
     "xml2js": "^0.4.19",
