@@ -9,7 +9,7 @@ COPY ldd-tool-web-service ldd-tool-web-service
 COPY index.js package*.json *.xsl README.md ./
 
 # Install app dependencies
-RUN npm install --only=production
+RUN npm install --production --quiet
 
 EXPOSE 3001
 
