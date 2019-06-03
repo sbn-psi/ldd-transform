@@ -104,15 +104,9 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                 };
             },
             download: function() {
-                let currentModel = $scope.data.pureModel();
-
-                const stewardId = currentModel['Ingest_LDD']['steward_id'][0].toUpperCase();
-                const namespace = currentModel['Ingest_LDD']['namespace_id'][0].toUpperCase();
-                const imVersion = $scope.data.pds4IMVersion;
-                const lddVersion = currentModel['Ingest_LDD']['ldd_version_id'][0].replace(/\./g, '');
-
-                const fileName = `${stewardId}_${namespace}_${imVersion}_${lddVersion}.xml`;
-
+                const currentModel = $scope.data.pureModel();
+                const filename = $scope.data.filename();
+                
                 $.ajax({
                     type: 'POST',
                     url: '../json/to/xml',

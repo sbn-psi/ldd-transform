@@ -637,6 +637,16 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             });
 
             this.defineNodesAndLinks();
+        },
+        
+        filename: function() {
+            const model = this.model['Ingest_LDD'];
+            const steward = model['steward_id'][0].toUpperCase();
+            const namespace = model['namespace_id'][0].toUpperCase();
+            const ldd_version = model['ldd_version_id'][0].replace(/\./g,'');
+            const coreVersion = this.pds4IMVersion;
+            
+            return `${steward}_${namespace}_${coreVersion}_${ldd_version}.xml`;
         }
     };
     
