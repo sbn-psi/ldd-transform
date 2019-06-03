@@ -293,9 +293,6 @@ app.factory('Visualizations', function(DataModel, $rootScope) {
                 .duration(750)
                 .delay(1000)
                 .attr('transform',function(d) {
-                    console.log(d);
-                    console.log(d.x,d.y);
-                    console.log('=================');
                     return `translate(${d.x},${d.y})`;
                 });
 
