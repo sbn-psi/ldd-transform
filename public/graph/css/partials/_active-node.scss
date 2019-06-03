@@ -2,13 +2,14 @@
     padding: 0.3em;
     background: $white;
     z-index: $layer-4;
-    min-width: 350px;
-    max-width: 25vw;
     @include border-mixin($lightGrey);
     box-shadow: $shadow-1;
     position: absolute;
-    top: 20vh;
-    right: 5vw;
+    top: 10em;
+    max-height: calc(100vh - 10em - 2em);
+    right: 3em;
+    min-width: 350px;
+    max-width: 25vw;
     overflow-y: scroll;
 }
 .child-row {
