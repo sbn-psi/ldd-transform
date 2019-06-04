@@ -11,6 +11,8 @@ const cheerio = require('cheerio');
 
 const shell = require('shelljs');
 const rp = require('request-promise');
+const fs = require('fs');
+const tmp_dir = 'tmp/';
 
 shell.exec(`sed -i 's@href="\/"@href="'$BASE'\/"@g' ./public/index.html`);
 shell.exec(`sed -i 's@href="\/graph\/"@href="'$BASE'\/graph\/"@g' ./public/graph/index.html`);
@@ -25,13 +27,14 @@ app.use(bodyParser.text({ type: 'application/xml' }));
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(express.static('public'));
-app.listen(3001);
+const PORT = 3001;
+app.listen(PORT);
 
 // preload xml stylesheets
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
 
-console.log('server running');
+console.log(`ldd-transform running on port ${PORT}`);
 
 //////////////////ENDPOINTS////////////////////
 
@@ -62,6 +65,24 @@ function extractFile(req) {
         return req.files[key].data.toString();
     }
 }
+
+app.post('/ldd', function(req, res) {
+    // save req.body.string to local XML file
+    const xml = xmlBuilder.buildObject(req.body.string);
+    
+    saveFile(xml);
+    
+    function saveFile(string) {
+        // if tmp directory does not already exist, create it
+        if (!fs.existsSync(tmp_dir)) fs.mkdirSync(tmp_dir);
+        
+        const callback = function(res) {
+            console.log(res);
+        };
+        
+        fs.writeFile(tmp_dir + 'test_ingest_ldd.xml', string, callback);
+    };
+})
 
 /*----------------XML to JSON----------------*/
 
