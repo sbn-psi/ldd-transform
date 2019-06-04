@@ -12,7 +12,7 @@ const cheerio = require('cheerio');
 const shell = require('shelljs');
 const rp = require('request-promise');
 const fs = require('fs');
-const tmp_dir = 'tmp/';
+const path = require('path');
 
 shell.exec(`sed -i 's@href="\/"@href="'$BASE'\/"@g' ./public/index.html`);
 shell.exec(`sed -i 's@href="\/graph\/"@href="'$BASE'\/graph\/"@g' ./public/graph/index.html`);
@@ -69,18 +69,50 @@ function extractFile(req) {
 app.post('/ldd', function(req, res) {
     // save req.body.string to local XML file
     const xml = xmlBuilder.buildObject(req.body.string);
+    const filename = path.basename(req.body.filename);
+    const basename = filename.replace('.xml','');
+    
+    if (!/\.xml$/g.test(filename)) res.status(400).send('Invalid file extension: ' + filename);
+    
+    const tmp_dir = 'tmp/' + basename + '/';
     
     saveFile(xml);
     
     function saveFile(string) {
         // if tmp directory does not already exist, create it
+        if (!fs.existsSync('tmp'))   fs.mkdirSync('tmp');
         if (!fs.existsSync(tmp_dir)) fs.mkdirSync(tmp_dir);
         
-        const callback = function(res) {
-            console.log(res);
-        };
-        
-        fs.writeFile(tmp_dir + 'test_ingest_ldd.xml', string, callback);
+        fs.writeFile(tmp_dir + filename, string, function() {
+            // POST file to lddtool web service
+            const ops = {
+                method: 'POST',
+                uri: 'http://localhost:3002/lddtool',
+                formData: {
+                    name: 'Conor',
+                    file: {
+                        value: fs.createReadStream(tmp_dir + filename),
+                        options: {
+                            filename: filename,
+                            contentType: 'text/xml'
+                        }
+                    }
+                },
+                headers: {
+                    'x-path-only': true
+                }
+            };
+            
+            rp(ops)
+                .then(rpRes => {
+                    const TAR = rpRes;
+                    res.send(TAR);
+                })
+                .catch(rpErr => {
+                    console.error(rpErr);
+                    res.send(rpErr);
+                });
+        });
     };
 })
 
