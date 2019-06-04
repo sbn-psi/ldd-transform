@@ -39,6 +39,12 @@ input, select, textarea {
         flex-wrap: wrap;
     }
 }
+.flex-col {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: space-around;
+    justify-content: center;
+}
 .sm {
     width: 6em !important;
 }

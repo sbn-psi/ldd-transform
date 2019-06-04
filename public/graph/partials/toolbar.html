@@ -1,6 +1,6 @@
 <div id="toolbar">
     
-    <div class="toolgroup toolgroup-row">
+    <div class="toolgroup flex-row">
         <!-- LD3 Logo -->
         <img src="./img/logo.png" alt="LD3 Tool" title="LD3 Tool" class="logo">
         
@@ -44,17 +44,22 @@
         </div>
     </div>
     
-    <div class="toolgroup toolgroup-row toolgroup-buttons">
+    <div class="toolgroup flex-row">
         
-        <div class="toolgroup">
-            <button class="button button-outline disabled" ng-show="!undo.show()">Undo</button>
+        <!-- UNDO/REDO buttons -->
+        <div class="toolgroup-buttons flex-col">
+            <button class="button button-clear disabled" ng-show="!undo.show()">Undo</button>
             <button class="button button-outline" ng-show="undo.show()" ng-click="undo.do()">Undo</button>
             
-            <button class="button button-outline disabled" ng-show="!redo.show()">Redo</button>
+            <button class="button button-clear disabled" ng-show="!redo.show()">Redo</button>
             <button class="button button-outline" ng-show="redo.show()" ng-click="redo.do()">Redo</button>
         </div>
         
-        <button class="button" ng-click="downloadLdd()">Download LDD</button>
+        <!-- DOWNLOAD buttons -->
+        <div class="toolgroup-buttons flex-col">
+            <button class="button" ng-click="downloadLdd()"><i class="fas fa-lg fa-file-download" style="color:white"></i> Ingest LDD</button>
+            <button class="button" ng-click="lddtool()"><i class="fas fa-lg fa-file-download" style="color:white"></i> LDD Files</button>
+        </div>
         
     </div>
 </div>

@@ -104,47 +104,29 @@ button, a, i, [type=submit] {
 }
 
 #toolbar {
-  background: #ffffff;
-  border-bottom: 1px solid #000000;
-  box-shadow: 0 0 5px 1px #676767;
+  border-bottom: 0.5px solid #b3b3b3;
   width: 100vw;
   position: absolute;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
   top: 0;
   left: 0;
   z-index: 998;
-  min-height: 125px;
 }
 #toolbar .toolgroup {
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#toolbar .toolgroup:not(:first-of-type) {
-  border-left: 1px solid #000000;
-}
-#toolbar .toolgroup.toolgroup-row {
-  flex-flow: row nowrap;
-}
-#toolbar .toolgroup.toolgroup-buttons {
-  align-items: flex-end;
 }
 #toolbar .toolgroup .ldd-details {
-  height: 100%;
   padding: 0.2em;
-  margin: 0;
   border-left: 1px solid #000000;
   border-right: 1px solid #000000;
   display: flex;
   flex-direction: column;
 }
 #toolbar .toolgroup .ldd-details .ldd-details-header {
-  width: 100%;
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -241,6 +223,13 @@ input[disabled], select[disabled], textarea[disabled] {
   flex-wrap: wrap;
 }
 
+.flex-col {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: space-around;
+  justify-content: center;
+}
+
 .sm {
   width: 6em !important;
 }
@@ -287,10 +276,10 @@ input[disabled], select[disabled], textarea[disabled] {
 .main {
   position: absolute;
   background: #f6f6f6;
-  top: 125px;
+  top: 121px;
   left: 0;
   width: 100vw;
-  height: calc(100vh - 125px);
+  height: calc(100vh - 121px);
   margin: 0;
   padding: 0;
 }
@@ -335,7 +324,6 @@ input[disabled], select[disabled], textarea[disabled] {
 
 .disabled {
   color: #808080 !important;
-  border-color: #808080 !important;
   cursor: default !important;
 }
 

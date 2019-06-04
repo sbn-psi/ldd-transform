@@ -1,48 +1,27 @@
 #toolbar {
-    background: $white;
-    border-bottom: 1px solid $black;
-    box-shadow: $shadow-1;
+    border-bottom: 0.5px solid $superLightGrey;
     width: 100vw;
     position: absolute;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
     top: 0;
     left: 0;
     z-index: $layer-2;
-    min-height: 125px;
     
     .toolgroup {
         position: relative;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        
-        &:not(:first-of-type) {
-            border-left: 1px solid $black;
-        }
-        
-        &.toolgroup-row {
-            flex-flow: row nowrap;
-        }
-        
-        &.toolgroup-buttons {
-            align-items: flex-end;
-        }
         
         .ldd-details {
-            height: 100%;
             padding: 0.2em;
-            margin: 0;
             border-left: 1px solid $black;
             border-right: 1px solid $black;
             display: flex;
             flex-direction: column;
             
             .ldd-details-header {
-                width: 100%;
-                margin: 0;
-                padding: 0;
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
