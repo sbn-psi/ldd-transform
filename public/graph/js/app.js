@@ -44,9 +44,22 @@ app
                 redo: '=',
                 modal: '='
             },
-            controller: ($scope,Modal) => {
+            controller: ($scope,Modal,DataModel,$http) => {
+                $scope.data = DataModel;
                 $scope.modifyLdd = function() {
                     $scope.modal.show('editLdd');
+                };
+                $scope.lddtool  = function() {
+                    const currentModel = $scope.data.pureModel();
+                    
+                    $http.post('/ldd', {
+                        filename: $scope.data.filename(),
+                        string: JSON.stringify(currentModel)
+                    }).then(res => {
+                        window.open('http://localhost:3002/lddtool/download?filename=' + res.data, '_blank');
+                    }).catch(err => {
+                        console.log(err);
+                    });
                 };
             }
         }
