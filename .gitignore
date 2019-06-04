@@ -66,3 +66,6 @@ credentials.json
 
 # builds
 build
+
+# temp directory
+tmp
