@@ -42,9 +42,10 @@ app
                 downloadLdd: '=',
                 undo: '=',
                 redo: '=',
-                modal: '='
+                modal: '=',
+                setError: '='
             },
-            controller: ($scope,Modal,DataModel,$http) => {
+            controller: ($scope,DataModel,$http,$rootScope) => {
                 $scope.data = DataModel;
                 $scope.modifyLdd = function() {
                     $scope.modal.show('editLdd');
@@ -56,9 +57,13 @@ app
                         filename: $scope.data.filename(),
                         string: JSON.stringify(currentModel)
                     }).then(res => {
-                        window.open('http://localhost:3002/lddtool/download?filename=' + res.data, '_blank');
+                        window.open(`http://localhost:3002/tool/download?filename=${res.data.replace(/"/g,'')}`, '_blank');
                     }).catch(err => {
-                        console.log(err);
+                        console.error(err);
+                        const msg = 'An error occurred. If the issue persists, contact support.';
+                        const trc = err;
+                        $scope.setError(msg,trc);
+                        $scope.modal.show('error');
                     });
                 };
             }
@@ -135,6 +140,12 @@ app
     .directive('ld3EditAttribute', () => {
         return {
             templateUrl: './partials/ld3-edit-attribute.html',
+            transclude: true
+        }
+    })
+    .directive('ld3ErrorModal', () => {
+        return {
+            templateUrl: 'partials/error-modal.html',
             transclude: true
         }
     });

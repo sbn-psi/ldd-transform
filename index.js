@@ -34,7 +34,7 @@ app.listen(PORT);
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
 
-console.log(`ldd-transform running on port ${PORT}`);
+console.log(`\nname: ldd-transform\nport: ${PORT}\n`);
 
 //////////////////ENDPOINTS////////////////////
 
@@ -87,7 +87,7 @@ app.post('/ldd', function(req, res) {
             // POST file to lddtool web service
             const ops = {
                 method: 'POST',
-                uri: 'http://localhost:3002/lddtool',
+                uri: 'http://localhost:3002/tool',
                 formData: {
                     name: 'Conor',
                     file: {
@@ -110,7 +110,7 @@ app.post('/ldd', function(req, res) {
                 })
                 .catch(rpErr => {
                     console.error(rpErr);
-                    res.send(rpErr);
+                    res.status(400).send(rpErr);
                 });
         });
     };

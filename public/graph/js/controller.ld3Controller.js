@@ -1,5 +1,5 @@
-app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', '$rootScope', 'Validate',
-    function($scope, $window, DataModel, Modal, Visualizations, $rootScope, Validate) {
+app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Visualizations', '$rootScope', 'Validate', 'ErrorHandler',
+    function($scope, $window, DataModel, Modal, Visualizations, $rootScope, Validate, ErrorHandler) {
         // initialize application state
         $rootScope.$on('modal-show', function() {
             const newNode = (() => {
@@ -22,6 +22,9 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             if ($scope.modal.type == 'addAttribute') $scope.newNode = newNode;
             if ($scope.modal.type == 'addClass') $scope.newNode = newNode;
         });
+        
+        const errorHandler = ErrorHandler;
+        $scope.error = errorHandler.get();
 
         $scope.modal = Modal;
         $scope.vis = Visualizations;
@@ -165,6 +168,10 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         $scope.$watch('unboundedCheckboxValue', (newVal, oldVal) => {
             if (newVal === true) $scope.newNode.maximum_occurrences = 'unbounded';
             else if (newVal === false && $scope.newNode) $scope.newNode.maximum_occurrences = '';
+        });
+
+        $rootScope.$on('new-error', function() {
+            $scope.error = errorHandler.get();
         });
 
         // // // // // // //

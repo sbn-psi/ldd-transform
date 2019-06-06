@@ -4,9 +4,13 @@
     undo="ld3.undo"
     redo="ld3.redo"
     modal="modal"
+    set-error="errorHandler.set"
 ></ld3-toolbar>
 
 <div class="curtain" ng-show="modal.isVisible">
+
+    <!-- ERROR HANDLER modal -->
+    <ld3-error-modal class="form" ng-show="modal.type === 'error'"></ld3-error-modal>
 
     <!-- add Class element -->
     <ld3-form-add-class     ng-show="modal.type === 'addClass'    " class="form"></ld3-form-add-class>
