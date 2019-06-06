@@ -121,7 +121,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                         const blob = new Blob([res], {
                             type: "text/xml;charset=utf-8"
                         });
-                        saveAs(blob, fileName);
+                        saveAs(blob, filename);
                     }
                 });
             },
