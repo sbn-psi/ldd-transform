@@ -10,3 +10,9 @@ services:
       - ./services.env
     environment:
       - NODE_ENV=production
+  lddtool-web-service:
+    container_name: lddtool-web-service
+    restart: always
+    build: lddtool-web-service
+    ports:
+      - "3002:3002"
