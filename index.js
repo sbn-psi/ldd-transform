@@ -14,6 +14,7 @@ const rp = require('request-promise');
 const fs = require('fs');
 const path = require('path');
 
+// configure HTML <base> tag
 shell.exec(`sed -i 's@href="\/"@href="'$BASE'\/"@g' ./public/index.html`);
 shell.exec(`sed -i 's@href="\/graph\/"@href="'$BASE'\/graph\/"@g' ./public/graph/index.html`);
 
@@ -87,7 +88,7 @@ app.post('/ldd', function(req, res) {
             // POST file to lddtool web service
             const ops = {
                 method: 'POST',
-                uri: 'http://localhost:3002/tool',
+                uri: 'http://lddtool-web-service:3002/tool',
                 formData: {
                     name: 'Conor',
                     file: {
