@@ -6,8 +6,6 @@ services:
     build: .
     ports:
       - "49160:3001"
-    env_file:
-      - ./services.env
     environment:
       - NODE_ENV=production
   lddtool-web-service:
@@ -16,3 +14,5 @@ services:
     build: lddtool-web-service
     ports:
       - "3002:3002"
+    environment:
+      - BASE=/
