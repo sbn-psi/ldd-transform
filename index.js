@@ -62,7 +62,7 @@ function extractFile(req) {
     }
 }
 
-
+// generates a callback for libxslt.parse() that includes source xml, express response, additional callbacks, etc
 function afterParse(xml, res, callback, afterApplySuccess) {
     return (err, stylesheet) => {
         if (!reportError(err, res, callback)) {
@@ -71,6 +71,7 @@ function afterParse(xml, res, callback, afterApplySuccess) {
     }
 }
 
+// generates a callback for libxslt.parse().apply() that includes express respones, additional callbacks, etc
 function afterApply(res, callback, afterApplySuccess) {
     return (err, result) => {
         if (!reportError(err, res, callback)) {
