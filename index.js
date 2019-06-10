@@ -175,15 +175,14 @@ function xmlToUml(xml, res, callback) {
 }
 
 function afterApplySuccessUml(result, res, callback) {
-    if( res ) { 
-        toUml(result, res);
-    }
-    if( callback ) callback(null, null);
+    toUml(result, res, callback);
 }
 
-function toUml(result, res) {
-    const gen =  plantuml.generate(result, {format: 'png'});
-    gen.out.pipe(res);
+function toUml(result, res, callback) {
+    const gen =  plantuml.generate(result, {format: 'png'}, callback);
+    if (res) {
+        gen.out.pipe(res);
+    }
 }
 
 
