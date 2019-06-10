@@ -101,17 +101,26 @@ app.post('/file/to/html', function(req, res) {
 })
 
 function xmlToHtml(xml, res, callback) {
-    libxslt.parse(htmlxslt, function(err, stylesheet) {
-        if (!reportError(err, res, callback)) {
-            stylesheet.apply(xml, function(err, result) {
-                if (!reportError(err, res, callback)) {
-                    if (res) res.send(result);
-                    if (callback) callback(null, result);
-                }
-            })
-        }
-    });
+    libxslt.parse(htmlxslt, afterParseHtml(xml, res, callback));
 }
+
+function afterParseHtml(xml, res, callback) {
+    return (err, stylesheet) => {
+        if (!reportError(err, res, callback)) {
+            stylesheet.apply(xml, afterApplyHtml(res, callback))
+        }
+    }
+}
+
+function afterApplyHtml(res, callback) {
+    return (err, result) => {
+        if (!reportError(err, res, callback)) {
+            if (res) res.send(result);
+            if (callback) callback(null, result);
+        }
+    }
+}
+
 
 /*----------------XML to Graph----------------*/
 
@@ -126,22 +135,32 @@ app.post('/file/to/graph', function(req, res) {
 })
 
 function xmlToGraph(xml, res, callback) {
-    libxslt.parse(dotxslt, function(err, stylesheet) {
-        if (!reportError(err, res, callback)) {
-            stylesheet.apply(xml, function(err, result) {
-                if (!reportError(err, res, callback)) {
-                    try { 
-                        let svg = viz(result);
-                        if( res ) res.send(svg);
-                        if( callback ) callback(null, svg);
-                    } catch (vizErr) {
-                        reportError("Error visualizing graph", res);
-                    }
-                }
-            })
-        }
-    });
+    libxslt.parse(dotxslt, afterParseViz(xml, res, callback));
 }
+
+function afterParseViz(xml, res, callback)
+{
+    return (err, stylesheet) => {
+        if (!reportError(err, res, callback)) {
+            stylesheet.apply(xml, afterApplyViz(res, callback))
+        }
+    }
+}
+
+function afterApplyViz(res, callback) {
+    return (err, result) => {
+        if (!reportError(err, res, callback)) {
+            try { 
+                let svg = viz(result);
+                if( res ) res.send(svg);
+                if( callback ) callback(null, svg);
+            } catch (vizErr) {
+                reportError("Error visualizing graph", res);
+            }
+        }
+    }
+}
+
 
 /*----------------XML to Doc----------------*/
 
