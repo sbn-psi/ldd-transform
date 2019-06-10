@@ -62,6 +62,25 @@ function extractFile(req) {
     }
 }
 
+
+function afterParse(xml, res, callback, afterApplySuccess) {
+    return (err, stylesheet) => {
+        if (!reportError(err, res, callback)) {
+            stylesheet.apply(xml, afterApply(res, callback, afterApplySuccess))
+        }
+    }
+}
+
+function afterApply(res, callback, afterApplySuccess) {
+    return (err, result) => {
+        if (!reportError(err, res, callback)) {
+            afterApplySuccess(result, res, callback);
+        }
+    }
+}
+
+
+
 /*----------------XML to JSON----------------*/
 
 app.post('/xml/to/json', function (req, res) {
@@ -101,26 +120,13 @@ app.post('/file/to/html', function(req, res) {
 })
 
 function xmlToHtml(xml, res, callback) {
-    libxslt.parse(htmlxslt, afterParse(xml, res, callback, afterApplyHtml));
+    libxslt.parse(htmlxslt, afterParse(xml, res, callback, afterApplySuccessHtml));
 }
 
-function afterParse(xml, res, callback, afterApply) {
-    return (err, stylesheet) => {
-        if (!reportError(err, res, callback)) {
-            stylesheet.apply(xml, afterApply(res, callback))
-        }
-    }
+function afterApplySuccessHtml(result, res, callback) {
+    if (res) res.send(result);
+    if (callback) callback(null, result);
 }
-
-function afterApplyHtml(res, callback) {
-    return (err, result) => {
-        if (!reportError(err, res, callback)) {
-            if (res) res.send(result);
-            if (callback) callback(null, result);
-        }
-    }
-}
-
 
 /*----------------XML to Graph----------------*/
 
@@ -135,21 +141,16 @@ app.post('/file/to/graph', function(req, res) {
 })
 
 function xmlToGraph(xml, res, callback) {
-    libxslt.parse(dotxslt, afterParse(xml, res, callback, afterApplyViz));
+    libxslt.parse(dotxslt, afterParse(xml, res, callback, afterApplySuccessViz));
 }
 
-
-function afterApplyViz(res, callback) {
-    return (err, result) => {
-        if (!reportError(err, res, callback)) {
-            try { 
-                let svg = viz(result);
-                if( res ) res.send(svg);
-                if( callback ) callback(null, svg);
-            } catch (vizErr) {
-                reportError("Error visualizing graph", res);
-            }
-        }
+function afterApplySuccessViz(result, res, callback) {
+    try { 
+        let svg = viz(result);
+        if( res ) res.send(svg);
+        if( callback ) callback(null, svg);
+    } catch (vizErr) {
+        reportError("Error visualizing graph", res);
     }
 }
 
