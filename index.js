@@ -101,13 +101,13 @@ app.post('/file/to/html', function(req, res) {
 })
 
 function xmlToHtml(xml, res, callback) {
-    libxslt.parse(htmlxslt, afterParseHtml(xml, res, callback));
+    libxslt.parse(htmlxslt, afterParse(xml, res, callback, afterApplyHtml));
 }
 
-function afterParseHtml(xml, res, callback) {
+function afterParse(xml, res, callback, afterApply) {
     return (err, stylesheet) => {
         if (!reportError(err, res, callback)) {
-            stylesheet.apply(xml, afterApplyHtml(res, callback))
+            stylesheet.apply(xml, afterApply(res, callback))
         }
     }
 }
@@ -135,17 +135,9 @@ app.post('/file/to/graph', function(req, res) {
 })
 
 function xmlToGraph(xml, res, callback) {
-    libxslt.parse(dotxslt, afterParseViz(xml, res, callback));
+    libxslt.parse(dotxslt, afterParse(xml, res, callback, afterApplyViz));
 }
 
-function afterParseViz(xml, res, callback)
-{
-    return (err, stylesheet) => {
-        if (!reportError(err, res, callback)) {
-            stylesheet.apply(xml, afterApplyViz(res, callback))
-        }
-    }
-}
 
 function afterApplyViz(res, callback) {
     return (err, result) => {
