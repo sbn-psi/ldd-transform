@@ -23,8 +23,8 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
             if ($scope.modal.type == 'addClass') $scope.newNode = newNode;
         });
         
-        const errorHandler = ErrorHandler;
-        $scope.error = errorHandler.get();
+        $scope.errorHandler = ErrorHandler;
+        $scope.error = $scope.errorHandler.get();
 
         $scope.modal = Modal;
         $scope.vis = Visualizations;
@@ -171,7 +171,7 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
         });
 
         $rootScope.$on('new-error', function() {
-            $scope.error = errorHandler.get();
+            $scope.error = $scope.errorHandler.get();
         });
 
         // // // // // // //
