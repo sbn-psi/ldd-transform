@@ -8,6 +8,8 @@ const libxslt = require('libxslt');
 const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
+const plantuml = require('node-plantuml');
+
 
 const shell = require('shelljs');
 
@@ -29,6 +31,7 @@ app.listen(3001);
 // preload xml stylesheets
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
+const umlxslt = readSync('/IngestLddPlantUml.xsl');
 
 console.log('server running');
 
@@ -153,6 +156,34 @@ function afterApplySuccessViz(result, res, callback) {
     } catch (vizErr) {
         reportError("Error visualizing graph", res);
     }
+}
+
+/*----------------XML to UML----------------*/
+
+app.post('/xml/to/uml', function(req, res) {
+    let xml = req.body;
+    xmlToUml(xml, res);
+});
+
+app.post('/file/to/uml', function(req, res) {
+    const file = extractFile(req);
+    xmlToUml(file, res);
+})
+
+function xmlToUml(xml, res, callback) {
+    libxslt.parse(umlxslt, afterParse(xml, res, callback, afterApplySuccessUml));
+}
+
+function afterApplySuccessUml(result, res, callback) {
+    if( res ) { 
+        toUml(result, res);
+    }
+    if( callback ) callback(null, null);
+}
+
+function toUml(result, res) {
+    const gen =  plantuml.generate(result, {format: 'png'});
+    gen.out.pipe(res);
 }
 
 

@@ -25,6 +25,7 @@
     "express-fileupload": "^0.4.0",
     "grunt": "^1.0.4",
     "libxslt": "^0.7.0",
+    "node-plantuml": "0.8.1",
     "read-file-relative": "^1.2.0",
     "shelljs": "^0.8.3",
     "viz.js": "^1.8.2",
