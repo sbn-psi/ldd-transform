@@ -175,16 +175,11 @@ function xmlToUml(xml, res, callback) {
 }
 
 function afterApplySuccessUml(result, res, callback) {
-    toUml(result, res, callback);
-}
-
-function toUml(result, res, callback) {
     const gen =  plantuml.generate(result, {format: 'png'}, callback);
     if (res) {
         gen.out.pipe(res);
     }
 }
-
 
 /*----------------XML to Doc----------------*/
 
