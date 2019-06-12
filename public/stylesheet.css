@@ -18,7 +18,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
 }
 
 h1, h2, h3, h4 {
@@ -57,9 +57,9 @@ form {
 
 .links {
     display: flex;
-    flex-flow: row wrap;
 }
 .link {
+    margin: 0 1em 0.3em 0;
     padding: 0.3em 0.5em;
     text-decoration: none;
     border: 2px solid #d3394c;
@@ -70,9 +70,9 @@ form {
 .link img {
     margin-right: 0.3em;
 }
-.link:not(:first-of-type) {
+/* .link:not(:first-of-type) {
     margin-left: 1em;
-}
+} */
 .link:hover {
     border-color: #722040;
     background: #722040;
