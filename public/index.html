@@ -16,7 +16,7 @@
 
 <body>
     <!-- GitHub Ribbon -->
-    <a href="https://github.com/sbn-psi/ldd-transform" class="github-corner" aria-label="View source on GitHub"><svg id="github-corner" width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+    <a href="https://github.com/sbn-psi/ldd-transform" class="github-corner" aria-label="View source on GitHub"><svg id="github-corner" width="80" height="80" viewBox="0 0 250 250" style="fill:#d3394c; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
             aria-hidden="true">
             <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
             <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;"
@@ -31,25 +31,12 @@
             <h1>LDD Transform</h1>
 
             <div class="links">
-                <!-- <a href="/" class="link">Home</a> -->
-                <!-- <a href="/about" class="link">About</a> -->
-                <!-- <a href="/help" class="link">Help</a> -->
+                <a href="/" class="link"><img src="img/1x/baseline_home_white_18dp.png" alt=""> Home</a>
+                <a href="/help" class="link"><img src="img/1x/baseline_help_outline_white_18dp.png" alt=""> Help</a>
             </div>
         </header>
 
-        <h3>What is an <strong>Ingest file</strong>?</h3>
-        <p>An <strong>Ingest file</strong> provides class, attribute, and rule definitions for a PDS4 Local Data Dictionary.</p>
-
-        <h3>Make an Ingest file from scratch.</h3>
-        <div class="buttons">
-            <div class="button-group">
-                <input type="submit" id="new-ldd" value="Create">
-                <p>Use LD3 Tool to create a new Ingest file.</p>
-            </div>
-        </div>
-
-        <h3>Already have an Ingest file?</h3>
-        <p>Choose an Ingest file, then select a tool.</p>
+        <h4>Choose an Ingest file, then select a tool.</h4>
         <form method="post" id="lddform" enctype="multipart/form-data">
 
             <input type="file" name="file" id="inputfile" accept=".xml">
@@ -101,6 +88,14 @@
                 <div class="sk-cube sk-cube9"></div>
             </div>
         </form>
+
+        <h4>Don't have an Ingest file?</h4>
+        <div class="buttons">
+            <div class="button-group">
+                <input type="submit" id="new-ldd" value="Create Ingest File">
+                <p>Use LD3 Tool to create a new Ingest file from scratch.</p>
+            </div>
+        </div>
 
     </main>
 </body>
