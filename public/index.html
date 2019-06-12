@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    
+
     <base href="/">
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>LDD Transform Tool</title>
@@ -16,43 +16,93 @@
 
 <body>
     <!-- GitHub Ribbon -->
-    <a href="https://github.com/sbn-psi/ldd-transform" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-    
-    <h1>LDD Transform</h1>
-    <hr/>
-    <p>Already have an Ingest_LDD.xml file?</p>
-    <form method="post" id="lddform" enctype="multipart/form-data">
-        <input type="file" name="file" id="inputfile" accept=".xml">
-        <label class="file-picker" for="inputfile">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg>
-            <span>Choose a file</span>
-        </label>
-        <p class="error" style="display:none;color:#d3394c" id="vis-error">Oops, something went wrong. Please try again.</p>
+    <a href="https://github.com/sbn-psi/ldd-transform" class="github-corner" aria-label="View source on GitHub"><svg id="github-corner" width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+            aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;"
+                class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                fill="currentColor" class="octo-body"></path>
+        </svg></a>
+
+    <main>
+
+        <header>
+            <h1>LDD Transform</h1>
+
+            <div class="links">
+                <!-- <a href="/" class="link">Home</a> -->
+                <!-- <a href="/about" class="link">About</a> -->
+                <!-- <a href="/help" class="link">Help</a> -->
+            </div>
+        </header>
+
+        <h3>What is an <strong>Ingest file</strong>?</h3>
+        <p>An <strong>Ingest file</strong> provides class, attribute, and rule definitions for a PDS4 Local Data Dictionary.</p>
+
+        <h3>Make an Ingest file from scratch.</h3>
         <div class="buttons">
-            <input name="submit" id="html-button" type="submit" value="Convert to HTML" disabled>
-            <input name="submit" id="json-button" type="submit" value="Convert to JSON" disabled>
-            <input name="submit" id="graph-button" type="submit" value="Convert to Graph" disabled>
-            <input name="submit" id="doc-button" type="submit" value="Convert to Document" disabled>
-            <input name="submit" id="vis-button" type="submit" value="Visualize with LD3 Tool" disabled>
+            <div class="button-group">
+                <input type="submit" id="new-ldd" value="Create">
+                <p>Use LD3 Tool to create a new Ingest file.</p>
+            </div>
         </div>
-        <div class="sk-cube-grid">
-            <div class="sk-cube sk-cube1"></div>
-            <div class="sk-cube sk-cube2"></div>
-            <div class="sk-cube sk-cube3"></div>
-            <div class="sk-cube sk-cube4"></div>
-            <div class="sk-cube sk-cube5"></div>
-            <div class="sk-cube sk-cube6"></div>
-            <div class="sk-cube sk-cube7"></div>
-            <div class="sk-cube sk-cube8"></div>
-            <div class="sk-cube sk-cube9"></div>
-        </div>
-    </form>
-    <hr/>
-    <p>Make an Ingest_LDD.xml file from scratch.</p>
-    <div class="buttons">
-        <input type="submit" id="new-ldd" value="Create">
-    </div>
-    <div class="footer">Questions/Comments: Conor Kingston (<a href="mailto:ckingston@psi.edu">ckingston@psi.edu</a>)</div>
+
+        <h3>Already have an Ingest file?</h3>
+        <p>Choose an Ingest file, then select a tool.</p>
+        <form method="post" id="lddform" enctype="multipart/form-data">
+
+            <input type="file" name="file" id="inputfile" accept=".xml">
+            <label class="file-picker" for="inputfile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                    <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
+                </svg>
+                <span>Choose a file</span>
+            </label>
+
+            <p class="error" style="display:none;color:#d3394c" id="vis-error">Oops, something went wrong. Please try again.</p>
+
+            <div class="buttons">
+                <div class="button-group">
+                    <input name="submit" id="vis-button" type="submit" value="Visualize with LD3 Tool" disabled>
+                    <p>Use LD3 Tool to visualize and modify an interactive model of a local data dictionary ingest file.</p>
+                </div>
+                <div class="button-group">
+                    <input name="submit" id="html-button" type="submit" value="Convert to HTML" disabled>
+                    <p>View the Ingest file as an HTML document.</p>
+                </div>
+                <div class="button-group">
+                    <input name="submit" id="json-button" type="submit" value="Convert to JSON" disabled>
+                    <p>Convert the Ingest file to a JSON object viewed in the browser.</p>
+                </div>
+                <div class="button-group">
+                    <input name="submit" id="graph-button" type="submit" value="Convert to Graph" disabled>
+                    <p>View the Ingest file as a UML diagram.</p>
+                </div>
+                <div class="button-group">
+                    <!-- <input name="submit" id="schema-button" type="submit" value="Generate Dictionary Schema" disabled> -->
+                    <!-- <p>Generate and download PDS4 Data Dictionary schema files.</p> -->
+                </div>
+                <div class="button-group">
+                    <input name="submit" id="doc-button" type="submit" value="Convert to Document" disabled>
+                    <p>View Ingest file as UML diagram with HTML document.</p>
+                </div>
+            </div>
+
+            <div class="sk-cube-grid">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </form>
+
+    </main>
 </body>
 
 </html>
