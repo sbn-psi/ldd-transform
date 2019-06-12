@@ -8,6 +8,8 @@ const libxslt = require('libxslt');
 const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
+const plantuml = require('node-plantuml');
+
 
 const shell = require('shelljs');
 
@@ -29,6 +31,7 @@ app.listen(3001);
 // preload xml stylesheets
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
+const umlxslt = readSync('/IngestLddPlantUml.xsl');
 
 console.log('server running');
 
@@ -61,6 +64,26 @@ function extractFile(req) {
         return req.files[key].data.toString();
     }
 }
+
+// generates a callback for libxslt.parse() that includes source xml, express response, additional callbacks, etc
+function afterParse(xml, res, callback, afterApplySuccess) {
+    return (err, stylesheet) => {
+        if (!reportError(err, res, callback)) {
+            stylesheet.apply(xml, afterApply(res, callback, afterApplySuccess))
+        }
+    }
+}
+
+// generates a callback for libxslt.parse().apply() that includes express respones, additional callbacks, etc
+function afterApply(res, callback, afterApplySuccess) {
+    return (err, result) => {
+        if (!reportError(err, res, callback)) {
+            afterApplySuccess(result, res, callback);
+        }
+    }
+}
+
+
 
 /*----------------XML to JSON----------------*/
 
@@ -101,16 +124,12 @@ app.post('/file/to/html', function(req, res) {
 })
 
 function xmlToHtml(xml, res, callback) {
-    libxslt.parse(htmlxslt, function(err, stylesheet) {
-        if (!reportError(err, res, callback)) {
-            stylesheet.apply(xml, function(err, result) {
-                if (!reportError(err, res, callback)) {
-                    if (res) res.send(result);
-                    if (callback) callback(null, result);
-                }
-            })
-        }
-    });
+    libxslt.parse(htmlxslt, afterParse(xml, res, callback, afterApplySuccessHtml));
+}
+
+function afterApplySuccessHtml(result, res, callback) {
+    if (res) res.send(result);
+    if (callback) callback(null, result);
 }
 
 /*----------------XML to Graph----------------*/
@@ -126,21 +145,40 @@ app.post('/file/to/graph', function(req, res) {
 })
 
 function xmlToGraph(xml, res, callback) {
-    libxslt.parse(dotxslt, function(err, stylesheet) {
-        if (!reportError(err, res, callback)) {
-            stylesheet.apply(xml, function(err, result) {
-                if (!reportError(err, res, callback)) {
-                    try { 
-                        let svg = viz(result);
-                        if( res ) res.send(svg);
-                        if( callback ) callback(null, svg);
-                    } catch (vizErr) {
-                        reportError("Error visualizing graph", res);
-                    }
-                }
-            })
-        }
-    });
+    libxslt.parse(dotxslt, afterParse(xml, res, callback, afterApplySuccessViz));
+}
+
+function afterApplySuccessViz(result, res, callback) {
+    try { 
+        let svg = viz(result);
+        if( res ) res.send(svg);
+        if( callback ) callback(null, svg);
+    } catch (vizErr) {
+        reportError("Error visualizing graph", res);
+    }
+}
+
+/*----------------XML to UML----------------*/
+
+app.post('/xml/to/uml', function(req, res) {
+    let xml = req.body;
+    xmlToUml(xml, res);
+});
+
+app.post('/file/to/uml', function(req, res) {
+    const file = extractFile(req);
+    xmlToUml(file, res);
+})
+
+function xmlToUml(xml, res, callback) {
+    libxslt.parse(umlxslt, afterParse(xml, res, callback, afterApplySuccessUml));
+}
+
+function afterApplySuccessUml(result, res, callback) {
+    const gen =  plantuml.generate(result, {format: 'png'}, callback);
+    if (res) {
+        gen.out.pipe(res);
+    }
 }
 
 /*----------------XML to Doc----------------*/
