@@ -4,43 +4,43 @@
 
 <button class="button button-clear" ng-click="modifyElement()">Modify Element</button>
 
-<div class="linebreak"></div>
-
-<!-- ADD NEW ELEMENTS -->
-<div class="buttons-container" ng-show="activeNode.className === 'class'">
-    <div>
-        <h6 class="title">Add New Element</h6>
-        <button class="button button-clear" id="add-class" ng-click="addNewClass()    " title="Create a new node">New Class</button>
-        <button class="button button-clear" id="add-attr"  ng-click="addNewAttribute()" title="Create a new node">New Attribute</button>
+<div class="info-container">
+    
+    <!-- ADD NEW ELEMENTS -->
+    <div class="buttons-container" ng-show="activeNode.className === 'class'">
+        <div>
+            <h6 class="title">Add New Element</h6>
+            <button class="button button-clear" id="add-class" ng-click="addNewClass()    " title="Create a new node">New Class</button>
+            <button class="button button-clear" id="add-attr"  ng-click="addNewAttribute()" title="Create a new node">New Attribute</button>
+        </div>
+        <div class="linebreak vertical no-margin"></div>
+        <div>
+            <h6 class="title">Modify Links</h6>
+            <button class="button button-clear" id="add-link" ng-click="toggleLinkModal('addLink')">Add Links</button>
+            <button class="button button-clear" id="remove-link" ng-click="toggleLinkModal('removeLink')">Remove Links</button>
+        </div>
     </div>
-    <div class="linebreak vertical no-margin"></div>
-    <div>
-        <h6 class="title">Modify Links</h6>
-        <button class="button button-clear" id="add-link" ng-click="toggleLinkModal('addLink')">Add Links</button>
-        <button class="button button-clear" id="remove-link" ng-click="toggleLinkModal('removeLink')">Remove Links</button>
+
+    <h4 class="key">Identifier Reference</h4>
+    <h4 class="value">{{ activeNode.lid }}</h4>
+    
+    <h4 class="key">Version</h4>
+    <h4 class="value">{{ activeNode.version_id[0] }}</h4>
+    
+    <h4 class="key">Definition</h4>
+    <h4 class="value">{{ activeNode.definition[0] }}</h4>
+    
+    <h4 class="key">Submitter Name</h4>
+    <h4 class="value">{{ activeNode.submitter_name[0] }}</h4>
+    
+    <div class="linebreak" ng-show="activeNode.className === 'class'">
+        
+        <h5 class="title">Associated References</h5>
+        
+        <ld3-child-row ng-repeat="child in activeNode.children track by $index" class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
+        
+        <p ng-show="!activeNode.children || !activeNode.children.length">Use the buttons above to add a new element or link.</p>
+        
     </div>
 </div>
 
-<div class="linebreak" ng-show="activeNode.className === 'class'"></div>
-
-<h4 class="key">Identifier Reference</h4>
-<h4 class="value">{{ activeNode.lid }}</h4>
-
-<h4 class="key">Version</h4>
-<h4 class="value">{{ activeNode.version_id[0] }}</h4>
-
-<h4 class="key">Definition</h4>
-<h4 class="value">{{ activeNode.definition[0] }}</h4>
-
-<h4 class="key">Submitter Name</h4>
-<h4 class="value">{{ activeNode.submitter_name[0] }}</h4>
-
-<div class="linebreak" ng-show="activeNode.className === 'class'">
-    
-    <h5 class="title">Associated References</h5>
-    
-    <ld3-child-row ng-repeat="child in activeNode.children track by $index" class="active-child" data-node-name="{{ child.lid }}"></ld3-child-row>
-    
-    <p ng-show="!activeNode.children || !activeNode.children.length">Use the buttons above to add a new element or link.</p>
-    
-</div>

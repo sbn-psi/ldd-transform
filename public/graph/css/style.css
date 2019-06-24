@@ -148,13 +148,17 @@ button, a, i, [type=submit] {
   right: 3em;
   min-width: 350px;
   max-width: 25vw;
-  overflow-y: scroll;
 }
 
 .child-row {
   border: 1px solid #b3b3b3;
   padding: 0.3em;
   box-shadow: 0 0 3px 0 #b3b3b3;
+}
+
+.info-container {
+  border-top: 1px solid #676767;
+  overflow-y: scroll;
 }
 
 .modal {
