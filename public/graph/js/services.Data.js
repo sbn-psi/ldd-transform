@@ -182,7 +182,7 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
                         function makeChildrenArray() {
                             const REF = target['identifier_reference'];
                             
-                            if (REF.length > 1 && REF[0] === 'XSChoice#') {
+                            if (REF && REF.length > 1 && REF[0] === 'XSChoice#') {
                                 REF.filter(r => r !== 'XSChoice#').map(r => {
                                     let choiceTarget = that.getNode(r);
 
