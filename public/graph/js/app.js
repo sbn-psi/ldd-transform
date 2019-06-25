@@ -50,6 +50,9 @@ app
                 $scope.modifyLdd = function() {
                     $scope.modal.show('editLdd');
                 };
+                $scope.modifyLddRules = function() {
+                    $scope.modal.show('lddRules');
+                };
                 $scope.lddtool  = function() {
                     const currentModel = $scope.data.pureModel();
                     

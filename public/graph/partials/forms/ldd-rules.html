@@ -1,0 +1,42 @@
+<form class="rules">
+    <div class="rule-list">
+        <h2>Schematron Rules</h2>
+        <p>Review and modify a rule from the list below, or add a new rule.</p>
+        <ul>
+            <li ng-repeat="rule in rules"><a ng-class="{'active-rule':activeRule.isActive(rule)}" ng-click="activeRule.set(rule)">{{ rule.local_identifier[0] }}</a></li>
+        </ul>
+    </div>
+    
+    <div class="rule" ng-show="!activeRule.rule">
+        <p>Choose a rule to modify from the list</p>
+        <p>or click "Add A New Rule"</p>
+    </div>
+    <div class="rule" ng-show="activeRule.rule">
+        <label for="local_identifier">Name <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1C00.html#attribute_pds_dd_rule_pds_local_identifier"></ld3-core-model-link></label>
+        <input type="text" name="local_identifier" id="local_identifier" ng-model="activeRule.rule.local_identifier">
+        
+        <label for="rule_context">Context <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1C00.html#attribute_pds_dd_rule_pds_rule_context"></ld3-core-model-link></label>
+        <input type="text" name="rule_context" id="rule_context" ng-model="activeRule.rule.rule_context">
+        
+        <label for="rule_type">Type <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1C00.html#attribute_pds_dd_rule_statement_pds_rule_type"></ld3-core-model-link></label>
+        <select name="rule_type" id="rule_type" ng-model="activeRule.rule.rule_type">
+            <option value="Assert" default>Assert</option>
+            <option value="Assert Every">Assert Every</option>
+            <option value="Assert If">Assert If</option>
+            <option value="Report">Report</option>
+        </select>
+        
+        <label for="rule_description">Description <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1C00.html#attribute_pds_dd_rule_statement_pds_rule_description"></ld3-core-model-link></label>
+        <textarea name="rule_description" id="rule_description" cols="30" rows="10" ng-model="activeRule.rule.rule_description"></textarea>
+        
+        <label for="rule_message">Message <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1C00.html#attribute_pds_dd_rule_statement_pds_rule_message"></ld3-core-model-link></label>
+        <textarea name="rule_message" id="rule_message" cols="30" rows="10" ng-model="activeRule.rule.rule_message"></textarea>
+        
+        <label for="rule_test">Test <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1C00.html#attribute_pds_dd_rule_statement_pds_rule_test"></ld3-core-model-link></label>
+        <textarea name="rule_test" id="rule_test" cols="30" rows="10" ng-model="activeRule.rule.rule_test"></textarea>
+        
+        <label for="rule_value">Value <ld3-core-model-link lid="https://pds.jpl.nasa.gov/datastandards/documents/im/v1/index_1C00.html#attribute_pds_dd_rule_statement_pds_rule_value"></ld3-core-model-link></label>
+        <input type="text" name="rule_value" id="rule_value" ng-model="activeRule.rule.rule_value">
+    </div>
+    
+</form>

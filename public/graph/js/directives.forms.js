@@ -254,3 +254,10 @@ app
         controller: 'LinksController'
     }
 })
+// DD_Rules form
+.directive('ld3FormLddRules', () => {
+    return {
+        templateUrl: path.form('ldd-rules'),
+        controller: 'RulesController'
+    };
+})
