@@ -255,9 +255,9 @@ app
     }
 })
 // DD_Rules form
-.directive('ld3FormLddRules', () => {
+.directive('ld3FormRules', () => {
     return {
-        templateUrl: path.form('ldd-rules'),
+        templateUrl: path.form('rules'),
         controller: 'RulesController'
     };
 })

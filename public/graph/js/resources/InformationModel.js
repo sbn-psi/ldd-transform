@@ -108,24 +108,34 @@ function Permissible_Value(p) {
 };
 
 function DD_Rule(r) {
-    if (!r) r = {};
-    
-    this.local_identifier = r.local_identifier[0];
-    this.rule_assign = r.rule_assign; // TODO
-    this.rule_context = r.rule_context[0];
-    
-    // this['DD_Attribute_Reference'] = new DD_Attribute_Reference(r);
-    // this['DD_Class_Reference'] = new DD_Class_Reference(r);
-    // this['DD_Rule_Statement'] = new DD_Rule_Statement(r);
-    
-    if (r['DD_Rule_Statement'] && r['DD_Rule_Statement'].length) {
-        const rs = r['DD_Rule_Statement'][0];
+    if (!r) {
+        this.local_identifier = "";
+        this.rule_assign = "";
+        this.rule_context = "";
         
-        if (rs.rule_description) this.rule_description = rs['rule_description'][0];
-        if (rs.rule_message) this.rule_message = rs['rule_message'][0];
-        if (rs.rule_test) this.rule_test = rs['rule_test'][0];
-        if (rs.rule_type) this.rule_type = rs['rule_type'][0];
-        if (rs.rule_value) this.rule_value = rs['rule_value'][0];
+        this.rule_description = "";
+        this.rule_message = "";
+        this.rule_test = "";
+        this.rule_type = "";
+        this.rule_value = "";
+    } else {
+        this.local_identifier = r.local_identifier[0];
+        this.rule_assign = r.rule_assign; // TODO
+        this.rule_context = r.rule_context[0];
+        
+        // this['DD_Attribute_Reference'] = new DD_Attribute_Reference(r);
+        // this['DD_Class_Reference'] = new DD_Class_Reference(r);
+        // this['DD_Rule_Statement'] = new DD_Rule_Statement(r);
+        
+        if (r['DD_Rule_Statement'] && r['DD_Rule_Statement'].length) {
+            const rs = r['DD_Rule_Statement'][0];
+            
+            if (rs.rule_description) this.rule_description = rs['rule_description'][0];
+            if (rs.rule_message) this.rule_message = rs['rule_message'][0];
+            if (rs.rule_test) this.rule_test = rs['rule_test'][0];
+            if (rs.rule_type) this.rule_type = rs['rule_type'][0];
+            if (rs.rule_value) this.rule_value = rs['rule_value'][0];
+        }
     }
 };
 

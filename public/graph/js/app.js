@@ -151,4 +151,14 @@ app
             templateUrl: 'partials/error-modal.html',
             transclude: true
         }
-    });
+    })
+    .directive('ld3RulesCount', () => {
+        return {
+            restrict: 'A',
+            controller: 'RulesController',
+            scope: true,
+            link: function(scope, el, attrs, controller, transcludeFn) {
+                el.text(`(${scope.rules.all.length})`);
+            }
+        }
+    })
