@@ -127,11 +127,10 @@ app
         }
     })
 
-
     // MODAL FORMS
-    .directive('ld3ModalCloseButton', () => {
+    .directive('ld3CloseButton', () => {
         return {
-            template: '<i class="far fa-2x fa-times-circle modal-close" ng-click="modal.hide()"></i>'
+            template: '<img src="./img/baseline_close_black_18dp.png" class="modal-close" ng-click="modal.hide()">'
         }
     })
     .directive('ld3EditClass', () => {
