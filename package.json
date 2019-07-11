@@ -25,6 +25,7 @@
     "express-fileupload": "^0.4.0",
     "grunt": "^1.0.4",
     "libxslt": "^0.7.0",
+    "lodash": "^4.17.14",
     "read-file-relative": "^1.2.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
@@ -35,7 +36,6 @@
   },
   "devDependencies": {
     "grunt-protractor-runner": "^5.0.0",
-    "jasmine-fail-fast": "^2.0.0",
     "jasmine-reporters": "^2.3.2",
     "sass": "^1.20.1"
   }
