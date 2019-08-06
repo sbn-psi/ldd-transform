@@ -14,10 +14,6 @@ const rp = require('request-promise');
 const fs = require('fs');
 const path = require('path');
 
-// configure HTML <base> tag
-shell.exec(`sed -i 's@href="\/"@href="'$BASE'\/"@g' ./public/index.html`);
-shell.exec(`sed -i 's@href="\/graph\/"@href="'$BASE'\/graph\/"@g' ./public/graph/index.html`);
-
 // xml/js transformers
 const parseXmlString = xml2js.parseString;
 const xmlBuilder = new xml2js.Builder();
