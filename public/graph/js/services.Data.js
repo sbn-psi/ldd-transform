@@ -108,12 +108,12 @@ app.factory('DataModel', function($window,$injector,$rootScope,$state) {
             const pds4Version = this.pds4IMVersion;
             const lddDetails = function() {
                 return {
-                    name: model['name'][0],
-                    ldd_version_id: model['ldd_version_id'][0],
-                    full_name: model['full_name'][0],
-                    steward_id: model['steward_id'][0],
-                    namespace_id: model['namespace_id'][0],
-                    comment: model['comment'][0],
+                    name: (() => model['name'] ? model['name'][0] : "")(),
+                    ldd_version_id: (() => model['ldd_version_id'] ? model['ldd_version_id'][0] : "")(),
+                    full_name: (() => model['full_name'] ? model['full_name'][0] : "")(),
+                    steward_id: (() => model['steward_id'] ? model['steward_id'][0] : "")(),
+                    namespace_id: (() => model['namespace_id'] ? model['namespace_id'][0] : "")(),
+                    comment: (() => model['comment'] ? model['comment'][0] : "")(),
                     pds4_im_version: pds4Version
                 }
             };
