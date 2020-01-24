@@ -39,7 +39,6 @@ app
             scope: {
                 dictionary: '=',
                 saveLdd: '=',
-                downloadLdd: '=',
                 undo: '=',
                 redo: '=',
                 modal: '=',
@@ -49,22 +48,6 @@ app
                 $scope.data = DataModel;
                 $scope.modifyLdd = function() {
                     $scope.modal.show('editLdd');
-                };
-                $scope.lddtool  = function() {
-                    const currentModel = $scope.data.pureModel();
-                    
-                    $http.post('/ldd', {
-                        filename: $scope.data.filename(),
-                        string: JSON.stringify(currentModel)
-                    }).then(res => {
-                        window.open(`http://localhost:3002/tool/download?filename=${res.data.replace(/"/g,'')}`, '_blank');
-                    }).catch(err => {
-                        console.error(err);
-                        const msg = 'An error occurred. If the issue persists, contact support.';
-                        const trc = err;
-                        $scope.setError(msg,trc);
-                        $scope.modal.show('error');
-                    });
                 };
             }
         }

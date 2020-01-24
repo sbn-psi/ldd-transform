@@ -1,16 +1,10 @@
 version: "2"
 services:
-  ldd-transform:
+  app:
     container_name: ldd-transform
     restart: always
     build: .
     ports:
-      - "49160:3001"
+      - "3001:3001"
     environment:
       - NODE_ENV=production
-  lddtool-web-service:
-    container_name: lddtool-web-service
-    restart: always
-    build: lddtool-web-service
-    ports:
-      - "3002:3002"

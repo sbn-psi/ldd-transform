@@ -106,25 +106,6 @@ app.controller('ld3Controller', ['$scope', '$window', 'DataModel', 'Modal', 'Vis
                     $scope.modal.show('addClass');
                 };
             },
-            download: function() {
-                const currentModel = $scope.data.pureModel();
-                const filename = $scope.data.filename();
-                
-                $.ajax({
-                    type: 'POST',
-                    url: '../json/to/xml',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: JSON.stringify(currentModel),
-                    success: function(res) {
-                        const blob = new Blob([res], {
-                            type: "text/xml;charset=utf-8"
-                        });
-                        saveAs(blob, filename);
-                    }
-                });
-            },
             undo: {
                 show: function() {
                     if ($scope.data.history.length > 1 && $scope.data.historyIdx != $scope.data.history.length - 1) return true;

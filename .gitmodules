@@ -1,3 +1,0 @@
-[submodule "lddtool-web-service"]
-	path = lddtool-web-service
-	url = git@github.com:sbn-psi/lddtool-web-service.git

@@ -5,7 +5,6 @@ WORKDIR /usr/src/ldd-transform
 
 # Bundle app source
 COPY public public
-COPY lddtool-web-service lddtool-web-service
 COPY index.js package*.json *.xsl README.md ./
 
 # Install app dependencies

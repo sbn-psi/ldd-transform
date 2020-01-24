@@ -63,56 +63,6 @@ function extractFile(req) {
     }
 }
 
-app.post('/ldd', function(req, res) {
-    // save req.body.string to local XML file
-    const xml = xmlBuilder.buildObject(req.body.string);
-    const filename = path.basename(req.body.filename);
-    const basename = filename.replace('.xml','');
-    
-    if (!/\.xml$/g.test(filename)) res.status(400).send('Invalid file extension: ' + filename);
-    
-    const tmp_dir = 'tmp/' + basename + '/';
-    
-    saveFile(xml);
-    
-    function saveFile(string) {
-        // if tmp directory does not already exist, create it
-        if (!fs.existsSync('tmp'))   fs.mkdirSync('tmp');
-        if (!fs.existsSync(tmp_dir)) fs.mkdirSync(tmp_dir);
-        
-        fs.writeFile(tmp_dir + filename, string, function() {
-            // POST file to lddtool web service
-            const ops = {
-                method: 'POST',
-                uri: 'http://lddtool-web-service:3002/tool',
-                formData: {
-                    name: 'Conor',
-                    file: {
-                        value: fs.createReadStream(tmp_dir + filename),
-                        options: {
-                            filename: filename,
-                            contentType: 'text/xml'
-                        }
-                    }
-                },
-                headers: {
-                    'x-path-only': true
-                }
-            };
-            
-            rp(ops)
-                .then(rpRes => {
-                    const TAR = rpRes;
-                    res.send(TAR);
-                })
-                .catch(rpErr => {
-                    console.error(rpErr);
-                    res.status(400).send(rpErr);
-                });
-        });
-    };
-})
-
 /*----------------XML to JSON----------------*/
 
 app.post('/xml/to/json', function (req, res) {
