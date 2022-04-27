@@ -23,7 +23,7 @@
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "express-fileupload": "^0.4.0",
-    "grunt": "^1.0.4",
+    "grunt": "^1.5.2",
     "libxslt": "^0.7.0",
     "lodash": "^4.17.19",
     "read-file-relative": "^1.2.0",
