@@ -30,6 +30,7 @@ app.listen(PORT);
 // preload xml stylesheets
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
+const umlxslt = readSync('/IngestLddPlantUml.xsl');
 
 console.log(`\nname: ldd-transform\nport: ${PORT}\n`);
 
@@ -136,6 +137,42 @@ function xmlToGraph(xml, res, callback) {
                         if( res ) res.send(svg);
                         if( callback ) callback(null, svg);
                     } catch (vizErr) {
+                        reportError("Error visualizing graph", res);
+                    }
+                }
+            })
+        }
+    });
+}
+
+
+/*----------------XML to UML----------------*/
+
+app.post('/xml/to/uml', function(req, res) {
+    let xml = req.body;
+    xmlToUml(xml, res);
+});
+
+app.post('/file/to/uml', function(req, res) {
+    const file = extractFile(req);
+    xmlToUml(file, res);
+})
+
+function xmlToUml(xml, res) {
+    libxslt.parse(umlxslt, function(err, stylesheet) {
+        if (!reportError(err, res, callback)) {
+            stylesheet.apply(xml, function(err, result) {
+                if (!reportError(err, res)) {
+                    try { 
+                        res.set('Content-Type', 'image/svg+xml');
+ 
+                        var decode = plantuml.decode(result);
+                        var gen = plantuml.generate({format: 'svg'});
+                        
+                        decode.out.pipe(gen.in);
+                        gen.out.pipe(res);
+                        
+                    } catch (umlErr) {
                         reportError("Error visualizing graph", res);
                     }
                 }

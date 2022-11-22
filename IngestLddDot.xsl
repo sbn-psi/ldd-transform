@@ -36,6 +36,7 @@
       {
         legend_attribute [label="Attribute"];
         legend_attribute2 [label="Attribute"];
+        legend_attribute3 [label="Attribute"];
         legend_class [shape="box", label="Class"];
         legend_rule [shape="diamond", label="Rule"];
 
@@ -45,6 +46,8 @@
         legend_class -> legend_attribute [label="Required"];
         edge [color="gray"];
         legend_class -> legend_attribute2 [label="Optional"];
+        edge [color="green"];
+        legend_class -> legend_attribute3 [label="Choice"];
 
 
         labelloc="t";
@@ -69,7 +72,7 @@
   </xsl:template>
 
   <xsl:template match="p:DD_Rule" mode="definitions" >
-    <xsl:value-of select="p:local_identifier"/>  [shape=diamond];
+    <xsl:text>"</xsl:text><xsl:value-of select="p:local_identifier"/><xsl:text>"</xsl:text>  [shape=diamond];
   </xsl:template>
 
 
@@ -88,20 +91,23 @@
 
   <xsl:template match="p:DD_Association" mode="relationships">
     <xsl:param name="src-node"/>
-    <xsl:apply-templates select="p:local_identifier | p:identifier_reference" mode="relationships">
+    <xsl:apply-templates select="p:identifier_reference" mode="relationships">
       <xsl:with-param name="src-node" select="$src-node"/>
+      <xsl:with-param name="choice" select="0"/>
     </xsl:apply-templates>
   </xsl:template>
 
-  <xsl:template match="p:DD_Association[p:local_identifier='XSChoice#']" mode="relationships">
+  <xsl:template match="p:DD_Association[p:identifier_reference='XSChoice#']" mode="relationships">
     <xsl:param name="src-node"/>
-    <xsl:apply-templates select="p:local_identifier[not(.='XSChoice#')]" mode="relationships">
+    <xsl:apply-templates select="p:identifier_reference[not(.='XSChoice#')]" mode="relationships">
       <xsl:with-param name="src-node" select="$src-node"/>
+      <xsl:with-param name="choice" select="1"/>
     </xsl:apply-templates>
   </xsl:template>
 
-  <xsl:template match="p:local_identifier | p:identifier_reference" mode="relationships">
+  <xsl:template match="p:identifier_reference" mode="relationships">
     <xsl:param name="src-node"/>
+    <xsl:param name="choice"/>
     <xsl:variable name="dest-node">
       <xsl:choose>
         <xsl:when test="contains(., '.')">
@@ -112,9 +118,18 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="../p:minimum_occurrences = 0">edge [color=gray];</xsl:if>
-    <xsl:value-of select='$src-node'/> -> <xsl:value-of select="$dest-node"/>;
-    <xsl:if test="../p:minimum_occurrences = 0">edge [color=black];</xsl:if>
+    <xsl:choose>
+      <xsl:when test="$choice=1">
+        edge [color=green];
+        <xsl:value-of select='$src-node'/> -> <xsl:value-of select="$dest-node"/>;
+        edge [color=black];
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:if test="../p:minimum_occurrences = 0">edge [color=gray];</xsl:if>
+        <xsl:value-of select='$src-node'/> -> <xsl:value-of select="$dest-node"/>;
+        <xsl:if test="../p:minimum_occurrences = 0">edge [color=black];</xsl:if>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!--
@@ -135,8 +150,8 @@
       <xsl:with-param name="parent-path"><xsl:value-of select="$node-path"/>/</xsl:with-param>
     </xsl:apply-templates>
 
-    <xsl:for-each select="p:DD_Association[contains(p:local_identifier, '.')]">
-        <xsl:variable name="external-path"><xsl:value-of select="$node-path"/>/<xsl:value-of select="translate(p:local_identifier, '.', ':')"/></xsl:variable>
+    <xsl:for-each select="p:DD_Association[contains(p:identifier_reference, '.')]">
+        <xsl:variable name="external-path"><xsl:value-of select="$node-path"/>/<xsl:value-of select="translate(p:identifier_reference, '.', ':')"/></xsl:variable>
 
         <xsl:apply-templates select="//p:DD_Rule[substring($external-path, string-length($external-path) - string-length(p:rule_context) +1) = p:rule_context]" mode="rules">
           <xsl:with-param name="src-node" select="$class-name"/>
@@ -184,7 +199,7 @@
   <!-- Draw a line from a class or attribute to an associated rule -->
   <xsl:template match="p:DD_Rule" mode="rules">
     <xsl:param name='src-node'/>
-    <xsl:value-of select="$src-node"/> -> <xsl:value-of select='p:local_identifier'/>;
+    <xsl:text>"</xsl:text><xsl:value-of select="$src-node"/><xsl:text>"</xsl:text> -> <xsl:value-of select='p:local_identifier'/>;
   </xsl:template>
 
 </xsl:stylesheet>
