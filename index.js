@@ -8,6 +8,7 @@ const libxslt = require('libxslt');
 const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
+const plantuml = require('node-plantuml');
 
 const shell = require('shelljs');
 const rp = require('request-promise');
