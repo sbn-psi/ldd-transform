@@ -11,6 +11,9 @@ $(document).ready( function() {
     $("#graph-button").click(function () {
         $(this).closest("form").attr("action", "file/to/graph");
     });
+    $("#uml-button").click(function () {
+        $(this).closest("form").attr("action", "file/to/uml");
+    });
     $("#doc-button").click(function () {
         $(this).closest("form").attr("action", "file/to/doc");
     });
