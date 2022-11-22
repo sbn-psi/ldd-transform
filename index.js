@@ -160,7 +160,7 @@ app.post('/file/to/uml', function(req, res) {
 
 function xmlToUml(xml, res) {
     libxslt.parse(umlxslt, function(err, stylesheet) {
-        if (!reportError(err, res, callback)) {
+        if (!reportError(err, res)) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res)) {
                     try { 
