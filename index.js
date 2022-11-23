@@ -165,14 +165,15 @@ function xmlToUml(xml, res) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res)) {
                     try { 
-                        console.log(result)
                         var decode = plantuml.decode(result);
+                        console.log('decode')
                         var gen = plantuml.generate({format: 'svg'});
-                        
+                        console.log('gen')
                         res.set('Content-Type', 'image/svg+xml');
                         decode.out.pipe(gen.in);
+                        console.log('pipe 1')
                         gen.out.pipe(res);
-                        
+                        console.log('pipe 2')
                     } catch (umlErr) {
                         console.log(umlErr)
                         reportError("Error visualizing graph", res);
