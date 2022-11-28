@@ -27,6 +27,7 @@
     "grunt": "^1.0.4",
     "libxslt": "^0.7.0",
     "lodash": "^4.17.19",
+    "plantuml-encoder": "1.4.0",
     "read-file-relative": "^1.2.0",
     "request": "^2.88.0",
     "viz.js": "^1.8.2",

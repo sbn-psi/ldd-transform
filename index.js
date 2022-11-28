@@ -9,7 +9,7 @@ const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
 const axios = require('axios');
-var zlib = require('zlib');
+const plantumlEncoder = require('plantuml-encoder')
 
 // xml/js transformers
 const parseXmlString = xml2js.parseString;
@@ -160,7 +160,8 @@ function xmlToUml(xml, res) {
         if (!reportError(err, res)) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res)) {
-                    let compressed = zlib.deflateSync(result).toString('base64');
+                    let compressed = plantumlEncoder.encode(result);
+                    console.log(compressed)
                     axios.get(`http://host.docker.internal:8080/svg/${compressed}`).then((response) => {
                         res.send(response.data);
                     }, (err) => {
