@@ -162,7 +162,7 @@ function xmlToUml(xml, res) {
                 if (!reportError(err, res)) {
                     let compressed = plantumlEncoder.encode(result);
                     console.log(compressed)
-                    axios.get(`http://localhost:8080/plantuml/svg/${compressed}`).then((response) => {
+                    axios.get(`http://plantuml:8080/plantuml/svg/${compressed}`).then((response) => {
                         res.send(response.data);
                     }, (err) => {
                         reportError(err, res);

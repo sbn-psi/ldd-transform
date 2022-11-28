@@ -8,7 +8,6 @@ services:
       - "3001:3001"
     environment:
       - NODE_ENV=production
-    network_mode: "host"
 
   plant:
     container_name: plantuml
@@ -16,4 +15,3 @@ services:
     restart: always
     ports:
       - "8080:8080"
-    network_mode: "host"
