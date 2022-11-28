@@ -8,11 +8,8 @@ const libxslt = require('libxslt');
 const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
-
-const shell = require('shelljs');
-const rp = require('request-promise');
-const fs = require('fs');
-const path = require('path');
+const axios = require('axios');
+var zlib = require('zlib');
 
 // xml/js transformers
 const parseXmlString = xml2js.parseString;
@@ -163,16 +160,12 @@ function xmlToUml(xml, res) {
         if (!reportError(err, res)) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res)) {
-                    try { 
-                        // var decode = plantuml.decode(result);
-                        // var gen = plantuml.generate({format: 'svg'});
-                        res.set('Content-Type', 'image/svg+xml');
-                        // decode.out.pipe(gen.in);
-                        // gen.out.pipe(res);
-                    } catch (umlErr) {
-                        console.log(umlErr)
-                        reportError("Error visualizing graph", res);
-                    }
+                    let compressed = zlib.deflateSync(result).toString('base64');
+                    axios.get(`http://host.docker.internal:8080/svg/${compressed}`).then((response) => {
+                        res.send(response.data);
+                    }, (err) => {
+                        reportError(err, res);
+                    })
                 }
             })
         }

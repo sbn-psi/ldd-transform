@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.3",
+    "axios": "0.18.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
@@ -28,8 +29,6 @@
     "lodash": "^4.17.19",
     "read-file-relative": "^1.2.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "shelljs": "^0.8.3",
     "viz.js": "^1.8.2",
     "xml2js": "^0.4.22",
     "xslt-processor": "^0.9.2"
