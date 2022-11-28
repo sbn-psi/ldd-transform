@@ -8,15 +8,12 @@ services:
       - "3001:3001"
     environment:
       - NODE_ENV=production
-    networks:
-      - ldd-transform
+    network_mode: "host"
+
   plant:
     container_name: plantuml
     image: plantuml/plantuml-server:tomcat
     restart: always
     ports:
       - "8080:8080"
-    networks:
-      - ldd-transform
-networks:
-  ldd-transform:
+    network_mode: "host"
