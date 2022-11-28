@@ -8,7 +8,6 @@ COPY public public
 COPY index.js package*.json *.xsl README.md ./
 
 # Install app dependencies
-RUN RUN apt-get install graphviz
 RUN npm install --production --quiet
 
 EXPOSE 3001

@@ -8,7 +8,6 @@ const libxslt = require('libxslt');
 const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
-const plantuml = require('node-plantuml-latest');
 
 const shell = require('shelljs');
 const rp = require('request-promise');
@@ -165,15 +164,11 @@ function xmlToUml(xml, res) {
             stylesheet.apply(xml, function(err, result) {
                 if (!reportError(err, res)) {
                     try { 
-                        var decode = plantuml.decode(result);
-                        console.log('decode')
-                        var gen = plantuml.generate({format: 'svg'});
-                        console.log('gen')
+                        // var decode = plantuml.decode(result);
+                        // var gen = plantuml.generate({format: 'svg'});
                         res.set('Content-Type', 'image/svg+xml');
-                        decode.out.pipe(gen.in);
-                        console.log('pipe 1')
-                        gen.out.pipe(res);
-                        console.log('pipe 2')
+                        // decode.out.pipe(gen.in);
+                        // gen.out.pipe(res);
                     } catch (umlErr) {
                         console.log(umlErr)
                         reportError("Error visualizing graph", res);
