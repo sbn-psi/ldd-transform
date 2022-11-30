@@ -9,7 +9,7 @@ services:
     environment:
       - NODE_ENV=production
 
-  plant:
+  plantuml:
     container_name: plantuml
     image: plantuml/plantuml-server:tomcat
     restart: always
