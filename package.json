@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "grunt-protractor-runner": "^5.0.0",
-    "jasmine-reporters": "^2.3.2",
+    "jasmine-reporters": "^2.5.2",
     "sass": "^1.22.12"
   }
 }
