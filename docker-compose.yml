@@ -8,3 +8,10 @@ services:
       - "3001:3001"
     environment:
       - NODE_ENV=production
+
+  plantuml:
+    container_name: plantuml
+    image: plantuml/plantuml-server:tomcat
+    restart: always
+    ports:
+      - "8080:8080"

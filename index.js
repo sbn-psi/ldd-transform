@@ -8,11 +8,8 @@ const libxslt = require('libxslt');
 const viz = require('viz.js');
 const async = require('async');
 const cheerio = require('cheerio');
-
-const shell = require('shelljs');
-const rp = require('request-promise');
-const fs = require('fs');
-const path = require('path');
+const axios = require('axios');
+const plantumlEncoder = require('plantuml-encoder')
 
 // xml/js transformers
 const parseXmlString = xml2js.parseString;
@@ -30,6 +27,7 @@ app.listen(PORT);
 // preload xml stylesheets
 const htmlxslt = readSync('/IngestLddView.xsl');
 const dotxslt = readSync('/IngestLddDot.xsl');
+const umlxslt = readSync('/IngestLddPlantUml.xsl');
 
 console.log(`\nname: ldd-transform\nport: ${PORT}\n`);
 
@@ -138,6 +136,37 @@ function xmlToGraph(xml, res, callback) {
                     } catch (vizErr) {
                         reportError("Error visualizing graph", res);
                     }
+                }
+            })
+        }
+    });
+}
+
+
+/*----------------XML to UML----------------*/
+
+app.post('/xml/to/uml', function(req, res) {
+    let xml = req.body;
+    xmlToUml(xml, res);
+});
+
+app.post('/file/to/uml', function(req, res) {
+    const file = extractFile(req);
+    xmlToUml(file, res);
+})
+
+function xmlToUml(xml, res) {
+    libxslt.parse(umlxslt, function(err, stylesheet) {
+        if (!reportError(err, res)) {
+            stylesheet.apply(xml, function(err, result) {
+                if (!reportError(err, res)) {
+                    let compressed = plantumlEncoder.encode(result);
+                    console.log(compressed)
+                    axios.get(`http://plantuml:8080/svg/${compressed}`).then((response) => {
+                        res.send(response.data);
+                    }, (err) => {
+                        reportError(err, res);
+                    })
                 }
             })
         }
