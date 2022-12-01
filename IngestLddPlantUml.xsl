@@ -168,26 +168,57 @@
     </xsl:variable>
     <xsl:for-each select="p:identifier_reference[. != 'XSChoice#'] | p:local_identifier[. != 'XSChoice#']">
       <xsl:variable name="local_id_reference"><xsl:value-of select='.'/></xsl:variable>
-      <xsl:variable name="data_type"><xsl:value-of select='//p:DD_Attribute[p:local_identifier=$local_id_reference]/p:DD_Value_Domain/p:value_data_type'/></xsl:variable>
-      <xsl:variable name="name"><xsl:value-of select='//p:DD_Attribute[p:local_identifier=$local_id_reference]/p:name'/></xsl:variable>
-      <xsl:text>  {field} </xsl:text>
-      <xsl:choose>
-        <xsl:when test="$name=''">
-          <xsl:value-of select='$local_id_reference'/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select='$name'/>
-          <xsl:text> : </xsl:text>
-          <xsl:value-of select='$data_type'/>
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:text> (</xsl:text>
-      <xsl:value-of select='$min_occurs'/>
-      <xsl:text>..</xsl:text>
-      <xsl:value-of select='$max_occurs'/>
-      <xsl:text>)</xsl:text>
-      <xsl:text>&#10;</xsl:text>
+      <xsl:apply-templates select="//p:DD_Attribute[p:local_identifier=$local_id_reference]" mode="basicAttributeDef">
+        <xsl:with-param name="min_occurs" select="$min_occurs"/>
+        <xsl:with-param name="max_occurs" select="$max_occurs"/>
+      </xsl:apply-templates>
+      <xsl:apply-templates select="//p:DD_Attribute_Extended[p:local_identifier=$local_id_reference]" mode="extendedAttributeDef">
+        <xsl:with-param name="min_occurs" select="$min_occurs"/>
+        <xsl:with-param name="max_occurs" select="$max_occurs"/>
+      </xsl:apply-templates>
+
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="p:DD_Attribute" mode="basicAttributeDef">
+    <xsl:param name="min_occurs"/>
+    <xsl:param name="max_occurs"/>
+    <xsl:variable name="data_type"><xsl:value-of select='p:DD_Value_Domain/p:value_data_type'/></xsl:variable>
+    <xsl:variable name="name"><xsl:value-of select='p:name'/></xsl:variable>
+    <xsl:text>  {field} </xsl:text>
+    <xsl:choose>
+      <xsl:when test="$name=''">
+        <xsl:value-of select='local_identifier'/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select='$name'/>
+        <xsl:text> : </xsl:text>
+        <xsl:value-of select='$data_type'/>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select='$min_occurs'/>
+    <xsl:text>..</xsl:text>
+    <xsl:value-of select='$max_occurs'/>
+    <xsl:text>)</xsl:text>
+    <xsl:text>&#10;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="p:DD_Attribute_Extended" mode="extendedAttributeDef">
+    <xsl:param name="min_occurs"/>
+    <xsl:param name="max_occurs"/>
+    <xsl:text>  {field} </xsl:text>
+
+    <xsl:value-of select='p:local_identifier'/>
+    <xsl:text> -> </xsl:text>
+    <xsl:value-of select='p:Terminological_Entry/p:instance_id'/>
+
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select='$min_occurs'/>
+    <xsl:text>..</xsl:text>
+    <xsl:value-of select='$max_occurs'/>
+    <xsl:text>)</xsl:text>
+    <xsl:text>&#10;</xsl:text>
   </xsl:template>
 
 </xsl:stylesheet>
