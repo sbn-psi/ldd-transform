@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+echo "deploy ldd-transform to sbnpds4"
+
+echo "pull docker image"
+ssh conor@sbnpds4.psi.edu docker pull sbnpsi/ldd-transform:latest
+
+echo "pull docker image: done"
+
+echo "stop existing container (if it exists)"
+
+ssh conor@sbnpds4.psi.edu docker kill ldd-transform
+ssh conor@sbnpds4.psi.edu docker container prune -f && docker image prune -f
+
+echo "start updated container"
+
+ssh conor@sbnpds4.psi.edu docker run -d -p 3002:3001 --name ldd-transform --restart always sbnpsi/ldd-transform:latest
+
+
