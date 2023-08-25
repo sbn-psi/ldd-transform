@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
 
-echo "deploy ldd-transform to sbnpds4"
+HOST=kaylee
+PUBLIC_PORT=3002
+APP_PORT=3001
+CONTAINER_NAME=ldd-transform
+IMAGE_NAME=sbnpsi/ldd-transform
+TAG=latest
+
+
+echo "deploying ldd-transform to kaylee"
+echo ""
 
 echo "pull docker image"
-ssh conor@sbnpds4.psi.edu docker pull sbnpsi/ldd-transform:latest
+ssh $HOST docker pull $IMAGE_NAME:$TAG
 
-echo "pull docker image: done"
-
-echo "stop existing container (if it exists)"
-
-ssh conor@sbnpds4.psi.edu docker kill ldd-transform
-ssh conor@sbnpds4.psi.edu docker container prune -f && docker image prune -f
+echo "stop existing container (if it exists) and prune containers/images"
+ssh $HOST docker kill $CONTAINER_NAME
+ssh $HOST docker container prune -f && docker image prune -f
 
 echo "start updated container"
+ssh $HOST docker run -d -p $PUBLIC_PORT:$APP_PORT --name $CONTAINER_NAME --restart always $IMAGE_NAME:$TAG
 
-ssh conor@sbnpds4.psi.edu docker run -d -p 3002:3001 --name ldd-transform --restart always sbnpsi/ldd-transform:latest
-
-
+echo "Done."
